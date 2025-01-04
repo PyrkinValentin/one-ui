@@ -1,18 +1,11 @@
-import type { Config } from "tailwindcss";
+import type { Config } from "tailwindcss"
+
+import { plugin } from "./src/core/theme/plugin"
 
 export default {
-  content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-  ],
-  theme: {
-    extend: {
-      colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
-      },
-    },
-  },
-  plugins: [],
-} satisfies Config;
+	content: [
+		"./src/app/**/*.{ts,tsx}",
+		"./src/shared/ui/**/*.{ts,tsx}",
+	],
+	plugins: [plugin],
+} satisfies Config
