@@ -1,13 +1,9 @@
-import { Container, Grid } from "@/shared/ui/layout"
+import { Box, Container } from "@/shared/ui/layout"
 
 const Home = () => {
 	return (
 		<Container>
-			<Grid container gap="2">
-				<Grid size="6" className="bg-primary">Grid</Grid>
-				<Grid size="6" className="bg-secondary">Grid</Grid>
-				<Grid size="12" className="bg-danger">Grid</Grid>
-			</Grid>
+			<Box className="bg-primary">Box</Box>
 		</Container>
 	)
 }

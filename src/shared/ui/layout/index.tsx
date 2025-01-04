@@ -1,11 +1,36 @@
 "use client"
 
 import type { ElementType } from "react"
-import type { ContainerProps, FlexProps, GridProps } from "./types"
+import type { BoxProps, ContainerProps, FlexProps, GridProps } from "./types"
 
 import { useMemo } from "react"
 
-import { containerVariants, flexVariants, gridVariants } from "./variants"
+import { boxVariants, containerVariants, flexVariants, gridVariants } from "./variants"
+
+export const Box = <As extends ElementType = "div">(props: BoxProps<As>) => {
+	const {
+		as = "div",
+		className,
+		display,
+		children,
+		...restProps
+	} = props as BoxProps
+
+	const classNames = useMemo(() => {
+		return boxVariants({
+			className,
+			display,
+		})
+	}, [className, display])
+
+	const Component = as
+
+	return (
+		<Component className={classNames} {...restProps}>
+			{children}
+		</Component>
+	)
+}
 
 export const Container = <As extends ElementType = "section">(props: ContainerProps<As>) => {
 	const {
