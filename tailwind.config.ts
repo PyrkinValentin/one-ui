@@ -1,11 +1,14 @@
 import type { Config } from "tailwindcss"
 
+import { withTV } from "tailwind-variants/transformer"
 import { plugin } from "./src/core/theme/plugin"
 
-export default {
+export default withTV({
 	content: [
 		"./src/app/**/*.{ts,tsx}",
 		"./src/shared/ui/**/*.{ts,tsx}",
 	],
 	plugins: [plugin],
-} satisfies Config
+}, {
+	aliases: ["@/core/theme"],
+}) satisfies Config
