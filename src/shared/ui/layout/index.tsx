@@ -1,11 +1,11 @@
 "use client"
 
 import type { ElementType } from "react"
-import type { ContainerProps, FlexProps } from "./types"
+import type { ContainerProps, FlexProps, GridProps } from "./types"
 
 import { useMemo } from "react"
 
-import { containerVariants, flexVariants } from "./variants"
+import { containerVariants, flexVariants, gridVariants } from "./variants"
 
 export const Container = <As extends ElementType = "section">(props: ContainerProps<As>) => {
 	const {
@@ -67,6 +67,49 @@ export const Flex = <As extends ElementType = "div">(props: FlexProps<As>) => {
 		align,
 		justify,
 		wrap,
+		gap,
+		gapX,
+		gapY,
+	])
+
+	const Component = as
+
+	return (
+		<Component className={classNames} {...restProps}>
+			{children}
+		</Component>
+	)
+}
+
+export const Grid = <As extends ElementType = "div">(props: GridProps<As>) => {
+	const {
+		as = "div",
+		className,
+		container,
+		display,
+		size,
+		gap,
+		gapX,
+		gapY,
+		children,
+		...restProps
+	} = props as GridProps
+
+	const classNames = useMemo(() => {
+		return gridVariants({
+			className,
+			container,
+			display,
+			size,
+			gap,
+			gapX,
+			gapY,
+		})
+	}, [
+		className,
+		container,
+		display,
+		size,
 		gap,
 		gapX,
 		gapY,
