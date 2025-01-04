@@ -1,9 +1,11 @@
-import { Container } from "@/shared/ui/layout"
+import { Container, Flex } from "@/shared/ui/layout"
 
 const Home = () => {
 	return (
-		<Container size="lg">
-			Container
+		<Container>
+			<Flex>
+				Flex
+			</Flex>
 		</Container>
 	)
 }
