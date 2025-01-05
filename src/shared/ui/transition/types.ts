@@ -4,6 +4,6 @@ export type CollapseProps = ComponentProps<"div", CollapseOwnProps>
 
 type CollapseOwnProps = {
 	keepMounted?: boolean
-	collapsed?: boolean
+	open?: boolean
 	duration?: number
 }

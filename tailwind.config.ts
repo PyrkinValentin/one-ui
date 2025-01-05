@@ -6,7 +6,7 @@ import { plugin } from "./src/core/theme/plugin"
 export default withTV({
 	content: [
 		"./src/app/**/*.{ts,tsx}",
-		"./src/shared/ui/**/*.{ts,tsx}",
+		"./src/shared/**/*.{ts,tsx}",
 	],
 	plugins: [plugin],
 }, {

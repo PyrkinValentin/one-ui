@@ -1,70 +1,64 @@
-import type { ClassValue, CnReturn } from "tailwind-variants"
+import type { ClassValue, CnReturn, VariantProps } from "tailwind-variants"
 
-import { useEffect, useMemo, useState } from "react"
-import { useFirstRender } from "@/shared/hooks/use-first-render"
-import { useDefferRender } from "@/shared/hooks/use-deffer-render"
+import { useCallback, useEffect, useState } from "react"
+import { useFirstMountState } from "@/shared/hooks/use-first-mount-state"
+import { useDelayedMount } from "@/shared/hooks/use-delayed-mount"
 
 import { cn, tv } from "@/core/theme"
 
-type Duration =
-	| "duration-0"
-	| "duration-75"
-	| "duration-100"
-	| "duration-150"
-	| "duration-200"
-	| "duration-300"
-	| "duration-500"
-	| "duration-1000"
-
-type UseAnimationOptions = {
+type UseAnimationOptions = VariantProps<typeof triggerAnimate> & {
 	base?: string
 	initial: string
 	enter: string
-	duration?: Duration
 }
 
 type GetClassName = (mergeClassValue?: ClassValue) => CnReturn
 
-const parseDuration = (duration: string) => Number(duration.split("-").at(1))
+const triggerAnimate = tv({
+	base: "transition",
+	variants: {
+		duration: {
+			0: "duration-0",
+			75: "duration-75",
+			100: "duration-100",
+			150: "duration-150",
+			200: "duration-200",
+			300: "duration-300",
+			500: "duration-500",
+			1000: "duration-1000",
+		},
+	},
+})
 
-export const useAnimate = (on: boolean = false, options?: UseAnimationOptions) => {
+export const useAnimate = (animate: boolean = false, options?: UseAnimationOptions) => {
 	const {
 		base,
 		initial,
 		enter,
-		duration = "duration-300",
+		duration = 300,
 	} = options ?? {}
 
-	const animate = useMemo(() => tv({
-		base: ["transition", base, duration],
-		variants: {
-			on: {
-				true: enter,
-				false: initial,
-			},
-		},
-	}), [
-		base,
-		duration,
-		enter,
-		initial,
-	])
+	const firstMountState = useFirstMountState()
+	const mounted = useDelayedMount(animate, duration)
 
-	const firstRender = useFirstRender()
-	const ms = useMemo(() => parseDuration(duration), [duration])
-	const mounted = useDefferRender(on, ms)
+	const toggleAnimate = useCallback(() => {
+		return triggerAnimate({
+			className: [base, animate ? enter : initial],
+			duration,
+		})
+	}, [base, animate, enter, initial, duration])
 
-	const [className, setClassName] = useState(() => animate({ on }))
+	const [className, setClassName] = useState(toggleAnimate)
 
 	useEffect(() => {
-		if (firstRender || !mounted) return
+		if (firstMountState || !mounted) return
 
-		const frame = requestAnimationFrame(() => {
-			setClassName(animate({ on }))
+		const frameId = requestAnimationFrame(() => {
+			setClassName(toggleAnimate())
 		})
 
-		return () => cancelAnimationFrame(frame)
-	}, [on, mounted, animate, firstRender])
+		return () => cancelAnimationFrame(frameId)
+	}, [firstMountState, mounted, toggleAnimate])
 
 	const getClassName: GetClassName = (mergeClassValue) => {
 		return mergeClassValue
