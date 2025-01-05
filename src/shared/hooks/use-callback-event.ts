@@ -1,12 +1,11 @@
-import { useCallback, useRef } from "react"
-import { useIsomorphicEffect } from "@/shared/hooks/use-isomophic-layout"
+import { useCallback, useEffect, useRef } from "react"
 
 type CallbackEvent = (...args: never[]) => unknown
 
 export const useCallbackEvent = <F extends CallbackEvent>(callback?: F) => {
 	const callbackRef = useRef<F>(callback)
 
-	useIsomorphicEffect(() => {
+	useEffect(() => {
 		callbackRef.current = callback
 	})
 

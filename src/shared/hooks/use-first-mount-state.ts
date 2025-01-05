@@ -1,13 +1,13 @@
-import { useRef } from "react"
+import { useEffect, useRef } from "react"
 
-export const useFirstRender = () => {
+export const useFirstMountState = () => {
 	const firstRender = useRef(true)
-
-	if (firstRender.current) {
-		firstRender.current = false
-
-		return true
-	}
+	
+	useEffect(() => {
+		if (firstRender.current) {
+			firstRender.current = false
+		}
+	}, [])
 
 	return firstRender.current
 }

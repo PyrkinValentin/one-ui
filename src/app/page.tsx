@@ -1,9 +1,9 @@
-import { Box, Container } from "@/shared/ui/layout"
+import { Container } from "@/shared/ui/layout"
 
 const Home = () => {
 	return (
 		<Container>
-			<Box className="bg-primary">Box</Box>
+
 		</Container>
 	)
 }

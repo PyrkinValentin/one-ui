@@ -1,19 +1,23 @@
 import { useEffect, useState } from "react"
 
-export const useDefferRender = (defer?: boolean, ms?: number) => {
-	const [deferred, setDeferred] = useState(Boolean(defer))
+export const useDelayedMount = (mount?: boolean, ms?: number) => {
+	const [mounted, setMounted] = useState(Boolean(mount))
 
 	useEffect(() => {
-		if (defer && !deferred) {
-			setDeferred(true)
+		if (mount && !mounted) {
+			setMounted(true)
 		}
 
-		if (!defer && deferred) {
-			const timeoutId = setTimeout(() => setDeferred(false), ms)
+		if (!mount && mounted) {
+			const timeoutId = setTimeout(() => setMounted(false), ms)
 
 			return () => clearTimeout(timeoutId)
 		}
-	}, [ms, deferred, defer])
+	}, [
+		ms,
+		mounted,
+		mount,
+	])
 
-	return deferred
+	return mounted
 }
