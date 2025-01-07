@@ -1,70 +1,82 @@
-import type { ClassValue, CnReturn, VariantProps } from "tailwind-variants"
+import type { CSSProperties } from "react"
 
-import { useCallback, useEffect, useState } from "react"
-import { useFirstMountState } from "@/shared/hooks/use-first-mount-state"
+import { useState, useEffect } from "react"
+import { useLatestRef } from "@/shared/hooks/use-latest-ref"
+import { useFirstMount } from "@/shared/hooks/use-first-mount"
 import { useDelayedMount } from "@/shared/hooks/use-delayed-mount"
 
-import { cn, tv } from "@/core/theme"
+import { camelCaseToKebabCase } from "@/shared/utils/case"
+import { isNumber } from "@/shared/helpers/is-number"
 
-type UseAnimationOptions = VariantProps<typeof triggerAnimate> & {
-	base?: string
-	initial: string
-	enter: string
+type UseAnimateCSSProperties = Omit<
+	CSSProperties,
+	| "transitionProperty"
+	| "transitionDuration"
+>
+
+type UseAnimateOptions = {
+	initial: UseAnimateCSSProperties
+	enter: UseAnimateCSSProperties
+	exit?: UseAnimateCSSProperties
+	duration?: number | {
+		enter?: number
+		exit?: number
+	}
 }
 
-type GetClassName = (mergeClassValue?: ClassValue) => CnReturn
+type UseAnimateReturn = [boolean, CSSProperties]
 
-const triggerAnimate = tv({
-	base: "transition",
-	variants: {
-		duration: {
-			0: "duration-0",
-			75: "duration-75",
-			100: "duration-100",
-			150: "duration-150",
-			200: "duration-200",
-			300: "duration-300",
-			500: "duration-500",
-			1000: "duration-1000",
-		},
-	},
-})
-
-export const useAnimate = (animate: boolean = false, options?: UseAnimationOptions) => {
+export const useAnimate = (animate: boolean = false, options: UseAnimateOptions): UseAnimateReturn => {
 	const {
-		base,
 		initial,
 		enter,
-		duration = 300,
-	} = options ?? {}
+		exit = initial,
+		duration: durationOpt,
+	} = options
 
-	const firstMountState = useFirstMountState()
+	const duration = isNumber(durationOpt)
+		? durationOpt
+		: (animate ? durationOpt?.enter : durationOpt?.exit) ?? 300
+
+	const enterStyles = useLatestRef(enter)
+	const exitStyles = useLatestRef(exit)
+
+	const firstMount = useFirstMount()
 	const mounted = useDelayedMount(animate, duration)
 
-	const toggleAnimate = useCallback(() => {
-		return triggerAnimate({
-			className: [base, animate ? enter : initial],
-			duration,
-		})
-	}, [base, animate, enter, initial, duration])
-
-	const [className, setClassName] = useState(toggleAnimate)
+	const [styles, setStyles] = useState<CSSProperties>(
+		animate
+			? enter
+			: initial
+	)
 
 	useEffect(() => {
-		if (firstMountState || !mounted) return
+		if (!mounted || firstMount) return
 
 		const frameId = requestAnimationFrame(() => {
-			setClassName(toggleAnimate())
+			const styles = animate
+				? enterStyles.current
+				: exitStyles.current
+
+			setStyles({
+				...styles,
+				transitionDuration: `${duration}ms`,
+				transitionProperty: Object
+					.keys(styles)
+					.map(camelCaseToKebabCase)
+					.join(','),
+			})
 		})
 
 		return () => cancelAnimationFrame(frameId)
-	}, [firstMountState, mounted, toggleAnimate])
+	}, [
+		mounted,
+		firstMount,
+		animate,
+		duration,
+		enterStyles,
+		exitStyles,
+	])
 
-	const getClassName: GetClassName = (mergeClassValue) => {
-		return mergeClassValue
-			? cn(className, mergeClassValue)
-			: className
-	}
-
-	return [mounted, getClassName] as const
+	return [mounted, styles]
 }

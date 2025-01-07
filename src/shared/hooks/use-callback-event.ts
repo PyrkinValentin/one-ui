@@ -1,15 +1,12 @@
-import { useCallback, useEffect, useRef } from "react"
+import { useCallback } from "react"
+import { useLatestRef } from "@/shared/hooks/use-latest-ref"
 
 type CallbackEvent = (...args: never[]) => unknown
 
 export const useCallbackEvent = <F extends CallbackEvent>(callback?: F) => {
-	const callbackRef = useRef<F>(callback)
-
-	useEffect(() => {
-		callbackRef.current = callback
-	})
+	const callbackRef = useLatestRef(callback)
 
 	return useCallback<CallbackEvent>((...args) => {
 		return callbackRef.current?.(...args)
-	}, []) as F
+	}, [callbackRef]) as F
 }
