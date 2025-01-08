@@ -97,6 +97,7 @@ export const plugin = Plugin((api) => {
 			},
 			opacity: {
 				"disabled": "0.5",
+				"hover": "0.9",
 			},
 			boxShadow,
 			borderRadius,
