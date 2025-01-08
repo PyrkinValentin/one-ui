@@ -17,7 +17,7 @@ type RootLayoutProps = {
 }
 
 const font = Inter({
-	weight: ["400", "700"],
+	weight: ["300", "400", "500", "600", "700"],
 	subsets: ["cyrillic"],
 	variable: "--font-inter",
 })
