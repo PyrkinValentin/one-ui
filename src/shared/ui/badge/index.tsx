@@ -50,7 +50,7 @@ export const Badge = (props: BadgeProps) => {
 		<div className={slots.base({ className: [className, classNames?.base] })}>
 			{children}
 
-			<span ref={ref} className={slots.badge({ className: classNames?.badge })}{...restProps}>
+			<span ref={ref} className={slots.badge({ className: classNames?.badge })} {...restProps}>
 			 {content}
 			</span>
 		</div>
