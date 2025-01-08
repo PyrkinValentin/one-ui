@@ -13,7 +13,8 @@ export const buttonGroupVariants = tv({
 	},
 })
 
-export type ButtonVariantsProps = VariantProps<typeof buttonVariants> & VariantSlots<typeof buttonVariants>
+export type ButtonVariantsProps = VariantProps<typeof buttonVariants>
+export type ButtonVariantsClassNames = VariantSlots<typeof buttonVariants>
 
 export const buttonVariants = tv({
 	slots: {
@@ -22,8 +23,8 @@ export const buttonVariants = tv({
 			"box-border appearance-none outline-none select-none whitespace-nowrap font-normal subpixel-antialiased",
 			"focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-focus focus-visible:outline-offset-2",
 		],
-		wrapper: "inline-flex items-center justify-center invisible",
-		spinner: "absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2",
+		wrapper: "",
+		spinner: "",
 	},
 	variants: {
 		variant: {
@@ -68,7 +69,11 @@ export const buttonVariants = tv({
 			true: "w-full",
 		},
 		loading: {
-			true: "opacity-disabled pointer-events-none",
+			true: {
+				base: "opacity-disabled pointer-events-none",
+				wrapper: "inline-flex items-center justify-center invisible",
+				spinner: "absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2",
+			},
 		},
 		disabled: {
 			true: "opacity-disabled pointer-events-none",
@@ -87,7 +92,7 @@ export const buttonVariants = tv({
 	defaultVariants: {
 		variant: "solid",
 		size: "md",
-		color: "default",
+		color: "primary",
 	},
 	compoundVariants: [
 		// solid / color

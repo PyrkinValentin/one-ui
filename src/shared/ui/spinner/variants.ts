@@ -2,7 +2,8 @@ import type { VariantProps, VariantSlots } from "@/core/theme"
 
 import { tv } from "@/core/theme"
 
-export type SpinnerVariantsProps = VariantProps<typeof spinnerVariants> & VariantSlots<typeof spinnerVariants>
+export type SpinnerVariantsProps = VariantProps<typeof spinnerVariants>
+export type SpinnerVariantsClassNames = VariantSlots<typeof spinnerVariants>
 
 export const spinnerVariants = tv({
 	slots: {

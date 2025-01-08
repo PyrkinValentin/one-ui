@@ -1,7 +1,7 @@
 import type { ReactNode } from "react"
 import type { ComponentProps } from "@/shared/types/props"
 import type { SpinnerProps } from "@/shared/ui/spinner/types"
-import type { ButtonGroupVariantsProps, ButtonVariantsProps } from "./variants"
+import type { ButtonGroupVariantsProps, ButtonVariantsClassNames, ButtonVariantsProps } from "./variants"
 
 export type ButtonGroupContextValue = Pick<
 	ButtonGroupProps,
@@ -41,4 +41,5 @@ type ButtonOwnProps = {
 	startContent?: ReactNode
 	endContent?: ReactNode
 	spinnerProps?: SpinnerProps
+	classNames?: ButtonVariantsClassNames
 }
