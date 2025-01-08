@@ -5,7 +5,7 @@ import type { ButtonGroupContextValue, ButtonGroupProps, ButtonProps } from "./t
 import { use, useMemo } from "react"
 
 import { createContext } from "react"
-import { isUndefined } from "@/shared/helpers/is-undefined"
+import { isObjectEmpty } from "@/shared/helpers/is-object"
 
 import { Spinner } from "@/shared/ui/spinner"
 
@@ -88,7 +88,7 @@ export const Button = (props: ButtonProps) => {
 		...props,
 	}
 
-	const inGroup = !isUndefined(buttonGroupContext)
+	const inGroup = !isObjectEmpty(buttonGroupContext)
 
 	const slots = useMemo(() => {
 		return buttonVariants({
