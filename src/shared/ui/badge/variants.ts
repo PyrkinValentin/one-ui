@@ -14,6 +14,11 @@ export const badgeVariants = tv({
 		],
 	},
 	variants: {
+		showOutline: {
+			true: {
+				badge: "border-2 border-background",
+			},
+		},
 		variant: {
 			solid: "",
 			flat: "",
@@ -63,11 +68,6 @@ export const badgeVariants = tv({
 		},
 		dot: {
 			true: "",
-		},
-		showOutline: {
-			true: {
-				badge: "border-2 border-background",
-			},
 		},
 		disableAnimation: {
 			true: {
