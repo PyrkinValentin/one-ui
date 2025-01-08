@@ -77,7 +77,7 @@ export const plugin = Plugin((api) => {
 		},
 		extend: {
 			fontFamily: {
-				sans: ["var(--font-inter)", ...fontFamily.sans],
+				sans: ["var(--font-sans)", ...fontFamily.sans],
 			},
 			colors: {
 				...backgroundColors,
