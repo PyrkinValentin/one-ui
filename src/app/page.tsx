@@ -1,21 +1,14 @@
 import { Container } from "@/shared/ui/layout"
-import { Button, ButtonGroup } from "@/shared/ui/button"
-import { FaHeartBroken } from "react-icons/fa"
+import { Card, CardBody } from "@/shared/ui/card"
 
 const Home = () => {
 	return (
-		<Container>
-			<ButtonGroup color="primary" variant="faded">
-				<Button startContent={<FaHeartBroken/>}>Button 1</Button>
-				<Button>Button 2</Button>
-				<Button>Button 3</Button>
-			</ButtonGroup>
-
-			<ButtonGroup color="primary" variant="bordered">
-				<Button>Button 1</Button>
-				<Button>Button 2</Button>
-				<Button>Button 3</Button>
-			</ButtonGroup>
+		<Container className="pt-12">
+			<Card>
+				<CardBody>
+					Make beautiful websites regardless of your design experience.
+				</CardBody>
+			</Card>
 		</Container>
 	)
 }

@@ -7,7 +7,5 @@ type TV = {
 }
 
 export type VariantSlots<S extends TV> = {
-	classNames?: {
-		[key in keyof S["slots"]]?: ClassValue
-	}
+	[key in keyof S["slots"]]?: ClassValue
 }

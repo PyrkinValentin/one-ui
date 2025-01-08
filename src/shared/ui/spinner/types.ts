@@ -1,4 +1,12 @@
 import type { ComponentProps } from "@/shared/types/props"
-import type { SpinnerVariantsProps } from "./variants"
+import type { SpinnerVariantsClassNames, SpinnerVariantsProps } from "./variants"
 
-export type SpinnerProps = ComponentProps<"div", SpinnerVariantsProps>
+export type SpinnerProps = ComponentProps<
+	"div",
+	SpinnerVariantsProps &
+	SpinnerOwnProps
+>
+
+type SpinnerOwnProps = {
+	classNames?: SpinnerVariantsClassNames
+}
