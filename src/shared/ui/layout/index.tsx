@@ -1,5 +1,3 @@
-"use client"
-
 import type { ElementType } from "react"
 import type { BoxProps, ContainerProps, FlexProps, GridProps } from "./types"
 
