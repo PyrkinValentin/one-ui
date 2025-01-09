@@ -7,16 +7,6 @@ import { isString } from "@/shared/helpers/is-string"
 import { isObject } from "@/shared/helpers/is-object"
 import { isUndefined } from "@/shared/helpers/is-undefined"
 
-const chain = (...callbacks: unknown[]) => {
-	return (...args: unknown[]) => {
-		callbacks.forEach((callback) => {
-			if (isFunction(callback)) {
-				callback(...args)
-			}
-		})
-	}
-}
-
 type PropsArgs =
 // eslint-disable-next-line
 	| Record<string, any>
@@ -34,6 +24,16 @@ type NullToObject<T> = T extends (null | undefined)
 type UnionToIntersection<U> = (U extends unknown ? (k: U) => void : never) extends ((k: infer I) => void)
 	? I
 	: never
+
+const chain = (...callbacks: unknown[]) => {
+	return (...args: unknown[]) => {
+		callbacks.forEach((callback) => {
+			if (isFunction(callback)) {
+				callback(...args)
+			}
+		})
+	}
+}
 
 export const mergeProps = <
 	P extends [PropsArgs, PropsArgs]
