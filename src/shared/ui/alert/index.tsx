@@ -50,7 +50,7 @@ export const Alert = (props: AlertProps) => {
 		hideIcon,
 	])
 
-	const Icon = iconMap[color] ?? iconMap.default
+	const Icon = iconMap[color ?? "default"]
 
 	return (
 		<div
