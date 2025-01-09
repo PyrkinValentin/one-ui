@@ -69,9 +69,9 @@ export const Image = (props: ImageProps) => {
 	const blurredImg = blurred ? (
 		<>
 			<NextImage
+				aria-hidden={true}
 				unoptimized
 				fill
-				aria-hidden={true}
 				className={slots.blurredImg({ className: classNames?.blurredImg })}
 				{...restProps}
 			/>
