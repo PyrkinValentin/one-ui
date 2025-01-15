@@ -15,6 +15,7 @@ export const mergeRefs = <
 
 			if (isRefObject(ref)) {
 				ref.current = instance
+				return
 			}
 
 			if (isRefCallback(ref)) {
