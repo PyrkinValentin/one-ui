@@ -1,15 +1,12 @@
-"use client"
-
 import { Container } from "@/shared/ui/layout"
-import { Avatar } from "@/shared/ui/avatar"
+import { Image } from "@/shared/ui/image"
 
 const Home = () => {
 	return (
 		<Container className="pt-12">
-			<Avatar
-				// fallback={<FaHeartBroken className="w-5 h-5"/>}
-				// name="John Doe"
-				// src="https://app.requestly.io/delay/1000/https://i.pravatar.cc/150?u=a042581f4e29026704d"
+			<Image
+				className="w-40 h-20"
+				src="https://cdn21vek.by/img/tmp/b/6782380cd74d11920x634_неделя_FMCG.jpg"
 			/>
 
 			asdasdas

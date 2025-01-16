@@ -1,7 +1,7 @@
 import type { ReactNode } from "react"
 import type { ComponentProps } from "@/shared/types/props"
 import type { ImageProps } from "@/shared/ui/image/types"
-import type { AvatarVariantsClassNames, AvatarVariantsProps } from "./variants"
+import type { AvatarVariantsSlots, AvatarVariantsProps } from "./variants"
 
 export type AvatarProps = ComponentProps<
 	"img",
@@ -16,5 +16,5 @@ type AvatarOwnProps = {
 	src?: string
 	alt?: string
 	name?: string
-	classNames?: AvatarVariantsClassNames
+	classNames?: AvatarVariantsSlots
 }

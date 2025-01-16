@@ -3,7 +3,7 @@ import type { VariantProps, VariantSlots } from "@/core/theme"
 import { tv } from "@/core/theme"
 
 export type BadgeVariantsProps = VariantProps<typeof badgeVariants>
-export type BadgeVariantsClassNames = VariantSlots<typeof badgeVariants>
+export type BadgeVariantsSlots = VariantSlots<typeof badgeVariants>
 
 export const badgeVariants = tv({
 	slots: {

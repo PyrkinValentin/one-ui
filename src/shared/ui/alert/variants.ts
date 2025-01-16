@@ -3,7 +3,7 @@ import type { VariantProps, VariantSlots } from "@/core/theme"
 import { tv } from "@/core/theme"
 
 export type AlertVariantsProps = VariantProps<typeof alertVariants>
-export type AlertVariantsClassNames = VariantSlots<typeof alertVariants>
+export type AlertVariantsSlots = VariantSlots<typeof alertVariants>
 
 export const alertVariants = tv({
 	slots: {

@@ -3,7 +3,7 @@ import type { VariantProps, VariantSlots } from "@/core/theme"
 import { tv } from "@/core/theme"
 
 export type AvatarVariantsProps = VariantProps<typeof avatarVariants>
-export type AvatarVariantsClassNames = VariantSlots<typeof avatarVariants>
+export type AvatarVariantsSlots = VariantSlots<typeof avatarVariants>
 
 export const avatarVariants = tv({
 	slots: {

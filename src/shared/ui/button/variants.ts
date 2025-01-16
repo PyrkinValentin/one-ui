@@ -14,7 +14,7 @@ export const buttonGroupVariants = tv({
 })
 
 export type ButtonVariantsProps = VariantProps<typeof buttonVariants>
-export type ButtonVariantsClassNames = VariantSlots<typeof buttonVariants>
+export type ButtonVariantsSlots = VariantSlots<typeof buttonVariants>
 
 export const buttonVariants = tv({
 	slots: {

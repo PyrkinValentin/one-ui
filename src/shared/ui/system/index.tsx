@@ -7,12 +7,13 @@ import { mergeProps } from "@/shared/utils/props"
 export const Slot = (props: SlotProps) => {
 	const {
 		fallbackElement = true,
+		shouldMergeProps = true,
 		children,
 		...restProps
 	} = props
 
 	return isValidElement<SlotProps>(children)
-		? cloneElement(children, mergeProps(children.props, restProps))
+		? cloneElement(children, shouldMergeProps ? mergeProps(children.props, restProps) : restProps)
 		: fallbackElement
 			? <span {...restProps}>{children}</span>
 			: null
