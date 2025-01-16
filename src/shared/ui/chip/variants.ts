@@ -3,7 +3,7 @@ import type { VariantProps, VariantSlots } from "@/core/theme"
 import { tv } from "@/core/theme"
 
 export type ChipVariantsProps = VariantProps<typeof chipVariants>
-export type ChipVariantsClassNames = VariantSlots<typeof chipVariants>
+export type ChipVariantsSlots = VariantSlots<typeof chipVariants>
 
 export const chipVariants = tv({
 	slots: {
