@@ -1,7 +1,7 @@
 import type { ReactNode } from "react"
 import type { ComponentProps } from "@/shared/types/props"
 import type { SpinnerProps } from "@/shared/ui/spinner/types"
-import type { ButtonGroupVariantsProps, ButtonVariantsSlots, ButtonVariantsProps } from "./variants"
+import type { ButtonGroupVariantsProps, ButtonVariantsProps, ButtonVariantsSlots } from "./variants"
 
 export type ButtonGroupContextValue = Pick<
 	ButtonGroupProps,
@@ -18,17 +18,19 @@ export type ButtonGroupContextValue = Pick<
 export type ButtonGroupProps = ComponentProps<
 	"div",
 	ButtonGroupVariantsProps &
-	Pick<
-		ButtonProps,
-		| "variant"
-		| "color"
-		| "size"
-		| "rounded"
-		| "fullWidth"
-		| "disabled"
-		| "iconOnly"
-		| "disableAnimation"
-	>
+	ButtonGroupOwnProps
+>
+
+type ButtonGroupOwnProps = Pick<
+	ButtonProps,
+	| "variant"
+	| "color"
+	| "size"
+	| "rounded"
+	| "fullWidth"
+	| "disabled"
+	| "iconOnly"
+	| "disableAnimation"
 >
 
 export type ButtonProps = ComponentProps<

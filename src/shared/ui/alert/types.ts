@@ -1,6 +1,6 @@
 import type { ReactNode } from "react"
 import type { ComponentProps } from "@/shared/types/props"
-import type { AlertVariantsSlots, AlertVariantsProps } from "./variants"
+import type { AlertVariantsProps, AlertVariantsSlots } from "./variants"
 
 export type AlertProps = ComponentProps<
 	"div",

@@ -14,6 +14,7 @@ export const Image = (props: ImageProps) => {
 		ref,
 		fallback,
 		loading = "lazy",
+		src,
 		alt,
 		width,
 		height,
@@ -29,7 +30,7 @@ export const Image = (props: ImageProps) => {
 		...restProps
 	} = props
 
-	const imageRef = useRef<HTMLImageElement | null>(null)
+	const imageRef = useRef<HTMLImageElement>(null)
 
 	const [loaded, setLoaded] = useState(loading === "eager")
 
@@ -76,21 +77,24 @@ export const Image = (props: ImageProps) => {
 			className={slots.base({ className: [className, classNames?.base] })}
 			style={{ maxWidth: width, maxHeight: height }}
 		>
-			{/*eslint-disable-next-line @next/next/no-img-element*/}
-			<img
-				ref={mergeRefs(ref, imageRef)}
-				data-loaded={loaded}
-				loading={loading}
-				alt={alt}
-				className={slots.img({ className: classNames?.img })}
-				onLoad={handleLoad}
-				onError={handleError}
-				width={width}
-				height={height}
-				{...restProps}
-			/>
+			{src ? (
+				// eslint-disable-next-line @next/next/no-img-element
+				<img
+					ref={mergeRefs(ref, imageRef)}
+					data-loaded={loaded}
+					loading={loading}
+					src={src}
+					alt={alt}
+					className={slots.img({ className: classNames?.img })}
+					onLoad={handleLoad}
+					onError={handleError}
+					width={width}
+					height={height}
+					{...restProps}
+				/>
+			) : null}
 
-			{!loaded && fallback ? (
+			{fallback ? (
 				<span className={slots.fallback({ className: classNames?.fallback })}>
 					{fallback}
 				</span>
