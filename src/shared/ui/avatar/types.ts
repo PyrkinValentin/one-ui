@@ -1,20 +1,19 @@
 import type { ReactNode } from "react"
 import type { ComponentProps } from "@/shared/types/props"
-import type { ImageProps } from "@/shared/ui/image/types"
-import type { AvatarVariantsSlots, AvatarVariantsProps } from "./variants"
+import type { AvatarVariantsProps, AvatarVariantsSlots } from "./variants"
 
 export type AvatarProps = ComponentProps<
-	"img",
-	Omit<ImageProps, "src" | "alt" | "classNames"> &
+	"span",
 	AvatarVariantsProps &
 	AvatarOwnProps
 >
 
 type AvatarOwnProps = {
-	showFallback?: boolean
 	icon?: ReactNode
+	name?: string
 	src?: string
 	alt?: string
-	name?: string
+	showFallback?: boolean
+	fallback?: ReactNode
 	classNames?: AvatarVariantsSlots
 }

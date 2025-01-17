@@ -56,7 +56,7 @@ export const badgeVariants = tv({
 		},
 		shape: {
 			circle: "",
-			rectangle: "",
+			square: "",
 		},
 		invisible: {
 			true: {
@@ -83,7 +83,7 @@ export const badgeVariants = tv({
 		size: "md",
 		color: "default",
 		placement: "top-right",
-		shape: "rectangle",
+		shape: "square",
 		showOutline: true,
 	},
 	compoundVariants: [
@@ -281,31 +281,31 @@ export const badgeVariants = tv({
 				badge: "w-4 h-4 min-w-4 min-h-4",
 			},
 		},
-		// placement / rectangle
+		// placement / square
 		{
 			placement: "top-right",
-			shape: "rectangle",
+			shape: "square",
 			className: {
 				badge: "top-[5%] right-[5%] translate-x-1/2 -translate-y-1/2",
 			},
 		},
 		{
 			placement: "top-left",
-			shape: "rectangle",
+			shape: "square",
 			className: {
 				badge: "top-[5%] left-[5%] -translate-x-1/2 -translate-y-1/2",
 			},
 		},
 		{
 			placement: "bottom-right",
-			shape: "rectangle",
+			shape: "square",
 			className: {
 				badge: "bottom-[5%] right-[5%] translate-x-1/2 translate-y-1/2",
 			},
 		},
 		{
 			placement: "bottom-left",
-			shape: "rectangle",
+			shape: "square",
 			className: {
 				badge: "bottom-[5%] left-[5%] -translate-x-1/2 translate-y-1/2",
 			},

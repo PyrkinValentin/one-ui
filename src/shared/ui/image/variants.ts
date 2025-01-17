@@ -8,8 +8,8 @@ export type ImageVariantsSlots = VariantSlots<typeof imageVariants>
 export const imageVariants = tv({
 	slots: {
 		base: "relative overflow-hidden",
-		img: "w-full h-full opacity-0 data-[loaded=true]:opacity-100",
-		fallback: "absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2",
+		img: "z-10 relative w-full h-full opacity-0 data-[loaded=true]:opacity-100",
+		fallback: "z-0 absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2",
 	},
 	variants: {
 		rounded: {
