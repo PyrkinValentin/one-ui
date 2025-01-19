@@ -8,8 +8,8 @@ import { useCallbackEvent } from "@/shared/hooks/use-callback-event"
 import { useControlledState } from "@/shared/hooks/use-controlled-state"
 
 import { numberArrayFormat, numberClump, numberFindClosest } from "@/shared/utils/number"
-import { isUndefined } from "@/shared/helpers/is-undefined"
 import { mergeProps } from "@/shared/utils/props"
+import { isUndefined } from "@/shared/helpers/is-undefined"
 
 import { Fragment } from "react"
 import { VisuallyHidden } from "@/shared/ui/system"
