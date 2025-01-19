@@ -1,9 +1,8 @@
-import type { VariantProps, VariantSlots } from "@/core/theme"
+import type { VariantProps } from "@/core/theme"
 
 import { tv } from "@/core/theme"
 
 export type CardVariantsProps = VariantProps<typeof cardVariants>
-export type CardVariantsSlots = VariantSlots<typeof cardVariants>
 export type CardVariantsReturn = ReturnType<typeof cardVariants>
 
 export const cardVariants = tv({

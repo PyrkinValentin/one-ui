@@ -1,14 +1,18 @@
 import type { ReactNode } from "react"
 import type { ComponentProps } from "@/shared/types/props"
-import type { BadgeVariantsProps, BadgeVariantsSlots } from "./variants"
+import type { BadgeVariantsProps } from "./variants"
 
 export type BadgeProps = ComponentProps<
-	"div",
+	"span",
 	BadgeVariantsProps &
 	BadgeOwnProps
 >
 
 type BadgeOwnProps = {
 	content?: ReactNode
-	classNames?: BadgeVariantsSlots
+	slotProps?: BadgeSlotProps
+}
+
+type BadgeSlotProps = {
+	baseProps?: ComponentProps
 }

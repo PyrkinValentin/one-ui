@@ -5,7 +5,9 @@ import { useMemo } from "react"
 
 import { typographyVariants } from "./variants"
 
-export const Typography = <As extends ElementType = "span">(props: TypographyProps<As>) => {
+export const Typography = <
+	As extends ElementType = "span"
+>(props: TypographyProps<As>) => {
 	const {
 		as = "span",
 		className,

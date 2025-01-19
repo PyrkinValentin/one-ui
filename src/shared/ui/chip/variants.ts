@@ -1,19 +1,17 @@
-import type { VariantProps, VariantSlots } from "@/core/theme"
+import type { VariantProps } from "@/core/theme"
 
 import { tv } from "@/core/theme"
 
 export type ChipVariantsProps = VariantProps<typeof chipVariants>
-export type ChipVariantsSlots = VariantSlots<typeof chipVariants>
 
 export const chipVariants = tv({
 	slots: {
-		base: "box-border relative min-w-min max-w-fit inline-flex items-center justify-between whitespace-nowrap",
+		base: "box-border relative min-w-min max-w-fit inline-flex items-center whitespace-nowrap",
 		content: "flex-1 text-inherit font-normal",
 		dot: "w-2 h-2 rounded-full",
 		closeButton: [
-			"z-10 appearance-none cursor-pointer outline-none select-none",
-			"transition-opacity opacity-70 hover:opacity-100 active:opacity-disabled rounded-full",
-			"focus-visible:ring-1 focus-visible:ring-focus focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+			"z-10 appearance-none outline-none select-none transition-opacity opacity-70 hover:opacity-100",
+			"active:opacity-disabled ring-focus ring-2 ring-offset-2 ring-offset-background rounded-full",
 		],
 	},
 	variants: {
@@ -28,19 +26,16 @@ export const chipVariants = tv({
 		},
 		size: {
 			sm: {
-				base: "px-1 h-6 text-xs",
-				content: "pl-0.5 pr-0.5 first:pl-1 last:pr-1",
-				closeButton: "text-lg",
+				base: "px-1.5 h-6 text-xs gap-0.5",
+				closeButton: "text-md",
 			},
 			md: {
-				base: "px-1 h-7 text-sm",
-				content: "pl-1 pr-1 first:pl-2 last:pr-2",
-				closeButton: "text-xl",
+				base: "px-2 h-7 text-sm gap-1",
+				closeButton: "text-lg",
 			},
 			lg: {
-				base: "px-1 h-8 text-md",
-				content: "pl-1 pr-1 first:pl-3 last:pr-3",
-				closeButton: "text-2xl",
+				base: "px-2.5 h-8 text-md gap-1.5",
+				closeButton: "text-xl",
 			},
 		},
 		color: {

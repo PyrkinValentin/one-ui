@@ -2,27 +2,26 @@ import type { BadgeProps } from "./types"
 
 import { useMemo } from "react"
 
-import { isUndefined } from "@/shared/helpers/is-undefined"
-
 import { badgeVariants } from "./variants"
 
 export const Badge = (props: BadgeProps) => {
 	const {
-		ref,
 		content,
+		slotProps = {},
 		className,
-		classNames,
 		variant,
 		size,
 		color,
 		placement,
 		shape,
 		invisible,
-		dot = isUndefined(content),
+		dot = !content,
 		showOutline,
 		children,
 		...restProps
 	} = props
+
+	const { baseProps } = slotProps
 
 	const slots = useMemo(() => {
 		return badgeVariants({
@@ -47,11 +46,17 @@ export const Badge = (props: BadgeProps) => {
 	])
 
 	return (
-		<div className={slots.base({ className: [className, classNames?.base] })}>
+		<div
+			{...baseProps}
+			className={slots.base({ className: baseProps?.className })}
+		>
 			{children}
 
-			<span ref={ref} className={slots.badge({ className: classNames?.badge })} {...restProps}>
-			 {content}
+			<span
+				className={slots.badge({ className })}
+				{...restProps}
+			>
+				{content}
 			</span>
 		</div>
 	)

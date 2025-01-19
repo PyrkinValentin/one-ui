@@ -6,13 +6,18 @@ import { spinnerVariants } from "./variants"
 
 export const Spinner = (props: SpinnerProps) => {
 	const {
+		slotProps = {},
 		className,
-		classNames,
-		children,
 		size,
 		color,
+		children,
 		...restProps
 	} = props
+
+	const {
+		spinnerProps,
+		labelProps,
+	} = slotProps
 
 	const slots = useMemo(() => {
 		return spinnerVariants({
@@ -26,15 +31,22 @@ export const Spinner = (props: SpinnerProps) => {
 
 	return (
 		<div
-			className={slots.base({ className: [className, classNames?.base] })}
+			className={slots.base({ className })}
 			{...restProps}
 		>
-			<div className={slots.spinner({ class: classNames?.spinner })}/>
+			<div
+				{...spinnerProps}
+				className={slots.spinner({ className: spinnerProps?.className })}
+			/>
 
-			{children
-				? <span className={slots.label({ class: classNames?.label })}>{children}</span>
-				: null
-			}
+			{children ? (
+				<span
+					{...labelProps}
+					className={slots.label({ className: labelProps?.className })}
+				>
+					{children}
+				</span>
+			) : null}
 		</div>
 	)
 }
