@@ -1,15 +1,14 @@
-import type { VariantProps, VariantSlots } from "@/core/theme"
+import type { VariantProps } from "@/core/theme"
 
 import { tv } from "@/core/theme"
 
 export type ImageVariantsProps = VariantProps<typeof imageVariants>
-export type ImageVariantsSlots = VariantSlots<typeof imageVariants>
 
 export const imageVariants = tv({
 	slots: {
-		base: "relative overflow-hidden",
-		img: "z-10 relative w-full h-full opacity-0 data-[loaded=true]:opacity-100",
-		fallback: "z-0 absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2",
+		base: "relative inline-block overflow-hidden",
+		img: "opacity-0 data-[loaded=true]:opacity-100",
+		fallback: "absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 text-default-400",
 	},
 	variants: {
 		rounded: {

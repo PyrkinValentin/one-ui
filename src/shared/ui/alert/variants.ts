@@ -1,9 +1,8 @@
-import type { VariantProps, VariantSlots } from "@/core/theme"
+import type { VariantProps } from "@/core/theme"
 
 import { tv } from "@/core/theme"
 
 export type AlertVariantsProps = VariantProps<typeof alertVariants>
-export type AlertVariantsSlots = VariantSlots<typeof alertVariants>
 
 export const alertVariants = tv({
 	slots: {
@@ -34,11 +33,21 @@ export const alertVariants = tv({
 			danger: "",
 		},
 		rounded: {
-			none: "rounded-none",
-			sm: "rounded-small",
-			md: "rounded-medium",
-			lg: "rounded-large",
-			full: "rounded-full",
+			none: {
+				base: "rounded-none",
+			},
+			sm: {
+				base: "rounded-small",
+			},
+			md: {
+				base: "rounded-medium",
+			},
+			lg: {
+				base: "rounded-large",
+			},
+			full: {
+				base: "rounded-full",
+			},
 		},
 		hideIconWrapper: {
 			true: {

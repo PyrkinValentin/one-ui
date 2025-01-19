@@ -1,4 +1,4 @@
-import type { VariantProps, VariantSlots } from "@/core/theme"
+import type { VariantProps } from "@/core/theme"
 
 import { tv } from "@/core/theme"
 
@@ -14,7 +14,6 @@ export const buttonGroupVariants = tv({
 })
 
 export type ButtonVariantsProps = VariantProps<typeof buttonVariants>
-export type ButtonVariantsSlots = VariantSlots<typeof buttonVariants>
 
 export const buttonVariants = tv({
 	slots: {
@@ -85,7 +84,7 @@ export const buttonVariants = tv({
 			true: "px-0",
 		},
 		disableAnimation: {
-			true: "!transition-none",
+			true: "transition-none",
 			false: "active:scale-[0.97] transition motion-reduce:transition-none",
 		},
 	},

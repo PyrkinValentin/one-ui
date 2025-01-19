@@ -1,6 +1,6 @@
 import type { MouseEvent, ReactNode } from "react"
 import type { ComponentProps } from "@/shared/types/props"
-import type { ChipVariantsSlots, ChipVariantsProps } from "./variants"
+import type { ChipVariantsProps } from "./variants"
 
 export type ChipProps = ComponentProps<
 	"div",
@@ -12,5 +12,11 @@ type ChipOwnProps = {
 	startContent?: ReactNode
 	endContent?: ReactNode
 	onClose?: (ev: MouseEvent<HTMLButtonElement>) => void
-	classNames?: ChipVariantsSlots
+	slotProps?: ChipSlotProps
+}
+
+type ChipSlotProps = {
+	contentProps?: ComponentProps<"span">
+	dotProps?: ComponentProps<"span">
+	closeButtonProps?: ComponentProps<"button">
 }

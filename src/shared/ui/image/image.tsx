@@ -16,12 +16,10 @@ export const Image = (props: ImageProps) => {
 		loading = "lazy",
 		src,
 		alt,
-		width,
-		height,
+		slotProps = {},
 		onLoad,
 		onError,
 		className,
-		classNames,
 		rounded,
 		shadow,
 		zoomed,
@@ -29,6 +27,11 @@ export const Image = (props: ImageProps) => {
 		disableAnimation,
 		...restProps
 	} = props
+
+	const {
+		baseProps,
+		fallbackProps,
+	} = slotProps
 
 	const imageRef = useRef<HTMLImageElement>(null)
 
@@ -73,32 +76,31 @@ export const Image = (props: ImageProps) => {
 	])
 
 	return (
-		<div
-			className={slots.base({ className: [className, classNames?.base] })}
-			style={{ maxWidth: width, maxHeight: height }}
+		<span
+			{...baseProps}
+			className={slots.base({ className: baseProps?.className })}
 		>
-			{src ? (
-				// eslint-disable-next-line @next/next/no-img-element
-				<img
-					ref={mergeRefs(ref, imageRef)}
-					data-loaded={loaded}
-					loading={loading}
-					src={src}
-					alt={alt}
-					className={slots.img({ className: classNames?.img })}
-					onLoad={handleLoad}
-					onError={handleError}
-					width={width}
-					height={height}
-					{...restProps}
-				/>
-			) : null}
+			{/* eslint-disable-next-line @next/next/no-img-element */}
+			<img
+				ref={mergeRefs(ref, imageRef)}
+				data-loaded={loaded}
+				loading={loading}
+				src={src}
+				alt={alt}
+				className={slots.img({ className })}
+				onLoad={handleLoad}
+				onError={handleError}
+				{...restProps}
+			/>
 
-			{fallback ? (
-				<span className={slots.fallback({ className: classNames?.fallback })}>
+			{!loaded && fallback ? (
+				<span
+					{...fallbackProps}
+					className={slots.fallback({ className: fallbackProps?.className })}
+				>
 					{fallback}
 				</span>
 			) : null}
-		</div>
+		</span>
 	)
 }

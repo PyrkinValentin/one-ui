@@ -1,6 +1,6 @@
 import type { ReactNode } from "react"
 import type { ComponentProps } from "@/shared/types/props"
-import type { ImageVariantsProps, ImageVariantsSlots } from "./variants"
+import type { ImageVariantsProps } from "./variants"
 
 export type ImageProps = ComponentProps<
 	"img",
@@ -10,5 +10,10 @@ export type ImageProps = ComponentProps<
 
 type ImageOwnProps = {
 	fallback?: ReactNode
-	classNames?: ImageVariantsSlots
+	slotProps?: ImageSlotProps
+}
+
+type ImageSlotProps = {
+	baseProps?: ComponentProps<"span">
+	fallbackProps?: ComponentProps<"span">
 }

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 
 export const useDelayedMount = (mount?: boolean, ms?: number) => {
-	const [mounted, setMounted] = useState(Boolean(mount))
+	const [mounted, setMounted] = useState(!!mount)
 
 	useEffect(() => {
 		if (mount && !mounted) {

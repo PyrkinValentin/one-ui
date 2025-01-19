@@ -1,5 +1,5 @@
 import type { ComponentProps } from "@/shared/types/props"
-import type { SpinnerVariantsSlots, SpinnerVariantsProps } from "./variants"
+import type { SpinnerVariantsProps } from "./variants"
 
 export type SpinnerProps = ComponentProps<
 	"div",
@@ -8,5 +8,10 @@ export type SpinnerProps = ComponentProps<
 >
 
 type SpinnerOwnProps = {
-	classNames?: SpinnerVariantsSlots
+	slotProps?: SpinnerSlotProps
+}
+
+type SpinnerSlotProps = {
+	spinnerProps?: ComponentProps
+	labelProps?: ComponentProps<"span">
 }

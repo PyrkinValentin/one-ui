@@ -1,19 +1,62 @@
 import type { ReactNode } from "react"
 import type { ComponentProps } from "@/shared/types/props"
-import type { AvatarVariantsProps, AvatarVariantsSlots } from "./variants"
+import type { AvatarGroupVariantsProps, AvatarVariantsProps } from "./variants"
 
 export type AvatarProps = ComponentProps<
 	"span",
-	AvatarVariantsProps &
+	Omit<AvatarVariantsProps, "inGroup" | "inGridGroup"> &
 	AvatarOwnProps
 >
 
 type AvatarOwnProps = {
+	showFallback?: boolean
+	fallback?: ReactNode
 	icon?: ReactNode
 	name?: string
 	src?: string
 	alt?: string
-	showFallback?: boolean
-	fallback?: ReactNode
-	classNames?: AvatarVariantsSlots
+	slotProps?: AvatarSlotProps
+}
+
+type AvatarSlotProps = {
+	imgProps?: ComponentProps<"img">
+	fallbackProps?: ComponentProps
+	nameProps?: ComponentProps<"span">
+	iconProps?: ComponentProps<"span">
+}
+
+export type AvatarGroupContextValue = Pick<
+	AvatarGroupProps,
+	| "size"
+	| "color"
+	| "rounded"
+	| "bordered"
+	| "disabled"
+> & {
+	inGroup?: boolean
+	inGridGroup?: boolean
+}
+
+export type AvatarGroupProps = ComponentProps<
+	"div",
+	AvatarGroupVariantsProps &
+	AvatarGroupOwnProps &
+	Pick<
+		AvatarProps,
+		| "size"
+		| "color"
+		| "rounded"
+		| "bordered"
+		| "disabled"
+	>
+>
+
+type AvatarGroupOwnProps = {
+	maxCount?: number
+	renderCount?: (count: number) => ReactNode
+	slotProps?: AvatarGroupSlotProps
+}
+
+type AvatarGroupSlotProps = {
+	countProps?: AvatarProps
 }

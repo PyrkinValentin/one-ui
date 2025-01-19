@@ -7,6 +7,8 @@ import { useRef, useEffect, useState } from "react"
 import { useFirstMount } from "@/shared/hooks/use-first-mount"
 import { useDelayedMount } from "@/shared/hooks/use-delayed-mount"
 
+import { Slot } from "@/shared/ui/system"
+
 export const Collapse = (props: CollapseProps) => {
 	const {
 		keepMounted,
@@ -23,9 +25,6 @@ export const Collapse = (props: CollapseProps) => {
 	const mounted = useDelayedMount(open, duration)
 
 	const [styles, setStyles] = useState<CSSProperties>({
-		transitionDuration: `${duration}ms`,
-		transitionProperty: "height",
-		overflowY: "hidden",
 		height: open ? "auto" : 0,
 	})
 
@@ -34,20 +33,31 @@ export const Collapse = (props: CollapseProps) => {
 
 		if (!element || !mounted || firstMount) return
 
+		const defaultStyles = {
+			transitionDuration: `${duration}ms`,
+			transitionProperty: "height",
+		}
+
 		queueMicrotask(() => {
 			const { height } = element.getBoundingClientRect()
 
-			setStyles((prevStyles) => ({
-				...prevStyles,
+			setStyles({
+				...defaultStyles,
+				overflowY: "hidden",
 				height,
-			}))
+			})
 		})
 
 		const timeoutId = setTimeout(() => {
-			setStyles((prevStyles) => ({
-				...prevStyles,
-				height: open ? "auto" : 0,
-			}))
+			setStyles({
+				...defaultStyles,
+				...(open ? {
+					height: "auto",
+				} : {
+					overflowY: "hidden",
+					height: 0,
+				}),
+			})
 		}, open ? duration : undefined)
 
 		return () => clearTimeout(timeoutId)
@@ -64,9 +74,9 @@ export const Collapse = (props: CollapseProps) => {
 
 	return (
 		<div style={{ ...styles, ...style }} {...restProps}>
-			<div ref={ref}>
+			<Slot ref={ref}>
 				{children}
-			</div>
+			</Slot>
 		</div>
 	)
 }

@@ -1,6 +1,6 @@
 import type { ReactNode } from "react"
 import type { ComponentProps } from "@/shared/types/props"
-import type { AlertVariantsProps, AlertVariantsSlots } from "./variants"
+import type { AlertVariantsProps } from "./variants"
 
 export type AlertProps = ComponentProps<
 	"div",
@@ -14,5 +14,13 @@ type AlertOwnProps = {
 	endContent?: ReactNode
 	title?: ReactNode
 	description?: ReactNode
-	classNames?: AlertVariantsSlots
+	slotProps?: AlertSlotProps
+}
+
+type AlertSlotProps = {
+	iconWrapperProps?: ComponentProps
+	alertIconProps?: ComponentProps<"svg">
+	mainWrapperProps?: ComponentProps
+	titleProps?: ComponentProps
+	descriptionProps?: ComponentProps
 }

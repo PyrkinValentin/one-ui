@@ -23,8 +23,8 @@ export const Alert = (props: AlertProps) => {
 		endContent,
 		title,
 		description,
+		slotProps = {},
 		className,
-		classNames,
 		variant,
 		color,
 		rounded,
@@ -33,6 +33,14 @@ export const Alert = (props: AlertProps) => {
 		children,
 		...restProps
 	} = props
+
+	const {
+		iconWrapperProps,
+		alertIconProps,
+		mainWrapperProps,
+		titleProps,
+		descriptionProps,
+	} = slotProps
 
 	const slots = useMemo(() => {
 		return alertVariants({
@@ -55,32 +63,54 @@ export const Alert = (props: AlertProps) => {
 	return (
 		<div
 			role="alert"
-			className={slots.base({ className: [className, classNames?.base] })}
+			className={slots.base({ className })}
 			{...restProps}
 		>
 			{startContent}
 
-			<div className={slots.iconWrapper({ className: classNames?.iconWrapper })}>
-				{icon
-					? <Slot className={slots.alertIcon({ className: classNames?.alertIcon })}>{icon}</Slot>
-					: <Icon className={slots.alertIcon({ className: classNames?.alertIcon })}/>
-				}
+			<div
+				{...iconWrapperProps}
+				className={slots.iconWrapper({ className: iconWrapperProps?.className })}
+			>
+				{icon ? (
+					<Slot
+						as="svg"
+						{...alertIconProps}
+						className={slots.alertIcon({ className: alertIconProps?.className })}
+					>
+						{icon}
+					</Slot>
+				) : (
+					<Icon
+						{...alertIconProps}
+						className={slots.alertIcon({ className: alertIconProps?.className })}
+					/>
+				)}
 			</div>
 
-			<div className={slots.mainWrapper({ className: classNames?.mainWrapper })}>
+			<div
+				{...mainWrapperProps}
+				className={slots.mainWrapper({ className: mainWrapperProps?.className })}
+			>
 				{title ? (
-					<div className={slots.title({ className: classNames?.title })}>
+					<div
+						{...titleProps}
+						className={slots.title({ className: titleProps?.className })}
+					>
 						{title}
 					</div>
 				) : null}
 
-				{description ? (
-					<div className={slots.description({ className: classNames?.description })}>
+					{description ? (
+						<div
+							{...descriptionProps}
+							className={slots.description({ className: descriptionProps?.className })}
+						>
 						{description}
-					</div>
-				) : null}
+						</div>
+					) : null}
 
-				{children}
+					{children}
 			</div>
 
 			{endContent}

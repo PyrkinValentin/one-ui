@@ -1,7 +1,9 @@
-import type { ReactNode } from "react"
-import type { ComponentProps } from "@/shared/types/props"
+import type { ElementType, ReactNode } from "react"
+import type { ComponentPropsWithAs } from "@/shared/types/props"
 
-export type SlotProps = ComponentProps<"span", SlotOwnProps>
+export type SlotProps<
+	As extends ElementType = "span"
+> = ComponentPropsWithAs<As, SlotOwnProps>
 
 type SlotOwnProps = {
 	fallbackElement?: boolean
