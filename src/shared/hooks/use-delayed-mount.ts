@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-export const useDelayedMount = (mount?: boolean, ms?: number) => {
+export const useDelayedMount = (mount?: boolean, delay?: number) => {
 	const [mounted, setMounted] = useState(!!mount)
 
 	useEffect(() => {
@@ -9,14 +9,14 @@ export const useDelayedMount = (mount?: boolean, ms?: number) => {
 		}
 
 		if (!mount && mounted) {
-			const timeoutId = setTimeout(() => setMounted(false), ms)
+			const timeoutId = setTimeout(() => setMounted(false), delay)
 
 			return () => clearTimeout(timeoutId)
 		}
 	}, [
-		ms,
-		mounted,
 		mount,
+		mounted,
+		delay,
 	])
 
 	return mounted

@@ -12,7 +12,7 @@ export const Grow = (props: GrowProps) => {
 	const {
 		keepMounted,
 		open,
-		duration = 300,
+		duration,
 		children,
 	} = props
 
