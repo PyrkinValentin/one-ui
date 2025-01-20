@@ -19,7 +19,7 @@ export const Collapse = (props: CollapseProps) => {
 		...restProps
 	} = props
 
-	const ref = useRef<HTMLDivElement>(null)
+	const slotRef = useRef<HTMLDivElement>(null)
 
 	const firstMount = useFirstMount()
 	const mounted = useDelayedMount(open, duration)
@@ -29,7 +29,7 @@ export const Collapse = (props: CollapseProps) => {
 	})
 
 	useEffect(() => {
-		const element = ref.current
+		const element = slotRef.current
 
 		if (!element || !mounted || firstMount) return
 
@@ -58,7 +58,7 @@ export const Collapse = (props: CollapseProps) => {
 					height: 0,
 				}),
 			})
-		}, open ? duration : undefined)
+		}, open ? duration : 1)
 
 		return () => clearTimeout(timeoutId)
 	}, [
@@ -74,7 +74,7 @@ export const Collapse = (props: CollapseProps) => {
 
 	return (
 		<div style={{ ...styles, ...style }} {...restProps}>
-			<Slot ref={ref}>
+			<Slot ref={slotRef}>
 				{children}
 			</Slot>
 		</div>

@@ -69,10 +69,8 @@ export const mergeProps = <
 			isObject(b)
 		) {
 			mergedProps[key] = { ...a, ...b }
-		} else {
-			mergedProps[key] = isUndefined(b)
-				? a
-				: b
+		} else if (!isUndefined(b)) {
+			mergedProps[key] = b
 		}
 	}
 
