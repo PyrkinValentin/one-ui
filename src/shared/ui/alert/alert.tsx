@@ -101,16 +101,16 @@ export const Alert = (props: AlertProps) => {
 					</div>
 				) : null}
 
-					{description ? (
-						<div
-							{...descriptionProps}
-							className={slots.description({ className: descriptionProps?.className })}
-						>
+				{description ? (
+					<div
+						{...descriptionProps}
+						className={slots.description({ className: descriptionProps?.className })}
+					>
 						{description}
-						</div>
-					) : null}
+					</div>
+				) : null}
 
-					{children}
+				{children}
 			</div>
 
 			{endContent}
