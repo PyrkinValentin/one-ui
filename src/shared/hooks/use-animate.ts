@@ -53,11 +53,11 @@ export const useAnimate = (animate: boolean = false, options: UseAnimateOptions)
 	useEffect(() => {
 		if (!mounted || firstMount) return
 
-		const frameId = requestAnimationFrame(() => {
-			const styles = animate
-				? enterStyles.current
-				: exitStyles.current
+		const styles = animate
+			? enterStyles.current
+			: exitStyles.current
 
+		const timeoutId = setTimeout(() => {
 			setStyles({
 				...styles,
 				transitionDuration: `${duration}ms`,
@@ -66,9 +66,9 @@ export const useAnimate = (animate: boolean = false, options: UseAnimateOptions)
 					.map(camelCaseToKebabCase)
 					.join(','),
 			})
-		})
+		}, 1)
 
-		return () => cancelAnimationFrame(frameId)
+		return () => clearTimeout(timeoutId)
 	}, [
 		mounted,
 		firstMount,
