@@ -68,15 +68,11 @@ export const useAnimate = (animate: boolean = false, options: UseAnimateOptions)
 	useEffect(() => {
 		if (!mounted || firstMount) return
 
-		if (animate) {
-			const frameId = requestAnimationFrame(() => {
-				setStatus("enter")
-			})
+		const frameId = requestAnimationFrame(() => {
+			setStatus(animate ? "enter" : "exit")
+		})
 
-			return () => cancelAnimationFrame(frameId)
-		}
-
-		setStatus("exit")
+		return () => cancelAnimationFrame(frameId)
 	}, [
 		animate,
 		firstMount,
@@ -90,16 +86,19 @@ export const useAnimate = (animate: boolean = false, options: UseAnimateOptions)
 			? enterStylesRef.current
 			: exitStylesRef.current
 
-		setStyles({
-			...styles,
-			transitionProperty: Object
-				.keys(styles)
-				.map(camelCaseToKebabCase)
-				.join(','),
-			transitionDuration: `${getDuration(status)}ms`,
+		const frameId = requestAnimationFrame(() => {
+			setStyles({
+				...styles,
+				transitionProperty: Object
+					.keys(styles)
+					.map(camelCaseToKebabCase)
+					.join(','),
+				transitionDuration: `${getDuration(status)}ms`,
+			})
 		})
+
+		return () => cancelAnimationFrame(frameId)
 	}, [
-		durationRef,
 		enterStylesRef,
 		exitStylesRef,
 		firstMount,
