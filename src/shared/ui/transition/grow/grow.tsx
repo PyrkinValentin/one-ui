@@ -2,7 +2,7 @@
 
 import type { GrowProps } from "./types"
 
-import { useAnimate } from "@/shared/hooks/use-animate"
+import { useTransition } from "@/shared/hooks/use-transition"
 
 import { isFunction } from "@/shared/helpers/is-function"
 
@@ -16,7 +16,7 @@ export const Grow = (props: GrowProps) => {
 		children,
 	} = props
 
-	const [mounted, styles] = useAnimate(open, {
+	const [mounted, styles] = useTransition(open, {
 		initial: { opacity: 0, transform: "scale(0.97)" },
 		enter: { opacity: 1, transform: "scale(1)" },
 		duration,

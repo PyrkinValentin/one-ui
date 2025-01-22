@@ -1,7 +1,7 @@
 import type { CSSProperties } from "react"
 import type { VisuallyHiddenProps } from "./types"
 
-import { Slot } from "./slot"
+import { Slot } from "../slot/slot"
 
 const visuallyHiddenStyles: CSSProperties = {
 	overflow: "hidden",

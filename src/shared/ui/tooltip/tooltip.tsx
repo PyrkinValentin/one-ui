@@ -1,38 +1,29 @@
 "use client"
 
-import type { Side, UseFloatingReturn } from "@floating-ui/react"
-import type { ComponentProps } from "@/shared/types/props"
+import type { OpenChangeReason } from "@floating-ui/react"
 import type { TooltipProps } from "./types"
 
-import { useRef } from "react"
+import { useMemo } from "react"
 import { useDismiss, useFloating, useHover, useInteractions, useRole } from "@floating-ui/react"
 import { useControlledState } from "@/shared/hooks/use-controlled-state"
 
-import { arrow, autoUpdate, flip, offset, safePolygon, shift } from "@floating-ui/react"
+import { autoUpdate, flip, offset, safePolygon, shift } from "@floating-ui/react"
 import { mergeRefs } from "@/shared/utils/ref"
 
 import { Portal, Slot } from "@/shared/ui/system"
 import { Grow } from "@/shared/ui/transition"
 
+import { tooltipVariants } from "./variants"
+
 export const Tooltip = (props: TooltipProps) => {
 	const {
-		shouldAutoUpdate = true,
-		shouldFlip = true,
-		shouldShift = true,
-		shouldSafePolygon = true,
 		dismissable = true,
-		closeWhenAncestorScroll = true,
-		closeWhenEscapeKey,
-		closeWhenOutsidePress,
-		closeWhenReferencePress,
-		arrow: arrowProp,
 		placement,
 		offset: offsetProp = 7,
-		offsetCross,
-		offsetAxis,
 		delay,
 		delayClose,
 		delayHover,
+		keepMounted,
 		disablePortal,
 		defaultOpen = false,
 		open,
@@ -41,17 +32,23 @@ export const Tooltip = (props: TooltipProps) => {
 		ref,
 		style,
 		className,
+		size,
+		color,
+		rounded,
+		shadow,
 		children,
 		...restProps
 	} = props
-
-	const arrowRef = useRef<HTMLSpanElement>(null)
 
 	const [controlledOpen, setControlledOpen] = useControlledState({
 		defaultValue: defaultOpen,
 		value: open,
 		setValue: onOpenChange,
 	})
+
+	const handleOpenChange = (open: boolean, _ev?: Event, reason?: OpenChangeReason) => {
+		setControlledOpen?.(open, reason)
+	}
 
 	const {
 		context,
@@ -60,18 +57,17 @@ export const Tooltip = (props: TooltipProps) => {
 	} = useFloating({
 		placement,
 		open: controlledOpen,
-		onOpenChange: setControlledOpen,
-		whileElementsMounted: shouldAutoUpdate ? autoUpdate : undefined,
+		onOpenChange: handleOpenChange,
+		whileElementsMounted: (referenceEl, floatingEl, update) => {
+			return autoUpdate(referenceEl, floatingEl, update, {
+				layoutShift: false,
+			})
+		},
 		transform: false,
 		middleware: [
-			offset({
-				mainAxis: offsetProp,
-				crossAxis: offsetCross,
-				alignmentAxis: offsetAxis,
-			}),
-			shouldFlip ? flip() : undefined,
-			shouldShift ? shift() : undefined,
-			arrowProp ? arrow({ element: arrowRef }) : undefined,
+			offset(offsetProp),
+			shift(),
+			flip(),
 		],
 	})
 
@@ -80,7 +76,7 @@ export const Tooltip = (props: TooltipProps) => {
 	})
 
 	const hover = useHover(context, {
-		handleClose: shouldSafePolygon ? safePolygon() : undefined,
+		handleClose: safePolygon(),
 		delay: {
 			open: delay,
 			close: delayClose,
@@ -90,10 +86,7 @@ export const Tooltip = (props: TooltipProps) => {
 
 	const dismiss = useDismiss(context, {
 		enabled: dismissable,
-		ancestorScroll: closeWhenAncestorScroll,
-		escapeKey: closeWhenEscapeKey,
-		outsidePress: closeWhenOutsidePress,
-		referencePress: closeWhenReferencePress,
+		ancestorScroll: true,
 	})
 
 	const { getReferenceProps, getFloatingProps } = useInteractions([
@@ -102,93 +95,47 @@ export const Tooltip = (props: TooltipProps) => {
 		dismiss,
 	])
 
+	const classNames = useMemo(() => {
+		return tooltipVariants({
+			className,
+			size,
+			color,
+			rounded,
+			shadow,
+		})
+	}, [
+		className,
+		size,
+		color,
+		rounded,
+		shadow,
+	])
+
 	return (
 		<>
 			<Slot ref={refs.setReference} {...getReferenceProps()}>
 				{children}
 			</Slot>
 
-			<Grow open={controlledOpen}>
-				{(animateStyles) => (
+			<Grow keepMounted={keepMounted} open={controlledOpen}>
+				{(contentStyles) => (
 					<Portal disablePortal={disablePortal}>
-						<span
+						<div
 							ref={mergeRefs(ref, refs.setFloating)}
-							className={className}
+							className={classNames}
 							style={{
-								...style,
 								...floatingStyles,
-								...animateStyles,
+								...contentStyles,
+								...style,
 							}}
 							{...restProps}
 							{...getFloatingProps(restProps)}
 						>
 							{content}
-
-							{arrowProp ? (
-								<Arrow
-									ref={arrowRef}
-									className="border-l-transparent border-l-4 border-r-transparent border-r-4 border-b-4 border-b-primary"
-									context={context}
-								/>
-							) : null}
-						</span>
+						</div>
 					</Portal>
 				)}
 			</Grow>
 		</>
-	)
-}
-
-type ArrowProps = ComponentProps<"span", ArrowOwnProps>
-
-type ArrowOwnProps = {
-	context: UseFloatingReturn["context"]
-}
-
-const Arrow = (props: ArrowProps) => {
-	const {
-		context,
-		style,
-		...restProps
-	} = props
-
-	const side = context.placement.split('-').at(0) as Side
-
-	const offsetX = context.middlewareData.arrow?.x ?? 0
-	const offsetY = context.middlewareData.arrow?.y ?? 0
-
-	const placementX = side === "left"
-		? "right"
-		: "left"
-
-	const placementY = side === "top"
-		? "bottom"
-		: "top"
-
-	const vertical = !!offsetX
-
-	const transformX = !vertical
-		? placementX === "left"
-			? "-100%"
-			: "100%"
-		: 0
-
-	const transformY = vertical
-		? placementY === "bottom"
-			? "100%"
-			: "-100%"
-		: 0
-
-	return (
-		<span
-			style={{
-				position: "absolute",
-				[placementX]: offsetX,
-				[placementY]: offsetY,
-				transform: `translate(${transformX}, ${transformY})`,
-				...style,
-			}}
-			{...restProps}
-		/>
 	)
 }
