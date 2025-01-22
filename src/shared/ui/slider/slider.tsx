@@ -7,11 +7,12 @@ import { useCallback, useEffect, useRef, useState, useId, useMemo } from "react"
 import { useCallbackEvent } from "@/shared/hooks/use-callback-event"
 import { useControlledState } from "@/shared/hooks/use-controlled-state"
 
-import { numberArrayFormat, numberClump, numberFindClosest } from "@/shared/utils/number"
+import { numberArrayFormat, numberClump, numberFindClosest, numberFormat } from "@/shared/utils/number"
 import { mergeProps } from "@/shared/utils/props"
 import { isUndefined } from "@/shared/helpers/is-undefined"
 
 import { Fragment } from "react"
+import { Tooltip } from "@/shared/ui/tooltip"
 import { VisuallyHidden } from "@/shared/ui/system"
 
 import { sliderVariants } from "./variants"
@@ -20,6 +21,7 @@ export const Slider = (props: SliderProps) => {
 	const {
 		label,
 		showValueLabel = !!label,
+		showTooltip,
 		showSteps,
 		marks,
 		startContent,
@@ -38,7 +40,7 @@ export const Slider = (props: SliderProps) => {
 		className,
 		size,
 		rounded,
-		color,
+		color = "primary",
 		orientation = "horizontal",
 		disabled,
 		showOutline,
@@ -56,11 +58,16 @@ export const Slider = (props: SliderProps) => {
 		trackProps,
 		fillerProps,
 		thumbProps,
+		tooltipProps,
 	} = slotProps
 
 	const labelId = useId()
 
-	const { getTrackProps, getThumbProps } = useRange({
+	const {
+		dragging,
+		getTrackProps,
+		getThumbProps,
+	} = useRange({
 		step,
 		minValue,
 		maxValue,
@@ -259,12 +266,12 @@ export const Slider = (props: SliderProps) => {
 							return (
 								<div
 									key={index}
-									{...stepProps}
 									data-in-range={getValuePercent(index * step + minValue) <= endOffset && percent >= startOffset}
+									{...stepProps}
 									className={slots.step({ className: stepProps?.className })}
 									style={{
-										...stepProps?.style,
 										[orientation === "vertical" ? "bottom" : "left"]: `${percent * 100}%`,
+										...stepProps?.style,
 									}}
 								/>
 							)
@@ -273,7 +280,19 @@ export const Slider = (props: SliderProps) => {
 
 					{controlledValue.map((value, index) => (
 						<Fragment key={index}>
-							{renderThumb(value, index)}
+							{showTooltip ? (
+								<Tooltip
+									color={color}
+									open={dragging}
+									content={numberFormat(formatOptions).format(value)}
+									placement={orientation === "horizontal" ? "top" : "right"}
+									{...tooltipProps}
+								>
+									{renderThumb(value, index)}
+								</Tooltip>
+							) : (
+								renderThumb(value, index)
+							)}
 						</Fragment>
 					))}
 
@@ -284,12 +303,12 @@ export const Slider = (props: SliderProps) => {
 							return (
 								<div
 									key={index}
-									{...markProps}
 									data-in-range={percent <= endOffset && percent >= startOffset}
+									{...markProps}
 									className={slots.mark({ className: markProps?.className })}
 									style={{
-										...markProps?.style,
 										[orientation === "vertical" ? "bottom" : "left"]: `${percent * 100}%`,
+										...markProps?.style,
 									}}
 								>
 									{label}
@@ -460,6 +479,7 @@ const useRange = (options: UseRangeOptions) => {
 	}
 
 	return {
+		dragging,
 		getTrackProps,
 		getThumbProps,
 	}
