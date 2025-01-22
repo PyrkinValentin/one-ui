@@ -118,14 +118,14 @@ export const Tooltip = (props: TooltipProps) => {
 			</Slot>
 
 			<Grow keepMounted={keepMounted} open={controlledOpen}>
-				{(contentStyles) => (
+				{(growStyles) => (
 					<Portal disablePortal={disablePortal}>
 						<div
 							ref={mergeRefs(ref, refs.setFloating)}
 							className={classNames}
 							style={{
 								...floatingStyles,
-								...contentStyles,
+								...growStyles,
 								...style,
 							}}
 							{...restProps}
