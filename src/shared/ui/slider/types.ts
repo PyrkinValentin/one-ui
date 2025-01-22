@@ -1,5 +1,6 @@
 import type { ReactNode } from "react"
 import type { ComponentProps } from "@/shared/types/props"
+import type { TooltipProps } from "@/shared/ui/tooltip"
 import type { SliderVariantsProps } from "./variants"
 
 export type SliderProps = ComponentProps<
@@ -11,6 +12,7 @@ export type SliderProps = ComponentProps<
 type SliderOwnProps = {
 	label?: ReactNode
 	showValueLabel?: boolean
+	showTooltip?: boolean
 	showSteps?: boolean
 	marks?: Mark[]
 	startContent?: ReactNode
@@ -38,6 +40,7 @@ type SliderSlotProps = {
 	trackProps?: ComponentProps
 	fillerProps?: ComponentProps
 	thumbProps?: ComponentProps
+	tooltipProps?: TooltipProps
 }
 
 type Mark = {
