@@ -1,4 +1,7 @@
-export type { BoxProps, ContainerProps, FlexProps, GridProps } from "./types"
+export type { BoxProps } from "./box"
+export type { ContainerProps } from "./container"
+export type { FlexProps } from "./flex"
+export type { GridProps } from "./grid"
 
 export { Box } from "./box"
 export { Container } from "./container"

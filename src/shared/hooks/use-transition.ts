@@ -8,16 +8,16 @@ import { useDelayedMount } from "@/shared/hooks/use-delayed-mount"
 import { camelCaseToKebabCase } from "@/shared/utils/case"
 import { isNumber } from "@/shared/helpers/is-number"
 
-type UseAnimateCSSProperties = Omit<
+type UseTransitionCSSProperties = Omit<
 	CSSProperties,
 	| "transitionProperty"
 	| "transitionDuration"
 >
 
-type UseAnimateOptions = {
-	initial: UseAnimateCSSProperties
-	enter: UseAnimateCSSProperties
-	exit?: UseAnimateCSSProperties
+type UseTransitionOptions = {
+	initial: UseTransitionCSSProperties
+	enter: UseTransitionCSSProperties
+	exit?: UseTransitionCSSProperties
 	duration?: Duration
 }
 
@@ -27,9 +27,9 @@ export type Duration = number | {
 }
 
 type Status = "initial" | "enter" | "exit"
-type UseAnimateReturn = [boolean, CSSProperties]
+type UseTransitionReturn = [boolean, CSSProperties]
 
-export const useAnimate = (animate: boolean = false, options: UseAnimateOptions): UseAnimateReturn => {
+export const useTransition = (transition: boolean = false, options: UseTransitionOptions): UseTransitionReturn => {
 	const {
 		initial,
 		enter,
@@ -44,13 +44,13 @@ export const useAnimate = (animate: boolean = false, options: UseAnimateOptions)
 	const firstMount = useFirstMount()
 
 	const [status, setStatus] = useState<Status>(
-		animate
+		transition
 			? "enter"
 			: "initial"
 	)
 
 	const [styles, setStyles] = useState<CSSProperties>(
-		animate
+		transition
 			? enter
 			: initial
 	)
@@ -63,18 +63,22 @@ export const useAnimate = (animate: boolean = false, options: UseAnimateOptions)
 				: durationRef.current.exit
 	}, [durationRef])
 
-	const mounted = useDelayedMount(animate, getDuration(status))
+	const mounted = useDelayedMount(transition, getDuration(status))
 
 	useEffect(() => {
 		if (!mounted || firstMount) return
 
-		const frameId = requestAnimationFrame(() => {
-			setStatus(animate ? "enter" : "exit")
-		})
+		if (transition) {
+			const frameId = requestAnimationFrame(() => {
+				setStatus("enter")
+			})
 
-		return () => cancelAnimationFrame(frameId)
+			return () => cancelAnimationFrame(frameId)
+		}
+
+		setStatus("exit")
 	}, [
-		animate,
+		transition,
 		firstMount,
 		mounted,
 	])

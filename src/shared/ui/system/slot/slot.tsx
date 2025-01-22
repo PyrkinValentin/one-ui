@@ -1,6 +1,7 @@
+import type { ElementType } from "react"
 import type { SlotProps } from "./types"
 
-import { cloneElement, ElementType, isValidElement } from "react"
+import { cloneElement, isValidElement } from "react"
 import { mergeProps } from "@/shared/utils/props"
 
 export const Slot = <
@@ -16,9 +17,14 @@ export const Slot = <
 
 	const Component = as
 
-	return isValidElement<SlotProps>(children)
-		? cloneElement(children, shouldMergeProps ? mergeProps(children.props, restProps) : restProps)
-		: fallbackElement
-			? <Component {...restProps}>{children}</Component>
-			: null
+	return (
+		<>
+			{isValidElement<SlotProps>(children)
+				? cloneElement(children, shouldMergeProps ? mergeProps(children.props, restProps) : restProps)
+				: fallbackElement
+					? <Component {...restProps}>{children}</Component>
+					: null
+			}
+		</>
+	)
 }
