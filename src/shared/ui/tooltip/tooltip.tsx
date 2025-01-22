@@ -6,12 +6,12 @@ import type { TooltipProps } from "./types"
 import { useMemo } from "react"
 import { useDismiss, useFloating, useHover, useInteractions, useRole } from "@floating-ui/react"
 import { useControlledState } from "@/shared/hooks/use-controlled-state"
+import { useTransition } from "@/shared/hooks/use-transition"
 
 import { autoUpdate, flip, offset, safePolygon, shift } from "@floating-ui/react"
 import { mergeRefs } from "@/shared/utils/ref"
 
 import { Portal, Slot } from "@/shared/ui/system"
-import { Grow } from "@/shared/ui/transition"
 
 import { tooltipVariants } from "./variants"
 
@@ -23,7 +23,6 @@ export const Tooltip = (props: TooltipProps) => {
 		delay,
 		delayClose,
 		delayHover,
-		keepMounted,
 		disablePortal,
 		defaultOpen = false,
 		open,
@@ -95,7 +94,12 @@ export const Tooltip = (props: TooltipProps) => {
 		dismiss,
 	])
 
-	const classNames = useMemo(() => {
+	const [mounted, growStyle] = useTransition(controlledOpen, {
+		initial: { opacity: 0, transform: "scale(0.97)" },
+		enter: { opacity: 1, transform: "scale(1)" },
+	})
+
+	const slots = useMemo(() => {
 		return tooltipVariants({
 			className,
 			size,
@@ -113,29 +117,31 @@ export const Tooltip = (props: TooltipProps) => {
 
 	return (
 		<>
-			<Slot ref={refs.setReference} {...getReferenceProps()}>
+			<Slot
+				ref={refs.setReference}
+				className={slots.trigger()}
+				{...getReferenceProps()}
+			>
 				{children}
 			</Slot>
 
-			<Grow keepMounted={keepMounted} open={controlledOpen}>
-				{(growStyles) => (
-					<Portal disablePortal={disablePortal}>
-						<div
-							ref={mergeRefs(ref, refs.setFloating)}
-							className={classNames}
-							style={{
-								...floatingStyles,
-								...growStyles,
-								...style,
-							}}
-							{...restProps}
-							{...getFloatingProps(restProps)}
-						>
-							{content}
-						</div>
-					</Portal>
-				)}
-			</Grow>
+			{mounted ? (
+				<Portal disablePortal={disablePortal}>
+					<div
+						ref={mergeRefs(ref, refs.setFloating)}
+						className={slots.base({ className })}
+						style={{
+							...floatingStyles,
+							...growStyle,
+							...style,
+						}}
+						{...restProps}
+						{...getFloatingProps(restProps)}
+					>
+						{content}
+					</div>
+				</Portal>
+			) : null}
 		</>
 	)
 }

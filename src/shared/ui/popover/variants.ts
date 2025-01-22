@@ -2,12 +2,14 @@ import type { VariantProps } from "@/core/theme"
 
 import { tv } from "@/core/theme"
 
-export type TooltipVariantsProps = VariantProps<typeof tooltipVariants>
+export type PopoverVariantsProps = VariantProps<typeof popoverVariants>
+export type PopoverVariantsReturn = ReturnType<typeof popoverVariants>
 
-export const tooltipVariants = tv({
+export const popoverVariants = tv({
 	slots: {
-		base: "z-50 box-border relative px-2.5 py-1 subpixel-antialiased outline-none",
+		base: "box-border relative px-2.5 py-1 subpixel-antialiased outline-none",
 		trigger: "z-10",
+		backdrop: "z-50",
 	},
 	variants: {
 		size: {
@@ -37,11 +39,27 @@ export const tooltipVariants = tv({
 			md: "shadow-medium",
 			lg: "shadow-large",
 		},
+		backdrop: {
+			transparent: "",
+			opaque: {
+				backdrop: "bg-black/50 backdrop-opacity-disabled",
+			},
+			blur: {
+				backdrop: "backdrop-blur-sm backdrop-saturate-150 bg-black/30",
+			},
+		},
+		triggerScaleOnOpen: {
+			true: {
+				trigger: "aria-expanded:scale-[0.97] aria-expanded:opacity-disabled subpixel-antialiased",
+			},
+		},
 	},
 	defaultVariants: {
 		size: "md",
 		color: "default",
 		rounded: "md",
 		shadow: "md",
+		backdrop: "transparent",
+		triggerScaleOnOpen: true,
 	},
 })
