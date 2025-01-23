@@ -106,10 +106,10 @@ export const Checkbox = (props: CheckboxProps) => {
 						aria-labelledby={labelId}
 						name={name}
 						value={value}
-						checked={controlledChecked}
 						required={required}
 						readOnly={readOnly}
 						disabled={disabled}
+						checked={controlledChecked}
 						onChange={handleChange}
 						{...inputProps}
 						className={slots.input({ className: inputProps?.className })}

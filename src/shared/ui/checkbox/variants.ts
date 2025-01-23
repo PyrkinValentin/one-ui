@@ -127,7 +127,7 @@ export const checkboxVariants = tv({
 			},
 			false: {
 				wrapper: [
-					"before:transition-colors group-active:scale-95 transition-transform",
+					"before:transition-colors group-active:scale-[0.97] transition-transform",
 					"after:transition-[transform,opacity] after:ease-linear motion-reduce:transition-none",
 				],
 				icon: "transition-opacity motion-reduce:transition-none",
