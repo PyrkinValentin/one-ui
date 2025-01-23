@@ -13,7 +13,9 @@ export type ButtonGroupContextValue = Pick<
 	| "disabled"
 	| "iconOnly"
 	| "disableAnimation"
-> & {
+> & ButtonGroupContextOwnValue
+
+type ButtonGroupContextOwnValue = {
 	inGroup?: boolean
 }
 

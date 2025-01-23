@@ -32,7 +32,10 @@ export type AvatarGroupContextValue = Pick<
 	| "rounded"
 	| "bordered"
 	| "disabled"
-> & {
+	| "disableAnimation"
+> & AvatarGroupContextOwnValue
+
+type AvatarGroupContextOwnValue = {
 	inGroup?: boolean
 	inGridGroup?: boolean
 }
@@ -48,6 +51,7 @@ export type AvatarGroupProps = ComponentProps<
 		| "rounded"
 		| "bordered"
 		| "disabled"
+		| "disableAnimation"
 	>
 >
 

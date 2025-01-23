@@ -1,7 +1,7 @@
 "use client"
 
 import type { ChangeEvent } from "react"
-import type { SwitchProps } from "./types"
+import type { CheckboxProps } from "./types"
 
 import { useId, useMemo } from "react"
 import { useControlledState } from "@/shared/hooks/use-controlled-state"
@@ -10,34 +10,48 @@ import { isFunction } from "@/shared/helpers/is-function"
 
 import { Slot, VisuallyHidden } from "@/shared/ui/system"
 
-import { switchVariants } from "./variants"
+import { useCheckboxGroupContext } from "./checkbox-group"
+import { checkboxVariants } from "./variants"
+import { CheckboxIcon } from "./checkbox-icon"
 
-export const Switch = (props: SwitchProps) => {
+export const Checkbox = (props: CheckboxProps) => {
 	const {
-		startContent,
-		endContent,
-		thumbIcon,
+		disabledGroup,
+		checkedGroup,
+		onCheckedChangeGroup,
+		...checkboxGroupContext
+	} = useCheckboxGroupContext()
+
+	const {
+		required,
 		name,
 		value,
+		icon,
 		defaultChecked = false,
-		checked,
-		onCheckedChange,
+		checked = checkedGroup?.(value),
+		onCheckedChange = onCheckedChangeGroup?.(value),
 		onChange,
 		slotProps = {},
 		className,
 		size,
 		color,
+		rounded,
+		lineThrough,
 		readOnly,
-		disabled,
+		disabled = disabledGroup?.(value),
+		invalid,
 		disableAnimation,
 		children,
 		...restProps
-	} = props
+	} = {
+		...checkboxGroupContext,
+		...props,
+	}
 
 	const {
 		wrapperProps,
 		inputProps,
-		thumbProps,
+		iconProps,
 		labelProps,
 	} = slotProps
 
@@ -55,18 +69,24 @@ export const Switch = (props: SwitchProps) => {
 	}
 
 	const slots = useMemo(() => {
-		return switchVariants({
+		return checkboxVariants({
 			size,
 			color,
+			rounded,
+			lineThrough,
 			readOnly,
 			disabled,
+			invalid,
 			disableAnimation,
 		})
 	}, [
 		size,
 		color,
+		rounded,
+		lineThrough,
 		readOnly,
 		disabled,
+		invalid,
 		disableAnimation,
 	])
 
@@ -83,11 +103,11 @@ export const Switch = (props: SwitchProps) => {
 				<VisuallyHidden>
 					<input
 						type="checkbox"
-						role="switch"
 						aria-labelledby={labelId}
 						name={name}
 						value={value}
 						checked={controlledChecked}
+						required={required}
 						readOnly={readOnly}
 						disabled={disabled}
 						onChange={handleChange}
@@ -96,31 +116,25 @@ export const Switch = (props: SwitchProps) => {
 					/>
 				</VisuallyHidden>
 
-				{startContent ? (
-					<Slot className={slots.startContent()}>
-						{startContent}
+				{icon ? (
+					<Slot
+						as="svg"
+						{...iconProps}
+						className={slots.icon({ className: iconProps?.className })}
+					>
+						{isFunction(icon)
+							? icon(controlledChecked)
+							: icon
+						}
 					</Slot>
-				) : null}
-
-				<span
-					{...thumbProps}
-					className={slots.thumb({ className: thumbProps?.className })}
-				>
-					{thumbIcon ? (
-						<Slot className={slots.thumbIcon()}>
-							{isFunction(thumbIcon)
-								? thumbIcon(controlledChecked)
-								: thumbIcon
-							}
-						</Slot>
-					) : null}
-				</span>
-
-				{endContent ? (
-					<Slot className={slots.endContent()}>
-						{endContent}
-					</Slot>
-				) : null}
+				) : (
+					<CheckboxIcon
+						checked={controlledChecked}
+						disableAnimation={disableAnimation}
+						{...iconProps}
+						className={slots.icon({ className: iconProps?.className })}
+					/>
+				)}
 			</span>
 
 			{children ? (
