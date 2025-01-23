@@ -4,11 +4,11 @@ import type { OpenChangeReason } from "@floating-ui/react"
 import type { PopoverContextValue, PopoverProps } from "./types"
 
 import { use, useMemo } from "react"
-import { useClick, useDismiss, useRole, useFloating, useInteractions } from "@floating-ui/react"
+import { useClick, useDismiss, useInteractions, useRole } from "@floating-ui/react"
 import { useControlledState } from "@/shared/hooks/use-controlled-state"
+import { useFloating } from "@/shared/hooks/use-floating"
 
 import { createContext } from "react"
-import { autoUpdate, flip, offset, shift } from "@floating-ui/react"
 
 import { popoverVariants } from "./variants"
 
@@ -17,6 +17,7 @@ export const usePopoverContext = () => use(PopoverContext)
 
 export const Popover = (props: PopoverProps) => {
 	const {
+		arrow = true,
 		lockScroll,
 		dismissable,
 		placement,
@@ -49,17 +50,13 @@ export const Popover = (props: PopoverProps) => {
 		placement,
 		open: controlledOpen,
 		onOpenChange: handleOpenChange,
-		whileElementsMounted: (referenceEl, floatingEl, update) => {
-			return autoUpdate(referenceEl, floatingEl, update, {
-				layoutShift: false,
-			})
+		offsetOptions: {
+			mainAxis: offsetProp,
 		},
-		transform: false,
-		middleware: [
-			offset(offsetProp),
-			shift(),
-			flip(),
-		],
+		arrowOptions: {
+			enabled: arrow,
+			padding: 10,
+		},
 	})
 
 	const role = useRole(context, {
@@ -98,6 +95,7 @@ export const Popover = (props: PopoverProps) => {
 	])
 
 	const contextValue: PopoverContextValue = {
+		arrow,
 		lockScroll,
 		disablePortal,
 		context,
