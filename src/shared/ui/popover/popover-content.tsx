@@ -21,6 +21,7 @@ export const PopoverContent = (props: PopoverContentProps) => {
 	} = props
 
 	const {
+		arrow,
 		lockScroll,
 		disablePortal,
 		context,
@@ -30,7 +31,11 @@ export const PopoverContent = (props: PopoverContentProps) => {
 		getFloatingProps,
 	} = usePopoverContext()
 
-	const { backdropProps } = slotProps
+	const {
+		backdropProps,
+		contentProps,
+		arrowProps,
+	} = slotProps
 
 	const [mounted, fadeStyle] = useTransition(context?.open, {
 		initial: { opacity: 0 },
@@ -41,7 +46,7 @@ export const PopoverContent = (props: PopoverContentProps) => {
 		initial: { transform: "scale(0.97)" },
 		enter: { transform: "scale(1)" },
 	})
-
+	
 	return (
 		<>
 			{mounted ? (
@@ -66,7 +71,24 @@ export const PopoverContent = (props: PopoverContentProps) => {
 							{...restProps}
 							{...getFloatingProps?.(restProps)}
 						>
-							{children}
+							<div
+								{...contentProps}
+								className={slots?.content({ className: contentProps?.className })}
+							>
+								{children}
+							</div>
+
+							{arrow ? (
+								<div
+									{...arrowProps}
+									ref={mergeRefs(arrowProps?.ref, refs?.setArrow)}
+									className={slots?.arrow({ className: arrowProps?.className })}
+									style={{
+										...context?.arrowStyles,
+										...arrowProps?.style,
+									}}
+								/>
+							) : null}
 						</div>
 					</FloatingOverlay>
 				</Portal>

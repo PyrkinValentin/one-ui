@@ -4,12 +4,13 @@ import type { OpenChangeReason } from "@floating-ui/react"
 import type { TooltipProps } from "./types"
 
 import { useMemo } from "react"
-import { useDismiss, useFloating, useHover, useInteractions, useRole } from "@floating-ui/react"
+import { useDismiss, useHover, useInteractions, useRole } from "@floating-ui/react"
 import { useControlledState } from "@/shared/hooks/use-controlled-state"
+import { useFloating } from "@/shared/hooks/use-floating"
 import { useTransition } from "@/shared/hooks/use-transition"
 
-import { autoUpdate, flip, offset, safePolygon, shift } from "@floating-ui/react"
 import { mergeRefs } from "@/shared/utils/ref"
+import { safePolygon } from "@floating-ui/react"
 
 import { Portal, Slot } from "@/shared/ui/system"
 
@@ -17,6 +18,7 @@ import { tooltipVariants } from "./variants"
 
 export const Tooltip = (props: TooltipProps) => {
 	const {
+		arrow = true,
 		dismissable = true,
 		placement,
 		offset: offsetProp = 7,
@@ -30,6 +32,7 @@ export const Tooltip = (props: TooltipProps) => {
 		content,
 		ref,
 		style,
+		slotProps = {},
 		className,
 		size,
 		color,
@@ -38,6 +41,11 @@ export const Tooltip = (props: TooltipProps) => {
 		children,
 		...restProps
 	} = props
+
+	const {
+		contentProps,
+		arrowProps,
+	} = slotProps
 
 	const [controlledOpen, setControlledOpen] = useControlledState({
 		defaultValue: defaultOpen,
@@ -53,21 +61,18 @@ export const Tooltip = (props: TooltipProps) => {
 		context,
 		refs,
 		floatingStyles,
+		arrowStyles,
 	} = useFloating({
 		placement,
 		open: controlledOpen,
 		onOpenChange: handleOpenChange,
-		whileElementsMounted: (referenceEl, floatingEl, update) => {
-			return autoUpdate(referenceEl, floatingEl, update, {
-				layoutShift: false,
-			})
+		offsetOptions: {
+			mainAxis: offsetProp,
 		},
-		transform: false,
-		middleware: [
-			offset(offsetProp),
-			shift(),
-			flip(),
-		],
+		arrowOptions: {
+			enabled: arrow,
+			padding: 10,
+		},
 	})
 
 	const role = useRole(context, {
@@ -138,7 +143,24 @@ export const Tooltip = (props: TooltipProps) => {
 						{...restProps}
 						{...getFloatingProps(restProps)}
 					>
-						{content}
+						<div
+							{...contentProps}
+							className={slots.content({ className: contentProps?.className })}
+						>
+							{content}
+						</div>
+
+						{arrow ? (
+							<div
+								{...arrowProps}
+								ref={mergeRefs(arrowProps?.ref, refs.setArrow)}
+								className={slots.arrow({ className: arrowProps?.className })}
+								style={{
+									...arrowStyles,
+									...arrowProps?.style,
+								}}
+							/>
+						) : null}
 					</div>
 				</Portal>
 			) : null}

@@ -1,21 +1,14 @@
 import type { ReactNode } from "react"
-
-import type {
-	FloatingOverlayProps,
-	OpenChangeReason,
-	Placement,
-	UseFloatingReturn,
-	UseInteractionsReturn
-} from "@floating-ui/react"
-
+import type { FloatingOverlayProps, OpenChangeReason, Placement, UseInteractionsReturn } from "@floating-ui/react"
 import type { ComponentProps } from "@/shared/types/props"
 import type { PortalProps } from "@/shared/ui/system"
+import type { UseFloatingReturn } from "@/shared/hooks/use-floating"
 import type { PopoverVariantsProps, PopoverVariantsReturn } from "./variants"
 
 export type PopoverContextValue =
 	Partial<Pick<UseFloatingReturn, "context" | "refs">> &
 	Partial<Pick<UseInteractionsReturn, "getReferenceProps" | "getFloatingProps">> &
-	Pick<PopoverProps, "lockScroll" | "disablePortal"> &
+	Pick<PopoverProps, "arrow" | "lockScroll" | "disablePortal"> &
 	PopoverOwnContextValue
 
 type PopoverOwnContextValue = {
@@ -30,6 +23,7 @@ export type PopoverProps =
 	PopoverOwnProps
 
 type PopoverOwnProps = {
+	arrow?: boolean
 	dismissable?: boolean
 	placement?: Placement
 	offset?: number
@@ -42,6 +36,8 @@ type PopoverOwnProps = {
 
 type PopoverSlotProps = {
 	backdropProps?: ComponentProps<"div", FloatingOverlayProps>
+	contentProps?: ComponentProps
+	arrowProps?: ComponentProps
 }
 
 export type PopoverTriggerProps = {
