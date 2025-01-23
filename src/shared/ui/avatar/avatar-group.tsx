@@ -15,15 +15,16 @@ export const useAvatarGroupContext = () => use(AvatarGroupContext)
 export const AvatarGroup = (props: AvatarGroupProps) => {
 	const {
 		maxCount = 5,
-		renderCount,
-		slotProps = {},
-		className,
-		grid,
 		size,
 		color,
 		rounded,
 		bordered,
 		disabled,
+		disableAnimation,
+		renderCount,
+		slotProps = {},
+		className,
+		grid,
 		children,
 		...restProps
 	} = props
@@ -46,6 +47,7 @@ export const AvatarGroup = (props: AvatarGroupProps) => {
 		rounded,
 		bordered,
 		disabled,
+		disableAnimation,
 	}
 
 	return (

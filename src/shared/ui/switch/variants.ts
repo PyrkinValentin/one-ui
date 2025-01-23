@@ -8,8 +8,8 @@ export const switchVariants = tv({
 	slots: {
 		base: "relative max-w-fit inline-flex items-center justify-start cursor-pointer touch-none select-none",
 		wrapper: [
-			"group overflow-hidden relative px-1 inline-flex items-center justify-start flex-shrink-0 bg-default-200 rounded-full",
-			"outline-none [&:has(input:focus-visible)]:z-10 [&:has(input:focus-visible)]:ring-2",
+			"overflow-hidden relative px-1 inline-flex items-center justify-start flex-shrink-0 bg-default-200",
+			"rounded-full outline-none [&:has(input:focus-visible)]:z-10 [&:has(input:focus-visible)]:ring-2",
 			"[&:has(input:focus-visible)]:ring-focus [&:has(input:focus-visible)]:ring-offset-2",
 			"[&:has(input:focus-visible)]:ring-offset-background",
 		],
@@ -18,7 +18,7 @@ export const switchVariants = tv({
 		thumbIcon: "text-black",
 		startContent: "z-0 absolute start-1.5",
 		endContent: "z-0 absolute end-1.5 text-default-600",
-		label: "text-foreground ms-2",
+		label: "relative ms-2 text-foreground",
 	},
 	variants: {
 		size: {
@@ -98,6 +98,6 @@ export const switchVariants = tv({
 	defaultVariants: {
 		size: "md",
 		color: "primary",
-		disabled: false,
+		disableAnimation: false,
 	},
 })

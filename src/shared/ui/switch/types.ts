@@ -10,6 +10,7 @@ export type SwitchProps = ComponentProps<
 
 type SwitchOwnProps = {
 	name?: string
+	value?: string
 	defaultChecked?: boolean
 	checked?: boolean
 	onCheckedChange?: (checked: boolean) => void
