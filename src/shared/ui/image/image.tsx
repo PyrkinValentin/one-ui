@@ -59,7 +59,7 @@ export const Image = (props: ImageProps) => {
 		setLoaded(false)
 	}
 
-	const slots = useMemo(() => {
+	const classNames = useMemo(() => {
 		return imageVariants({
 			rounded,
 			shadow,
@@ -78,7 +78,7 @@ export const Image = (props: ImageProps) => {
 	return (
 		<span
 			{...baseProps}
-			className={slots.base({ className: baseProps?.className })}
+			className={classNames.base({ className: baseProps?.className })}
 		>
 			{/* eslint-disable-next-line @next/next/no-img-element */}
 			<img
@@ -87,7 +87,7 @@ export const Image = (props: ImageProps) => {
 				loading={loading}
 				src={src}
 				alt={alt}
-				className={slots.img({ className })}
+				className={classNames.img({ className })}
 				onLoad={handleLoad}
 				onError={handleError}
 				{...restProps}
@@ -96,7 +96,7 @@ export const Image = (props: ImageProps) => {
 			{!loaded && fallback ? (
 				<span
 					{...fallbackProps}
-					className={slots.fallback({ className: fallbackProps?.className })}
+					className={classNames.fallback({ className: fallbackProps?.className })}
 				>
 					{fallback}
 				</span>

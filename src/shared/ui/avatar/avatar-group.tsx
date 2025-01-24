@@ -35,7 +35,7 @@ export const AvatarGroup = (props: AvatarGroupProps) => {
 	const childrenWithinMax = collectionAvatars.slice(0, maxCount)
 	const remainingCount = collectionAvatars.length - childrenWithinMax.length
 
-	const slots = useMemo(() => {
+	const classNames = useMemo(() => {
 		return avatarGroupVariants({ grid })
 	}, [grid])
 
@@ -54,7 +54,7 @@ export const AvatarGroup = (props: AvatarGroupProps) => {
 		<AvatarGroupContext value={contextValue}>
 			<div
 				role="group"
-				className={slots.base({ className })}
+				className={classNames.base({ className })}
 				{...restProps}
 			>
 				{childrenWithinMax}
@@ -64,7 +64,7 @@ export const AvatarGroup = (props: AvatarGroupProps) => {
 						{!renderCount ? (
 							<Avatar
 								{...countProps}
-								className={slots.count({ className: countProps?.className })}
+								className={classNames.count({ className: countProps?.className })}
 								name={`+${remainingCount}`}
 							/>
 						) : renderCount(remainingCount)}

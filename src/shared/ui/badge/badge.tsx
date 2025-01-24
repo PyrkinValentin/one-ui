@@ -23,7 +23,7 @@ export const Badge = (props: BadgeProps) => {
 
 	const { baseProps } = slotProps
 
-	const slots = useMemo(() => {
+	const classNames = useMemo(() => {
 		return badgeVariants({
 			variant,
 			size,
@@ -48,12 +48,12 @@ export const Badge = (props: BadgeProps) => {
 	return (
 		<div
 			{...baseProps}
-			className={slots.base({ className: baseProps?.className })}
+			className={classNames.base({ className: baseProps?.className })}
 		>
 			{children}
 
 			<span
-				className={slots.badge({ className })}
+				className={classNames.badge({ className })}
 				{...restProps}
 			>
 				{content}

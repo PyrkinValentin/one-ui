@@ -150,7 +150,7 @@ export const Slider = (props: SliderProps) => {
 		? !range
 		: false
 
-	const slots = useMemo(() => {
+	const classNames = useMemo(() => {
 		return sliderVariants({
 			size,
 			rounded,
@@ -176,7 +176,7 @@ export const Slider = (props: SliderProps) => {
 		<div
 			key={index}
 			{...mergeProps(thumbProps, getThumbProps({ trigger: index }))}
-			className={slots.thumb({ className: thumbProps?.className })}
+			className={classNames.thumb({ className: thumbProps?.className })}
 			style={{
 				...thumbProps?.style,
 				[orientation === "horizontal" ? "left" : "bottom"]: `${getThumbPercent(index) * 100}%`,
@@ -205,19 +205,19 @@ export const Slider = (props: SliderProps) => {
 		<div
 			role="group"
 			aria-labelledby={labelId}
-			className={slots.base({ className })}
+			className={classNames.base({ className })}
 			{...restProps}
 		>
 			{(label || showValueLabel) ? (
 				<div
 					{...labelWrapperProps}
-					className={slots.labelWrapper({ className: labelWrapperProps?.className })}
+					className={classNames.labelWrapper({ className: labelWrapperProps?.className })}
 				>
 					{label ? (
 						<label
 							{...labelProps}
 							id={labelId}
-							className={slots.label({ className: labelProps?.className })}
+							className={classNames.label({ className: labelProps?.className })}
 						>
 							{label}
 						</label>
@@ -228,7 +228,7 @@ export const Slider = (props: SliderProps) => {
 							aria-live="off"
 							{...valueProps}
 							htmlFor={controlledValue.map((_, index) => `${labelId}-${index}`).join(" ")}
-							className={slots.value({ className: valueProps?.className })}
+							className={classNames.value({ className: valueProps?.className })}
 						>
 							{renderValue
 								? renderValue({ value: controlledValue, textValue: getTextValue() })
@@ -241,17 +241,17 @@ export const Slider = (props: SliderProps) => {
 
 			<div
 				{...trackWrapperProps}
-				className={slots.trackWrapper({ className: trackWrapperProps?.className })}
+				className={classNames.trackWrapper({ className: trackWrapperProps?.className })}
 			>
 				{startContent}
 
 				<div
 					{...mergeProps(trackProps, getTrackProps())}
-					className={slots.track({ className: trackProps?.className })}
+					className={classNames.track({ className: trackProps?.className })}
 				>
 					<div
 						{...fillerProps}
-						className={slots.filler({ className: fillerProps?.className })}
+						className={classNames.filler({ className: fillerProps?.className })}
 						style={{
 							...fillerProps?.style,
 							[orientation === "vertical" ? "bottom" : "left"]: `${startOffset * 100}%`,
@@ -268,7 +268,7 @@ export const Slider = (props: SliderProps) => {
 									key={index}
 									data-in-range={getValuePercent(index * step + minValue) <= endOffset && percent >= startOffset}
 									{...stepProps}
-									className={slots.step({ className: stepProps?.className })}
+									className={classNames.step({ className: stepProps?.className })}
 									style={{
 										[orientation === "vertical" ? "bottom" : "left"]: `${percent * 100}%`,
 										...stepProps?.style,
@@ -305,7 +305,7 @@ export const Slider = (props: SliderProps) => {
 									key={index}
 									data-in-range={percent <= endOffset && percent >= startOffset}
 									{...markProps}
-									className={slots.mark({ className: markProps?.className })}
+									className={classNames.mark({ className: markProps?.className })}
 									style={{
 										[orientation === "vertical" ? "bottom" : "left"]: `${percent * 100}%`,
 										...markProps?.style,

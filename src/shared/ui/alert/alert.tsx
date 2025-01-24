@@ -42,7 +42,7 @@ export const Alert = (props: AlertProps) => {
 		descriptionProps,
 	} = slotProps
 
-	const slots = useMemo(() => {
+	const classNames = useMemo(() => {
 		return alertVariants({
 			variant,
 			color,
@@ -63,39 +63,39 @@ export const Alert = (props: AlertProps) => {
 	return (
 		<div
 			role="alert"
-			className={slots.base({ className })}
+			className={classNames.base({ className })}
 			{...restProps}
 		>
 			{startContent}
 
 			<div
 				{...iconWrapperProps}
-				className={slots.iconWrapper({ className: iconWrapperProps?.className })}
+				className={classNames.iconWrapper({ className: iconWrapperProps?.className })}
 			>
 				{icon ? (
 					<Slot
 						as="svg"
 						{...alertIconProps}
-						className={slots.alertIcon({ className: alertIconProps?.className })}
+						className={classNames.alertIcon({ className: alertIconProps?.className })}
 					>
 						{icon}
 					</Slot>
 				) : (
 					<Icon
 						{...alertIconProps}
-						className={slots.alertIcon({ className: alertIconProps?.className })}
+						className={classNames.alertIcon({ className: alertIconProps?.className })}
 					/>
 				)}
 			</div>
 
 			<div
 				{...mainWrapperProps}
-				className={slots.mainWrapper({ className: mainWrapperProps?.className })}
+				className={classNames.mainWrapper({ className: mainWrapperProps?.className })}
 			>
 				{title ? (
 					<div
 						{...titleProps}
-						className={slots.title({ className: titleProps?.className })}
+						className={classNames.title({ className: titleProps?.className })}
 					>
 						{title}
 					</div>
@@ -104,7 +104,7 @@ export const Alert = (props: AlertProps) => {
 				{description ? (
 					<div
 						{...descriptionProps}
-						className={slots.description({ className: descriptionProps?.className })}
+						className={classNames.description({ className: descriptionProps?.className })}
 					>
 						{description}
 					</div>

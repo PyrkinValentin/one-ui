@@ -68,7 +68,7 @@ export const Checkbox = (props: CheckboxProps) => {
 		setControlledChecked?.(ev.target.checked)
 	}
 
-	const slots = useMemo(() => {
+	const classNames = useMemo(() => {
 		return checkboxVariants({
 			size,
 			color,
@@ -92,13 +92,13 @@ export const Checkbox = (props: CheckboxProps) => {
 
 	return (
 		<label
-			className={slots.base({ className })}
+			className={classNames.base({ className })}
 			{...restProps}
 		>
 			<span
 				aria-hidden="true"
 				{...wrapperProps}
-				className={slots.wrapper({ className: wrapperProps?.className })}
+				className={classNames.wrapper({ className: wrapperProps?.className })}
 			>
 				<VisuallyHidden>
 					<input
@@ -112,7 +112,7 @@ export const Checkbox = (props: CheckboxProps) => {
 						checked={controlledChecked}
 						onChange={handleChange}
 						{...inputProps}
-						className={slots.input({ className: inputProps?.className })}
+						className={classNames.input({ className: inputProps?.className })}
 					/>
 				</VisuallyHidden>
 
@@ -120,7 +120,7 @@ export const Checkbox = (props: CheckboxProps) => {
 					<Slot
 						as="svg"
 						{...iconProps}
-						className={slots.icon({ className: iconProps?.className })}
+						className={classNames.icon({ className: iconProps?.className })}
 					>
 						{isFunction(icon)
 							? icon(controlledChecked)
@@ -132,7 +132,7 @@ export const Checkbox = (props: CheckboxProps) => {
 						checked={controlledChecked}
 						disableAnimation={disableAnimation}
 						{...iconProps}
-						className={slots.icon({ className: iconProps?.className })}
+						className={classNames.icon({ className: iconProps?.className })}
 					/>
 				)}
 			</span>
@@ -141,7 +141,7 @@ export const Checkbox = (props: CheckboxProps) => {
 				<span
 					id={labelId}
 					{...labelProps}
-					className={slots.label({ className: labelProps?.className })}
+					className={classNames.label({ className: labelProps?.className })}
 				>
 					{children}
 				</span>

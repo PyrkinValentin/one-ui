@@ -27,7 +27,7 @@ export const Card = (props: CardProps) => {
 		...restProps
 	} = props
 
-	const slots = useMemo(() => {
+	const classNames = useMemo(() => {
 		return cardVariants({
 			shadow,
 			rounded,
@@ -52,13 +52,13 @@ export const Card = (props: CardProps) => {
 	])
 
 	const contextValue: CardContextValue = {
-		slots,
+		classNames,
 	}
 
 	return (
 		<CardContext value={contextValue}>
 			<div
-				className={slots.base({ className })}
+				className={classNames.base({ className })}
 				tabIndex={clickable && !disabled ? 0 : undefined}
 				{...restProps}
 			>

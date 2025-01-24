@@ -75,7 +75,7 @@ export const Avatar = (props: AvatarProps) => {
 		setLoaded(false)
 	}
 
-	const slots = useMemo(() => {
+	const classNames = useMemo(() => {
 		return avatarVariants({
 			size,
 			color,
@@ -102,7 +102,7 @@ export const Avatar = (props: AvatarProps) => {
 	return (
 		<span
 			tabIndex={focusable && !disabled ? 0 : undefined}
-			className={slots.base({ className })}
+			className={classNames.base({ className })}
 			{...restProps}
 		>
 			{src ? (
@@ -114,7 +114,7 @@ export const Avatar = (props: AvatarProps) => {
 					alt={alt}
 					{...imgProps}
 					ref={mergeRefs(imgProps?.ref, imageRef)}
-					className={slots.img({ className: imgProps?.className })}
+					className={classNames.img({ className: imgProps?.className })}
 					onLoad={handleLoad}
 					onError={handleError}
 				/>
@@ -127,7 +127,7 @@ export const Avatar = (props: AvatarProps) => {
 							role="img"
 							aria-label={alt}
 							{...fallbackProps}
-							className={slots.fallback({ className: fallbackProps?.className })}
+							className={classNames.fallback({ className: fallbackProps?.className })}
 						>
 							{fallback}
 						</div>
@@ -138,7 +138,7 @@ export const Avatar = (props: AvatarProps) => {
 									role="img"
 									aria-label={alt}
 									{...nameProps}
-									className={slots.name({ className: nameProps?.className })}
+									className={classNames.name({ className: nameProps?.className })}
 								>
         					{getInitials(name)}
       					</span>
@@ -147,7 +147,7 @@ export const Avatar = (props: AvatarProps) => {
 									role="img"
 									aria-label={alt}
 									{...iconProps}
-									className={slots.icon({ className: iconProps?.className })}
+									className={classNames.icon({ className: iconProps?.className })}
 								>
         					{icon}
       					</span>

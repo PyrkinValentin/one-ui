@@ -67,7 +67,7 @@ export const RadioGroup = (props: RadioGroupProps) => {
 		setControlledValue?.(ev.target.value)
 	}
 
-	const slots = useMemo(() => {
+	const classNames = useMemo(() => {
 		return radioGroupVariants({
 			orientation,
 			required,
@@ -100,13 +100,13 @@ export const RadioGroup = (props: RadioGroupProps) => {
 				role="radiogroup"
 				aria-orientation={orientation}
 				aria-describedby={descriptionId}
-				className={slots.base({ className })}
+				className={classNames.base({ className })}
 				{...restProps}
 			>
 				{label ? (
 					<span
 						{...labelProps}
-						className={slots.label({ className: labelProps?.className })}
+						className={classNames.label({ className: labelProps?.className })}
 					>
 						{label}
 					</span>
@@ -115,7 +115,7 @@ export const RadioGroup = (props: RadioGroupProps) => {
 				<div
 					role="presentation"
 					{...wrapperProps}
-					className={slots.wrapper({ className: wrapperProps?.className })}
+					className={classNames.wrapper({ className: wrapperProps?.className })}
 				>
 					{children}
 				</div>
@@ -124,7 +124,7 @@ export const RadioGroup = (props: RadioGroupProps) => {
 					<span
 						id={descriptionId}
 						{...invalidMessageProps}
-						className={slots.invalidMessage({ className: invalidMessageProps?.className })}
+						className={classNames.invalidMessage({ className: invalidMessageProps?.className })}
 					>
 						{invalidMessage}
 					</span>
@@ -132,7 +132,7 @@ export const RadioGroup = (props: RadioGroupProps) => {
 					<span
 						id={descriptionId}
 						{...descriptionProps}
-						className={slots.description({ className: descriptionProps?.className })}
+						className={classNames.description({ className: descriptionProps?.className })}
 					>
 						{description}
 					</span>

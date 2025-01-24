@@ -48,7 +48,7 @@ export const Radio = (props: RadioProps) => {
 	const labelId = useId()
 	const descriptionId = useId()
 
-	const slots = useMemo(() => {
+	const classNames = useMemo(() => {
 		return radioVariants({
 			size,
 			color,
@@ -68,12 +68,12 @@ export const Radio = (props: RadioProps) => {
 
 	return (
 		<label
-			className={slots.base({ className })}
+			className={classNames.base({ className })}
 			{...restProps}
 		>
 			<span
 				{...wrapperProps}
-				className={slots.wrapper({ className: wrapperProps?.className })}
+				className={classNames.wrapper({ className: wrapperProps?.className })}
 			>
 				<VisuallyHidden>
 					<input
@@ -87,25 +87,25 @@ export const Radio = (props: RadioProps) => {
 						checked={checkedGroup?.(value)}
 						onChange={onChangeGroup}
 						{...inputProps}
-						className={slots.input({ className: inputProps?.className })}
+						className={classNames.input({ className: inputProps?.className })}
 					/>
 				</VisuallyHidden>
 
 				<span
 					{...controlProps}
-					className={slots.control({ className: controlProps?.className })}
+					className={classNames.control({ className: controlProps?.className })}
 				/>
 			</span>
 
 			<span
 				{...labelWrapperProps}
-				className={slots.labelWrapper({ className: labelWrapperProps?.className })}
+				className={classNames.labelWrapper({ className: labelWrapperProps?.className })}
 			>
 				{children ? (
 					<span
 						id={labelId}
 						{...labelProps}
-						className={slots.label({ className: labelProps?.className })}
+						className={classNames.label({ className: labelProps?.className })}
 					>
 						{children}
 					</span>
@@ -115,7 +115,7 @@ export const Radio = (props: RadioProps) => {
 					<span
 						id={descriptionId}
 						{...descriptionProps}
-						className={slots.description({ className: descriptionProps?.className })}
+						className={classNames.description({ className: descriptionProps?.className })}
 					>
 						{description}
 					</span>

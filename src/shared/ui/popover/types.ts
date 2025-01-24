@@ -12,7 +12,7 @@ export type PopoverContextValue =
 	PopoverOwnContextValue
 
 type PopoverOwnContextValue = {
-	slots?: PopoverVariantsReturn
+	classNames?: PopoverVariantsReturn
 	slotProps?: PopoverSlotProps
 }
 

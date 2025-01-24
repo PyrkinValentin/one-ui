@@ -28,7 +28,7 @@ export const Chip = (props: ChipProps) => {
 		closeButtonProps,
 	} = slotProps
 
-	const slots = useMemo(() => {
+	const classNames = useMemo(() => {
 		return chipVariants({
 			className,
 			variant,
@@ -47,17 +47,17 @@ export const Chip = (props: ChipProps) => {
 	])
 
 	return (
-		<div className={slots.base({ className })} {...restProps}>
+		<div className={classNames.base({ className })} {...restProps}>
 			{variant === "dot" && !startContent ? (
 				<span
 					{...dotProps}
-					className={slots.dot({ className: dotProps?.className })}
+					className={classNames.dot({ className: dotProps?.className })}
 				/>
 			) : startContent}
 
 			<span
 				{...contentProps}
-				className={slots.content({ className: contentProps?.className })}
+				className={classNames.content({ className: contentProps?.className })}
 			>
 				{children}
 			</span>
@@ -68,7 +68,7 @@ export const Chip = (props: ChipProps) => {
 					disabled={disabled}
 					onClick={onClose}
 					{...closeButtonProps}
-					className={slots.closeButton({ className: closeButtonProps?.className })}
+					className={classNames.closeButton({ className: closeButtonProps?.className })}
 				>
 					{endContent ?? <MdCancel/>}
 				</button>

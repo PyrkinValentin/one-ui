@@ -3,7 +3,7 @@ import type { CardBodyProps } from "./types"
 import { useCardContext } from "./card"
 
 export const CardBody = (props: CardBodyProps) => {
-	const { slots } = useCardContext()
+	const { classNames } = useCardContext()
 
 	const {
 		className,
@@ -12,7 +12,7 @@ export const CardBody = (props: CardBodyProps) => {
 	} = props
 
 	return (
-		<div className={slots?.body({ className })} {...restProps}>
+		<div className={classNames?.body({ className })} {...restProps}>
 			{children}
 		</div>
 	)
