@@ -8,20 +8,33 @@ import { FaMicrophone } from "react-icons/fa"
 const Home = () => {
 	return (
 		<Container className="pt-12 space-y-5">
-			<Breadcrumbs variant="solid">
-				<BreadcrumbsItem href="/" startContent={<FaHome/>}>
+			<Breadcrumbs underline="hover">
+				<BreadcrumbsItem
+					href="/"
+					startContent={<FaHome/>}
+				>
 					Home
 				</BreadcrumbsItem>
 
-				<BreadcrumbsItem startContent={<SiApplemusic/>}>
+				<BreadcrumbsItem
+					current
+					href="/"
+					startContent={<SiApplemusic/>}
+				>
 					Music
 				</BreadcrumbsItem>
 
-				<BreadcrumbsItem startContent={<BiSolidUserRectangle/>}>
+				<BreadcrumbsItem
+					href="/"
+					startContent={<BiSolidUserRectangle/>}
+				>
 					Artists
 				</BreadcrumbsItem>
 
-				<BreadcrumbsItem startContent={<FaMicrophone/>}>
+				<BreadcrumbsItem
+					href="/"
+					startContent={<FaMicrophone/>}
+				>
 					Microphone
 				</BreadcrumbsItem>
 			</Breadcrumbs>

@@ -3,7 +3,6 @@ import type { VariantProps } from "@/core/theme"
 import { tv } from "@/core/theme"
 
 export type BreadcrumbsVariantsProps = VariantProps<typeof breadcrumbsVariants>
-export type BreadcrumbsVariantsReturn = ReturnType<typeof breadcrumbsVariants>
 
 export const breadcrumbsVariants = tv({
 	slots: {
