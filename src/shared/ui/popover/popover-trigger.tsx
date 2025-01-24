@@ -7,18 +7,18 @@ import { Slot } from "@/shared/ui/system"
 import { usePopoverContext } from "./popover"
 
 export const PopoverTrigger = (props: PopoverTriggerProps) => {
-	const { children } = props
-
 	const {
 		refs,
-		slots,
+		classNames,
 		getReferenceProps,
 	} = usePopoverContext()
+
+	const { children } = props
 
 	return (
 		<Slot
 			ref={refs?.setReference}
-			className={slots?.trigger()}
+			className={classNames?.trigger()}
 			{...getReferenceProps?.()}
 		>
 			{children}

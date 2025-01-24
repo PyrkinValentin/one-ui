@@ -19,7 +19,7 @@ export const Spinner = (props: SpinnerProps) => {
 		labelProps,
 	} = slotProps
 
-	const slots = useMemo(() => {
+	const classNames = useMemo(() => {
 		return spinnerVariants({
 			size,
 			color,
@@ -31,18 +31,18 @@ export const Spinner = (props: SpinnerProps) => {
 
 	return (
 		<div
-			className={slots.base({ className })}
+			className={classNames.base({ className })}
 			{...restProps}
 		>
 			<div
 				{...spinnerProps}
-				className={slots.spinner({ className: spinnerProps?.className })}
+				className={classNames.spinner({ className: spinnerProps?.className })}
 			/>
 
 			{children ? (
 				<span
 					{...labelProps}
-					className={slots.label({ className: labelProps?.className })}
+					className={classNames.label({ className: labelProps?.className })}
 				>
 					{children}
 				</span>

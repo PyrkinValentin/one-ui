@@ -104,7 +104,7 @@ export const Tooltip = (props: TooltipProps) => {
 		enter: { opacity: 1, transform: "scale(1)" },
 	})
 
-	const slots = useMemo(() => {
+	const classNames = useMemo(() => {
 		return tooltipVariants({
 			className,
 			size,
@@ -124,7 +124,7 @@ export const Tooltip = (props: TooltipProps) => {
 		<>
 			<Slot
 				ref={refs.setReference}
-				className={slots.trigger()}
+				className={classNames.trigger()}
 				{...getReferenceProps()}
 			>
 				{children}
@@ -134,7 +134,7 @@ export const Tooltip = (props: TooltipProps) => {
 				<Portal disablePortal={disablePortal}>
 					<div
 						ref={mergeRefs(ref, refs.setFloating)}
-						className={slots.base({ className })}
+						className={classNames.base({ className })}
 						style={{
 							...floatingStyles,
 							...growStyle,
@@ -145,7 +145,7 @@ export const Tooltip = (props: TooltipProps) => {
 					>
 						<div
 							{...contentProps}
-							className={slots.content({ className: contentProps?.className })}
+							className={classNames.content({ className: contentProps?.className })}
 						>
 							{content}
 						</div>
@@ -154,7 +154,7 @@ export const Tooltip = (props: TooltipProps) => {
 							<div
 								{...arrowProps}
 								ref={mergeRefs(arrowProps?.ref, refs.setArrow)}
-								className={slots.arrow({ className: arrowProps?.className })}
+								className={classNames.arrow({ className: arrowProps?.className })}
 								style={{
 									...arrowStyles,
 									...arrowProps?.style,

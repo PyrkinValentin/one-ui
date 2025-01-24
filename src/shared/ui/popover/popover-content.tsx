@@ -13,23 +13,23 @@ import { usePopoverContext } from "./popover"
 
 export const PopoverContent = (props: PopoverContentProps) => {
 	const {
+		arrow,
+		lockScroll,
+		disablePortal,
+		context,
+		refs,
+		classNames,
+		slotProps = {},
+		getFloatingProps,
+	} = usePopoverContext()
+
+	const {
 		ref,
 		style,
 		className,
 		children,
 		...restProps
 	} = props
-
-	const {
-		arrow,
-		lockScroll,
-		disablePortal,
-		context,
-		refs,
-		slots,
-		slotProps = {},
-		getFloatingProps,
-	} = usePopoverContext()
 
 	const {
 		backdropProps,
@@ -46,7 +46,7 @@ export const PopoverContent = (props: PopoverContentProps) => {
 		initial: { transform: "scale(0.97)" },
 		enter: { transform: "scale(1)" },
 	})
-	
+
 	return (
 		<>
 			{mounted ? (
@@ -54,7 +54,7 @@ export const PopoverContent = (props: PopoverContentProps) => {
 					<FloatingOverlay
 						lockScroll={lockScroll}
 						{...backdropProps}
-						className={slots?.backdrop({ className: backdropProps?.className })}
+						className={classNames?.backdrop({ className: backdropProps?.className })}
 						style={{
 							...fadeStyle,
 							...backdropProps?.style,
@@ -62,7 +62,7 @@ export const PopoverContent = (props: PopoverContentProps) => {
 					>
 						<div
 							ref={mergeRefs(ref, refs?.setFloating)}
-							className={slots?.base({ className })}
+							className={classNames?.base({ className })}
 							style={{
 								...context?.floatingStyles,
 								...zoomStyle,
@@ -73,7 +73,7 @@ export const PopoverContent = (props: PopoverContentProps) => {
 						>
 							<div
 								{...contentProps}
-								className={slots?.content({ className: contentProps?.className })}
+								className={classNames?.content({ className: contentProps?.className })}
 							>
 								{children}
 							</div>
@@ -82,7 +82,7 @@ export const PopoverContent = (props: PopoverContentProps) => {
 								<div
 									{...arrowProps}
 									ref={mergeRefs(arrowProps?.ref, refs?.setArrow)}
-									className={slots?.arrow({ className: arrowProps?.className })}
+									className={classNames?.arrow({ className: arrowProps?.className })}
 									style={{
 										...context?.arrowStyles,
 										...arrowProps?.style,

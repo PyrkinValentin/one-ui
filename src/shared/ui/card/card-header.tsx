@@ -3,7 +3,7 @@ import type { CardHeaderProps } from "./types"
 import { useCardContext } from "./card"
 
 export const CardHeader = (props: CardHeaderProps) => {
-	const { slots } = useCardContext()
+	const { classNames } = useCardContext()
 
 	const {
 		className,
@@ -12,7 +12,7 @@ export const CardHeader = (props: CardHeaderProps) => {
 	} = props
 
 	return (
-		<div className={slots?.header({ className })} {...restProps}>
+		<div className={classNames?.header({ className })} {...restProps}>
 			{children}
 		</div>
 	)

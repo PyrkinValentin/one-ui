@@ -54,7 +54,7 @@ export const Switch = (props: SwitchProps) => {
 		setControlledChecked?.(ev.target.checked)
 	}
 
-	const slots = useMemo(() => {
+	const classNames = useMemo(() => {
 		return switchVariants({
 			size,
 			color,
@@ -72,13 +72,13 @@ export const Switch = (props: SwitchProps) => {
 
 	return (
 		<label
-			className={slots.base({ className })}
+			className={classNames.base({ className })}
 			{...restProps}
 		>
 			<span
 				aria-hidden="true"
 				{...wrapperProps}
-				className={slots.wrapper({ className: wrapperProps?.className })}
+				className={classNames.wrapper({ className: wrapperProps?.className })}
 			>
 				<VisuallyHidden>
 					<input
@@ -92,22 +92,22 @@ export const Switch = (props: SwitchProps) => {
 						disabled={disabled}
 						onChange={handleChange}
 						{...inputProps}
-						className={slots.input({ className: inputProps?.className })}
+						className={classNames.input({ className: inputProps?.className })}
 					/>
 				</VisuallyHidden>
 
 				{startContent ? (
-					<Slot className={slots.startContent()}>
+					<Slot className={classNames.startContent()}>
 						{startContent}
 					</Slot>
 				) : null}
 
 				<span
 					{...thumbProps}
-					className={slots.thumb({ className: thumbProps?.className })}
+					className={classNames.thumb({ className: thumbProps?.className })}
 				>
 					{thumbIcon ? (
-						<Slot className={slots.thumbIcon()}>
+						<Slot className={classNames.thumbIcon()}>
 							{isFunction(thumbIcon)
 								? thumbIcon(controlledChecked)
 								: thumbIcon
@@ -117,7 +117,7 @@ export const Switch = (props: SwitchProps) => {
 				</span>
 
 				{endContent ? (
-					<Slot className={slots.endContent()}>
+					<Slot className={classNames.endContent()}>
 						{endContent}
 					</Slot>
 				) : null}
@@ -127,7 +127,7 @@ export const Switch = (props: SwitchProps) => {
 				<span
 					id={labelId}
 					{...labelProps}
-					className={slots.label({ className: labelProps?.className })}
+					className={classNames.label({ className: labelProps?.className })}
 				>
 					{children}
 				</span>

@@ -3,7 +3,7 @@ import type { CardFooterProps } from "./types"
 import { useCardContext } from "./card"
 
 export const CardFooter = (props: CardFooterProps) => {
-	const { slots } = useCardContext()
+	const { classNames } = useCardContext()
 
 	const {
 		className,
@@ -12,7 +12,7 @@ export const CardFooter = (props: CardFooterProps) => {
 	} = props
 
 	return (
-		<div className={slots?.footer({ className })} {...restProps}>
+		<div className={classNames?.footer({ className })} {...restProps}>
 			{children}
 		</div>
 	)

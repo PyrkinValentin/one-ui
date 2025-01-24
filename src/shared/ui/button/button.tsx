@@ -38,7 +38,7 @@ export const Button = (props: ButtonProps) => {
 		spinnerProps,
 	} = slotProps
 
-	const slots = useMemo(() => {
+	const classNames = useMemo(() => {
 		return buttonVariants({
 			variant,
 			size,
@@ -67,13 +67,13 @@ export const Button = (props: ButtonProps) => {
 	return (
 		<button
 			disabled={loading || disabled}
-			className={slots.base({ className })}
+			className={classNames.base({ className })}
 			{...restProps}
 		>
 			{loading ? (
 				<div
 					{...wrapperProps}
-					className={slots.wrapper({ className: wrapperProps?.className })}
+					className={classNames.wrapper({ className: wrapperProps?.className })}
 				>
 					{startContent}
 					{children}
@@ -92,7 +92,7 @@ export const Button = (props: ButtonProps) => {
 					color="current"
 					size="sm"
 					{...spinnerProps}
-					className={slots.spinner({ className: spinnerProps?.className })}
+					className={classNames.spinner({ className: spinnerProps?.className })}
 				/>
 			) : null}
 		</button>

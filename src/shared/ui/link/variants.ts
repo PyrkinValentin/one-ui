@@ -13,6 +13,7 @@ export const linkVariants = tv({
 			lg: "text-lg",
 		},
 		color: {
+			default: "text-default-500",
 			foreground: "text-foreground",
 			primary: "text-primary",
 			secondary: "text-secondary",
@@ -29,9 +30,8 @@ export const linkVariants = tv({
 		},
 		block: {
 			true: [
-				"px-2 py-1 hover:after:opacity-100",
-				"after:content-[''] after:inset-0 after:opacity-0 after:w-full after:h-full after:rounded-xl",
-				"after:transition-[background] after:absolute",
+				"px-2 py-1 hover:after:opacity-100 after:content-[''] after:inset-0 after:opacity-0 after:w-full after:h-full",
+				"after:rounded-xl after:transition-[background] after:absolute",
 			],
 			false: "hover:opacity-80 active:opacity-disabled transition-opacity",
 		},
@@ -44,6 +44,7 @@ export const linkVariants = tv({
 		},
 		disableAnimation: {
 			true: "after:transition-none transition-none",
+			false: "motion-reduce:transition-none",
 		},
 	},
 	defaultVariants: {

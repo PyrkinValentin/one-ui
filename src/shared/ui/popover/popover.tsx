@@ -76,7 +76,7 @@ export const Popover = (props: PopoverProps) => {
 		dismiss,
 	])
 
-	const slots = useMemo(() => {
+	const classNames = useMemo(() => {
 		return popoverVariants({
 			size,
 			color,
@@ -100,7 +100,7 @@ export const Popover = (props: PopoverProps) => {
 		disablePortal,
 		context,
 		refs,
-		slots,
+		classNames,
 		slotProps,
 		getReferenceProps,
 		getFloatingProps,

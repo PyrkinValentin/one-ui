@@ -2,7 +2,7 @@ import type { ComponentProps } from "@/shared/types/props"
 import type { CardVariantsProps, CardVariantsReturn } from "./variants"
 
 export type CardContextValue = {
-	slots?: CardVariantsReturn
+	classNames?: CardVariantsReturn
 }
 
 export type CardProps = ComponentProps<"div", CardVariantsProps>
