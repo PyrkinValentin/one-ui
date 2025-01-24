@@ -8,6 +8,8 @@ export type ComponentProps<
 export type ComponentPropsWithAs<
 	Element extends ElementType = "div",
 	Props = unknown,
-> = ComponentProps<Element, Props> & {
+> = ComponentProps<Element, Props> & AsProp<Element>
+
+type AsProp<Element extends ElementType = "div"> = {
 	as?: Element
 }

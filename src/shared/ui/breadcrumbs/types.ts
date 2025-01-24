@@ -1,20 +1,11 @@
 import type { LinkProps } from "next/link"
 import type { ReactNode } from "react"
 import type { ComponentProps } from "@/shared/types/props"
-import type { BreadcrumbsVariantsProps, BreadcrumbsVariantsReturn } from "./variants"
-
-export type BreadcrumbsContextValue =
-	Pick<BreadcrumbsProps, "separator" | "disabled" | "slotProps"> &
-	BreadcrumbsContextOwnValue
-
-type BreadcrumbsContextOwnValue = {
-	controlledItem?: boolean
-	classNames?: BreadcrumbsVariantsReturn
-}
+import type { BreadcrumbsVariantsProps } from "./variants"
 
 export type BreadcrumbsProps = ComponentProps<
 	"nav",
-	BreadcrumbsVariantsProps &
+	Omit<BreadcrumbsVariantsProps, "current"> &
 	BreadcrumbsOwnProps
 >
 
@@ -25,14 +16,17 @@ type BreadcrumbsOwnProps = {
 
 type BreadcrumbsSlotProps = {
 	listProps?: ComponentProps<"ol">
-	separatorProps?: ComponentProps<"li">
+	separatorProps?: ComponentProps<"svg">
 }
 
-export type BreadcrumbsItemProps = ComponentProps<"a", BreadcrumbsItemOwnProps>
+export type BreadcrumbsItemProps = ComponentProps<
+	"a",
+	Partial<LinkProps> &
+	BreadcrumbsItemOwnProps
+>
 
 type BreadcrumbsItemOwnProps = {
 	current?: boolean
-	last?: boolean
 	startContent?: ReactNode
 	endContent?: ReactNode
 }

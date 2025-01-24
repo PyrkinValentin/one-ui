@@ -1,19 +1,15 @@
-"use client"
+import type { BreadcrumbsItemProps, BreadcrumbsProps } from "./types"
 
-import type { BreadcrumbsContextValue, BreadcrumbsItemProps, BreadcrumbsProps } from "./types"
+import { useMemo } from "react"
 
-import { Fragment, isValidElement, use, useMemo } from "react"
-
-import { Children, createContext } from "react"
+import { Children, isValidElement } from "react"
 import { isUndefined } from "@/shared/helpers/is-undefined"
 
+import { Fragment } from "react"
 import { MdChevronRight } from "react-icons/md"
 import { Slot } from "@/shared/ui/system"
 
 import { breadcrumbsVariants } from "./variants"
-
-const BreadcrumbsContext = createContext<BreadcrumbsContextValue>({})
-export const useBreadcrumbsContext = () => use(BreadcrumbsContext)
 
 export const Breadcrumbs = (props: BreadcrumbsProps) => {
 	const {
@@ -31,15 +27,22 @@ export const Breadcrumbs = (props: BreadcrumbsProps) => {
 		...restProps
 	} = props
 
-	const { listProps, ...restSlotProps } = slotProps
+	const {
+		listProps,
+		separatorProps,
+	} = slotProps
 
-	const items = Children.toArray(children)
-	const lastItemIndex = items.length - 1
+	const mappedChildren = Children.map(children, (item) => {
+		return isValidElement<BreadcrumbsItemProps>(item)
+			? item
+			: null
+	})
+
+	const items = mappedChildren ?? []
+	const latestItemIndex = items.length - 1
 
 	const controlledItem = items.some((item) => {
-		return isValidElement<BreadcrumbsItemProps>(item)
-			? !isUndefined(item.props.current)
-			: false
+		return !isUndefined(item.props.current)
 	})
 
 	const classNames = useMemo(() => {
@@ -62,39 +65,53 @@ export const Breadcrumbs = (props: BreadcrumbsProps) => {
 		disableAnimation,
 	])
 
-	const contextValue: BreadcrumbsContextValue = {
-		separator,
-		disabled,
-		controlledItem,
-		classNames,
-		slotProps: restSlotProps,
-	}
-
 	return (
-		<BreadcrumbsContext value={contextValue}>
-			<nav className={classNames.base({ className })} {...restProps}>
-				<ol
-					{...listProps}
-					className={classNames.list({ className: listProps?.className })}
-				>
-					{items.map((item, i) => (
+		<nav className={classNames.base({ className })} {...restProps}>
+			<ol
+				{...listProps}
+				className={classNames.list({ className: listProps?.className })}
+			>
+				{items.map((item, i) => {
+					const latest = latestItemIndex === i
+
+					const current = controlledItem
+						? item.props.current
+						: latest
+
+					return (
 						<Fragment key={i}>
 							<li>
-								<Slot className={classNames.item()}>
+								<Slot
+									current={current}
+									tabIndex={current || disabled ? -1 : undefined}
+									className={classNames.item({ current, className: item.props.className })}
+								>
 									{item}
 								</Slot>
 							</li>
 
-							<li
-								aria-hidden="true"
-								className={classNames.separator()}
-							>
-								<MdChevronRight/>
-							</li>
+							{!latest ? (
+								<li aria-hidden="true">
+									{separator ? (
+										<Slot
+											as="svg"
+											{...separatorProps}
+											className={classNames.separator({ className: separatorProps?.className })}
+										>
+											{separator}
+										</Slot>
+									) : (
+										<MdChevronRight
+											{...separatorProps}
+											className={classNames.separator({ className: separatorProps?.className })}
+										/>
+									)}
+								</li>
+							) : null}
 						</Fragment>
-					))}
-				</ol>
-			</nav>
-		</BreadcrumbsContext>
+					)
+				})}
+			</ol>
+		</nav>
 	)
 }
