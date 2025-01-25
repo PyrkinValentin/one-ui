@@ -1,7 +1,9 @@
+import type { Ref, RefCallback } from "react"
+
 import { cn } from "@/core/theme"
-import { mergeRefs } from "@/shared/utils/ref"
 
 import { isFunction } from "@/shared/helpers/is-function"
+import { isRefCallback } from "@/shared/helpers/is-ref-callback"
 import { isRef } from "@/shared/helpers/is-ref"
 import { isString } from "@/shared/helpers/is-string"
 import { isObject } from "@/shared/helpers/is-object"
@@ -25,11 +27,29 @@ type UnionToIntersection<U> = (U extends unknown ? (k: U) => void : never) exten
 	? I
 	: never
 
-const chain = (...callbacks: unknown[]) => {
-	return (...args: unknown[]) => {
+export const mergeFunctions = <
+	T extends (...args: Parameters<T>) => unknown
+>(...callbacks: (T | undefined)[]) => {
+	return (...args: Parameters<T>) => {
 		callbacks.forEach((callback) => {
 			if (isFunction(callback)) {
 				callback(...args)
+			}
+		})
+	}
+}
+
+export const mergeRefs = <
+	T extends HTMLElement
+>(...refs: (Ref<T> | undefined)[]): RefCallback<T> => {
+	return (instance: T | null) => {
+		refs.forEach((ref) => {
+			if (!ref) return
+
+			if (isRefCallback(ref)) {
+				ref(instance)
+			} else {
+				ref.current = instance
 			}
 		})
 	}
@@ -53,11 +73,6 @@ export const mergeProps = <
 		) {
 			mergedProps[key] = mergeRefs(a, b)
 		} else if (
-			isFunction(a) &&
-			isFunction(b)
-		) {
-			mergedProps[key] = chain(a, b)
-		} else if (
 			key === "className" &&
 			isString(a) &&
 			isString(b)
@@ -69,6 +84,11 @@ export const mergeProps = <
 			isObject(b)
 		) {
 			mergedProps[key] = { ...a, ...b }
+		} else if (
+			isFunction(a) &&
+			isFunction(b)
+		) {
+			mergedProps[key] = mergeFunctions(a, b)
 		} else if (!isUndefined(b)) {
 			mergedProps[key] = b
 		}

@@ -5,7 +5,7 @@ export type SlotProps<
 	As extends ElementType = "span"
 > = ComponentPropsWithAs<As, SlotOwnProps>
 
-type SlotOwnProps = Record<string, unknown> | {
+type SlotOwnProps = {
 	fallbackElement?: boolean
 	shouldMergeProps?: boolean
 }

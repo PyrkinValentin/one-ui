@@ -6,7 +6,7 @@ type UseControlledStateOptions<
 	Value,
 	SetValue extends (...args: readonly never[]) => unknown,
 > = {
-	defaultValue: Value
+	defaultValue: Value | (() => Value)
 	value?: Value
 	setValue?: SetValue
 }

@@ -4,7 +4,7 @@ import type { PopoverContentProps } from "./types"
 
 import { useTransition } from "@/shared/hooks/use-transition"
 
-import { mergeRefs } from "@/shared/utils/ref"
+import { mergeRefs } from "@/shared/utils/merge"
 
 import { FloatingOverlay } from "@floating-ui/react"
 import { Portal } from "@/shared/ui/system"

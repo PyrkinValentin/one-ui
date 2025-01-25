@@ -7,8 +7,9 @@ import { useCallback, useEffect, useRef, useState, useId, useMemo } from "react"
 import { useCallbackEvent } from "@/shared/hooks/use-callback-event"
 import { useControlledState } from "@/shared/hooks/use-controlled-state"
 
-import { numberArrayFormat, numberClump, numberFindClosest, numberFormat } from "@/shared/utils/number"
-import { mergeProps } from "@/shared/utils/props"
+import { formatArrayNumber, formatNumber } from "@/shared/utils/format"
+import { numberClump, numberFindClosest } from "@/shared/utils/number"
+import { mergeProps } from "@/shared/utils/merge"
 import { isUndefined } from "@/shared/helpers/is-undefined"
 
 import { Fragment } from "react"
@@ -138,8 +139,8 @@ export const Slider = (props: SliderProps) => {
 
 	const getTextValue = () => {
 		return range
-			? numberArrayFormat(formatOptions).formatRange(controlledValue)
-			: numberArrayFormat(formatOptions).format(controlledValue)
+			? formatArrayNumber(formatOptions).formatRange(controlledValue)
+			: formatArrayNumber(formatOptions).format(controlledValue)
 	}
 
 	const steps = showSteps
@@ -284,7 +285,7 @@ export const Slider = (props: SliderProps) => {
 								<Tooltip
 									color={color}
 									open={dragging}
-									content={numberFormat(formatOptions).format(value)}
+									content={formatNumber(formatOptions).format(value)}
 									placement={orientation === "horizontal" ? "top" : "right"}
 									{...tooltipProps}
 								>
