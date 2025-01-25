@@ -11,7 +11,3 @@ export const isObject = <T extends object>(value: unknown): value is T => {
 		isObjectType(value) &&
 		!isDateObject(value)
 }
-
-export const isObjectEmpty = (value: unknown): value is { [key: string]: never } => {
-	return isObject(value) && !Object.keys(value).length
-}

@@ -96,7 +96,6 @@ export const Checkbox = (props: CheckboxProps) => {
 			{...restProps}
 		>
 			<span
-				aria-hidden="true"
 				{...wrapperProps}
 				className={classNames.wrapper({ className: wrapperProps?.className })}
 			>

@@ -10,6 +10,7 @@ import { MdChevronRight } from "react-icons/md"
 import { Slot } from "@/shared/ui/system"
 
 import { breadcrumbsVariants } from "./variants"
+import { BreadcrumbsItem } from "./breadcrumbs-item"
 
 export const Breadcrumbs = (props: BreadcrumbsProps) => {
 	const {
@@ -82,6 +83,7 @@ export const Breadcrumbs = (props: BreadcrumbsProps) => {
 						<Fragment key={i}>
 							<li>
 								<Slot
+									as={BreadcrumbsItem}
 									current={current}
 									tabIndex={current || disabled ? -1 : undefined}
 									className={classNames.item({ current, className: item.props.className })}

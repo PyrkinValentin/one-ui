@@ -9,8 +9,8 @@ import { useControlledState } from "@/shared/hooks/use-controlled-state"
 import { useFloating } from "@/shared/hooks/use-floating"
 import { useTransition } from "@/shared/hooks/use-transition"
 
-import { mergeRefs } from "@/shared/utils/ref"
 import { safePolygon } from "@floating-ui/react"
+import { mergeRefs } from "@/shared/utils/merge"
 
 import { Portal, Slot } from "@/shared/ui/system"
 

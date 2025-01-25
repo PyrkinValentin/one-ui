@@ -1,43 +1,27 @@
 import { Container } from "@/shared/ui/layout"
-import { Breadcrumbs, BreadcrumbsItem } from "@/shared/ui/breadcrumbs"
-import { FaHome } from "react-icons/fa"
-import { SiApplemusic } from "react-icons/si"
-import { BiSolidUserRectangle } from "react-icons/bi"
-import { FaMicrophone } from "react-icons/fa"
+import { Tab, Tabs } from "@/shared/ui/tabs"
+import Link from "next/link";
 
 const Home = () => {
 	return (
-		<Container className="pt-12 space-y-5">
-			<Breadcrumbs underline="hover">
-				<BreadcrumbsItem
-					href="/"
-					startContent={<FaHome/>}
-				>
-					Home
-				</BreadcrumbsItem>
+		<Container className="pt-12">
+			<Tabs>
+				<Tab value="photos" disabled label="Photos">
+					Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
+					standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to
+					make a type specimen book.
+				</Tab>
 
-				<BreadcrumbsItem
-					current
-					href="/"
-					startContent={<SiApplemusic/>}
-				>
-					Music
-				</BreadcrumbsItem>
+				<Tab as={Link} href="/" label="Music">
+					t has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially
+					unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem
+				</Tab>
 
-				<BreadcrumbsItem
-					href="/"
-					startContent={<BiSolidUserRectangle/>}
-				>
-					Artists
-				</BreadcrumbsItem>
-
-				<BreadcrumbsItem
-					href="/"
-					startContent={<FaMicrophone/>}
-				>
-					Microphone
-				</BreadcrumbsItem>
-			</Breadcrumbs>
+				<Tab label="Videos">
+					Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of
+					Lorem Ipsum.
+				</Tab>
+			</Tabs>
 		</Container>
 	)
 }

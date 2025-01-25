@@ -2,7 +2,7 @@ import type { ElementType } from "react"
 import type { SlotProps } from "./types"
 
 import { cloneElement, isValidElement } from "react"
-import { mergeProps } from "@/shared/utils/props"
+import { mergeProps } from "@/shared/utils/merge"
 
 export const Slot = <
 	As extends ElementType = "span"

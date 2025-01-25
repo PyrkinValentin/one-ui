@@ -5,7 +5,7 @@ import type { ImageProps } from "./types"
 
 import { useEffect, useMemo, useRef, useState } from "react"
 
-import { mergeRefs } from "@/shared/utils/ref"
+import { mergeRefs } from "@/shared/utils/merge"
 
 import { imageVariants } from "./variants"
 
