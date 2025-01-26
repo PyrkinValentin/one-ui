@@ -4,8 +4,6 @@ import type { RadioProps } from "./types"
 
 import { useId, useMemo } from "react"
 
-import { VisuallyHidden } from "@/shared/ui/system"
-
 import { useRadioGroupContext } from "./radio-group"
 import { radioVariants } from "./variants"
 
@@ -75,21 +73,19 @@ export const Radio = (props: RadioProps) => {
 				{...wrapperProps}
 				className={classNames.wrapper({ className: wrapperProps?.className })}
 			>
-				<VisuallyHidden>
-					<input
-						type="radio"
-						aria-labelledby={labelId}
-						aria-describedby={descriptionId}
-						name={name}
-						value={value}
-						readOnly={readOnly}
-						disabled={disabled}
-						checked={checkedGroup?.(value)}
-						onChange={onChangeGroup}
-						{...inputProps}
-						className={classNames.input({ className: inputProps?.className })}
-					/>
-				</VisuallyHidden>
+				<input
+					type="radio"
+					aria-labelledby={labelId}
+					aria-describedby={descriptionId}
+					name={name}
+					value={value}
+					readOnly={readOnly}
+					disabled={disabled}
+					checked={checkedGroup?.(value)}
+					onChange={onChangeGroup}
+					{...inputProps}
+					className={classNames.input({ className: inputProps?.className })}
+				/>
 
 				<span
 					{...controlProps}

@@ -8,7 +8,7 @@ import { useControlledState } from "@/shared/hooks/use-controlled-state"
 
 import { isFunction } from "@/shared/helpers/is-function"
 
-import { Slot, VisuallyHidden } from "@/shared/ui/system"
+import { Slot } from "@/shared/ui/system"
 
 import { switchVariants } from "./variants"
 
@@ -79,21 +79,19 @@ export const Switch = (props: SwitchProps) => {
 				{...wrapperProps}
 				className={classNames.wrapper({ className: wrapperProps?.className })}
 			>
-				<VisuallyHidden>
-					<input
-						type="checkbox"
-						role="switch"
-						aria-labelledby={labelId}
-						name={name}
-						value={value}
-						checked={controlledChecked}
-						readOnly={readOnly}
-						disabled={disabled}
-						onChange={handleChange}
-						{...inputProps}
-						className={classNames.input({ className: inputProps?.className })}
-					/>
-				</VisuallyHidden>
+				<input
+					type="checkbox"
+					role="switch"
+					aria-labelledby={labelId}
+					name={name}
+					value={value}
+					checked={controlledChecked}
+					readOnly={readOnly}
+					disabled={disabled}
+					onChange={handleChange}
+					{...inputProps}
+					className={classNames.input({ className: inputProps?.className })}
+				/>
 
 				{startContent ? (
 					<Slot className={classNames.startContent()}>

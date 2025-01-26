@@ -13,7 +13,7 @@ export const switchVariants = tv({
 			"[&:has(input:focus-visible)]:ring-focus [&:has(input:focus-visible)]:ring-offset-2",
 			"[&:has(input:focus-visible)]:ring-offset-background",
 		],
-		input: "peer",
+		input: "peer sr-only",
 		thumb: "z-10 flex items-center justify-center bg-white shadow-small rounded-full origin-right pointer-events-none",
 		thumbIcon: "text-black",
 		startContent: "z-0 absolute start-1.5",

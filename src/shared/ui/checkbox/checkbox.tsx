@@ -8,7 +8,7 @@ import { useControlledState } from "@/shared/hooks/use-controlled-state"
 
 import { isFunction } from "@/shared/helpers/is-function"
 
-import { Slot, VisuallyHidden } from "@/shared/ui/system"
+import { Slot } from "@/shared/ui/system"
 
 import { useCheckboxGroupContext } from "./checkbox-group"
 import { checkboxVariants } from "./variants"
@@ -99,21 +99,19 @@ export const Checkbox = (props: CheckboxProps) => {
 				{...wrapperProps}
 				className={classNames.wrapper({ className: wrapperProps?.className })}
 			>
-				<VisuallyHidden>
-					<input
-						type="checkbox"
-						aria-labelledby={labelId}
-						name={name}
-						value={value}
-						required={required}
-						readOnly={readOnly}
-						disabled={disabled}
-						checked={controlledChecked}
-						onChange={handleChange}
-						{...inputProps}
-						className={classNames.input({ className: inputProps?.className })}
-					/>
-				</VisuallyHidden>
+				<input
+					type="checkbox"
+					aria-labelledby={labelId}
+					name={name}
+					value={value}
+					required={required}
+					readOnly={readOnly}
+					disabled={disabled}
+					checked={controlledChecked}
+					onChange={handleChange}
+					{...inputProps}
+					className={classNames.input({ className: inputProps?.className })}
+				/>
 
 				{icon ? (
 					<Slot

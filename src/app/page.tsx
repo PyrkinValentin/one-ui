@@ -1,14 +1,22 @@
 import { Container } from "@/shared/ui/layout"
-import { Tab, Tabs } from "@/shared/ui/tabs"
+import { Breadcrumbs, Breadcrumb } from "@/shared/ui/breadcrumbs"
 
 const Home = () => {
 	return (
 		<Container className="pt-12">
-			<Tabs variant="underlined">
-				<Tab label="Photos">Photos panel</Tab>
-				<Tab label="Music">Music panel</Tab>
-				<Tab label="Videos">Videos panel</Tab>
-			</Tabs>
+			<Breadcrumbs variant="bordered">
+				<Breadcrumb href="/">
+					Home
+				</Breadcrumb>
+
+				<Breadcrumb href="/">
+					Search
+				</Breadcrumb>
+
+				<Breadcrumb>
+					Route
+				</Breadcrumb>
+			</Breadcrumbs>
 		</Container>
 	)
 }

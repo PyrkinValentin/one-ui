@@ -38,11 +38,11 @@ export const Tabs = (props: TabsProps) => {
 	} = slotProps
 
 	const collection = Children.map(children, (child, i) => {
-		if (isValidElement<TabCollection>(child)) {
-			return child.props.value
+		return isValidElement<TabCollection>(child)
+			? child.props.value
 				? child
 				: cloneElement(child, { value: String(i) })
-		}
+			: null
 	})
 
 	const tabs = collection ?? []
@@ -73,7 +73,7 @@ export const Tabs = (props: TabsProps) => {
 			: "vertical"
 	}
 
-	const handleClickTab = (value: string) => {
+	const handleClick = (value: string) => {
 		setControlledValue?.(value)
 	}
 
@@ -135,7 +135,7 @@ export const Tabs = (props: TabsProps) => {
 							className={classNames.tab({ className })}
 							onClick={(ev) => {
 								onClick?.(ev)
-								handleClickTab(value)
+								handleClick(value)
 							}}
 							{...restTabProps}
 						>

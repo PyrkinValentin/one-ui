@@ -96,9 +96,6 @@ export const breadcrumbsVariants = tv({
 			},
 		},
 		current: {
-			true: {
-				item: "",
-			},
 			false: {
 				item: [
 					"cursor-pointer outline-none hover:opacity-80 active:opacity-disabled",
@@ -135,6 +132,7 @@ export const breadcrumbsVariants = tv({
 				list: "max-w-fit",
 			},
 		},
+		// variant && size
 		{
 			variant: ["solid", "bordered"],
 			size: "sm",

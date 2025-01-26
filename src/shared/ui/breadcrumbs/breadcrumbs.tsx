@@ -1,4 +1,4 @@
-import type { BreadcrumbsItemProps, BreadcrumbsProps } from "./types"
+import type { BreadcrumbProps, BreadcrumbsProps } from "./types"
 
 import { useMemo } from "react"
 
@@ -10,7 +10,7 @@ import { MdChevronRight } from "react-icons/md"
 import { Slot } from "@/shared/ui/system"
 
 import { breadcrumbsVariants } from "./variants"
-import { BreadcrumbsItem } from "./breadcrumbs-item"
+import { Breadcrumb } from "./breadcrumb"
 
 export const Breadcrumbs = (props: BreadcrumbsProps) => {
 	const {
@@ -33,17 +33,17 @@ export const Breadcrumbs = (props: BreadcrumbsProps) => {
 		separatorProps,
 	} = slotProps
 
-	const mappedChildren = Children.map(children, (item) => {
-		return isValidElement<BreadcrumbsItemProps>(item)
-			? item
+	const collection = Children.map(children, (child) => {
+		return isValidElement<BreadcrumbProps>(child)
+			? child
 			: null
 	})
 
-	const items = mappedChildren ?? []
-	const latestItemIndex = items.length - 1
+	const breadcrumbs = collection ?? []
+	const latestBreadcrumbIndex = breadcrumbs.length - 1
 
-	const controlledItem = items.some((item) => {
-		return !isUndefined(item.props.current)
+	const controlledCurrent = breadcrumbs.some((breadcrumb) => {
+		return !isUndefined(breadcrumb.props.current)
 	})
 
 	const classNames = useMemo(() => {
@@ -72,24 +72,31 @@ export const Breadcrumbs = (props: BreadcrumbsProps) => {
 				{...listProps}
 				className={classNames.list({ className: listProps?.className })}
 			>
-				{items.map((item, i) => {
-					const latest = latestItemIndex === i
+				{breadcrumbs.map((breadcrumb, i) => {
+					const {
+						current,
+						className,
+						children,
+						...restBreadcrumbProps
+					} = breadcrumb.props
 
-					const current = controlledItem
-						? item.props.current
+					const latest = latestBreadcrumbIndex === i
+
+					const currentOrLatest = controlledCurrent
+						? current
 						: latest
 
 					return (
 						<Fragment key={i}>
 							<li>
-								<Slot
-									as={BreadcrumbsItem}
-									current={current}
-									tabIndex={current || disabled ? -1 : undefined}
-									className={classNames.item({ current, className: item.props.className })}
+								<Breadcrumb
+									tabIndex={disabled ? -1 : undefined}
+									current={currentOrLatest}
+									{...restBreadcrumbProps}
+									className={classNames.item({ current: currentOrLatest, className })}
 								>
-									{item}
-								</Slot>
+									{children}
+								</Breadcrumb>
 							</li>
 
 							{!latest ? (
