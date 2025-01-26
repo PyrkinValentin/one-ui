@@ -1,8 +1,8 @@
-import type { BreadcrumbsItemProps } from "./types"
+import type { BreadcrumbProps } from "./types"
 
 import Link from "next/link"
 
-export const BreadcrumbsItem = (props: BreadcrumbsItemProps) => {
+export const Breadcrumb = (props: BreadcrumbProps) => {
 	const {
 		current,
 		startContent,

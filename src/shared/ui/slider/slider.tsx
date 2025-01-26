@@ -1,6 +1,6 @@
 "use client"
 
-import type { ChangeEvent } from "react"
+import type { ChangeEvent, FocusEvent } from "react"
 import type { SliderProps } from "./types"
 
 import { useId, useMemo } from "react"
@@ -13,7 +13,6 @@ import { isUndefined } from "@/shared/helpers/is-undefined"
 
 import { Fragment } from "react"
 import { Tooltip } from "@/shared/ui/tooltip"
-import { VisuallyHidden } from "@/shared/ui/system"
 
 import { useRange } from "./use-range"
 import { sliderVariants } from "./variants"
@@ -59,6 +58,7 @@ export const Slider = (props: SliderProps) => {
 		trackProps,
 		fillerProps,
 		thumbProps,
+		inputProps,
 		tooltipProps,
 	} = slotProps
 
@@ -108,14 +108,20 @@ export const Slider = (props: SliderProps) => {
 		)
 	}
 
-	const handleChangeInput =
+	const handleChangeComplete = () => {
+		onValueChangeComplete?.(controlledValue)
+	}
+
+	const handleChange =
 		(trigger: number) =>
 			(ev: ChangeEvent<HTMLInputElement>) => {
+				inputProps?.onChange?.(ev)
 				handleChangeRange(trigger, Number(ev.target.value))
 			}
 
-	const handleChangeComplete = () => {
-		onValueChangeComplete?.(controlledValue)
+	const handleBlur = (ev: FocusEvent<HTMLInputElement>) => {
+		inputProps?.onBlur?.(ev)
+		handleChangeComplete()
 	}
 
 	const getValuePercent = (value: number = 0) => {
@@ -183,22 +189,22 @@ export const Slider = (props: SliderProps) => {
 				[orientation === "horizontal" ? "left" : "bottom"]: `${getThumbPercent(index) * 100}%`,
 			}}
 		>
-			<VisuallyHidden>
-				<input
-					type="range"
-					id={`${labelId}-${index}`}
-					aria-labelledby={labelId}
-					aria-orientation={orientation}
-					disabled={disabled}
-					min={minValue}
-					max={maxValue}
-					step={step}
-					aria-valuetext={String(value)}
-					value={value}
-					onChange={handleChangeInput(index)}
-					onBlur={handleChangeComplete}
-				/>
-			</VisuallyHidden>
+			<input
+				type="range"
+				id={`${labelId}-${index}`}
+				aria-labelledby={labelId}
+				aria-orientation={orientation}
+				min={minValue}
+				max={maxValue}
+				step={step}
+				aria-valuetext={String(value)}
+				disabled={disabled}
+				value={value}
+				{...inputProps}
+				onChange={handleChange(index)}
+				onBlur={handleBlur}
+				className={classNames.input({ className: inputProps?.className })}
+			/>
 		</div>
 	)
 

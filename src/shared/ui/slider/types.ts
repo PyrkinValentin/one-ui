@@ -40,6 +40,7 @@ type SliderSlotProps = {
 	trackProps?: ComponentProps
 	fillerProps?: ComponentProps
 	thumbProps?: ComponentProps
+	inputProps?: ComponentProps<"input">
 	tooltipProps?: TooltipProps
 }
 

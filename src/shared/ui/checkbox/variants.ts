@@ -16,7 +16,7 @@ export const checkboxVariants = tv({
 			"[&:has(input:focus-visible)]:ring-offset-2 [&:has(input:focus-visible)]:ring-offset-background",
 			"group-hover:before:bg-default-100",
 		],
-		input: "peer",
+		input: "peer sr-only",
 		icon: "z-10 opacity-0 peer-checked:opacity-100 pointer-events-none",
 		label: "relative ms-2 text-foreground",
 	},

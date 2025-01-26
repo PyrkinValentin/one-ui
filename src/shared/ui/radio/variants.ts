@@ -14,7 +14,7 @@ export const radioVariants = tv({
 			"[&:has(input:focus-visible)]:ring-offset-2 [&:has(input:focus-visible)]:ring-offset-background",
 			"group-hover:[&:has(input:not(:checked))]:bg-default-100",
 		],
-		input: "peer",
+		input: "peer sr-only",
 		control: "z-10 w-2 h-2 opacity-0 scale-0 origin-center rounded-full peer-checked:opacity-100 peer-checked:scale-100",
 		labelWrapper: "ms-2 flex flex-col",
 		label: "relative text-foreground",

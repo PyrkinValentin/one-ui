@@ -29,6 +29,7 @@ export const sliderVariants = tv({
 			"[&:has(input:focus-visible)]:outline-focus",
 			"[&:has(input:focus-visible)]:outline-offset-2",
 		],
+		input: "sr-only",
 	},
 	variants: {
 		size: {

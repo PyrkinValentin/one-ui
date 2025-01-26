@@ -19,13 +19,13 @@ type BreadcrumbsSlotProps = {
 	separatorProps?: ComponentProps<"svg">
 }
 
-export type BreadcrumbsItemProps = ComponentProps<
+export type BreadcrumbProps = ComponentProps<
 	"a",
 	Partial<LinkProps> &
-	BreadcrumbsItemOwnProps
+	BreadcrumbOwnProps
 >
 
-type BreadcrumbsItemOwnProps = {
+type BreadcrumbOwnProps = {
 	current?: boolean
 	startContent?: ReactNode
 	endContent?: ReactNode

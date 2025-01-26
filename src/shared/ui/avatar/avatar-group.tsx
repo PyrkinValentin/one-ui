@@ -31,9 +31,9 @@ export const AvatarGroup = (props: AvatarGroupProps) => {
 
 	const { countProps } = slotProps
 
-	const collectionAvatars = Children.toArray(children)
-	const childrenWithinMax = collectionAvatars.slice(0, maxCount)
-	const remainingCount = collectionAvatars.length - childrenWithinMax.length
+	const collection = Children.toArray(children)
+	const childrenWithinMax = collection.slice(0, maxCount)
+	const remainingCount = collection.length - childrenWithinMax.length
 
 	const classNames = useMemo(() => {
 		return avatarGroupVariants({ grid })
