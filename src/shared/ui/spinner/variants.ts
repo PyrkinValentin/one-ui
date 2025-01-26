@@ -7,7 +7,7 @@ export type SpinnerVariantsProps = VariantProps<typeof spinnerVariants>
 export const spinnerVariants = tv({
 	slots: {
 		base: "inline-flex flex-col gap-2 items-center justify-center",
-		spinner: "border-b-2 rounded-full animate-spin-fast",
+		spinner: "border-b-2 rounded-full animate-[spin_.5s_linear_infinite]",
 		label: "",
 	},
 	variants: {
