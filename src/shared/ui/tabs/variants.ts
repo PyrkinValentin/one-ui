@@ -9,9 +9,9 @@ export const tabsVariants = tv({
 		base: "flex gap-3",
 		tabList: "w-fit h-fit flex items-center gap-2 flex-nowrap",
 		tab: [
-			"z-0 relative px-3 py-1 w-full flex items-center gap-2 justify-center whitespace-nowrap outline-none",
-			"text-default-500 hover:opacity-disabled aria-selected:opacity-100 aria-disabled:opacity-30",
+			"z-0 relative px-3 py-1 w-full flex items-center justify-center gap-2 outline-none",
 			"focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-focus focus-visible:outline-offset-2",
+			"hover:[&:not([aria-selected])]:opacity-disabled disabled:!opacity-30",
 		],
 		tabPanel: "",
 	},
@@ -19,16 +19,21 @@ export const tabsVariants = tv({
 		variant: {
 			solid: {
 				tabList: "p-1 bg-default-100",
+				tab: "text-default-500",
 			},
-			light: "",
+			light: {
+				tab: "text-default-500",
+			},
 			underlined: {
 				tab: [
-					"border-t-transparent border-t-2 border-b-transparent border-b-2 aria-selected:text-foreground",
-					"aria-selected:shadow-[0_1px_0px_0_rgba(0,0,0,0.05)]",
+					"after:content-[''] after:origin-center after:absolute after:left-1/2 after:-bottom-[2px]",
+					"after:-translate-x-1/2 after:w-0 after:h-[2px] after:origin-center aria-selected:after:w-full",
+					"aria-selected:after:shadow-[0_1px_0px_0_rgba(0,0,0,0.05)]",
 				],
 			},
 			bordered: {
 				tabList: "p-1 border-2 border-default-200 shadow-sm",
+				tab: "text-default-500",
 			},
 		},
 		size: {
@@ -99,17 +104,15 @@ export const tabsVariants = tv({
 		},
 		disabled: {
 			true: {
-				tabList: "opacity-disabled pointer-events-none",
+				tabList: "pointer-events-none",
 			},
 		},
 		disableAnimation: {
 			true: {
-				tabList: "transition-none",
 				tab: "transition-none",
 			},
 			false: {
-				tabList: "transition",
-				tab: "transition",
+				tab: "transition motion-reduce:transition-none",
 			},
 		},
 	},
@@ -171,49 +174,64 @@ export const tabsVariants = tv({
 			variant: "underlined",
 			color: "default",
 			className: {
-				tab: "aria-selected:border-b-foreground",
+				tab: "aria-selected:text-foreground aria-selected:after:bg-foreground",
 			},
 		},
 		{
 			variant: "underlined",
 			color: "primary",
 			className: {
-				tab: "aria-selected:border-b-primary",
+				tab: "aria-selected:text-primary aria-selected:after:bg-primary",
 			},
 		},
 		{
 			variant: "underlined",
 			color: "secondary",
 			className: {
-				tab: "aria-selected:border-b-secondary",
+				tab: "aria-selected:text-secondary aria-selected:after:bg-secondary",
 			},
 		},
 		{
 			variant: "underlined",
 			color: "success",
 			className: {
-				tab: "aria-selected:border-b-success",
+				tab: "aria-selected:text-success aria-selected:after:bg-success",
 			},
 		},
 		{
 			variant: "underlined",
 			color: "warning",
 			className: {
-				tab: "aria-selected:border-b-warning",
+				tab: "aria-selected:text-warning aria-selected:after:bg-warning",
 			},
 		},
 		{
 			variant: "underlined",
 			color: "danger",
 			className: {
-				tab: "aria-selected:border-b-danger",
+				tab: "aria-selected:text-danger aria-selected:after:bg-danger",
+			},
+		},
+		// underlined && disabledAnimation
+		{
+			variant: "underlined",
+			disableAnimation: true,
+			className: {
+				tab: "after:transition-none",
+			},
+		},
+		{
+			variant: "underlined",
+			disableAnimation: false,
+			className: {
+				tab: "after:transition-[width] motion-reduce:transition-none",
 			},
 		},
 	],
 	compoundSlots: [
 		{
 			variant: "underlined",
-			slots: ["tab", "tabList"],
+			slots: ["tabList", "tab"],
 			className: "rounded-none",
 		},
 	],

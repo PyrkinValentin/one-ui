@@ -1,25 +1,13 @@
 "use client"
 
-import type { ElementType } from "react"
 import type { TabProps } from "./types"
 
-export const Tab = <As extends ElementType = "button">(props: TabProps<As>) => {
-	const {
-		as = "button",
-		value,
-		children,
-		...restProps
-	} = props as TabProps
-
-	const Component = as
+export const Tab = (props: TabProps) => {
+	const { children, ...restProps } = props
 
 	return (
-		<Component
-			role="tab"
-			id={`tab-${value}`}
-			aria-controls={`tabpanel-${value}`}
-			{...restProps}>
+		<button  {...restProps}>
 			{children}
-		</Component>
+		</button>
 	)
 }

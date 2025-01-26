@@ -1,5 +1,4 @@
-import type { ElementType, ReactNode } from "react"
-import type { ComponentProps, ComponentPropsWithAs } from "@/shared/types/props"
+import type { ComponentProps } from "@/shared/types/props"
 import type { TabsVariantsProps } from "./variants"
 
 export type TabsProps = ComponentProps<
@@ -9,7 +8,7 @@ export type TabsProps = ComponentProps<
 >
 
 type TabsOwnProps = {
-	disabledValues?: string[]
+	disabledValue?: string[]
 	defaultValue?: string
 	value?: string
 	onValueChange?: (value: string) => void
@@ -21,11 +20,10 @@ type TabsSlotProps = {
 	tabPanelProps?: ComponentProps
 }
 
-export type TabProps<
-	As extends ElementType = "button"
-> = ComponentPropsWithAs<As, TabOwnProps>
+export type TabCollection = TabProps & { value: string }
+
+export type TabProps = ComponentProps<"button", TabOwnProps>
 
 type TabOwnProps = {
-	label?: ReactNode
-	value?: string
+	label?: string
 }
