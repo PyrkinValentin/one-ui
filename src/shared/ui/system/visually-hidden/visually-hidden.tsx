@@ -1,6 +1,6 @@
 import type { VisuallyHiddenProps } from "./types"
 
-import { Slot } from "../slot/slot"
+import { Slot } from "../slot"
 
 export const VisuallyHidden = (props: VisuallyHiddenProps) => {
 	const { children } = props
