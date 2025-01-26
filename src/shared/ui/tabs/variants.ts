@@ -9,7 +9,7 @@ export const tabsVariants = tv({
 		base: "flex gap-3",
 		tabList: "w-fit h-fit flex items-center gap-2 flex-nowrap",
 		tab: [
-			"z-0 relative px-3 py-1 w-full flex items-center justify-center gap-2 outline-none",
+			"z-0 relative px-3 py-1 w-full flex items-center justify-center gap-2 text-default-500 outline-none",
 			"focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-focus focus-visible:outline-offset-2",
 			"hover:[&:not([aria-selected])]:opacity-disabled disabled:!opacity-30",
 		],
@@ -19,11 +19,8 @@ export const tabsVariants = tv({
 		variant: {
 			solid: {
 				tabList: "p-1 bg-default-100",
-				tab: "text-default-500",
 			},
-			light: {
-				tab: "text-default-500",
-			},
+			light: "",
 			underlined: {
 				tab: [
 					"after:content-[''] after:origin-center after:absolute after:left-1/2 after:-bottom-[2px]",
@@ -33,7 +30,6 @@ export const tabsVariants = tv({
 			},
 			bordered: {
 				tabList: "p-1 border-2 border-default-200 shadow-sm",
-				tab: "text-default-500",
 			},
 		},
 		size: {
