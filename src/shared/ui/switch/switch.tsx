@@ -76,7 +76,6 @@ export const Switch = (props: SwitchProps) => {
 			{...restProps}
 		>
 			<span
-				aria-hidden="true"
 				{...wrapperProps}
 				className={classNames.wrapper({ className: wrapperProps?.className })}
 			>

@@ -1,26 +1,13 @@
 import { Container } from "@/shared/ui/layout"
 import { Tab, Tabs } from "@/shared/ui/tabs"
-import Link from "next/link";
 
 const Home = () => {
 	return (
 		<Container className="pt-12">
 			<Tabs>
-				<Tab value="photos" disabled label="Photos">
-					Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
-					standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to
-					make a type specimen book.
-				</Tab>
-
-				<Tab as={Link} href="/" label="Music">
-					t has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially
-					unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem
-				</Tab>
-
-				<Tab label="Videos">
-					Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of
-					Lorem Ipsum.
-				</Tab>
+				<Tab label="Photos">Photos panel</Tab>
+				<Tab label="Music">Music panel</Tab>
+				<Tab label="Videos">Videos panel</Tab>
 			</Tabs>
 		</Container>
 	)

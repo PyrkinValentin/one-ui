@@ -42,7 +42,7 @@ export const mergeFunctions = <
 export const mergeRefs = <
 	T extends HTMLElement
 >(...refs: (Ref<T> | undefined)[]): RefCallback<T> => {
-	return (instance: T | null) => {
+	const merge = (instance: T | null) => {
 		refs.forEach((ref) => {
 			if (!ref) return
 
@@ -52,6 +52,12 @@ export const mergeRefs = <
 				ref.current = instance
 			}
 		})
+	}
+	
+	return (instance: T | null) => {
+		merge(instance)
+
+		return () => merge(null)
 	}
 }
 
