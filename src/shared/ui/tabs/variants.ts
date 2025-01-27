@@ -24,7 +24,7 @@ export const tabsVariants = tv({
 			underlined: {
 				tab: [
 					"after:content-[''] after:origin-center after:absolute after:left-1/2 after:-bottom-[2px]",
-					"after:-translate-x-1/2 after:w-0 after:h-[2px] after:origin-center aria-selected:after:w-full",
+					"after:-translate-x-1/2 after:w-0 after:h-[2px] aria-selected:after:w-full",
 					"aria-selected:after:shadow-[0_1px_0px_0_rgba(0,0,0,0.05)]",
 				],
 			},
