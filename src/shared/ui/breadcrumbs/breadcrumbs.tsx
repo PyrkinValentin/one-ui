@@ -67,7 +67,10 @@ export const Breadcrumbs = (props: BreadcrumbsProps) => {
 	])
 
 	return (
-		<nav className={classNames.base({ className })} {...restProps}>
+		<nav
+			className={classNames.base({ className })}
+			{...restProps}
+		>
 			<ol
 				{...listProps}
 				className={classNames.list({ className: listProps?.className })}
