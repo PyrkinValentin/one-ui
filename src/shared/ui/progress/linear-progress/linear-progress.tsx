@@ -45,7 +45,7 @@ export const LinearProgress = (props: LinearProgressProps) => {
 		? numberClump(((value - minValue) / (maxValue - minValue)) * 100, 0, maxValue)
 		: 0
 
-	const slots = useMemo(() => {
+	const classNames = useMemo(() => {
 		return linearProgressVariants({
 			size,
 			color,
@@ -73,19 +73,19 @@ export const LinearProgress = (props: LinearProgressProps) => {
 			aria-valuemin={minValue}
 			aria-valuemax={maxValue}
 			aria-valuetext={textValue}
-			className={slots.base({ className })}
+			className={classNames.base({ className })}
 			{...restProps}
 		>
 			{(label || showValueLabel) ? (
 				<div
 					{...labelWrapperProps}
-					className={slots.labelWrapper({ className: labelWrapperProps?.className })}
+					className={classNames.labelWrapper({ className: labelWrapperProps?.className })}
 				>
 					{label ? (
 						<label
 							id={labelId}
 							{...labelProps}
-							className={slots.label({ className: labelProps?.className })}
+							className={classNames.label({ className: labelProps?.className })}
 						>
 							{label}
 						</label>
@@ -96,7 +96,7 @@ export const LinearProgress = (props: LinearProgressProps) => {
 							aria-live="off"
 							htmlFor={labelId}
 							{...valueProps}
-							className={slots.value({ className: valueProps?.className })}
+							className={classNames.value({ className: valueProps?.className })}
 						>
 							{textValue}
 						</output>
@@ -106,11 +106,11 @@ export const LinearProgress = (props: LinearProgressProps) => {
 
 			<div
 				{...trackProps}
-				className={slots.track({ className: trackProps?.className })}
+				className={classNames.track({ className: trackProps?.className })}
 			>
 				<div
 					{...indicatorProps}
-					className={slots.indicator({ className: indicatorProps?.className })}
+					className={classNames.indicator({ className: indicatorProps?.className })}
 					style={{
 						transform: `translateX(-${100 - (percentage || 0)}%)`,
 						...indicatorProps?.style,
