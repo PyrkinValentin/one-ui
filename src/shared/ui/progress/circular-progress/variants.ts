@@ -15,6 +15,23 @@ export const circularProgressVariants = tv({
 		label: "",
 	},
 	variants: {
+		size: {
+			sm: {
+				svg: "w-8 h-8",
+				label: "text-sm",
+				value: "text-[0.5rem]",
+			},
+			md: {
+				svg: "w-10 h-10",
+				label: "text-sm",
+				value: "text-[0.55rem]",
+			},
+			lg: {
+				svg: "w-12 h-12",
+				label: "text-md",
+				value: "text-[0.6rem]",
+			},
+		},
 		color: {
 			default: {
 				svg: "text-default-400",
@@ -33,23 +50,6 @@ export const circularProgressVariants = tv({
 			},
 			danger: {
 				svg: "text-danger",
-			},
-		},
-		size: {
-			sm: {
-				svg: "w-8 h-8",
-				label: "text-sm",
-				value: "text-[0.5rem]",
-			},
-			md: {
-				svg: "w-10 h-10",
-				label: "text-sm",
-				value: "text-[0.55rem]",
-			},
-			lg: {
-				svg: "w-12 h-12",
-				label: "text-md",
-				value: "text-[0.6rem]",
 			},
 		},
 		indeterminate: {

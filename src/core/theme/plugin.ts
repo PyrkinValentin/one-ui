@@ -14,13 +14,10 @@ import { dangerColors, darkDangerVars, lightDangerVars } from "./colors/danger"
 import { darkDividerVars, dividerColors, lightDividerVars } from "./colors/divider"
 import { contentColors, darkContentVars, lightContentVars } from "./colors/content"
 import { darkFocusVars, lightFocusVars, focusColors } from "./colors/focus"
+import { darkBoxShadowVars, lightBoxShadowVars } from "./shadows/box"
 
-import { backgroundImageStripe } from "./background-image/stripe"
-
-import { boxShadow, darkBoxShadowVars, lightBoxShadowVars } from "./shadows/box"
-import { borderRadius } from "./border-radius"
-import { animations } from "./animations"
-import { keyframes } from "./keyframes"
+const createStripeGradient = (stripeColor: string, backgroundColor: string) =>
+	`linear-gradient(45deg,  rgb(var(--${stripeColor})) 25%,  rgb(var(--${backgroundColor})) 25%,  rgb(var(--${backgroundColor})) 50%,  rgb(var(--${stripeColor})) 50%,  rgb(var(--${stripeColor})) 75%,  rgb(var(--${backgroundColor})) 75%,  rgb(var(--${backgroundColor})))`
 
 export const plugin = Plugin((api) => {
 	const { addBase } = api
@@ -93,16 +90,44 @@ export const plugin = Plugin((api) => {
 				...focusColors,
 			},
 			backgroundImage: {
-				...backgroundImageStripe,
+				"stripe-gradient-default": createStripeGradient("default-200", "default-400"),
+				"stripe-gradient-primary": createStripeGradient("primary-200", "primary"),
+				"stripe-gradient-secondary": createStripeGradient("secondary-200", "secondary"),
+				"stripe-gradient-success": createStripeGradient("success-200", "success"),
+				"stripe-gradient-warning": createStripeGradient("warning-200", "warning"),
+				"stripe-gradient-danger": createStripeGradient("danger-200", "danger"),
+			},
+			backgroundSize: {
+				"stripe-size": "1.25rem 1.25rem",
 			},
 			opacity: {
 				"disabled": "0.5",
 				"hover": "0.9",
 			},
-			boxShadow,
-			borderRadius,
-			animation: animations,
-			keyframes,
+			boxShadow: {
+				"small": "var(--shadow-sm)",
+				"medium": "var(--shadow-md)",
+				"large": "var(--shadow-lg)",
+			},
+			borderRadius: {
+				small: rem(8),
+				medium: rem(12),
+				large: rem(14),
+			},
+			animation: {
+				"indeterminate-track": "indeterminate-track 1.5s cubic-bezier(.65,.815,.735,.395) infinite normal none running",
+				"caret-blink": "caret-blink 1s ease-out infinite",
+			},
+			keyframes: {
+				"indeterminate-track": {
+					"0%": { transform: "translateX(-50%) scaleX(0.2)" },
+					"100%": { transform: "translateX(100%) scaleX(1)" },
+				},
+				"caret-blink": {
+					"0%, 70%, 100%": { opacity: "1" },
+					"20%, 50%": { opacity: "0" },
+				},
+			},
 		},
 	},
 })

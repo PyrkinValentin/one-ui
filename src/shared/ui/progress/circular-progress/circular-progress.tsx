@@ -9,19 +9,19 @@ import { circularProgressVariants } from "./variants"
 
 export const CircularProgress = (props: CircularProgressProps) => {
 	const {
-		showValueLabel = true,
+		showValueLabel,
 		value = 0,
 		minValue = 0,
 		maxValue = 100,
 		label,
 		valueLabel,
-		formatOptions,
-		strokeWidth,
+		formatOptions = { style: "percent" },
+		strokeWidth: strokeWidthProp,
 		slotProps = {},
 		className,
-		color,
 		size,
-		indeterminate,
+		color,
+		indeterminate = !showValueLabel,
 		disabled,
 		disableAnimation,
 		...restProps
@@ -39,12 +39,12 @@ export const CircularProgress = (props: CircularProgressProps) => {
 	const labelId = useId()
 
 	const textValue = showValueLabel
-		? formatNumber(formatOptions).format(value)
+		? formatNumber(formatOptions).format(formatOptions.style === "percent" ? value / 100 : value)
 		: undefined
 
 	const center = 16
-	const currentStrokeWidth = strokeWidth ?? size === "sm" ? 2 : 3
-	const radius = 16 - currentStrokeWidth
+	const strokeWidth = strokeWidthProp ?? (size === "sm" ? 2 : 3)
+	const radius = 16 - strokeWidth
 	const circumference = 2 * radius * Math.PI
 
 	const percentage = indeterminate
@@ -85,7 +85,7 @@ export const CircularProgress = (props: CircularProgressProps) => {
 				<svg
 					viewBox="0 0 32 32"
 					fill="none"
-					strokeWidth={currentStrokeWidth}
+					strokeWidth={strokeWidth}
 					{...svgProps}
 					className={classNames.svg({ className: svgProps?.className })}
 				>

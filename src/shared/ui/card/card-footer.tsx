@@ -1,3 +1,5 @@
+"use client"
+
 import type { CardFooterProps } from "./types"
 
 import { useCardContext } from "./card"

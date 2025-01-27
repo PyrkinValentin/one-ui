@@ -1,3 +1,5 @@
+"use client"
+
 import type { CardBodyProps } from "./types"
 
 import { useCardContext } from "./card"
