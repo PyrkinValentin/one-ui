@@ -108,8 +108,8 @@ export const radioGroupVariants = tv({
 		base: "relative flex flex-col gap-2",
 		label: "relative text-md text-default-500",
 		wrapper: "flex flex-wrap gap-2",
-		invalidMessage: "text-sm text-danger",
-		description: "text-sm text-default-400",
+		invalidMessage: "text-xs text-danger",
+		description: "text-xs text-default-400",
 	},
 	variants: {
 		orientation: {
