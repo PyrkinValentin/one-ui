@@ -26,7 +26,7 @@ export const Alert = (props: AlertProps) => {
 		slotProps = {},
 		className,
 		variant,
-		color,
+		color = "default",
 		rounded,
 		hideIconWrapper,
 		hideIcon,
@@ -58,7 +58,7 @@ export const Alert = (props: AlertProps) => {
 		hideIcon,
 	])
 
-	const Icon = iconMap[color ?? "default"]
+	const Icon = iconMap[color]
 
 	return (
 		<div

@@ -9,9 +9,9 @@ export const switchVariants = tv({
 		base: "relative max-w-fit inline-flex items-center justify-start cursor-pointer touch-none select-none",
 		wrapper: [
 			"overflow-hidden relative px-1 inline-flex items-center justify-start flex-shrink-0 bg-default-200",
-			"rounded-full outline-none [&:has(input:focus-visible)]:z-10 [&:has(input:focus-visible)]:ring-2",
-			"[&:has(input:focus-visible)]:ring-focus [&:has(input:focus-visible)]:ring-offset-2",
-			"[&:has(input:focus-visible)]:ring-offset-background",
+			"rounded-full outline-none has-[input:focus-visible]:z-10 has-[input:focus-visible]:ring-2",
+			"has-[input:focus-visible]:ring-focus has-[input:focus-visible]:ring-offset-2",
+			"has-[input:focus-visible]:ring-offset-background",
 		],
 		input: "peer sr-only",
 		thumb: "z-10 flex items-center justify-center bg-white shadow-small rounded-full origin-right pointer-events-none",
@@ -46,22 +46,22 @@ export const switchVariants = tv({
 		},
 		color: {
 			default: {
-				wrapper: "[&:has(input:checked)]:bg-default-400 [&:has(input:checked)]:text-default-foreground",
+				wrapper: "has-[input:checked]:bg-default-400 has-[input:checked]:text-default-foreground",
 			},
 			primary: {
-				wrapper: "[&:has(input:checked)]:bg-primary [&:has(input:checked)]:text-primary-foreground",
+				wrapper: "has-[input:checked]:bg-primary has-[input:checked]:text-primary-foreground",
 			},
 			secondary: {
-				wrapper: "[&:has(input:checked)]:bg-secondary [&:has(input:checked)]:text-secondary-foreground",
+				wrapper: "has-[input:checked]:bg-secondary has-[input:checked]:text-secondary-foreground",
 			},
 			success: {
-				wrapper: "[&:has(input:checked)]:bg-success [&:has(input:checked)]:text-success-foreground",
+				wrapper: "has-[input:checked]:bg-success has-[input:checked]:text-success-foreground",
 			},
 			warning: {
-				wrapper: "[&:has(input:checked)]:bg-warning [&:has(input:checked)]:text-warning-foreground",
+				wrapper: "has-[input:checked]:bg-warning has-[input:checked]:text-warning-foreground",
 			},
 			danger: {
-				wrapper: "[&:has(input:checked)]:bg-danger [&:has(input:checked)]:text-danger-foreground",
+				wrapper: "has-[input:checked]:bg-danger has-[input:checked]:text-danger-foreground",
 			},
 		},
 		readOnly: {

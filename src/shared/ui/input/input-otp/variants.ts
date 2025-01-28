@@ -28,7 +28,7 @@ export const inputOtpVariants = tv({
 				segment: [
 					"box-border relative border-b-2 !rounded-none shadow-[0_1px_0px_0_rgba(0,0,0,0.05)]",
 					"after:content-[''] after:origin-center after:absolute after:left-1/2 after:-bottom-[2px]",
-					"after:-translate-x-1/2 after:w-0 after:h-[2px] after:bg-default-foreground data-[active=true]:after:w-full",
+					"after:-translate-x-1/2 after:w-0 after:h-[2px] data-[active=true]:after:w-full",
 					"data-[active=true]:scale-100",
 				],
 			},
@@ -268,7 +268,10 @@ export const inputOtpVariants = tv({
 			variant: "underlined",
 			color: "default",
 			className: {
-				segment: "border-default-200 text-default-foreground after:bg-foreground data-[active=true]:border-default-300",
+				segment: [
+					"border-default-200 text-default-foreground after:bg-default-foreground",
+					"data-[active=true]:border-default-300",
+				],
 			},
 		},
 		{
