@@ -10,8 +10,8 @@ export const radioVariants = tv({
 		wrapper: [
 			"box-border overflow-hidden relative inline-flex items-center justify-center flex-shrink-0 outline-none",
 			"border-solid border-2 border-default rounded-full",
-			"[&:has(input:focus-visible)]:z-10 [&:has(input:focus-visible)]:ring-2 [&:has(input:focus-visible)]:ring-focus",
-			"[&:has(input:focus-visible)]:ring-offset-2 [&:has(input:focus-visible)]:ring-offset-background",
+			"has-[input:focus-visible]:z-10 has-[input:focus-visible]:ring-2 has-[input:focus-visible]:ring-focus",
+			"has-[input:focus-visible]:ring-offset-2 has-[input:focus-visible]:ring-offset-background",
 			"group-hover:[&:has(input:not(:checked))]:bg-default-100",
 		],
 		input: "peer sr-only",
@@ -43,27 +43,27 @@ export const radioVariants = tv({
 		},
 		color: {
 			default: {
-				wrapper: "[&:has(input:checked)]:border-default-500",
+				wrapper: "has-[input:checked]:border-default-500",
 				control: "bg-default-500 text-default-foreground",
 			},
 			primary: {
-				wrapper: "[&:has(input:checked)]:border-primary",
+				wrapper: "has-[input:checked]:border-primary",
 				control: "bg-primary text-primary-foreground",
 			},
 			secondary: {
-				wrapper: "[&:has(input:checked)]:border-secondary",
+				wrapper: "has-[input:checked]:border-secondary",
 				control: "bg-secondary text-secondary-foreground",
 			},
 			success: {
-				wrapper: "[&:has(input:checked)]:border-success",
+				wrapper: "has-[input:checked]:border-success",
 				control: "bg-success text-success-foreground",
 			},
 			warning: {
-				wrapper: "[&:has(input:checked)]:border-warning",
+				wrapper: "has-[input:checked]:border-warning",
 				control: "bg-warning text-warning-foreground",
 			},
 			danger: {
-				wrapper: "[&:has(input:checked)]:border-danger",
+				wrapper: "has-[input:checked]:border-danger",
 				control: "bg-danger text-danger-foreground",
 			},
 		},
@@ -79,7 +79,7 @@ export const radioVariants = tv({
 		},
 		invalid: {
 			true: {
-				wrapper: "border-danger [&:has(input:checked)]:border-danger",
+				wrapper: "border-danger has-[input:checked]:border-danger",
 				control: "bg-danger text-danger-foreground",
 				label: "text-danger",
 				description: "text-danger-300",
@@ -88,7 +88,8 @@ export const radioVariants = tv({
 		disableAnimation: {
 			true: "",
 			false: {
-				wrapper: "group-active:scale-[0.97] transition-[transform,background-color,border-color] motion-reduce:transition-none",
+				wrapper:
+					"group-active:scale-[0.97] transition-[transform,background-color,border-color] motion-reduce:transition-none",
 				control: "transition-[transform,opacity] motion-reduce:transition-none",
 				label: "transition-colors motion-reduce:transition-none",
 				description: "transition-colors motion-reduce:transition-none",
@@ -105,11 +106,11 @@ export type RadioGroupVariantsProps = VariantProps<typeof radioGroupVariants>
 
 export const radioGroupVariants = tv({
 	slots: {
-		base: "relative flex flex-col gap-2",
+		base: "relative flex flex-col",
 		label: "relative text-md text-default-500",
 		wrapper: "flex flex-wrap gap-2",
-		invalidMessage: "text-xs text-danger",
-		description: "text-xs text-default-400",
+		invalidMessage: "pt-2 text-xs text-danger",
+		description: "pt-2 text-xs text-default-400",
 	},
 	variants: {
 		orientation: {

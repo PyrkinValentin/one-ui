@@ -12,9 +12,6 @@ export type InputOtpProps = ComponentProps<
 		| "pattern"
 		| "minLength"
 		| "maxLength"
-		| "onClick"
-		| "onFocus"
-		| "onBlur"
 	>> &
 	InputOtpVariantsProps &
 	InputOtpOwnProps
