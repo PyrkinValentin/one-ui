@@ -89,7 +89,7 @@ export const textareaVariants = tv({
 		},
 		autosize: {
 			true: {
-				textarea: "resize-none",
+				textarea: "overflow-hidden resize-none",
 			},
 		},
 		fullWidth: {

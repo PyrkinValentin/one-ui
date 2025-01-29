@@ -6,7 +6,7 @@ import { useCallbackEvent } from "@/shared/hooks/use-callback-event"
 
 import { numberClump } from "@/shared/utils/number"
 
-type UseRangeOptions = {
+type UseSliderRangeOptions = {
 	step?: number
 	minValue?: number
 	maxValue?: number
@@ -19,7 +19,7 @@ type GetThumbProps = {
 	trigger: number
 }
 
-export const useRange = (options: UseRangeOptions) => {
+export const useSliderRange = (options: UseSliderRangeOptions) => {
 	const {
 		step = 1,
 		minValue = 0,

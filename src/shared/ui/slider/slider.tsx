@@ -14,7 +14,7 @@ import { isUndefined } from "@/shared/helpers/is-undefined"
 import { Fragment } from "react"
 import { Tooltip } from "@/shared/ui/tooltip"
 
-import { useRange } from "./use-range"
+import { useSliderRange } from "./use-slider-range"
 import { sliderVariants } from "./variants"
 
 export const Slider = (props: SliderProps) => {
@@ -68,7 +68,7 @@ export const Slider = (props: SliderProps) => {
 		dragging,
 		getTrackProps,
 		getThumbProps,
-	} = useRange({
+	} = useSliderRange({
 		step,
 		minValue,
 		maxValue,

@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react"
 
-export const useTextareaAutosize = (value: string, autosize?: boolean) => {
+export const useTextareaAutosize = (value: string, enabled?: boolean) => {
 	const textareaRef = useRef<HTMLTextAreaElement>(null)
 
 	const setSize = () => {
@@ -13,17 +13,21 @@ export const useTextareaAutosize = (value: string, autosize?: boolean) => {
 	}
 
 	useEffect(() => {
-		if (!autosize) return
+		if (!enabled) return
 
 		setSize()
+	}, [
+		enabled,
+		value,
+	])
+
+	useEffect(() => {
+		if (!enabled) return
 
 		addEventListener("resize", setSize)
 
 		return () => removeEventListener("resize", setSize)
-	}, [
-		autosize,
-		value,
-	])
+	}, [enabled])
 
 	return textareaRef
 }
