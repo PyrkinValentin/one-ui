@@ -131,21 +131,21 @@ export const CheckboxGroup = (props: CheckboxGroupProps) => {
 				</div>
 
 				{invalid && invalidMessage ? (
-					<span
+					<p
 						id={descriptionId}
 						{...invalidMessageProps}
 						className={classNames.invalidMessage({ className: invalidMessageProps?.className })}
 					>
 						{invalidMessage}
-					</span>
+					</p>
 				) : description ? (
-					<span
+					<p
 						id={descriptionId}
 						{...descriptionProps}
 						className={classNames.description({ className: descriptionProps?.className })}
 					>
 						{description}
-					</span>
+					</p>
 				) : null}
 			</div>
 		</CheckboxGroupContext>

@@ -82,6 +82,6 @@ type CheckboxGroupOwnProps = {
 type CheckboxGroupSlotProps = {
 	labelProps?: ComponentProps<"span">
 	wrapperProps?: ComponentProps
-	invalidMessageProps?: ComponentProps<"span">
-	descriptionProps?: ComponentProps<"span">
+	invalidMessageProps?: ComponentProps<"p">
+	descriptionProps?: ComponentProps<"p">
 }

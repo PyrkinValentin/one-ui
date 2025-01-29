@@ -47,10 +47,9 @@ export const Input = (props: InputProps) => {
 	} = props
 
 	const {
+		wrapperProps,
 		labelProps,
-		mainWrapperProps,
 		inputWrapperProps,
-		innerWrapperProps,
 		inputProps,
 		clearButtonProps,
 		invalidMessageProps,
@@ -104,116 +103,82 @@ export const Input = (props: InputProps) => {
 		disableAnimation,
 	])
 
-	const labelContent = label ? (
-		<label
-			htmlFor={inputId}
-			{...labelProps}
-			className={classNames.label({ className: labelProps?.className })}
-		>
-			{label}
-		</label>
-	) : null
-
-	const helperContent = invalid && invalidMessage ? (
-		<span
-			{...invalidMessageProps}
-			className={classNames.invalidMessage({ className: invalidMessageProps?.className })}
-		>
-			{invalidMessage}
-		</span>
-	) : description ? (
-		<span
-			{...descriptionProps}
-			className={classNames.description({ className: descriptionProps?.className })}
-		>
-			{description}
-		</span>
-	) : null
-
-	const innerContent = (
-		<div
-			{...innerWrapperProps}
-			className={classNames.innerWrapper({ className: innerWrapperProps?.className })}
-		>
-			{startContent}
-
-			<input
-				id={inputId}
-				type={type}
-				inputMode={inputMode}
-				name={name}
-				placeholder={placeholder ?? " "}
-				autoFocus={autoFocus}
-				autoComplete={autoComplete}
-				minLength={minLength}
-				maxLength={maxLength}
-				value={controlledValue}
-				onChange={handleChange}
-				{...inputProps}
-				className={classNames.input({ className: inputProps?.className })}
-			/>
-
-			{clearable ? (
-				<>
-					{controlledValue ? (
-						<button
-							onClick={handleClickClear}
-							{...clearButtonProps}
-							className={classNames.clearButton({ className: clearButtonProps?.className })}
-						>
-							{endContent ?? <MdCancel/>}
-						</button>
-					) : null}
-				</>
-			) : endContent}
-		</div>
-	)
-
 	return (
 		<div
-			data-has-label={!!label || undefined}
-			data-has-helper={!!description || !!invalidMessage || undefined}
-			data-within={!!placeholder || undefined}
 			className={classNames.base({ className })}
 			{...restProps}
 		>
-			{labelPlacement === "outside-left"
-				? labelContent
-				: null
-			}
-
-			{labelPlacement === "outside" || labelPlacement === "outside-left" ? (
-				<div
-					{...mainWrapperProps}
-					className={classNames.mainWrapper({ className: mainWrapperProps?.className })}
+			{label ? (
+				<label
+					htmlFor={inputId}
+					{...labelProps}
+					className={classNames.label({ className: labelProps?.className })}
 				>
-					<label
-						{...inputWrapperProps}
-						className={classNames.inputWrapper({ className: inputWrapperProps?.className })}
+					{label}
+				</label>
+			) : null}
+
+			<div
+				{...wrapperProps}
+				className={classNames.wrapper({ className: wrapperProps?.className })}
+			>
+				<label
+					{...inputWrapperProps}
+					className={classNames.inputWrapper({ className: inputWrapperProps?.className })}
+				>
+					{startContent}
+
+					<input
+						id={inputId}
+						type={type}
+						inputMode={inputMode}
+						name={name}
+						required={required}
+						readOnly={readOnly}
+						disabled={disabled}
+						placeholder={placeholder}
+						autoFocus={autoFocus}
+						autoComplete={autoComplete}
+						minLength={minLength}
+						maxLength={maxLength}
+						value={controlledValue}
+						onChange={handleChange}
+						{...inputProps}
+						className={classNames.input({ className: inputProps?.className })}
+					/>
+
+					{clearable ? (
+						<>
+							{controlledValue ? (
+								<button
+									disabled={readOnly || disabled}
+									onClick={handleClickClear}
+									{...clearButtonProps}
+									className={classNames.clearButton({ className: clearButtonProps?.className })}
+								>
+									{endContent ?? <MdCancel/>}
+								</button>
+							) : null}
+						</>
+					) : endContent}
+				</label>
+
+				{invalid && invalidMessage ? (
+					<p
+						{...invalidMessageProps}
+						className={classNames.invalidMessage({ className: invalidMessageProps?.className })}
 					>
-						{labelPlacement !== "outside-left"
-							? labelContent
-							: null
-						}
-
-						{innerContent}
-					</label>
-
-					{helperContent}
-				</div>
-			) : (
-				<>
-					<label
-						{...inputWrapperProps}
-						className={classNames.inputWrapper({ className: inputWrapperProps?.className })}
+						{invalidMessage}
+					</p>
+				) : description ? (
+					<p
+						{...descriptionProps}
+						className={classNames.description({ className: descriptionProps?.className })}
 					>
-						{labelContent}
-						{innerContent}
-					</label>
-
-					{helperContent}
-				</>
-			)}
+						{description}
+					</p>
+				) : null}
+			</div>
 		</div>
 	)
 }
