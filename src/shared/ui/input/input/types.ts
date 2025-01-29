@@ -32,12 +32,11 @@ type InputOwnProps = {
 }
 
 type InputSlotProps = {
+	wrapperProps?: ComponentProps
 	labelProps?: ComponentProps<"label">
-	mainWrapperProps?: ComponentProps
 	inputWrapperProps?: ComponentProps<"label">
-	innerWrapperProps?: ComponentProps
 	inputProps?: ComponentProps<"input">
 	clearButtonProps?: ComponentProps<"button">
-	invalidMessageProps?: ComponentProps<"span">
-	descriptionProps?: ComponentProps<"span">
+	invalidMessageProps?: ComponentProps<"p">
+	descriptionProps?: ComponentProps<"p">
 }
