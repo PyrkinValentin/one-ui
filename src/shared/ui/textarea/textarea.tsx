@@ -1,23 +1,24 @@
 "use client"
 
 import type { ChangeEvent } from "react"
-import type { InputProps } from "./types"
+import type { TextareaProps } from "./types"
 
 import { useId, useMemo } from "react"
 import { useControlledState } from "@/shared/hooks/use-controlled-state"
 
 import { MdCancel } from "react-icons/md"
 
-import { inputVariants } from "./variants"
+import { textareaVariants } from "./variants"
 
-export const Input = (props: InputProps) => {
+export const Textarea = (props: TextareaProps) => {
 	const {
-		type,
 		inputMode,
 		name,
 		placeholder,
 		autoFocus,
 		autoComplete,
+		cols,
+		rows,
 		minLength,
 		maxLength,
 		defaultValue = "",
@@ -36,7 +37,6 @@ export const Input = (props: InputProps) => {
 		size,
 		color,
 		rounded,
-		labelPlacement,
 		fullWidth,
 		clearable,
 		required,
@@ -50,14 +50,14 @@ export const Input = (props: InputProps) => {
 	const {
 		wrapperProps,
 		labelProps,
-		inputWrapperProps,
-		inputProps,
+		textareaWrapperProps,
+		textareaProps,
 		clearButtonProps,
 		invalidMessageProps,
 		descriptionProps,
 	} = slotProps
 
-	const inputId = useId()
+	const textareaId = useId()
 
 	const [controlledValue, setControlledValue] = useControlledState({
 		defaultValue,
@@ -65,7 +65,7 @@ export const Input = (props: InputProps) => {
 		setValue: onValueChange,
 	})
 
-	const handleChange = (ev: ChangeEvent<HTMLInputElement>) => {
+	const handleChange = (ev: ChangeEvent<HTMLTextAreaElement>) => {
 		onChange?.(ev)
 		setControlledValue?.(ev.target.value)
 	}
@@ -76,12 +76,11 @@ export const Input = (props: InputProps) => {
 	}
 
 	const classNames = useMemo(() => {
-		return inputVariants({
+		return textareaVariants({
 			variant,
 			size,
 			color,
 			rounded,
-			labelPlacement,
 			fullWidth,
 			clearable,
 			required,
@@ -95,7 +94,6 @@ export const Input = (props: InputProps) => {
 		size,
 		color,
 		rounded,
-		labelPlacement,
 		fullWidth,
 		clearable,
 		required,
@@ -112,7 +110,7 @@ export const Input = (props: InputProps) => {
 		>
 			{label ? (
 				<label
-					htmlFor={inputId}
+					htmlFor={textareaId}
 					{...labelProps}
 					className={classNames.label({ className: labelProps?.className })}
 				>
@@ -125,14 +123,13 @@ export const Input = (props: InputProps) => {
 				className={classNames.wrapper({ className: wrapperProps?.className })}
 			>
 				<label
-					{...inputWrapperProps}
-					className={classNames.inputWrapper({ className: inputWrapperProps?.className })}
+					{...textareaWrapperProps}
+					className={classNames.textareaWrapper({ className: textareaWrapperProps?.className })}
 				>
 					{startContent}
 
-					<input
-						id={inputId}
-						type={type}
+					<textarea
+						id={textareaId}
 						inputMode={inputMode}
 						name={name}
 						required={required}
@@ -141,12 +138,14 @@ export const Input = (props: InputProps) => {
 						placeholder={placeholder}
 						autoFocus={autoFocus}
 						autoComplete={autoComplete}
+						cols={cols}
+						rows={rows}
 						minLength={minLength}
 						maxLength={maxLength}
 						value={controlledValue}
 						onChange={handleChange}
-						{...inputProps}
-						className={classNames.input({ className: inputProps?.className })}
+						{...textareaProps}
+						className={classNames.textarea({ className: textareaProps?.className })}
 					/>
 
 					{clearable ? (
