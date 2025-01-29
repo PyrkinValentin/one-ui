@@ -5,12 +5,8 @@ const Home = () => {
 	return (
 		<Container className="pt-12">
 			<Textarea
+				autosize
 				clearable
-				autoFocus
-				label="Description"
-				variant="faded"
-				color="warning"
-				placeholder="Enter your description."
 			/>
 		</Container>
 	)

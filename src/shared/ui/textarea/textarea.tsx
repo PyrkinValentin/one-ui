@@ -8,6 +8,9 @@ import { useControlledState } from "@/shared/hooks/use-controlled-state"
 
 import { MdCancel } from "react-icons/md"
 
+import { mergeRefs } from "@/shared/utils/merge"
+
+import { useTextAreaAutosize } from "./use-textarea-autosize"
 import { textareaVariants } from "./variants"
 
 export const Textarea = (props: TextareaProps) => {
@@ -37,6 +40,7 @@ export const Textarea = (props: TextareaProps) => {
 		size,
 		color,
 		rounded,
+		autosize,
 		fullWidth,
 		clearable,
 		required,
@@ -65,6 +69,8 @@ export const Textarea = (props: TextareaProps) => {
 		setValue: onValueChange,
 	})
 
+	const textareaRef = useTextAreaAutosize(controlledValue, autosize)
+
 	const handleChange = (ev: ChangeEvent<HTMLTextAreaElement>) => {
 		onChange?.(ev)
 		setControlledValue?.(ev.target.value)
@@ -81,6 +87,7 @@ export const Textarea = (props: TextareaProps) => {
 			size,
 			color,
 			rounded,
+			autosize,
 			fullWidth,
 			clearable,
 			required,
@@ -94,6 +101,7 @@ export const Textarea = (props: TextareaProps) => {
 		size,
 		color,
 		rounded,
+		autosize,
 		fullWidth,
 		clearable,
 		required,
@@ -145,6 +153,10 @@ export const Textarea = (props: TextareaProps) => {
 						value={controlledValue}
 						onChange={handleChange}
 						{...textareaProps}
+						{...(autosize
+								? { ref: mergeRefs(textareaProps?.ref, textareaRef) }
+								: undefined
+						)}
 						className={classNames.textarea({ className: textareaProps?.className })}
 					/>
 

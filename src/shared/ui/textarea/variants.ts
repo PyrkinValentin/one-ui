@@ -87,6 +87,11 @@ export const textareaVariants = tv({
 				textareaWrapper: "rounded-full",
 			},
 		},
+		autosize: {
+			true: {
+				textarea: "resize-none",
+			},
+		},
 		fullWidth: {
 			true: {
 				wrapper: "w-full",
