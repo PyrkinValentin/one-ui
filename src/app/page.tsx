@@ -1,10 +1,17 @@
 import { Container } from "@/shared/ui/layout"
-import { Input } from "@/shared/ui/input"
+import { Textarea } from "@/shared/ui/textarea"
 
 const Home = () => {
 	return (
 		<Container className="pt-12">
-			<Input/>
+			<Textarea
+				autoFocus
+				clearable
+				label="Description"
+				variant="faded"
+				color="warning"
+				placeholder="Enter your description."
+			/>
 		</Container>
 	)
 }

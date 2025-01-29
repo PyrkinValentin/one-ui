@@ -1,25 +1,26 @@
 import type { ReactNode } from "react"
 import type { ComponentProps } from "@/shared/types/props"
-import type { InputVariantsProps } from "./variants"
+import type { TextareaVariantsProps } from "./variants"
 
-export type InputProps = ComponentProps<
+export type TextareaProps = ComponentProps<
 	"div",
-	InputVariantsProps &
-	Pick<ComponentProps<"input">,
-		| "type"
+	TextareaVariantsProps &
+	Pick<ComponentProps<"textarea">,
 		| "inputMode"
 		| "name"
 		| "placeholder"
 		| "autoFocus"
 		| "autoComplete"
+		| "cols"
+		| "rows"
 		| "minLength"
 		| "maxLength"
 		| "onChange"
 	> &
-	InputOwnProps
+	TextareaOwnProps
 >
 
-type InputOwnProps = {
+type TextareaOwnProps = {
 	label?: ReactNode
 	startContent?: ReactNode
 	endContent?: ReactNode
@@ -29,14 +30,14 @@ type InputOwnProps = {
 	value?: string
 	onValueChange?: (value: string) => void
 	onClear?: () => void
-	slotProps?: InputSlotProps
+	slotProps?: TextareaSlotProps
 }
 
-type InputSlotProps = {
+type TextareaSlotProps = {
 	wrapperProps?: ComponentProps
 	labelProps?: ComponentProps<"label">
-	inputWrapperProps?: ComponentProps<"label">
-	inputProps?: ComponentProps<"input">
+	textareaWrapperProps?: ComponentProps<"label">
+	textareaProps?: ComponentProps<"textarea">
 	clearButtonProps?: ComponentProps<"button">
 	invalidMessageProps?: ComponentProps<"p">
 	descriptionProps?: ComponentProps<"p">
