@@ -5,8 +5,8 @@ const Home = () => {
 	return (
 		<Container className="pt-12">
 			<Textarea
-				autoFocus
 				clearable
+				autoFocus
 				label="Description"
 				variant="faded"
 				color="warning"
