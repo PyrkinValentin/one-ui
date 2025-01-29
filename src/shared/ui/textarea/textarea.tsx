@@ -10,7 +10,7 @@ import { MdCancel } from "react-icons/md"
 
 import { mergeRefs } from "@/shared/utils/merge"
 
-import { useTextAreaAutosize } from "./use-textarea-autosize"
+import { useTextareaAutosize } from "./use-textarea-autosize"
 import { textareaVariants } from "./variants"
 
 export const Textarea = (props: TextareaProps) => {
@@ -69,7 +69,7 @@ export const Textarea = (props: TextareaProps) => {
 		setValue: onValueChange,
 	})
 
-	const textareaRef = useTextAreaAutosize(controlledValue, autosize)
+	const textareaRef = useTextareaAutosize(controlledValue, autosize)
 
 	const handleChange = (ev: ChangeEvent<HTMLTextAreaElement>) => {
 		onChange?.(ev)

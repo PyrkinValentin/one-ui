@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react"
 
-export const useTextAreaAutosize = (value: string, autosize?: boolean) => {
+export const useTextareaAutosize = (value: string, autosize?: boolean) => {
 	const textareaRef = useRef<HTMLTextAreaElement>(null)
 
 	const setSize = () => {
