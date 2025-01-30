@@ -53,7 +53,7 @@ export const mergeRefs = <
 			}
 		})
 	}
-	
+
 	return (instance: T | null) => {
 		merge(instance)
 

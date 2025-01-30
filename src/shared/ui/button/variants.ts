@@ -17,12 +17,12 @@ export const buttonVariants = tv({
 	variants: {
 		variant: {
 			solid: "",
-			bordered: "border-2 bg-transparent",
-			light: "bg-transparent",
+			bordered: "border-2",
+			light: "",
 			flat: "",
 			faded: "border-2 border-default bg-default-100",
 			shadow: "shadow-lg",
-			ghost: "border-2 bg-transparent",
+			ghost: "border-2",
 		},
 		size: {
 			sm: {
