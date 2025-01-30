@@ -193,12 +193,12 @@ export const Slider = (props: SliderProps) => {
 				type="range"
 				id={`${labelId}-${index}`}
 				aria-labelledby={labelId}
+				aria-valuetext={String(value)}
 				aria-orientation={orientation}
+				disabled={disabled}
 				min={minValue}
 				max={maxValue}
 				step={step}
-				aria-valuetext={String(value)}
-				disabled={disabled}
 				value={value}
 				{...inputProps}
 				onChange={handleChange(index)}
