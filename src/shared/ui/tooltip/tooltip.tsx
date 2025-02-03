@@ -140,7 +140,6 @@ export const Tooltip = (props: TooltipProps) => {
 							...growStyle,
 							...style,
 						}}
-						{...restProps}
 						{...getFloatingProps(restProps)}
 					>
 						<div

@@ -11,9 +11,9 @@ export const paginationVariants = tv({
 		wrapper: "relative max-w-fit h-fit flex items-center flex-nowrap gap-1",
 		prev: "",
 		next: "",
-		ellipsis: "group-hover:hidden group-focus-visible:hidden",
-		forwardIcon: "hidden group-hover:block group-focus-visible:block",
-		item: "select-none touch-none aria-[current=true]:pointer-events-none",
+		item: "relative select-none touch-none aria-[current=true]:pointer-events-none",
+		ellipsis: "opacity-100 group-hover:opacity-0 group-focus-visible:opacity-0",
+		forwardIcon: "absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100",
 	},
 	variants: {
 		variant: {
@@ -84,7 +84,11 @@ export const paginationVariants = tv({
 		},
 		disableAnimation: {
 			true: {
+				prev: "transition-none",
+				next: "transition-none",
 				item: "transition-none",
+				ellipsis: "transition-none",
+				forwardIcon: "transition-none",
 			},
 		},
 	},
@@ -146,6 +150,12 @@ export const paginationVariants = tv({
 			slots: ["prev", "next", "item"],
 			disableAnimation: false,
 			className: "active:[&:not([aria-current=true])]:scale-[0.97] transition motion-reduce:transition-none",
+		},
+		// !disableAnimation
+		{
+			slots: ["ellipsis", "forwardIcon"],
+			disableAnimation: false,
+			className: "transition-opacity motion-reduce:transition-none",
 		},
 		// without variant
 		{

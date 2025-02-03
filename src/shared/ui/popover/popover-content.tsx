@@ -68,7 +68,6 @@ export const PopoverContent = (props: PopoverContentProps) => {
 								...zoomStyle,
 								...style,
 							}}
-							{...restProps}
 							{...getFloatingProps?.(restProps)}
 						>
 							<div
