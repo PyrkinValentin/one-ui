@@ -22,13 +22,13 @@ type PaginationOwnProps = {
 	slotProps?: PaginationSlotProps
 }
 
-export type PaginationRenderItemProps = {
+type PaginationRenderItemProps = {
 	disabled: boolean
 	current: boolean
 	rangeValue: PaginationRangeValue
 	classNames: PaginationVariantsReturn
 	page: number
-	onPageChange: () => void
+	onPageChange: (page: number) => void
 }
 
 type PaginationSlotProps = {
