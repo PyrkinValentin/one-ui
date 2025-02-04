@@ -31,7 +31,7 @@ export const PaginationItem = <
 
 	const handleClick = (ev: MouseEvent<HTMLButtonElement>) => {
 		onClick?.(ev)
-		onPageChange()
+		onPageChange(page)
 	}
 
 	const commonProps: Partial<PaginationItemProps> = {

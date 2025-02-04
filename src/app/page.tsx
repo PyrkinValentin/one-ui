@@ -1,7 +1,6 @@
 "use client"
 
 import Link from "next/link"
-
 import { Container } from "@/shared/ui/layout"
 import { Pagination, PaginationItem } from "@/shared/ui/pagination_2"
 

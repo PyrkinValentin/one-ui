@@ -1,6 +1,6 @@
 "use client"
 
-import { PaginationProps, PaginationRangeValue, PaginationRenderItemProps } from "./types"
+import type { PaginationItemProps, PaginationProps, PaginationRangeValue } from "./types"
 
 import { useMemo } from "react"
 import { useControlledState } from "@/shared/hooks/use-controlled-state"
@@ -47,15 +47,9 @@ export const Pagination = (props: PaginationProps) => {
 		page: controlledPage,
 	})
 
-	const classNames = useMemo(() => {
-		return paginationVariants({
-			variant,
-			disabled,
-		})
-	}, [
-		variant,
-		disabled,
-	])
+	const handlePageChange = (page: number) => {
+		setControlledPage?.(page)
+	}
 
 	const getPage = (rangeValue: PaginationRangeValue) => {
 		switch (rangeValue) {
@@ -91,6 +85,16 @@ export const Pagination = (props: PaginationProps) => {
 		}
 	}
 
+	const classNames = useMemo(() => {
+		return paginationVariants({
+			variant,
+			disabled,
+		})
+	}, [
+		variant,
+		disabled,
+	])
+
 	return (
 		<nav
 			aria-label="pages navigation"
@@ -104,20 +108,21 @@ export const Pagination = (props: PaginationProps) => {
 				{paginationRange.map((rangeValue) => {
 					const page = getPage(rangeValue)
 
-					const paginationItemProps: PaginationRenderItemProps = {
+					const paginationItemProps: PaginationItemProps = {
 						disabled: isDisabled(rangeValue),
 						current: controlledPage === page,
 						rangeValue,
 						page,
 						classNames,
-						onPageChange: () => setControlledPage?.(page),
+						onPageChange: handlePageChange,
+						...itemProps,
 					}
 
 					return (
 						<li key={`${rangeValue}-${page}`}>
 							{renderItem
 								? renderItem(paginationItemProps)
-								: <PaginationItem {...itemProps} {...paginationItemProps}/>
+								: <PaginationItem {...paginationItemProps}/>
 							}
 						</li>
 					)
