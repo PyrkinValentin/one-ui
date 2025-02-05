@@ -1,6 +1,6 @@
 "use client"
 
-import type { ItemValue, PaginationContextValue, PaginationProps } from "./types"
+import type { PaginationContextValue, PaginationProps, PaginationRangeValue } from "./types"
 
 import { use, useMemo } from "react"
 import { useControlledState } from "@/shared/hooks/use-controlled-state"
@@ -10,6 +10,7 @@ import { createContext } from "react"
 import { usePaginationRange } from "./use-pagination-range"
 import { paginationVariants } from "./variants"
 import { PaginationItem } from "./pagination-item"
+import { isNumber } from "@/shared/helpers/is-number";
 
 const PaginationContext = createContext<PaginationContextValue>({})
 export const usePaginationContext = () => use(PaginationContext)
@@ -32,11 +33,18 @@ export const Pagination = (props: PaginationProps) => {
 		size,
 		color,
 		rounded,
+		compact,
 		showShadow,
 		disabled,
 		disableAnimation,
 		...restProps
 	} = props
+
+	const {
+		wrapperProps,
+		itemProps,
+		...restSlotProps
+	} = slotProps
 
 	const [controlledPage, setControlledPage] = useControlledState({
 		defaultValue: defaultPage,
@@ -44,7 +52,7 @@ export const Pagination = (props: PaginationProps) => {
 		setValue: onPageChange,
 	})
 
-	const range = usePaginationRange({
+	const paginationRange = usePaginationRange({
 		totalPages,
 		siblings,
 		boundaries,
@@ -52,8 +60,12 @@ export const Pagination = (props: PaginationProps) => {
 		page: controlledPage,
 	})
 
-	const getPage = (item: ItemValue) => {
-		switch (item) {
+	const handlePageChange = (rangeValue: PaginationRangeValue) => {
+		setControlledPage?.(getPage(rangeValue))
+	}
+
+	const getPage = (rangeValue: PaginationRangeValue) => {
+		switch (rangeValue) {
 			case "prev":
 				return controlledPage <= 1
 					? loop ? totalPages : 1
@@ -71,30 +83,37 @@ export const Pagination = (props: PaginationProps) => {
 					? controlledPage + dotsJump
 					: totalPages
 			default:
-				return item
+				return rangeValue
 		}
 	}
 
-	const handlePageChange = (page: number) => {
-		setControlledPage?.(page)
+	const isDisabled = (rangeValue: PaginationRangeValue) => {
+		switch (rangeValue) {
+			case "prev":
+				return disabled || !loop && controlledPage === 1
+			case "next":
+				return disabled || !loop && controlledPage === totalPages
+			default:
+				return !!disabled
+		}
 	}
 
-	const isDisabledControl = (item: Extract<ItemValue, "prev" | "next">) => {
-		return !loop && item === "prev"
-			? controlledPage === 1
-			: controlledPage === totalPages
+	const isCurrent = (rangeValue: PaginationRangeValue) => {
+		return isNumber(rangeValue) && controlledPage === getPage(rangeValue)
 	}
 
-	const isCurrentPage = (page: number) => {
-		return controlledPage === page
-	}
-
-	const classNames = useMemo(() => {
+	const {
+		base: classNamesBase,
+		wrapper: classNamesWrapper,
+		item: classNamesItem,
+		...restClassNames
+	} = useMemo(() => {
 		return paginationVariants({
 			variant,
 			size,
 			color,
 			rounded,
+			compact,
 			showShadow,
 			disabled,
 			disableAnimation,
@@ -104,33 +123,40 @@ export const Pagination = (props: PaginationProps) => {
 		size,
 		color,
 		rounded,
+		compact,
 		showShadow,
 		disabled,
 		disableAnimation,
 	])
 
 	const contextValue: PaginationContextValue = {
-		disabled,
-		classNames,
-		getPage,
-		isDisabledControl,
-		isCurrentPage,
+		classNames: restClassNames,
+		slotProps: restSlotProps,
+		isDisabled,
+		isCurrent,
 		onPageChange: handlePageChange,
 	}
 
 	return (
 		<PaginationContext value={contextValue}>
 			<nav
-				aria-label="Pages navigation"
-				className={classNames.base({ className })}
+				aria-label="pages navigation"
+				className={classNamesBase({ className })}
 				{...restProps}
 			>
-				<ul className={classNames.wrapper()}>
-					{range.map((item, i) => (
-						<li key={i}>
+				<ul
+					{...wrapperProps}
+					className={classNamesWrapper({ className: wrapperProps?.className })}
+				>
+					{paginationRange.map((rangeValue) => (
+						<li
+							key={rangeValue}
+							{...itemProps}
+							className={classNamesItem({ className: itemProps?.className })}
+						>
 							{renderItem
-								? renderItem({ page: getPage(item), item })
-								: <PaginationItem item={item}/>
+								? renderItem({ page: getPage(rangeValue), rangeValue })
+								: <PaginationItem rangeValue={rangeValue}/>
 							}
 						</li>
 					))}

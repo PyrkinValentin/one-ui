@@ -8,19 +8,23 @@ export type PaginationVariantsReturn = ReturnType<typeof paginationVariants>
 export const paginationVariants = tv({
 	slots: {
 		base: "-m-2.5 p-2.5",
-		wrapper: "relative max-w-fit h-fit flex items-center flex-nowrap gap-1",
-		prev: "",
-		next: "",
-		item: "relative select-none touch-none aria-[current=true]:pointer-events-none",
-		ellipsis: "opacity-100 group-hover:opacity-0 group-focus-visible:opacity-0",
-		forwardIcon: "absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100",
+		wrapper: "max-w-fit h-fit flex items-center flex-nowrap gap-1",
+		item: "group",
+		control: "",
+		dots: "",
+		button: "aria-[current=true]:z-10 aria-[current=true]:pointer-events-none",
+		ellipsis: "opacity-100 group-hover:opacity-0 group-has-[:focus-visible]:opacity-0",
+		forwardIcon: [
+			"absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100",
+			"group-has-[:focus-visible]:opacity-100",
+		],
 	},
 	variants: {
 		variant: {
 			flat: "",
+			faded: "",
 			bordered: "",
 			light: "",
-			faded: "",
 		},
 		size: {
 			sm: "",
@@ -29,52 +33,88 @@ export const paginationVariants = tv({
 		},
 		color: {
 			default: {
-				item: [
-					"aria-[current=true]:bg-default-400 aria-[current=true]:border-default-400",
-					"aria-[current=true]:text-default-foreground"
+				button: [
+					"aria-[current=true]:bg-default aria-[current=true]:border-default",
+					"aria-[current=true]:text-default-foreground",
 				],
 			},
 			primary: {
-				item: [
+				button: [
 					"aria-[current=true]:bg-primary aria-[current=true]:border-primary",
 					"aria-[current=true]:text-primary-foreground"
 				],
 			},
 			secondary: {
-				item: [
+				button: [
 					"aria-[current=true]:bg-secondary aria-[current=true]:border-secondary",
 					"aria-[current=true]:text-secondary-foreground"
 				],
 			},
 			success: {
-				item: [
+				button: [
 					"aria-[current=true]:bg-success aria-[current=true]:border-success",
-					"aria-[current=true]:text-success-foreground",
+					"aria-[current=true]:text-success-foreground"
 				],
 			},
 			warning: {
-				item: [
+				button: [
 					"aria-[current=true]:bg-warning aria-[current=true]:border-warning",
-					"aria-[current=true]:text-warning-foreground",
+					"aria-[current=true]:text-warning-foreground"
 				],
 			},
 			danger: {
-				item: [
+				button: [
 					"aria-[current=true]:bg-danger aria-[current=true]:border-danger",
-					"aria-[current=true]:text-danger-foreground",
+					"aria-[current=true]:text-danger-foreground"
 				],
 			},
 		},
 		rounded: {
-			none: "",
-			sm: "",
-			md: "",
-			lg: "",
-			full: "",
+			none: {
+				wrapper: "rounded-none",
+				control: "rounded-none",
+				dots: "rounded-none",
+				button: "rounded-none",
+			},
+			sm: {
+				wrapper: "rounded-small",
+				control: "rounded-small",
+				dots: "rounded-small",
+				button: "rounded-small",
+			},
+			md: {
+				wrapper: "rounded-medium",
+				control: "rounded-medium",
+				dots: "rounded-medium",
+				button: "rounded-medium",
+			},
+			lg: {
+				wrapper: "rounded-large",
+				control: "rounded-large",
+				dots: "rounded-large",
+				button: "rounded-large",
+			},
+			full: {
+				wrapper: "rounded-full",
+				control: "rounded-full",
+				dots: "rounded-full",
+				button: "rounded-full",
+			},
+		},
+		compact: {
+			true: {
+				wrapper: "gap-0 shadow-sm",
+				control: "group-first-of-type:rounded-e-none shadow-none group-last-of-type:rounded-s-none",
+				dots: "rounded-none",
+				button: [
+					"group-first-of-type:rounded-e-none shadow-none group-last-of-type:rounded-s-none",
+					"group-[&:not(:first-of-type):not(:last-of-type)]:rounded-none"
+				],
+			},
 		},
 		showShadow: {
 			true: {
-				item: "aria-[current=true]:shadow-md",
+				button: "aria-[current=true]:shadow-md",
 			},
 		},
 		disabled: {
@@ -84,11 +124,13 @@ export const paginationVariants = tv({
 		},
 		disableAnimation: {
 			true: {
-				prev: "transition-none",
-				next: "transition-none",
-				item: "transition-none",
+				button: "transition-none",
 				ellipsis: "transition-none",
 				forwardIcon: "transition-none",
+			},
+			false: {
+				ellipsis: "transition motion-reduce:transition-none",
+				forwardIcon: "transition motion-reduce:transition-none",
 			},
 		},
 	},
@@ -97,144 +139,113 @@ export const paginationVariants = tv({
 		size: "md",
 		color: "primary",
 		rounded: "md",
+		disabled: false,
 		disableAnimation: false,
 	},
 	compoundVariants: [
-		// showShadow / color
 		{
 			showShadow: true,
 			color: "default",
 			className: {
-				item: "aria-[current=true]:shadow-default/50",
+				button: "aria-[current=true]:shadow-default/50",
 			},
 		},
 		{
 			showShadow: true,
 			color: "primary",
 			className: {
-				item: "aria-[current=true]:shadow-primary/40",
+				button: "aria-[current=true]:shadow-primary/40",
 			},
 		},
 		{
 			showShadow: true,
 			color: "secondary",
 			className: {
-				item: "aria-[current=true]:shadow-secondary/40",
+				button: "aria-[current=true]:shadow-secondary/40",
 			},
 		},
 		{
 			showShadow: true,
 			color: "success",
 			className: {
-				item: "aria-[current=true]:shadow-success/40",
+				button: "aria-[current=true]:shadow-success/40",
 			},
 		},
 		{
 			showShadow: true,
 			color: "warning",
 			className: {
-				item: "aria-[current=true]:shadow-warning/40",
+				button: "aria-[current=true]:shadow-warning/40",
 			},
 		},
 		{
 			showShadow: true,
 			color: "danger",
 			className: {
-				item: "aria-[current=true]:shadow-danger/40",
+				button: "aria-[current=true]:shadow-danger/40",
+			},
+		},
+		{
+			disabled: false,
+			className: {
+				control: "aria-[disabled=true]:opacity-disabled aria-[disabled=true]:pointer-events-none",
 			},
 		},
 	],
 	compoundSlots: [
-		// !disableAnimation
 		{
-			slots: ["prev", "next", "item"],
-			disableAnimation: false,
-			className: "active:[&:not([aria-current=true])]:scale-[0.97] transition motion-reduce:transition-none",
-		},
-		// !disableAnimation
-		{
-			slots: ["ellipsis", "forwardIcon"],
-			disableAnimation: false,
-			className: "transition-opacity motion-reduce:transition-none",
-		},
-		// without variant
-		{
-			slots: ["prev", "next", "item"],
+			slots: ["control", "dots", "button"],
 			className: [
-				"box-border flex items-center justify-center flex-wrap truncate text-default-foreground outline-none",
-				"focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-focus focus-visible:outline-offset-2",
+				"box-border relative select-none touch-none flex flex-wrap items-center justify-center text-foreground",
+				"truncate outline-none focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-focus",
+				"focus-visible:outline-offset-2",
 			],
 		},
 		{
-			slots: ["prev", "next"],
-			className: "aria-[disabled=true]:text-default-300 aria-[disabled=true]:pointer-events-none",
+			slots: ["control", "dots", "button"],
+			compact: true,
+			variant: ["faded", "bordered"],
+			className: "group-[&:not(:first-of-type)]:ms-[calc(theme(borderWidth.2)*-1)]",
 		},
 		{
-			slots: ["prev", "next", "item"],
-			variant: ["flat", "bordered", "faded"],
-			className: "shadow-sm",
-		},
-		{
-			slots: ["prev", "next", "item"],
-			variant: "flat",
-			className: "bg-default-100 hover:bg-default-200 active:bg-default-300",
-		},
-		{
-			slots: ["prev", "next", "item"],
-			variant: "bordered",
-			className: "border-2 border-default hover:bg-default-100 active:bg-default-100",
-		},
-		{
-			slots: ["prev", "next", "item"],
-			variant: "faded",
-			className: "border-2 border-default bg-default-50 hover:bg-default-100 active:bg-default-100",
-		},
-		{
-			slots: ["prev", "next", "item"],
-			variant: "light",
-			className: "hover:bg-default-100 active:bg-default-200",
-		},
-		// size
-		{
-			slots: ["prev", "next", "item"],
+			slots: ["control", "dots", "button"],
 			size: "sm",
 			className: "min-w-8 w-8 h-8 text-xs",
 		},
 		{
-			slots: ["prev", "next", "item"],
+			slots: ["control", "dots", "button"],
 			size: "md",
 			className: "min-w-9 w-9 h-9 text-sm",
 		},
 		{
-			slots: ["prev", "next", "item"],
+			slots: ["control", "dots", "button"],
 			size: "lg",
 			className: "min-w-10 w-10 h-10 text-md",
 		},
-		// rounded
 		{
-			slots: ["wrapper", "prev", "next", "item"],
-			rounded: "none",
-			className: "rounded-none",
+			slots: ["control", "dots", "button"],
+			variant: "flat",
+			className: "shadow-sm bg-default-100 hover:bg-default-200 active:bg-default-300",
 		},
 		{
-			slots: ["wrapper", "prev", "next", "item"],
-			rounded: "sm",
-			className: "rounded-small",
+			slots: ["control", "dots", "button"],
+			variant: "faded",
+			className: "shadow-sm border-2 border-default bg-default-50 hover:bg-default-100 active:bg-default-200",
 		},
 		{
-			slots: ["wrapper", "prev", "next", "item"],
-			rounded: "md",
-			className: "rounded-medium",
+			slots: ["control", "dots", "button"],
+			variant: "bordered",
+			className: "shadow-sm border-2 border-default hover:bg-default-100 active:bg-default-200",
 		},
 		{
-			slots: ["wrapper", "prev", "next", "item"],
-			rounded: "lg",
-			className: "rounded-large",
+			slots: ["control", "dots", "button"],
+			variant: "light",
+			className: "hover:bg-default-100 active:bg-default-200",
 		},
 		{
-			slots: ["wrapper", "prev", "next", "item"],
-			rounded: "full",
-			className: "rounded-full",
+			slots: ["control", "dots", "button"],
+			disableAnimation: false,
+			className: "active:[&:not([aria-current=true])]:scale-[0.97] transition motion-reduce:transition-none",
 		},
 	],
 })

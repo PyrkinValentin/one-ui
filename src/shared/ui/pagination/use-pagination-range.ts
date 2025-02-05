@@ -1,4 +1,4 @@
-import type { ItemValue, PaginationProps } from "./types"
+import type { PaginationRangeValue, PaginationProps } from "./types"
 
 import { useMemo } from "react"
 
@@ -17,7 +17,10 @@ const range = (start: number, end: number) => {
 	return Array.from({ length }, (_, index) => index + start)
 }
 
-const formatRange = (range: ItemValue[], showControls?: boolean): ItemValue[] => {
+const formatRange = (
+	range: PaginationRangeValue[],
+	showControls?: boolean
+): PaginationRangeValue[] => {
 	return showControls
 		? ["prev", ...range, "next"]
 		: range
@@ -73,10 +76,10 @@ export const usePaginationRange = (options: UsePaginationOptions) => {
 			...range(totalPages - boundaries + 1, totalPages),
 		], showControls)
 	}, [
-		boundaries,
-		page,
-		showControls,
-		siblings,
 		totalPages,
+		siblings,
+		boundaries,
+		showControls,
+		page,
 	])
 }
