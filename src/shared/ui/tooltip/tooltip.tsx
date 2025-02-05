@@ -4,7 +4,7 @@ import type { OpenChangeReason } from "@floating-ui/react"
 import type { TooltipProps } from "./types"
 
 import { useMemo } from "react"
-import { useDismiss, useHover, useInteractions, useRole } from "@floating-ui/react"
+import { useDismiss, useHover, useInteractions, useRole, useFocus } from "@floating-ui/react"
 import { useControlledState } from "@/shared/hooks/use-controlled-state"
 import { useFloating } from "@/shared/hooks/use-floating"
 import { useTransition } from "@/shared/hooks/use-transition"
@@ -79,6 +79,8 @@ export const Tooltip = (props: TooltipProps) => {
 		role: "tooltip",
 	})
 
+	const focus = useFocus(context)
+
 	const hover = useHover(context, {
 		handleClose: safePolygon(),
 		delay: {
@@ -95,6 +97,7 @@ export const Tooltip = (props: TooltipProps) => {
 
 	const { getReferenceProps, getFloatingProps } = useInteractions([
 		role,
+		focus,
 		hover,
 		dismiss,
 	])

@@ -17,8 +17,8 @@ export const PaginationItem = <As extends ElementType = "button">(props: Paginat
 	const {
 		classNames,
 		slotProps = {},
-		isDisabled,
-		isCurrent,
+		disabledItem,
+		currentItem,
 		onPageChange,
 	} = usePaginationContext()
 
@@ -54,8 +54,8 @@ export const PaginationItem = <As extends ElementType = "button">(props: Paginat
 		onPageChange?.(rangeValue)
 	}
 
-	const disabled = isDisabled?.(rangeValue)
-	const current = isCurrent?.(rangeValue)
+	const disabled = disabledItem?.(rangeValue)
+	const current = currentItem?.(rangeValue)
 
 	const Component = as
 

@@ -10,8 +10,8 @@ export type PaginationRangeValue =
 	| number
 
 export type PaginationContextValue = {
-	isDisabled?: (rangeValue: PaginationRangeValue) => boolean
-	isCurrent?: (rangeValue: PaginationRangeValue) => boolean
+	disabledItem?: (rangeValue: PaginationRangeValue) => boolean
+	currentItem?: (rangeValue: PaginationRangeValue) => boolean
 	onPageChange?: (rangeValue: PaginationRangeValue) => void
 	classNames?: Pick<
 		PaginationVariantsReturn,
