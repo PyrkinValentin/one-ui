@@ -154,9 +154,9 @@ export const Textarea = (props: TextareaProps) => {
 						onChange={handleChange}
 						{...textareaProps}
 						{...(autosize
-							? { ref: mergeRefs(textareaProps?.ref, textareaRef) }
-							: undefined)
-						}
+								? { ref: mergeRefs(textareaProps?.ref, textareaRef) }
+								: undefined
+						)}
 						className={classNames.textarea({ className: textareaProps?.className })}
 					/>
 

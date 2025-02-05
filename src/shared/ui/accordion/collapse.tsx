@@ -25,7 +25,9 @@ export const Collapse = (props: CollapseProps) => {
 	const mounted = useDelayedMount(open, duration)
 
 	const [styles, setStyles] = useState<CSSProperties>({
-		height: open ? "auto" : 0,
+		height: open
+			? "auto"
+			: 0,
 	})
 
 	useEffect(() => {
@@ -73,10 +75,13 @@ export const Collapse = (props: CollapseProps) => {
 	}
 
 	return (
-		<div style={{ ...styles, ...style }} {...restProps}>
+		<section
+			style={{ ...styles, ...style }}
+			{...restProps}
+		>
 			<Slot ref={slotRef}>
 				{children}
 			</Slot>
-		</div>
+		</section>
 	)
 }

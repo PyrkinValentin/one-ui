@@ -61,13 +61,13 @@ export const AvatarGroup = (props: AvatarGroupProps) => {
 
 				{remainingCount ? (
 					<>
-						{!renderCount ? (
+						{renderCount ? renderCount(remainingCount) : (
 							<Avatar
 								{...countProps}
 								className={classNames.count({ className: countProps?.className })}
 								name={`+${remainingCount}`}
 							/>
-						) : renderCount(remainingCount)}
+						)}
 					</>
 				) : null}
 			</div>

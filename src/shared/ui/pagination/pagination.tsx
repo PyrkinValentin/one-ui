@@ -6,11 +6,11 @@ import { use, useMemo } from "react"
 import { useControlledState } from "@/shared/hooks/use-controlled-state"
 
 import { createContext } from "react"
+import { isNumber } from "@/shared/helpers/is-number"
 
 import { usePaginationRange } from "./use-pagination-range"
 import { paginationVariants } from "./variants"
 import { PaginationItem } from "./pagination-item"
-import { isNumber } from "@/shared/helpers/is-number";
 
 const PaginationContext = createContext<PaginationContextValue>({})
 export const usePaginationContext = () => use(PaginationContext)
@@ -35,7 +35,7 @@ export const Pagination = (props: PaginationProps) => {
 		rounded,
 		compact,
 		showShadow,
-		disabled,
+		disabled: disabledProp,
 		disableAnimation,
 		...restProps
 	} = props
@@ -87,25 +87,25 @@ export const Pagination = (props: PaginationProps) => {
 		}
 	}
 
-	const isDisabled = (rangeValue: PaginationRangeValue) => {
+	const disabledItem = (rangeValue: PaginationRangeValue) => {
 		switch (rangeValue) {
 			case "prev":
-				return disabled || !loop && controlledPage === 1
+				return disabledProp || !loop && controlledPage === 1
 			case "next":
-				return disabled || !loop && controlledPage === totalPages
+				return disabledProp || !loop && controlledPage === totalPages
 			default:
-				return !!disabled
+				return !!disabledProp
 		}
 	}
 
-	const isCurrent = (rangeValue: PaginationRangeValue) => {
+	const currentItem = (rangeValue: PaginationRangeValue) => {
 		return isNumber(rangeValue) && controlledPage === getPage(rangeValue)
 	}
 
 	const {
-		base: classNamesBase,
-		wrapper: classNamesWrapper,
-		item: classNamesItem,
+		base,
+		wrapper,
+		item,
 		...restClassNames
 	} = useMemo(() => {
 		return paginationVariants({
@@ -115,7 +115,7 @@ export const Pagination = (props: PaginationProps) => {
 			rounded,
 			compact,
 			showShadow,
-			disabled,
+			disabled: disabledProp,
 			disableAnimation,
 		})
 	}, [
@@ -125,15 +125,15 @@ export const Pagination = (props: PaginationProps) => {
 		rounded,
 		compact,
 		showShadow,
-		disabled,
+		disabledProp,
 		disableAnimation,
 	])
 
 	const contextValue: PaginationContextValue = {
 		classNames: restClassNames,
 		slotProps: restSlotProps,
-		isDisabled,
-		isCurrent,
+		disabledItem,
+		currentItem,
 		onPageChange: handlePageChange,
 	}
 
@@ -141,18 +141,18 @@ export const Pagination = (props: PaginationProps) => {
 		<PaginationContext value={contextValue}>
 			<nav
 				aria-label="pages navigation"
-				className={classNamesBase({ className })}
+				className={base({ className })}
 				{...restProps}
 			>
 				<ul
 					{...wrapperProps}
-					className={classNamesWrapper({ className: wrapperProps?.className })}
+					className={wrapper({ className: wrapperProps?.className })}
 				>
 					{paginationRange.map((rangeValue) => (
 						<li
 							key={rangeValue}
 							{...itemProps}
-							className={classNamesItem({ className: itemProps?.className })}
+							className={item({ className: itemProps?.className })}
 						>
 							{renderItem
 								? renderItem({ page: getPage(rangeValue), rangeValue })
