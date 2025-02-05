@@ -2,13 +2,31 @@ import type { ElementType, ReactNode } from "react"
 import type { ComponentProps, ComponentPropsWithAs } from "@/shared/types/props"
 import type { PaginationVariantsProps, PaginationVariantsReturn } from "./variants"
 
+export type PaginationRangeValue =
+	| "prev"
+	| "next"
+	| "prevDots"
+	| "nextDots"
+	| number
+
 export type PaginationContextValue = {
-	disabled?: boolean
-	classNames?: PaginationVariantsReturn
-	getPage?: (item: ItemValue) => number
-	isDisabledControl?: (item: Extract<ItemValue, "prev" | "next">) => boolean
-	isCurrentPage?: (page: number) => boolean
-	onPageChange?: (page: number) => void
+	isDisabled?: (rangeValue: PaginationRangeValue) => boolean
+	isCurrent?: (rangeValue: PaginationRangeValue) => boolean
+	onPageChange?: (rangeValue: PaginationRangeValue) => void
+	classNames?: Pick<
+		PaginationVariantsReturn,
+		| "control"
+		| "dots"
+		| "button"
+		| "ellipsis"
+		| "forwardIcon"
+	>
+	slotProps?: Pick<
+		PaginationSlotProps,
+		| "controlProps"
+		| "dotsProps"
+		| "buttonProps"
+	>
 }
 
 export type PaginationProps = ComponentProps<
@@ -28,25 +46,26 @@ type PaginationOwnProps = {
 	page?: number
 	onPageChange?: (page: number) => void
 	renderItem?: (props: PaginationRenderItemProps) => ReactNode
-	slotProps?: {}
+	slotProps?: PaginationSlotProps
 }
 
 type PaginationRenderItemProps = {
 	page: number
-	item: ItemValue
+	rangeValue: PaginationRangeValue
+}
+
+type PaginationSlotProps = {
+	wrapperProps?: ComponentProps<"ul">
+	itemProps?: ComponentProps<"li">
+	controlProps?: ComponentProps<"button">
+	dotsProps?: ComponentProps<"button">
+	buttonProps?: ComponentProps<"button">
 }
 
 export type PaginationItemProps<
 	As extends ElementType = "button"
-> = ComponentPropsWithAs<As, PaginationButtonOwnProps>
+> = ComponentPropsWithAs<As, PaginationItemOwnProps>
 
-type PaginationButtonOwnProps = {
-	item: ItemValue
+type PaginationItemOwnProps = {
+	rangeValue: PaginationRangeValue
 }
-
-export type ItemValue =
-	| "prev"
-	| "next"
-	| "prevDots"
-	| "nextDots"
-	| number
