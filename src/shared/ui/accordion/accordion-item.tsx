@@ -1,99 +1,152 @@
 "use client"
 
+import type { MouseEvent } from "react"
 import type { AccordionItemProps } from "./types"
 
 import { useId } from "react"
+import { useTransition } from "@/shared/hooks/use-transition"
 
 import { isFunction } from "@/shared/helpers/is-function"
 
 import { MdKeyboardArrowDown } from "react-icons/md"
 
 import { useAccordionContext } from "./accordion"
-import { Collapse } from "./collapse"
 
 export const AccordionItem = (props: AccordionItemProps) => {
 	const {
 		keepMounted,
+		hideIndicator,
+		disableAnimation,
+		classNames,
+		slotProps = {},
 		disabledItem,
 		expandedItem,
 		onExpandedChange,
 	} = useAccordionContext()
 
-	const buttonId = useId()
-	const contentId = useId()
-
 	const {
-		value = buttonId,
+		value,
 		title,
 		description,
 		startContent,
 		indicator,
+		className,
 		children,
 		...restProps
 	} = props
 
-	const disabled = !!disabledItem?.(value)
-	const expanded = !!expandedItem?.(value)
+	const {
+		headingProps,
+		triggerProps,
+		startContentProps,
+		wrapperProps,
+		titleProps,
+		descriptionProps,
+		indicatorProps,
+		contentProps,
+	} = slotProps
 
-	const handleClick = () => {
-		onExpandedChange?.(value, !expanded)
+	const buttonId = useId()
+	const contentId = useId()
+
+	const disabled = disabledItem?.(value ?? buttonId)
+	const expanded = expandedItem?.(value ?? buttonId)
+
+	const [mounted, styles] = useTransition(expanded, {
+		enabled: !disableAnimation,
+		initial: { opacity: 0, gridTemplateRows: "0fr" },
+		enter: { opacity: 1, gridTemplateRows: "1fr" },
+	})
+
+	const handleClick = (ev: MouseEvent<HTMLButtonElement>) => {
+		triggerProps?.onClick?.(ev)
+		onExpandedChange?.(value ?? buttonId, !expanded)
 	}
 
 	return (
-		<div {...restProps}>
-			<h2>
+		<div
+			className={classNames?.item({ disabled, className })}
+			{...restProps}
+		>
+			<h2
+				{...headingProps}
+				className={classNames?.heading({ className: headingProps?.className })}
+			>
 				<button
 					aria-expanded={expanded || undefined}
 					aria-controls={contentId}
 					id={buttonId}
 					disabled={disabled}
+					{...triggerProps}
+					className={classNames?.trigger({ className: triggerProps?.className })}
 					onClick={handleClick}
 				>
 					{startContent ? (
-						<div>
+						<div
+							{...startContentProps}
+							className={classNames?.startContent({ className: startContentProps?.className })}
+						>
 							{startContent}
 						</div>
 					) : null}
 
 					{title || description ? (
-						<div>
+						<div
+							{...wrapperProps}
+							className={classNames?.wrapper({ className: wrapperProps?.className })}
+						>
 							{title ? (
-								<span>
+								<span
+									{...titleProps}
+									className={classNames?.title({ className: titleProps?.className })}
+								>
 									{title}
 								</span>
 							) : null}
 
 							{description ? (
-								<span>
+								<span
+									{...descriptionProps}
+									className={classNames?.description({ className: descriptionProps?.className })}
+								>
 									{description}
 								</span>
 							) : null}
 						</div>
 					) : null}
 
-					<span aria-hidden="true">
-						{indicator
-							? isFunction(indicator)
-								? indicator(expanded)
-								: indicator
-							: <MdKeyboardArrowDown/>
-						}
-					</span>
+					{!hideIndicator ? (
+						<span
+							aria-hidden="true"
+							{...indicatorProps}
+							className={classNames?.indicator({ className: indicatorProps?.className })}
+						>
+							{indicator
+								? isFunction(indicator)
+									? indicator(!!expanded)
+									: indicator
+								: <MdKeyboardArrowDown/>
+							}
+						</span>
+					) : null}
 				</button>
 			</h2>
 
-			<Collapse
-				keepMounted={keepMounted}
-				open={expanded}
-			>
-				<div
-					role="region"
-					aria-labelledby={buttonId}
-					id={contentId}
-				>
-					{children}
-				</div>
-			</Collapse>
+			{mounted || keepMounted ? (
+				<section className="grid" style={styles}>
+					<div className="overflow-hidden">
+						<div
+							role="region"
+							aria-labelledby={buttonId}
+							id={contentId}
+							{...contentProps}
+							className={classNames?.content({ className: contentProps?.className })}
+						>
+							{children}
+						</div>
+					</div>
+				</section>
+			) : null}
 		</div>
 	)
 }

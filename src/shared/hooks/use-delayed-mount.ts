@@ -9,9 +9,13 @@ export const useDelayedMount = (mount?: boolean, delay?: number) => {
 		}
 
 		if (!mount && mounted) {
-			const timeoutId = setTimeout(() => setMounted(false), delay)
+			if (delay) {
+				const timeoutId = setTimeout(() => setMounted(false), delay)
 
-			return () => clearTimeout(timeoutId)
+				return () => clearTimeout(timeoutId)
+			}
+
+			setMounted(false)
 		}
 	}, [
 		mount,

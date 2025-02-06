@@ -107,6 +107,11 @@ export const popoverVariants = tv({
 				trigger: "aria-expanded:scale-[0.97] aria-expanded:opacity-disabled subpixel-antialiased",
 			},
 		},
+		disableAnimation: {
+			true: {
+				base: "transition-none",
+			},
+		},
 	},
 	defaultVariants: {
 		size: "md",

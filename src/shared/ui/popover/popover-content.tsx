@@ -16,6 +16,7 @@ export const PopoverContent = (props: PopoverContentProps) => {
 		arrow,
 		lockScroll,
 		disablePortal,
+		disableAnimation,
 		context,
 		refs,
 		classNames,
@@ -38,11 +39,13 @@ export const PopoverContent = (props: PopoverContentProps) => {
 	} = slotProps
 
 	const [mounted, fadeStyle] = useTransition(context?.open, {
+		enabled: !disableAnimation,
 		initial: { opacity: 0 },
 		enter: { opacity: 1 },
 	})
 
 	const [, zoomStyle] = useTransition(context?.open, {
+		enabled: !disableAnimation,
 		initial: { transform: "scale(0.97)" },
 		enter: { transform: "scale(1)" },
 	})

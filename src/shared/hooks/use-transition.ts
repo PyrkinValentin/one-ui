@@ -15,6 +15,7 @@ type UseTransitionCSSProperties = Omit<
 >
 
 type UseTransitionOptions = {
+	enabled?: boolean
 	initial: UseTransitionCSSProperties
 	enter: UseTransitionCSSProperties
 	exit?: UseTransitionCSSProperties
@@ -31,6 +32,7 @@ type UseTransitionReturn = [boolean, CSSProperties]
 
 export const useTransition = (transition: boolean = false, options: UseTransitionOptions): UseTransitionReturn => {
 	const {
+		enabled = true,
 		initial,
 		enter,
 		exit = initial,
@@ -56,53 +58,76 @@ export const useTransition = (transition: boolean = false, options: UseTransitio
 	)
 
 	const getDuration = useCallback((status: Status) => {
+		if (!enabled) {
+			return 0
+		}
+
 		return isNumber(durationRef.current)
 			? durationRef.current
 			: status === "enter"
 				? durationRef.current.enter
 				: durationRef.current.exit
-	}, [durationRef])
+	}, [durationRef, enabled])
 
 	const mounted = useDelayedMount(transition, getDuration(status))
 
 	useEffect(() => {
-		if (!mounted || firstMount) return
+		if (enabled) return
 
-		if (transition) {
-			const frameId = requestAnimationFrame(() => {
-				setStatus("enter")
-			})
-
-			return () => cancelAnimationFrame(frameId)
-		}
-
-		setStatus("exit")
+		setStyles(
+			transition
+				? enterStylesRef.current
+				: exitStylesRef.current
+		)
 	}, [
+		enabled,
+		enterStylesRef,
+		exitStylesRef,
 		transition,
-		firstMount,
-		mounted,
 	])
 
 	useEffect(() => {
-		if (status === "initial" || firstMount) return
+		if (!enabled || !mounted || firstMount) return
+
+		const frameId = requestAnimationFrame(() => {
+			setStatus(transition ? "enter" : "exit")
+		})
+
+		return () => cancelAnimationFrame(frameId)
+	}, [
+		enabled,
+		firstMount,
+		mounted,
+		transition,
+	])
+
+	useEffect(() => {
+		if (!enabled || status === "initial" || firstMount) return
+
+		const motionReduce = matchMedia("(prefers-reduced-motion: reduce)").matches
 
 		const styles = status === "enter"
 			? enterStylesRef.current
 			: exitStylesRef.current
 
+		const transitionStyles = !motionReduce ? {
+			transitionProperty: Object
+				.keys(styles)
+				.map(camelCaseToKebabCase)
+				.join(','),
+			transitionDuration: `${getDuration(status)}ms`,
+		} : undefined
+
 		const frameId = requestAnimationFrame(() => {
 			setStyles({
 				...styles,
-				transitionProperty: Object
-					.keys(styles)
-					.map(camelCaseToKebabCase)
-					.join(','),
-				transitionDuration: `${getDuration(status)}ms`,
+				...transitionStyles,
 			})
 		})
 
 		return () => cancelAnimationFrame(frameId)
 	}, [
+		enabled,
 		enterStylesRef,
 		exitStylesRef,
 		firstMount,

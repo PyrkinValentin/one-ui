@@ -16,12 +16,20 @@ export const Accordion = (props: AccordionProps) => {
 	const {
 		keepMounted,
 		multiple,
+		hideIndicator,
 		disabledValue,
 		defaultValue = [],
 		value,
 		onValueChange,
+		slotProps = {},
 		className,
+		variant,
+		compact,
+		showDivider,
+		fullWidth,
 		disabled,
+		disableIndicatorAnimation,
+		disableAnimation,
 		children,
 		...restProps
 	} = props
@@ -52,12 +60,32 @@ export const Accordion = (props: AccordionProps) => {
 		)
 	}
 
-	const classNames = useMemo(() => {
-		return accordionVariants({})
-	}, [])
+	const { base, ...restClassNames } = useMemo(() => {
+		return accordionVariants({
+			variant,
+			compact,
+			showDivider,
+			fullWidth,
+			disabled,
+			disableIndicatorAnimation,
+			disableAnimation,
+		})
+	}, [
+		variant,
+		compact,
+		showDivider,
+		fullWidth,
+		disabled,
+		disableIndicatorAnimation,
+		disableAnimation,
+	])
 
 	const contextValue: AccordionContextValue = {
 		keepMounted,
+		hideIndicator,
+		disableAnimation,
+		classNames: restClassNames,
+		slotProps,
 		disabledItem,
 		expandedItem,
 		onExpandedChange: handleExpandedChange,
@@ -65,7 +93,10 @@ export const Accordion = (props: AccordionProps) => {
 
 	return (
 		<AccordionContext value={contextValue}>
-			<div {...restProps}>
+			<div
+				className={base({ className })}
+				{...restProps}
+			>
 				{children}
 			</div>
 		</AccordionContext>
