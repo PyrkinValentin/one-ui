@@ -91,6 +91,11 @@ export const tooltipVariants = tv({
 				arrow: "shadow-large",
 			},
 		},
+		disableAnimation: {
+			true: {
+				base: "transition-none",
+			},
+		},
 	},
 	defaultVariants: {
 		size: "md",

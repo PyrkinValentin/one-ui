@@ -26,13 +26,14 @@ export const Popover = (props: PopoverProps) => {
 		defaultOpen,
 		open,
 		onOpenChange,
+		slotProps,
 		size,
 		color,
 		rounded,
 		shadow,
 		backdrop,
 		triggerScaleOnOpen,
-		slotProps,
+		disableAnimation,
 		children,
 	} = props
 
@@ -84,6 +85,7 @@ export const Popover = (props: PopoverProps) => {
 			shadow,
 			backdrop,
 			triggerScaleOnOpen,
+			disableAnimation,
 		})
 	}, [
 		size,
@@ -92,12 +94,14 @@ export const Popover = (props: PopoverProps) => {
 		shadow,
 		backdrop,
 		triggerScaleOnOpen,
+		disableAnimation,
 	])
 
 	const contextValue: PopoverContextValue = {
 		arrow,
 		lockScroll,
 		disablePortal,
+		disableAnimation,
 		context,
 		refs,
 		classNames,

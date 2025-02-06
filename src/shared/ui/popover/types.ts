@@ -8,7 +8,7 @@ import type { PopoverVariantsProps, PopoverVariantsReturn } from "./variants"
 export type PopoverContextValue =
 	Partial<Pick<UseFloatingReturn, "context" | "refs">> &
 	Partial<Pick<UseInteractionsReturn, "getReferenceProps" | "getFloatingProps">> &
-	Pick<PopoverProps, "arrow" | "lockScroll" | "disablePortal"> &
+	Pick<PopoverProps, "arrow" | "lockScroll" | "disablePortal" | "disableAnimation"> &
 	PopoverOwnContextValue
 
 type PopoverOwnContextValue = {

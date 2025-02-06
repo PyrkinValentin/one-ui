@@ -38,6 +38,7 @@ export const Tooltip = (props: TooltipProps) => {
 		color,
 		rounded,
 		shadow,
+		disableAnimation,
 		children,
 		...restProps
 	} = props
@@ -103,6 +104,7 @@ export const Tooltip = (props: TooltipProps) => {
 	])
 
 	const [mounted, growStyle] = useTransition(controlledOpen, {
+		enabled: !disableAnimation,
 		initial: { opacity: 0, transform: "scale(0.97)" },
 		enter: { opacity: 1, transform: "scale(1)" },
 	})
@@ -114,6 +116,7 @@ export const Tooltip = (props: TooltipProps) => {
 			color,
 			rounded,
 			shadow,
+			disableAnimation,
 		})
 	}, [
 		className,
@@ -121,6 +124,7 @@ export const Tooltip = (props: TooltipProps) => {
 		color,
 		rounded,
 		shadow,
+		disableAnimation,
 	])
 
 	return (
