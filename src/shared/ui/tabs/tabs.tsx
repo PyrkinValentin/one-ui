@@ -1,16 +1,17 @@
 "use client"
 
-import type { TabCollection, TabsProps } from "./types"
+import type { TabProps, TabsContextValue, TabsProps } from "./types"
 
-import { useMemo } from "react"
+import { use, useMemo } from "react"
 import { useControlledState } from "@/shared/hooks/use-controlled-state"
 
-import { Children, cloneElement, isValidElement } from "react"
+import { Children, createContext, cloneElement, isValidElement } from "react"
 
 import { tabsVariants } from "./variants"
 import { Tab } from "./tab"
 
-const HORIZONTAL_PLACEMENTS = ["top", "bottom"]
+const TabsContext = createContext<TabsContextValue>({})
+export const useTabsContext = () => use(TabsContext)
 
 export const Tabs = (props: TabsProps) => {
 	const {
@@ -27,7 +28,6 @@ export const Tabs = (props: TabsProps) => {
 		placement,
 		fullWidth,
 		disabled,
-		disableAnimation,
 		children,
 		...restProps
 	} = props
@@ -38,7 +38,7 @@ export const Tabs = (props: TabsProps) => {
 	} = slotProps
 
 	const collection = Children.map(children, (child, i) => {
-		return isValidElement<TabCollection>(child)
+		return isValidElement<TabProps>(child)
 			? child.props.value
 				? child
 				: cloneElement(child, { value: String(i) })
@@ -53,9 +53,11 @@ export const Tabs = (props: TabsProps) => {
 		}
 
 		const tab = tabs.find((tab) => {
-			return !disabled &&
-				!tab.props.disabled &&
-				!disabledValue?.includes(tab.props.value)
+			const { disabled, value } = tab.props
+
+			return !disabled && value
+				? !disabledValue?.includes(value)
+				: false
 		})
 
 		return tab?.props.value ?? tabs.at(0)?.props.value ?? "0"
@@ -67,22 +69,20 @@ export const Tabs = (props: TabsProps) => {
 		setValue: onValueChange,
 	})
 
-	const getOrientation = () => {
-		return !placement || HORIZONTAL_PLACEMENTS.includes(placement)
-			? "horizontal"
-			: "vertical"
+	const disabledTab = (value?: string) => {
+		return value
+			? !!disabledValue?.includes(value)
+			: false
 	}
 
-	const handleClick = (value: string) => {
-		setControlledValue?.(value)
-	}
-
-	const isDisabled = (value: string) => {
-		return disabled || disabledValue?.includes(value)
-	}
-
-	const isSelected = (value: string) => {
+	const selectedTab = (value?: string) => {
 		return controlledValue === value
+	}
+
+	const handleValueChange = (value?: string) => {
+		if (value) {
+			setControlledValue?.(value)
+		}
 	}
 
 	const classNames = useMemo(() => {
@@ -94,7 +94,6 @@ export const Tabs = (props: TabsProps) => {
 			placement,
 			fullWidth,
 			disabled,
-			disableAnimation,
 		})
 	}, [
 		variant,
@@ -104,67 +103,49 @@ export const Tabs = (props: TabsProps) => {
 		placement,
 		fullWidth,
 		disabled,
-		disableAnimation,
 	])
 
+	const contextValue: TabsContextValue = {
+		disabledTab,
+		selectedTab,
+		onValueChange: handleValueChange,
+	}
+
 	return (
-		<div className={classNames.base({ className })} {...restProps}>
+		<TabsContext value={contextValue}>
 			<div
-				role="tablist"
-				aria-orientation={getOrientation()}
-				{...tabListProps}
-				className={classNames.tabList({ className: tabListProps?.className })}
+				className={classNames.base({ className })}
+				{...restProps}
 			>
-				{tabs.map((tab) => {
-					const {
-						label,
-						value,
-						className,
-						onClick,
-						...restTabProps
-					} = tab.props
-
-					return (
+				<div
+					role="tablist"
+					aria-orientation="horizontal"
+					{...tabListProps}
+					className={classNames.tabList({ className: tabListProps?.className })}
+				>
+					{tabs.map((tab) => (
 						<Tab
-							key={tab.key}
-							role="tab"
-							id={`tab-${value}`}
-							aria-controls={`tabPanel-${value}`}
-							aria-selected={isSelected(value) || undefined}
-							disabled={isDisabled(value)}
-							className={classNames.tab({ className })}
-							onClick={(ev) => {
-								onClick?.(ev)
-								handleClick(value)
-							}}
-							{...restTabProps}
+							key={tab.props.value}
+							{...tab.props}
+							className={classNames.tab({ className: tab.props.className })}
+						/>
+					))}
+				</div>
+
+				{tabs.map((tab) => (
+					selectedTab(tab.props.value) ? (
+						<div
+							key={tab.props.value}
+							role="tabpanel"
+							aria-labelledby={`tab-${tab.props.value}`}
+							id={`tabPanel-${tab.props.value}`}
+							{...tabPanelProps}
 						>
-							{label}
-						</Tab>
-					)
-				})}
+							{tab.props.children}
+						</div>
+					) : null
+				))}
 			</div>
-
-			{tabs.map((tab) => {
-				const { value, children } = tab.props
-
-				if (!isSelected(value)) {
-					return null
-				}
-
-				return (
-					<div
-						key={tab.key}
-						role="tabpanel"
-						id={`tabPanel-${value}`}
-						aria-labelledby={`tab-${value}`}
-						{...tabPanelProps}
-						className={classNames.tabPanel({ className: tabPanelProps?.className })}
-					>
-						{children}
-					</div>
-				)
-			})}
-		</div>
+		</TabsContext>
 	)
 }
