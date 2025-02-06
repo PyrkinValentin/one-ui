@@ -7,13 +7,14 @@ export type TabsVariantsProps = VariantProps<typeof tabsVariants>
 export const tabsVariants = tv({
 	slots: {
 		base: "flex gap-3",
-		tabList: "w-fit h-fit flex items-center gap-2 flex-nowrap",
+		tabList: "w-fit h-fit flex flex-nowrap items-center gap-2",
 		tab: [
-			"z-0 relative px-3 py-1 w-full flex items-center justify-center gap-2 text-default-500 outline-none",
-			"focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-focus focus-visible:outline-offset-2",
-			"hover:[&:not([aria-selected])]:opacity-disabled disabled:!opacity-30",
+			"z-0 relative px-3 py-1 w-full flex items-center justify-center whitespace-nowrap text-default-500",
+			"outline-none focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-focus",
+			"focus-visible:outline-offset-2 hover:[&:not([aria-selected=true])]:opacity-disabled",
+			"aria-[disabled=true]:!opacity-30 aria-[disabled=true]:pointer-events-none",
+			"aria-[selected=true]:pointer-events-none",
 		],
-		tabPanel: "",
 	},
 	variants: {
 		variant: {
@@ -23,10 +24,10 @@ export const tabsVariants = tv({
 			light: "",
 			underlined: {
 				tab: [
-					"after:content-[''] after:origin-center after:absolute after:left-1/2 after:-bottom-[2px]",
-					"after:-translate-x-1/2 after:w-0 after:h-[2px] aria-selected:after:w-full",
-					"aria-selected:after:shadow-[0_1px_0px_0_rgba(0,0,0,0.05)]",
-				],
+					"after:content-[''] after:origin-center after:absolute after:left-1/2 after:bottom-0",
+					"after:-translate-x-1/2 after:w-0 after:h-[2px] aria-[selected=true]:after:w-full",
+					"shadow-[0_1px_0px_0_rgba(0,0,0,0.05)]",
+				]
 			},
 			bordered: {
 				tabList: "p-1 border-2 border-default-200 shadow-sm",
@@ -80,34 +81,34 @@ export const tabsVariants = tv({
 			top: {
 				base: "flex-col",
 			},
+			bottom: {
+				base: "flex-col-reverse",
+			},
 			start: {
-				base: "flex-row",
 				tabList: "flex-col",
 			},
 			end: {
 				base: "flex-row-reverse",
 				tabList: "flex-col",
 			},
-			bottom: {
-				base: "flex-col-reverse",
-			},
 		},
 		fullWidth: {
 			true: {
-				base: "w-full",
 				tabList: "w-full",
 			},
 		},
 		disabled: {
 			true: {
-				tabList: "pointer-events-none",
+				tabList: "opacity-disabled pointer-events-none",
 			},
 		},
 		disableAnimation: {
 			true: {
+				tabList: "transition-none",
 				tab: "transition-none",
 			},
 			false: {
+				tabList: "transition-opacity motion-reduce:transition-none",
 				tab: "transition motion-reduce:transition-none",
 			},
 		},
@@ -119,14 +120,13 @@ export const tabsVariants = tv({
 		placement: "top",
 	},
 	compoundVariants: [
-		// solid + bordered + light && color
 		{
 			variant: ["solid", "bordered", "light"],
 			color: "default",
 			className: {
 				tab: [
-					"aria-selected:bg-background dark:aria-selected:bg-default aria-selected:shadow-small",
-					"aria-selected:text-foreground",
+					"aria-[selected=true]:bg-default aria-[selected=true]:shadow-small",
+					"aria-[selected=true]:text-default-foreground",
 				],
 			},
 		},
@@ -134,93 +134,91 @@ export const tabsVariants = tv({
 			variant: ["solid", "bordered", "light"],
 			color: "primary",
 			className: {
-				tab: "aria-selected:bg-primary aria-selected:text-primary-foreground",
+				tab: "aria-[selected=true]:bg-primary aria-[selected=true]:text-primary-foreground",
 			},
 		},
 		{
 			variant: ["solid", "bordered", "light"],
 			color: "secondary",
 			className: {
-				tab: "aria-selected:bg-secondary aria-selected:text-secondary-foreground",
+				tab: "aria-[selected=true]:bg-secondary aria-[selected=true]:text-secondary-foreground",
 			},
 		},
 		{
 			variant: ["solid", "bordered", "light"],
 			color: "success",
 			className: {
-				tab: "aria-selected:bg-success aria-selected:text-success-foreground",
+				tab: "aria-[selected=true]:bg-success aria-[selected=true]:text-success-foreground",
 			},
 		},
 		{
 			variant: ["solid", "bordered", "light"],
 			color: "warning",
 			className: {
-				tab: "aria-selected:bg-warning aria-selected:text-warning-foreground",
+				tab: "aria-[selected=true]:bg-warning aria-[selected=true]:text-warning-foreground",
 			},
 		},
 		{
 			variant: ["solid", "bordered", "light"],
 			color: "danger",
 			className: {
-				tab: "aria-selected:bg-danger aria-selected:text-danger-foreground",
+				tab: "aria-[selected=true]:bg-danger aria-[selected=true]:text-danger-foreground",
 			},
 		},
-		// underlined && color
 		{
-			variant: "underlined",
 			color: "default",
+			variant: "underlined",
 			className: {
-				tab: "aria-selected:text-foreground aria-selected:after:bg-foreground",
+				tab: "after:bg-foreground aria-[selected=true]:text-default-foreground"
 			},
 		},
 		{
-			variant: "underlined",
 			color: "primary",
+			variant: "underlined",
 			className: {
-				tab: "aria-selected:text-primary aria-selected:after:bg-primary",
+				tab: "after:bg-primary aria-[selected=true]:text-primary"
 			},
 		},
 		{
-			variant: "underlined",
 			color: "secondary",
+			variant: "underlined",
 			className: {
-				tab: "aria-selected:text-secondary aria-selected:after:bg-secondary",
+				tab: "after:bg-secondary aria-[selected=true]:text-secondary"
 			},
 		},
 		{
-			variant: "underlined",
 			color: "success",
+			variant: "underlined",
 			className: {
-				tab: "aria-selected:text-success aria-selected:after:bg-success",
+				tab: "after:bg-success aria-[selected=true]:text-success"
 			},
 		},
 		{
-			variant: "underlined",
 			color: "warning",
+			variant: "underlined",
 			className: {
-				tab: "aria-selected:text-warning aria-selected:after:bg-warning",
+				tab: "after:bg-warning aria-[selected=true]:text-warning"
 			},
 		},
 		{
-			variant: "underlined",
 			color: "danger",
+			variant: "underlined",
 			className: {
-				tab: "aria-selected:text-danger aria-selected:after:bg-danger",
+				tab: "after:bg-danger aria-[selected=true]:text-danger"
 			},
 		},
-		// underlined && disabledAnimation
 		{
-			variant: "underlined",
 			disableAnimation: true,
+			variant: "underlined",
 			className: {
 				tab: "after:transition-none",
 			},
 		},
 		{
-			variant: "underlined",
 			disableAnimation: false,
+			variant: "underlined",
 			className: {
-				tab: "after:transition-[width] motion-reduce:transition-none",
+				tab: "after:transition-[width] after:motion-reduce:transition-none",
 			},
 		},
 	],

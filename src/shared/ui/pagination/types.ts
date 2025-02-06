@@ -67,5 +67,6 @@ export type PaginationItemProps<
 > = ComponentPropsWithAs<As, PaginationItemOwnProps>
 
 type PaginationItemOwnProps = {
+	disabled?: boolean
 	rangeValue: PaginationRangeValue
 }

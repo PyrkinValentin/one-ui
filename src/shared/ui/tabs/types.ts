@@ -1,5 +1,12 @@
-import type { ComponentProps } from "@/shared/types/props"
+import type { ElementType, ReactNode } from "react"
+import type { ComponentProps, ComponentPropsWithAs } from "@/shared/types/props"
 import type { TabsVariantsProps } from "./variants"
+
+export type TabsContextValue = {
+	disabledTab?: (value?: string) => boolean
+	selectedTab?: (value?: string) => boolean
+	onValueChange?: (value?: string) => void
+}
 
 export type TabsProps = ComponentProps<
 	"div",
@@ -20,10 +27,12 @@ type TabsSlotProps = {
 	tabPanelProps?: ComponentProps
 }
 
-export type TabCollection = TabProps & { value: string }
-
-export type TabProps = ComponentProps<"button", TabOwnProps>
+export type TabProps<
+	As extends ElementType = "button"
+> = ComponentPropsWithAs<As, TabOwnProps>
 
 type TabOwnProps = {
-	label?: string
+	disabled?: boolean
+	value?: string
+	title?: ReactNode
 }
