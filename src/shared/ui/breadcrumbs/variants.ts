@@ -29,13 +29,19 @@ export const breadcrumbsVariants = tv({
 		},
 		size: {
 			sm: {
-				item: "text-xs",
+				link: "text-xs",
+				ellipsis: "text-xs",
+				separator: "text-xs",
 			},
 			md: {
-				item: "text-sm",
+				link: "text-sm",
+				ellipsis: "text-sm",
+				separator: "text-sm",
 			},
 			lg: {
-				item: "text-md",
+				link: "text-md",
+				ellipsis: "text-md",
+				separator: "text-md",
 			},
 		},
 		color: {
