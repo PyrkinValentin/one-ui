@@ -23,7 +23,10 @@ export const Tab = <As extends ElementType = "button">(props: TabProps<As>) => {
 
 	const handleClick = (ev: MouseEvent<HTMLButtonElement>) => {
 		onClick?.(ev)
-		onValueChange?.(value)
+
+		if (value) {
+			onValueChange?.(value)
+		}
 	}
 
 	const selected = selectedTab?.(value)

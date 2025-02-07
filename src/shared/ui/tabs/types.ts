@@ -5,7 +5,7 @@ import type { TabsVariantsProps } from "./variants"
 export type TabsContextValue = {
 	disabledTab?: (value?: string) => boolean
 	selectedTab?: (value?: string) => boolean
-	onValueChange?: (value?: string) => void
+	onValueChange?: (value: string) => void
 }
 
 export type TabsProps = ComponentProps<

@@ -55,7 +55,7 @@ type PaginationRenderItemProps = {
 }
 
 type PaginationSlotProps = {
-	wrapperProps?: ComponentProps<"ul">
+	listProps?: ComponentProps<"ul">
 	itemProps?: ComponentProps<"li">
 	controlProps?: ComponentProps<"button">
 	dotsProps?: ComponentProps<"button">

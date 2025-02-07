@@ -28,6 +28,7 @@ export const Tabs = (props: TabsProps) => {
 		placement,
 		fullWidth,
 		disabled,
+		disableAnimation,
 		children,
 		...restProps
 	} = props
@@ -79,11 +80,15 @@ export const Tabs = (props: TabsProps) => {
 		return controlledValue === value
 	}
 
-	const handleValueChange = (value?: string) => {
-		if (value) {
-			setControlledValue?.(value)
-		}
+	const handleValueChange = (value: string) => {
+		setControlledValue?.(value)
 	}
+
+	const orientation = !placement
+		? "horizontal"
+		: ["top", "bottom"].includes(placement)
+			? "horizontal"
+			: "vertical"
 
 	const classNames = useMemo(() => {
 		return tabsVariants({
@@ -94,6 +99,7 @@ export const Tabs = (props: TabsProps) => {
 			placement,
 			fullWidth,
 			disabled,
+			disableAnimation,
 		})
 	}, [
 		variant,
@@ -103,6 +109,7 @@ export const Tabs = (props: TabsProps) => {
 		placement,
 		fullWidth,
 		disabled,
+		disableAnimation,
 	])
 
 	const contextValue: TabsContextValue = {
@@ -119,7 +126,7 @@ export const Tabs = (props: TabsProps) => {
 			>
 				<div
 					role="tablist"
-					aria-orientation="horizontal"
+					aria-orientation={orientation}
 					{...tabListProps}
 					className={classNames.tabList({ className: tabListProps?.className })}
 				>
@@ -133,17 +140,19 @@ export const Tabs = (props: TabsProps) => {
 				</div>
 
 				{tabs.map((tab) => (
-					selectedTab(tab.props.value) ? (
-						<div
-							key={tab.props.value}
-							role="tabpanel"
-							aria-labelledby={`tab-${tab.props.value}`}
-							id={`tabPanel-${tab.props.value}`}
-							{...tabPanelProps}
-						>
-							{tab.props.children}
-						</div>
-					) : null
+					<>
+						{selectedTab(tab.props.value) ? (
+							<div
+								key={tab.props.value}
+								role="tabpanel"
+								aria-labelledby={`tab-${tab.props.value}`}
+								id={`tabPanel-${tab.props.value}`}
+								{...tabPanelProps}
+							>
+								{tab.props.children}
+							</div>
+						) : null}
+					</>
 				))}
 			</div>
 		</TabsContext>
