@@ -41,7 +41,7 @@ export const Pagination = (props: PaginationProps) => {
 	} = props
 
 	const {
-		wrapperProps,
+		listProps,
 		itemProps,
 		...restSlotProps
 	} = slotProps
@@ -104,7 +104,7 @@ export const Pagination = (props: PaginationProps) => {
 
 	const {
 		base,
-		wrapper,
+		list,
 		item,
 		...restClassNames
 	} = useMemo(() => {
@@ -145,8 +145,8 @@ export const Pagination = (props: PaginationProps) => {
 				{...restProps}
 			>
 				<ul
-					{...wrapperProps}
-					className={wrapper({ className: wrapperProps?.className })}
+					{...listProps}
+					className={list({ className: listProps?.className })}
 				>
 					{paginationRange.map((rangeValue) => (
 						<li

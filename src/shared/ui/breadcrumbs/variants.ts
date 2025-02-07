@@ -6,9 +6,15 @@ export type BreadcrumbsVariantsProps = VariantProps<typeof breadcrumbsVariants>
 
 export const breadcrumbsVariants = tv({
 	slots: {
-		base: "relative",
-		list: "flex items-center gap-1 flex-wrap",
-		item: "flex items-center gap-1 whitespace-nowrap",
+		base: "max-w-fit",
+		list: "flex flex-wrap gap-1",
+		item: "flex items-center gap-1",
+		link: [
+			"flex items-center gap-1 whitespace-nowrap outline-none hover:[&:not([aria-current=page])]:opacity-80",
+			"active:[&:not([aria-current=page])]:opacity-disabled aria-[current=page]:pointer-events-none",
+			"focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-focus focus-visible:outline-offset-2",
+		],
+		ellipsis: "",
 		separator: "",
 	},
 	variants: {
@@ -24,40 +30,43 @@ export const breadcrumbsVariants = tv({
 		size: {
 			sm: {
 				item: "text-xs",
-				separator: "text-md",
 			},
 			md: {
 				item: "text-sm",
-				separator: "text-lg",
 			},
 			lg: {
 				item: "text-md",
-				separator: "text-xl",
 			},
 		},
 		color: {
 			foreground: {
-				item: "text-foreground/50",
+				link: "text-foreground/50 aria-[current=page]:text-foreground",
+				ellipsis: "text-foreground/50",
 				separator: "text-foreground/50",
 			},
 			primary: {
-				item: "text-primary/80",
+				link: "text-primary/80 aria-[current=page]:text-primary",
+				ellipsis: "text-primary/80",
 				separator: "text-primary/80",
 			},
 			secondary: {
-				item: "text-secondary/80",
+				link: "text-secondary/80 aria-[current=page]:text-secondary",
+				ellipsis: "text-secondary/80",
 				separator: "text-secondary/80",
 			},
 			success: {
-				item: "text-success/80",
+				link: "text-success/80 aria-[current=page]:text-success",
+				ellipsis: "text-success/80",
 				separator: "text-success/80",
 			},
 			warning: {
-				item: "text-warning/80",
+				link: "text-warning/80 aria-[current=page]:text-warning",
+				ellipsis: "text-warning/80",
 				separator: "text-warning/80",
 			},
 			danger: {
-				item: "text-danger/80",
+				link: "text-danger/80 aria-[current=page]:text-danger",
+				ellipsis: "text-danger/80",
 				separator: "text-danger/80",
 			},
 		},
@@ -80,41 +89,35 @@ export const breadcrumbsVariants = tv({
 		},
 		underline: {
 			none: {
-				item: "no-underline",
+				link: "no-underline",
 			},
 			hover: {
-				item: "hover:underline",
+				link: "hover:underline",
 			},
 			always: {
-				item: "underline",
+				link: "underline",
 			},
 			active: {
-				item: "active:underline",
+				link: "active:underline",
 			},
 			focus: {
-				item: "focus:underline",
-			},
-		},
-		current: {
-			false: {
-				item: [
-					"cursor-pointer outline-none hover:opacity-80 active:opacity-disabled",
-					"focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-focus focus-visible:outline-offset-2",
-				],
+				link: "focus:underline",
 			},
 		},
 		disabled: {
 			true: {
-				item: "opacity-disabled pointer-events-none",
+				list: "opacity-disabled pointer-events-none",
 				separator: "opacity-disabled",
 			},
 		},
 		disableAnimation: {
 			true: {
-				item: "transition-none",
+				list: "transition-none",
+				link: "transition-none",
 			},
 			false: {
-				item: "transition-opacity motion-reduce:transition-none",
+				list: "transition-opacity motion-reduce:transition-none",
+				link: "transition-opacity motion-reduce:transition-none",
 			},
 		},
 	},
@@ -125,14 +128,6 @@ export const breadcrumbsVariants = tv({
 		rounded: "sm",
 	},
 	compoundVariants: [
-		// variant
-		{
-			variant: ["solid", "bordered"],
-			className: {
-				list: "max-w-fit",
-			},
-		},
-		// variant && size
 		{
 			variant: ["solid", "bordered"],
 			size: "sm",
@@ -154,63 +149,10 @@ export const breadcrumbsVariants = tv({
 				list: "px-3 py-2",
 			},
 		},
-		// current && underline
+		// Underline
 		{
 			underline: ["hover", "always", "active", "focus"],
-			current: false,
-			className: {
-				item: "underline-offset-4",
-			},
-		},
-		{
-			underline: ["hover", "always", "active", "focus"],
-			current: true,
-			className: {
-				item: "no-underline",
-			},
-		},
-		// current && color
-		{
-			current: true,
-			color: "foreground",
-			className: {
-				item: "text-foreground",
-			},
-		},
-		{
-			current: true,
-			color: "primary",
-			className: {
-				item: "text-primary",
-			},
-		},
-		{
-			current: true,
-			color: "secondary",
-			className: {
-				item: "text-secondary",
-			},
-		},
-		{
-			current: true,
-			color: "success",
-			className: {
-				item: "text-success",
-			},
-		},
-		{
-			current: true,
-			color: "warning",
-			className: {
-				item: "text-warning",
-			},
-		},
-		{
-			current: true,
-			color: "danger",
-			className: {
-				item: "text-danger",
-			},
+			className: "underline-offset-4",
 		},
 	],
 })

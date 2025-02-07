@@ -8,7 +8,7 @@ export type PaginationVariantsReturn = ReturnType<typeof paginationVariants>
 export const paginationVariants = tv({
 	slots: {
 		base: "-m-2.5 p-2.5",
-		wrapper: "max-w-fit h-fit flex items-center flex-nowrap gap-1",
+		list: "max-w-fit h-fit flex items-center flex-nowrap gap-1",
 		item: "group",
 		control: "",
 		dots: "",
@@ -71,31 +71,31 @@ export const paginationVariants = tv({
 		},
 		rounded: {
 			none: {
-				wrapper: "rounded-none",
+				list: "rounded-none",
 				control: "rounded-none",
 				dots: "rounded-none",
 				button: "rounded-none",
 			},
 			sm: {
-				wrapper: "rounded-small",
+				list: "rounded-small",
 				control: "rounded-small",
 				dots: "rounded-small",
 				button: "rounded-small",
 			},
 			md: {
-				wrapper: "rounded-medium",
+				list: "rounded-medium",
 				control: "rounded-medium",
 				dots: "rounded-medium",
 				button: "rounded-medium",
 			},
 			lg: {
-				wrapper: "rounded-large",
+				list: "rounded-large",
 				control: "rounded-large",
 				dots: "rounded-large",
 				button: "rounded-large",
 			},
 			full: {
-				wrapper: "rounded-full",
+				list: "rounded-full",
 				control: "rounded-full",
 				dots: "rounded-full",
 				button: "rounded-full",
@@ -103,7 +103,7 @@ export const paginationVariants = tv({
 		},
 		compact: {
 			true: {
-				wrapper: "gap-0 shadow-sm",
+				list: "gap-0 shadow-sm",
 				control: "group-first-of-type:rounded-e-none shadow-none group-last-of-type:rounded-s-none",
 				dots: "rounded-none",
 				button: [

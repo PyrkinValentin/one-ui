@@ -58,16 +58,16 @@ export const useSliderRange = (options: UseSliderRangeOptions) => {
 	}, [step])
 
 	const getPercentage = useCallback((clientX: number, clientY: number) => {
-		const track = trackRef.current
+		const trackElement = trackRef.current
 
-		if (!track) return 0
+		if (!trackElement) return 0
 
 		const {
 			left,
 			bottom,
 			width,
 			height,
-		} = track.getBoundingClientRect()
+		} = trackElement.getBoundingClientRect()
 
 		const draggingPercentage = orientation === "horizontal"
 			? (clientX - left) / width * 100

@@ -1,32 +1,43 @@
 import type { LinkProps } from "next/link"
 import type { ReactNode } from "react"
-import type { ComponentProps } from "@/shared/types/props"
+import type { ComponentProps, ComponentPropsWithAs } from "@/shared/types/props"
 import type { BreadcrumbsVariantsProps } from "./variants"
 
 export type BreadcrumbsProps = ComponentProps<
 	"nav",
-	Omit<BreadcrumbsVariantsProps, "current"> &
+	BreadcrumbsVariantsProps &
 	BreadcrumbsOwnProps
 >
 
 type BreadcrumbsOwnProps = {
+	showSeparator?: boolean
+	maxItems?: number
+	beforeCollapse?: number
+	afterCollapse?: number
 	separator?: ReactNode
+	renderEllipsis?: (props: BreadcrumbsRenderEllipsisProps) => ReactNode
 	slotProps?: BreadcrumbsSlotProps
 }
 
 type BreadcrumbsSlotProps = {
 	listProps?: ComponentProps<"ol">
-	separatorProps?: ComponentProps<"svg">
+	itemProps?: ComponentProps<"li">
+	ellipsisProps?: ComponentProps<"svg">
+	separatorProps?: ComponentProps<"span">
 }
 
-export type BreadcrumbProps = ComponentProps<
+type BreadcrumbsRenderEllipsisProps = {
+	items: BreadcrumbProps[]
+	icon: ReactNode
+}
+
+export type BreadcrumbProps = ComponentPropsWithAs<
 	"a",
-	Partial<LinkProps> &
+	LinkProps &
 	BreadcrumbOwnProps
 >
 
 type BreadcrumbOwnProps = {
-	current?: boolean
 	startContent?: ReactNode
 	endContent?: ReactNode
 }
