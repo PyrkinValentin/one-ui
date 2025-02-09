@@ -27,11 +27,6 @@ type CheckboxSlotProps = {
 	labelProps?: ComponentProps<"span">
 }
 
-export type CheckboxIconProps = ComponentProps<
-	"svg",
-	Pick<CheckboxProps, "checked" | "disableAnimation">
->
-
 export type CheckboxGroupContextValue = Pick<
 	CheckboxGroupProps,
 	| "name"

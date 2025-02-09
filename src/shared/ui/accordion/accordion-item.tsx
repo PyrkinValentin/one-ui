@@ -15,7 +15,7 @@ import { useAccordionContext } from "./accordion"
 export const AccordionItem = (props: AccordionItemProps) => {
 	const {
 		keepMounted,
-		hideIndicator,
+		showIndicator,
 		disableAnimation,
 		classNames,
 		slotProps = {},
@@ -115,7 +115,7 @@ export const AccordionItem = (props: AccordionItemProps) => {
 						</div>
 					) : null}
 
-					{!hideIndicator ? (
+					{showIndicator ? (
 						<span
 							aria-hidden="true"
 							{...indicatorProps}

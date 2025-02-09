@@ -15,10 +15,10 @@ export const useAccordionContext = () => use(AccordionContext)
 export const Accordion = (props: AccordionProps) => {
 	const {
 		keepMounted,
-		multiple,
-		hideIndicator,
+		selectionMode = "single",
+		showIndicator = true,
 		disabledValue,
-		defaultValue = [],
+		defaultValue = selectionMode === "multiple" ? [] : "",
 		value,
 		onValueChange,
 		slotProps = {},
@@ -37,7 +37,7 @@ export const Accordion = (props: AccordionProps) => {
 	const [controlledValue, setControlledValue] = useControlledState({
 		defaultValue,
 		value,
-		setValue: onValueChange,
+		setValue: onValueChange as (value: string | string[]) => void,
 	})
 
 	const disabledItem = (value: string) => {
@@ -51,12 +51,12 @@ export const Accordion = (props: AccordionProps) => {
 	const handleExpandedChange = (value: string, expanded: boolean) => {
 		setControlledValue?.(
 			expanded
-				? multiple
-					? [...controlledValue, value]
-					: [value]
-				: multiple
-					? controlledValue.filter((v) => v !== value)
-					: []
+				? selectionMode === "single"
+					? value
+					: [...(controlledValue as string[]), value]
+				: selectionMode === "single"
+					? ""
+					: (controlledValue as string[]).filter((v) => v !== value)
 		)
 	}
 
@@ -82,7 +82,7 @@ export const Accordion = (props: AccordionProps) => {
 
 	const contextValue: AccordionContextValue = {
 		keepMounted,
-		hideIndicator,
+		showIndicator,
 		disableAnimation,
 		classNames: restClassNames,
 		slotProps,
