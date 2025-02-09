@@ -103,9 +103,9 @@ export const Pagination = (props: PaginationProps) => {
 	}
 
 	const {
-		base,
-		list,
-		item,
+		base: classNameBase,
+		list: classNameList,
+		item: classNameItem,
 		...restClassNames
 	} = useMemo(() => {
 		return paginationVariants({
@@ -141,18 +141,18 @@ export const Pagination = (props: PaginationProps) => {
 		<PaginationContext value={contextValue}>
 			<nav
 				aria-label="pages navigation"
-				className={base({ className })}
+				className={classNameBase({ className })}
 				{...restProps}
 			>
 				<ul
 					{...listProps}
-					className={list({ className: listProps?.className })}
+					className={classNameList({ className: listProps?.className })}
 				>
 					{paginationRange.map((rangeValue) => (
 						<li
 							key={rangeValue}
 							{...itemProps}
-							className={item({ className: itemProps?.className })}
+							className={classNameItem({ className: itemProps?.className })}
 						>
 							{renderItem
 								? renderItem({ page: getPage(rangeValue), rangeValue })

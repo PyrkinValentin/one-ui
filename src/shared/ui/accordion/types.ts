@@ -6,7 +6,7 @@ export type AccordionContextValue =
 	Pick<
 		AccordionProps,
 		| "keepMounted"
-		| "hideIndicator"
+		| "showIndicator"
 		| "disableAnimation"
 	> &
 	AccordionContextOwnValue
@@ -37,14 +37,20 @@ export type AccordionProps = ComponentProps<
 
 type AccordionOwnProps = {
 	keepMounted?: boolean
-	multiple?: boolean
-	hideIndicator?: boolean
+	showIndicator?: boolean
 	disabledValue?: string[]
+	slotProps?: AccordionSlotProps
+} & ({
+	selectionMode?: "single"
+	defaultValue?: string
+	value?: string
+	onValueChange?: (value: string) => void
+} | {
+	selectionMode: "multiple"
 	defaultValue?: string[]
 	value?: string[]
 	onValueChange?: (value: string[]) => void
-	slotProps?: AccordionSlotProps
-}
+})
 
 type AccordionSlotProps = {
 	headingProps?: ComponentProps<"h2">
@@ -65,11 +71,4 @@ type AccordionItemOwnProps = {
 	description?: ReactNode
 	startContent?: ReactNode
 	indicator?: ReactNode | ((expanded: boolean) => ReactNode)
-}
-
-export type CollapseProps = {
-	keepMounted?: boolean
-	enabled?: boolean
-	open?: boolean
-	children?: ReactNode
 }

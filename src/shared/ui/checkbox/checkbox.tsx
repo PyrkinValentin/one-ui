@@ -12,7 +12,6 @@ import { Slot } from "@/shared/ui/system"
 
 import { useCheckboxGroupContext } from "./checkbox-group"
 import { checkboxVariants } from "./variants"
-import { CheckboxIcon } from "./checkbox-icon"
 
 export const Checkbox = (props: CheckboxProps) => {
 	const {
@@ -125,12 +124,30 @@ export const Checkbox = (props: CheckboxProps) => {
 						}
 					</Slot>
 				) : (
-					<CheckboxIcon
-						checked={controlledChecked}
-						disableAnimation={disableAnimation}
+					<svg
+						aria-hidden="true"
+						role="presentation"
+						viewBox="0 0 17 18"
 						{...iconProps}
 						className={classNames.icon({ className: iconProps?.className })}
-					/>
+					>
+						<polyline
+							fill="none"
+							points="1 9 7 14 15 4"
+							stroke="currentColor"
+							strokeDasharray="22"
+							strokeDashoffset={controlledChecked ? 44 : 66}
+							strokeLinecap="round"
+							strokeLinejoin="round"
+							strokeWidth="2"
+							style={{
+								...(!disableAnimation
+										? { transition: "stroke-dashoffset 0.15s linear 0.2s" }
+										: undefined
+								),
+							}}
+						/>
+					</svg>
 				)}
 			</span>
 
