@@ -80,7 +80,7 @@ export const Slider = (props: SliderProps) => {
 	const [controlledValue, setControlledValue] = useControlledState({
 		defaultValue: numberClump(defaultValue, minValue, maxValue),
 		value: value ? numberClump(value, minValue, maxValue) : value,
-		setValue: onValueChange,
+		onValueChange,
 	})
 
 	const range = controlledValue.length > 1

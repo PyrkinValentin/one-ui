@@ -50,7 +50,7 @@ export const CheckboxGroup = (props: CheckboxGroupProps) => {
 	const [controlledValue, setControlledValue] = useControlledState({
 		defaultValue,
 		value,
-		setValue: onValueChange,
+		onValueChange,
 	})
 
 	const disabledGroup = (value?: string) => {

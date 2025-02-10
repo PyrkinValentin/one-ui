@@ -62,7 +62,7 @@ export const Input = (props: InputProps) => {
 	const [controlledValue, setControlledValue] = useControlledState({
 		defaultValue,
 		value,
-		setValue: onValueChange,
+		onValueChange,
 	})
 
 	const handleChange = (ev: ChangeEvent<HTMLInputElement>) => {

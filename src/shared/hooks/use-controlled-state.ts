@@ -1,37 +1,53 @@
-import { useState } from "react"
+import { useCallback, useState } from "react"
+import { useCallbackEvent } from "@/shared/hooks/use-callback-event"
 
 import { isUndefined } from "@/shared/helpers/is-undefined"
 
 type UseControlledStateOptions<
 	Value,
-	SetValue extends (...args: readonly never[]) => unknown,
+	OnChange extends (value: Value, ...args: never[]) => void,
 > = {
 	defaultValue: Value | (() => Value)
 	value?: Value
-	setValue?: SetValue
+	onValueChange?: OnChange
 }
 
 export const useControlledState = <
 	Value,
-	SetValue extends (...args: readonly never[]) => unknown,
->(options: UseControlledStateOptions<Value, SetValue>) => {
+	OnChange extends (value: Value, ...args: never[]) => void
+>(options: UseControlledStateOptions<Value, OnChange>) => {
 	const {
 		defaultValue,
 		value,
-		setValue,
+		onValueChange,
 	} = options
 
-	const [uncontrolledValue, setUncontrolledValue] = useState(defaultValue)
+	const [uncontrolledState, setUncontrolledState] = useState<Value>(defaultValue)
+
+	const setControlledState = useCallbackEvent(onValueChange)
 
 	const controlled = !isUndefined(value)
 
 	const state = controlled
 		? value
-		: uncontrolledValue
+		: uncontrolledState
 
-	const setState = controlled
-		? setValue
-		: setUncontrolledValue as unknown as SetValue
+	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+	// @ts-expect-error
+	const setState = useCallback<OnChange>((value, ...args) => {
+		setControlledState?.(value, ...args)
 
-	return [state, setState, controlled] as const
+		if (!controlled) {
+			setUncontrolledState(value)
+		}
+	}, [
+		controlled,
+		setControlledState,
+	])
+
+	return [
+		state,
+		setState,
+		controlled,
+	] as const
 }

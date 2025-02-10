@@ -51,7 +51,7 @@ export const RadioGroup = (props: RadioGroupProps) => {
 	const [controlledValue, setControlledValue] = useControlledState({
 		defaultValue,
 		value,
-		setValue: onValueChange,
+		onValueChange,
 	})
 
 	const disabledGroup = (value: string) => {

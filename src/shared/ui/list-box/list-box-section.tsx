@@ -1,17 +1,35 @@
+"use client"
+
 import type { ListBoxSectionProps } from "./types"
 
 import { useId, useMemo } from "react"
 
+import { useListBoxContext } from "./list-box"
 import { listBoxSectionVariants } from "./variants"
 
 export const ListBoxSection = (props: ListBoxSectionProps) => {
 	const {
+		slotProps: slotPropsContext = {},
+	} = useListBoxContext()
+
+	const {
 		title,
+		slotProps = {},
 		className,
 		showDivider,
 		children,
 		...restProps
 	} = props
+
+	const {
+		headingProps: headingPropsContext,
+		groupProps: groupPropsContext,
+	} = slotPropsContext
+
+	const {
+		headingProps,
+		groupProps,
+	} = slotProps
 
 	const titleId = useId()
 
@@ -27,17 +45,33 @@ export const ListBoxSection = (props: ListBoxSectionProps) => {
 			className={classNames.base({ className })}
 			{...restProps}
 		>
-			<span
-				id={titleId}
-				className={classNames.heading()}
-			>
-				{title}
-			</span>
+			{title ? (
+				<span
+					id={titleId}
+					{...headingPropsContext}
+					{...headingProps}
+					className={classNames.heading({
+						className: [
+							headingPropsContext?.className,
+							headingProps?.className,
+						],
+					})}
+				>
+					{title}
+				</span>
+			) : null}
 
 			<ul
 				role="group"
 				aria-labelledby={titleId}
-				className={classNames.group()}
+				{...groupPropsContext}
+				{...groupProps}
+				className={classNames.group({
+					className: [
+						groupPropsContext?.className,
+						groupProps?.className,
+					],
+				})}
 			>
 				{children}
 			</ul>

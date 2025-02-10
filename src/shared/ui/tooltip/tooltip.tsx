@@ -51,7 +51,7 @@ export const Tooltip = (props: TooltipProps) => {
 	const [controlledOpen, setControlledOpen] = useControlledState({
 		defaultValue: defaultOpen,
 		value: open,
-		setValue: onOpenChange,
+		onValueChange: onOpenChange,
 	})
 
 	const handleOpenChange = (open: boolean, _ev?: Event, reason?: OpenChangeReason) => {

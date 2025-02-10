@@ -46,7 +46,7 @@ export const Switch = (props: SwitchProps) => {
 	const [controlledChecked, setControlledChecked] = useControlledState({
 		defaultValue: defaultChecked,
 		value: checked,
-		setValue: onCheckedChange,
+		onValueChange: onCheckedChange,
 	})
 
 	const handleChange = (ev: ChangeEvent<HTMLInputElement>) => {

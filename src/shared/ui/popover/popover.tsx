@@ -23,7 +23,7 @@ export const Popover = (props: PopoverProps) => {
 		placement,
 		offset: offsetProp = 7,
 		disablePortal,
-		defaultOpen,
+		defaultOpen = false,
 		open,
 		onOpenChange,
 		slotProps,
@@ -40,7 +40,7 @@ export const Popover = (props: PopoverProps) => {
 	const [controlledOpen, setControlledOpen] = useControlledState({
 		defaultValue: defaultOpen,
 		value: open,
-		setValue: onOpenChange,
+		onValueChange: onOpenChange,
 	})
 
 	const handleOpenChange = (open: boolean, _ev?: Event, reason?: OpenChangeReason) => {
