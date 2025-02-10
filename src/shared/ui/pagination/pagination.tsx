@@ -49,7 +49,7 @@ export const Pagination = (props: PaginationProps) => {
 	const [controlledPage, setControlledPage] = useControlledState({
 		defaultValue: defaultPage,
 		value: page,
-		setValue: onPageChange,
+		onValueChange: onPageChange,
 	})
 
 	const paginationRange = usePaginationRange({

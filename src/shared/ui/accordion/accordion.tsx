@@ -37,7 +37,7 @@ export const Accordion = (props: AccordionProps) => {
 	const [controlledValue, setControlledValue] = useControlledState({
 		defaultValue,
 		value,
-		setValue: onValueChange as (value: string | string[]) => void,
+		onValueChange: onValueChange as (value: string | string[]) => void,
 	})
 
 	const disabledItem = (value: string) => {
@@ -45,7 +45,9 @@ export const Accordion = (props: AccordionProps) => {
 	}
 
 	const expandedItem = (value: string) => {
-		return controlledValue.includes(value)
+		return selectionMode === "single"
+			? controlledValue === value
+			: controlledValue.includes(value)
 	}
 
 	const handleExpandedChange = (value: string, expanded: boolean) => {

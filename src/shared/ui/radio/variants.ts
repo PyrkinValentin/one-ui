@@ -106,7 +106,7 @@ export type RadioGroupVariantsProps = VariantProps<typeof radioGroupVariants>
 
 export const radioGroupVariants = tv({
 	slots: {
-		base: "relative flex flex-col",
+		base: "relative flex flex-col gap-2",
 		label: "relative text-md text-default-500",
 		wrapper: "flex flex-wrap gap-2",
 		invalidMessage: "pt-2 text-xs text-danger",

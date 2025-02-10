@@ -59,7 +59,7 @@ export const Checkbox = (props: CheckboxProps) => {
 	const [controlledChecked, setControlledChecked] = useControlledState({
 		defaultValue: defaultChecked,
 		value: checked,
-		setValue: onCheckedChange,
+		onValueChange: onCheckedChange,
 	})
 
 	const handleChange = (ev: ChangeEvent<HTMLInputElement>) => {
@@ -142,7 +142,7 @@ export const Checkbox = (props: CheckboxProps) => {
 							strokeWidth="2"
 							style={{
 								...(!disableAnimation
-										? { transition: "stroke-dashoffset 0.15s linear 0.2s" }
+										? { transition: "stroke-dashoffset 0.15s linear 0.15s" }
 										: undefined
 								),
 							}}

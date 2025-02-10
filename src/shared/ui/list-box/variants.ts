@@ -7,7 +7,27 @@ export type ListBoxVariantsProps = VariantProps<typeof listBoxVariants>
 export const listBoxVariants = tv({
 	slots: {
 		base: "w-full flex flex-col gap-0.5 outline-none",
-		emptyContent: "px-2 py-1.5 w-full h-full text-default-400 text-start",
+		emptyContent: "px-2 py-1.5 w-full h-full text-start text-default-400",
+	},
+})
+
+export type ListBoxSectionVariantsProps = VariantProps<typeof listBoxSectionVariants>
+
+export const listBoxSectionVariants = tv({
+	slots: {
+		base: "relative mb-2 last-of-type:mb-0 flex flex-col gap-2",
+		heading: "pl-1 text-xs text-default-500",
+		group: "w-full flex flex-col gap-0.5 outline-none",
+	},
+	variants: {
+		showDivider: {
+			true: {
+				base: [
+					"mb-5 after:content-[''] after:absolute after:-bottom-1 after:left-0 after:right-0 after:h-px",
+					"after:bg-divider",
+				],
+			},
+		},
 	},
 })
 
@@ -15,7 +35,7 @@ export type ListBoxItemVariantsProps = VariantProps<typeof listBoxItemVariants>
 
 export const listBoxItemVariants = tv({
 	slots: {
-		base: "",
+		base: "w-full h-full",
 		button: [
 			"group box-border relative px-2 py-1.5 w-full h-full flex items-center justify-between gap-2 rounded-small",
 			"subpixel-antialiased outline-none focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-focus",
@@ -24,7 +44,7 @@ export const listBoxItemVariants = tv({
 		wrapper: "w-full flex flex-col items-start justify-center",
 		title: "w-full text-sm font-normal text-start",
 		description: "w-full text-xs text-default-500 text-start group-hover:text-current group-focus:text-current",
-		selectedIcon: "shrink-0 text-current",
+		selectedIcon: "text-inherit w-3 h-3 shrink-0",
 	},
 	variants: {
 		variant: {
@@ -35,8 +55,8 @@ export const listBoxItemVariants = tv({
 			light: "",
 			faded: {
 				button: [
-					"border border-transparent hover:border-default hover:bg-default-100 focus:border-default",
-					"focus:bg-default-100",
+					"border border-transparent hover:border-default hover:bg-default-100",
+					"focus:border-default focus:bg-default-100",
 				],
 			},
 			flat: "",
@@ -58,6 +78,11 @@ export const listBoxItemVariants = tv({
 					"mb-1.5 after:content-[''] after:absolute after:-bottom-1 after:left-0 after:right-0 after:h-px",
 					"after:bg-divider",
 				],
+			},
+		},
+		readOnly: {
+			true: {
+				button: "pointer-events-none",
 			},
 		},
 		disabled: {
@@ -360,24 +385,4 @@ export const listBoxItemVariants = tv({
 			},
 		},
 	],
-})
-
-export type ListBoxSectionVariantsProps = VariantProps<typeof listBoxSectionVariants>
-
-export const listBoxSectionVariants = tv({
-	slots: {
-		base: "relative mb-2 flex flex-col last-of-type:mb-0",
-		heading: "pl-1 mb-2 text-xs text-default-500",
-		group: "flex flex-col gap-0.5 outline-none",
-	},
-	variants: {
-		showDivider: {
-			true: {
-				base: [
-					"mb-4 after:content-[''] after:absolute after:-bottom-2 after:left-0 after:right-0 after:h-px",
-					"after:bg-divider",
-				],
-			},
-		},
-	},
 })

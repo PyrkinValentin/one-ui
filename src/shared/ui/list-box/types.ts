@@ -5,30 +5,41 @@ import type { ListBoxItemVariantsProps, ListBoxSectionVariantsProps, ListBoxVari
 export type ListBoxContextValue =
 	Pick<
 		ListBoxProps,
-		| "showSelectedIcon"
+		| "hideSelectedIcon"
 		| "selectionMode"
+		| "selectedIcon"
 		| "variant"
 		| "color"
+		| "disabled"
 		| "disableAnimation"
-	> & ListBoxContextOwnValue
+	> &
+	Pick<ListBoxProps, "slotProps"> &
+	ListBoxContextOwnValue
 
-type ListBoxContextOwnValue = Pick<ListBoxProps, "slotProps">
+type ListBoxContextOwnValue = {
+	disabledItem?: (value: string) => boolean
+	selectedItem?: (value: string) => boolean | undefined
+	onValueChange?: (value: string, selected: boolean) => void
+}
 
 export type ListBoxProps = ComponentProps<
 	"ul",
 	ListBoxVariantsProps &
-	ListBoxOwnProps &
 	Pick<
 		ListBoxItemProps,
+		| "selectedIcon"
 		| "variant"
 		| "color"
+		| "disabled"
 		| "disableAnimation"
-	>
+	> &
+	ListBoxOwnProps
 >
 
 type ListBoxOwnProps = {
-	showEmptyContent?: boolean
-	showSelectedIcon?: boolean
+	disallowEmptySelection?: boolean
+	hideEmptyContent?: boolean
+	hideSelectedIcon?: boolean
 	disabledValue?: string[]
 	emptyContent?: ReactNode
 	slotProps?: ListBoxSlotProps
@@ -49,8 +60,13 @@ type ListBoxOwnProps = {
 	onValueChange?: (value: string[]) => void
 })
 
-type ListBoxSlotProps = {
-	buttonProps?: ComponentProps<"button">
+type ListBoxSlotProps =
+	ListBoxSectionSlotProps &
+	ListBoxItemSlotProps &
+	ListBoxOwnSlotProps
+
+type ListBoxOwnSlotProps = {
+	emptyContentProps?: ComponentProps<"li">
 }
 
 export type ListBoxSectionProps = ComponentProps<
@@ -61,19 +77,37 @@ export type ListBoxSectionProps = ComponentProps<
 
 type ListBoxSectionOwnProps = {
 	title?: ReactNode
+	slotProps?: ListBoxSectionSlotProps
+}
+
+type ListBoxSectionSlotProps = {
+	headingProps?: ComponentProps<"span">
+	groupProps?: ComponentProps<"ul">
 }
 
 export type ListBoxItemProps<
 	As extends ElementType = "button"
 > = ComponentPropsWithAs<
 	As,
-	ListBoxItemOwnProps &
-	ListBoxItemVariantsProps
+	ListBoxItemVariantsProps &
+	ListBoxItemOwnProps
 >
 
 type ListBoxItemOwnProps = {
+	hideSelectedIcon?: boolean
+	value?: string
 	title?: ReactNode
 	description?: ReactNode
+	selectedIcon?: ReactNode | ((selected: boolean) => ReactNode)
 	startContent?: ReactNode
 	endContent?: ReactNode
+	slotProps?: ListBoxItemSlotProps
+}
+
+type ListBoxItemSlotProps = {
+	itemProps?: ComponentProps<"li">
+	wrapperProps?: ComponentProps
+	titleProps?: ComponentProps<"span">
+	descriptionProps?: ComponentProps<"span">
+	selectedIconProps?: ComponentProps<"span">
 }

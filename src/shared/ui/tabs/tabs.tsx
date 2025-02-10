@@ -67,7 +67,7 @@ export const Tabs = (props: TabsProps) => {
 	const [controlledValue, setControlledValue] = useControlledState({
 		defaultValue: getDefaultValue,
 		value,
-		setValue: onValueChange,
+		onValueChange,
 	})
 
 	const disabledTab = (value?: string) => {

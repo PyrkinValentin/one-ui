@@ -25,7 +25,7 @@ export const AccordionItem = (props: AccordionItemProps) => {
 	} = useAccordionContext()
 
 	const {
-		value,
+		value: valueProp,
 		title,
 		description,
 		startContent,
@@ -49,8 +49,10 @@ export const AccordionItem = (props: AccordionItemProps) => {
 	const buttonId = useId()
 	const contentId = useId()
 
-	const disabled = disabledItem?.(value ?? buttonId)
-	const expanded = expandedItem?.(value ?? buttonId)
+	const value = valueProp ?? buttonId
+
+	const disabled = disabledItem?.(value)
+	const expanded = expandedItem?.(value)
 
 	const [mounted, styles] = useTransition(expanded, {
 		enabled: !disableAnimation,
@@ -60,7 +62,7 @@ export const AccordionItem = (props: AccordionItemProps) => {
 
 	const handleClick = (ev: MouseEvent<HTMLButtonElement>) => {
 		triggerProps?.onClick?.(ev)
-		onExpandedChange?.(value ?? buttonId, !expanded)
+		onExpandedChange?.(value, !expanded)
 	}
 
 	return (

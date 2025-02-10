@@ -66,7 +66,7 @@ export const Textarea = (props: TextareaProps) => {
 	const [controlledValue, setControlledValue] = useControlledState({
 		defaultValue,
 		value,
-		setValue: onValueChange,
+		onValueChange,
 	})
 
 	const textareaRef = useTextareaAutosize(controlledValue, autosize)
