@@ -4,7 +4,7 @@ import type { ChipVariantsProps } from "./variants"
 
 export type ChipProps = ComponentProps<
 	"div",
-	ChipVariantsProps &
+	Omit<ChipVariantsProps, "oneChar" | "closeable" | "hasStartContent" | "hasEndContent"> &
 	ChipOwnProps
 >
 
