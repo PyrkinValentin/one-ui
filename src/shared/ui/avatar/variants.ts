@@ -2,6 +2,20 @@ import type { VariantProps } from "@/core/theme"
 
 import { tv } from "@/core/theme"
 
+export type AvatarGroupVariantsProps = VariantProps<typeof avatarGroupVariants>
+
+export const avatarGroupVariants = tv({
+	slots: {
+		base: "flex items-center justify-center h-auto w-max",
+		count: "hover:-translate-x-0",
+	},
+	variants: {
+		grid: {
+			true: "inline-grid grid-cols-4 gap-3",
+		},
+	},
+})
+
 export type AvatarVariantsProps = VariantProps<typeof avatarVariants>
 
 export const avatarVariants = tv({
@@ -158,18 +172,4 @@ export const avatarVariants = tv({
 			className: "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
 		},
 	],
-})
-
-export type AvatarGroupVariantsProps = VariantProps<typeof avatarGroupVariants>
-
-export const avatarGroupVariants = tv({
-	slots: {
-		base: "flex items-center justify-center h-auto w-max",
-		count: "hover:-translate-x-0",
-	},
-	variants: {
-		grid: {
-			true: "inline-grid grid-cols-4 gap-3",
-		},
-	},
 })

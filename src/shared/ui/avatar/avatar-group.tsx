@@ -29,7 +29,10 @@ export const AvatarGroup = (props: AvatarGroupProps) => {
 		...restProps
 	} = props
 
-	const { countProps } = slotProps
+	const {
+		countProps,
+		...restSlotProps
+	} = slotProps
 
 	const collection = Children.toArray(children)
 	const childrenWithinMax = collection.slice(0, maxCount)
@@ -48,6 +51,7 @@ export const AvatarGroup = (props: AvatarGroupProps) => {
 		bordered,
 		disabled,
 		disableAnimation,
+		slotProps: restSlotProps,
 	}
 
 	return (
