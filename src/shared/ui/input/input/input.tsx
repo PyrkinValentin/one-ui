@@ -59,7 +59,7 @@ export const Input = (props: InputProps) => {
 
 	const inputId = useId()
 
-	const [controlledValue, setControlledValue] = useControlledState({
+	const [state, setState] = useControlledState({
 		defaultValue,
 		value,
 		onValueChange,
@@ -67,12 +67,12 @@ export const Input = (props: InputProps) => {
 
 	const handleChange = (ev: ChangeEvent<HTMLInputElement>) => {
 		onChange?.(ev)
-		setControlledValue?.(ev.target.value)
+		setState?.(ev.target.value)
 	}
 
 	const handleClickClear = () => {
 		onClear?.()
-		setControlledValue?.("")
+		setState?.("")
 	}
 
 	const classNames = useMemo(() => {
@@ -143,7 +143,7 @@ export const Input = (props: InputProps) => {
 						autoComplete={autoComplete}
 						minLength={minLength}
 						maxLength={maxLength}
-						value={controlledValue}
+						value={state}
 						onChange={handleChange}
 						{...inputProps}
 						className={classNames.input({ className: inputProps?.className })}
@@ -151,7 +151,7 @@ export const Input = (props: InputProps) => {
 
 					{clearable ? (
 						<>
-							{controlledValue ? (
+							{state ? (
 								<button
 									disabled={readOnly || disabled}
 									onClick={handleClickClear}

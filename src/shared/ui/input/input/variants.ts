@@ -35,7 +35,7 @@ export const inputVariants = tv({
 				inputWrapper: [
 					"box-border relative !px-0 !rounded-none border-b-2 border-default-200 hover:border-default-300",
 					"after:content-[''] after:origin-center after:absolute after:left-1/2 after:-bottom-[2px]",
-					"after:-translate-x-1/2 after:w-0 after:h-[2px] has-[:focus-visible]:after:w-full",
+					"after:-translate-x-1/2 after:w-0 after:h-[2px] has-[input:focus-visible]:after:w-full",
 					"shadow-[0_1px_0px_0_rgba(0,0,0,0.05)]",
 				],
 			},
@@ -144,12 +144,11 @@ export const inputVariants = tv({
 		fullWidth: true,
 	},
 	compoundVariants: [
-		// flat & color
 		{
 			variant: "flat",
 			color: "default",
 			className: {
-				inputWrapper: "bg-default-100 hover:bg-default-200 group-has-[:focus-visible]:bg-default-100",
+				inputWrapper: "bg-default-100 hover:bg-default-200 has-[input:focus-visible]:bg-default-100",
 				input: "placeholder:text-default-500",
 			},
 		},
@@ -158,7 +157,7 @@ export const inputVariants = tv({
 			color: "primary",
 			className: {
 				label: "text-primary",
-				inputWrapper: "bg-primary-100 text-primary hover:bg-primary-50 group-has-[:focus-visible]:bg-primary-50",
+				inputWrapper: "bg-primary-100 text-primary hover:bg-primary-50 has-[input:focus-visible]:bg-primary-50",
 				input: "placeholder:text-primary",
 			},
 		},
@@ -167,10 +166,7 @@ export const inputVariants = tv({
 			color: "secondary",
 			className: {
 				label: "text-secondary",
-				inputWrapper: [
-					"bg-secondary-100 text-secondary hover:bg-secondary-50",
-					"group-has-[:focus-visible]:bg-secondary-50"
-				],
+				inputWrapper: "bg-secondary-100 text-secondary hover:bg-secondary-50 has-[input:focus-visible]:bg-secondary-50",
 				input: "placeholder:text-secondary",
 			},
 		},
@@ -181,7 +177,7 @@ export const inputVariants = tv({
 				label: "text-success-600 dark:text-success",
 				inputWrapper: [
 					"bg-success-100 text-success-600 dark:text-success hover:bg-success-50",
-					"group-has-[:focus-visible]:bg-success-50",
+					"has-[input:focus-visible]:bg-success-50",
 				],
 				input: "placeholder:text-success-600 dark:placeholder:text-success",
 			},
@@ -193,7 +189,7 @@ export const inputVariants = tv({
 				label: "text-warning-600 dark:text-warning",
 				inputWrapper: [
 					"bg-warning-100 text-warning-600 dark:text-warning hover:bg-warning-50",
-					"group-has-[:focus-visible]:bg-warning-50",
+					"has-[input:focus-visible]:bg-warning-50",
 				],
 				input: "placeholder:text-warning-600 dark:placeholder:text-warning",
 			},
@@ -203,14 +199,11 @@ export const inputVariants = tv({
 			color: "danger",
 			className: {
 				label: "text-danger dark:text-danger-500",
-				inputWrapper: [
-					"bg-danger-100 text-danger dark:text-danger-500 hover:bg-danger-50",
-					"group-has-[:focus-visible]:bg-danger-50",
-				],
+				inputWrapper:
+					"bg-danger-100 text-danger dark:text-danger-500 hover:bg-danger-50 has-[input:focus-visible]:bg-danger-50",
 				input: "placeholder:text-danger dark:placeholder:text-danger-500",
 			},
 		},
-		// faded & color
 		{
 			variant: "faded",
 			color: "default",
@@ -258,7 +251,6 @@ export const inputVariants = tv({
 				inputWrapper: "hover:border-danger focus-within:border-danger",
 			},
 		},
-		// underlined & color
 		{
 			variant: "underlined",
 			color: "default",
@@ -306,12 +298,11 @@ export const inputVariants = tv({
 				inputWrapper: "after:bg-danger",
 			},
 		},
-		// bordered & color
 		{
 			variant: "bordered",
 			color: "default",
 			className: {
-				inputWrapper: "group-has-[:focus-visible]:border-default-foreground",
+				inputWrapper: "has-[input:focus-visible]:border-default-foreground",
 			},
 		},
 		{
@@ -319,7 +310,7 @@ export const inputVariants = tv({
 			color: "primary",
 			className: {
 				label: "text-primary",
-				inputWrapper: "group-has-[:focus-visible]:border-primary",
+				inputWrapper: "has-[input:focus-visible]:border-primary",
 			},
 		},
 		{
@@ -327,7 +318,7 @@ export const inputVariants = tv({
 			color: "secondary",
 			className: {
 				label: "text-secondary",
-				inputWrapper: "group-has-[:focus-visible]:border-secondary",
+				inputWrapper: "has-[input:focus-visible]:border-secondary",
 			},
 		},
 		{
@@ -335,7 +326,7 @@ export const inputVariants = tv({
 			color: "success",
 			className: {
 				label: "text-success",
-				inputWrapper: "group-has-[:focus-visible]:border-success",
+				inputWrapper: "has-[input:focus-visible]:border-success",
 			},
 		},
 		{
@@ -343,7 +334,7 @@ export const inputVariants = tv({
 			color: "warning",
 			className: {
 				label: "text-warning",
-				inputWrapper: "group-has-[:focus-visible]:border-warning",
+				inputWrapper: "has-[input:focus-visible]:border-warning",
 			},
 		},
 		{
@@ -351,7 +342,7 @@ export const inputVariants = tv({
 			color: "danger",
 			className: {
 				label: "text-danger",
-				inputWrapper: "group-has-[:focus-visible]:border-danger",
+				inputWrapper: "has-[input:focus-visible]:border-danger",
 			},
 		},
 		{
@@ -375,17 +366,9 @@ export const inputVariants = tv({
 				label: "mt-3",
 			},
 		},
-		// !disableAnimation & variant
 		{
 			disableAnimation: false,
-			variant: "flat",
-			className: {
-				inputWrapper: "transition-[background] motion-reduce:transition-none",
-			},
-		},
-		{
-			disableAnimation: false,
-			variant: ["faded", "bordered"],
+			variant: ["flat", "faded", "bordered"],
 			className: {
 				inputWrapper: "transition-colors motion-reduce:transition-none",
 			},
@@ -394,10 +377,9 @@ export const inputVariants = tv({
 			disableAnimation: false,
 			variant: "underlined",
 			className: {
-				inputWrapper: "after:transition-[width] motion-reduce:after:transition-none",
+				inputWrapper: "after:transition-[width] after:motion-reduce:transition-none",
 			},
 		},
-		// variant: underline & labelPlacement
 		{
 			variant: "underlined",
 			labelPlacement: "top",
@@ -405,19 +387,18 @@ export const inputVariants = tv({
 				label: "pb-0",
 			},
 		},
-		// invalid & variant
 		{
 			invalid: true,
 			variant: "flat",
 			className: {
-				inputWrapper: "bg-danger-50 hover:bg-danger-100 group-has-[:focus-visible]:bg-danger-50",
+				inputWrapper: "bg-danger-50 hover:bg-danger-100 has-[input:focus-visible]:bg-danger-50",
 			},
 		},
 		{
 			invalid: true,
 			variant: "bordered",
 			className: {
-				inputWrapper: "border-danger hover:border-danger group-has-[:focus-visible]:border-danger",
+				inputWrapper: "border-danger hover:border-danger has-[input:focus-visible]:border-danger",
 			},
 		},
 		{
