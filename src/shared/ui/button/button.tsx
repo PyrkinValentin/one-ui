@@ -10,33 +10,44 @@ import { useButtonGroupContext } from "./button-group"
 import { buttonVariants } from "./variants"
 
 export const Button = (props: ButtonProps) => {
-	const { inGroup, ...buttonGroupContext } = useButtonGroupContext()
+	const {
+		inGroup,
+		variant: variantContext,
+		size: sizeContext,
+		color: colorContext,
+		rounded: roundedContext,
+		fullWidth: fullWidthContext,
+		disabled: disabledContext,
+		iconOnly: iconOnlyContext,
+		disableAnimation: disableAnimationContext,
+		slotProps: slotPropsContext,
+	} = useButtonGroupContext()
 
 	const {
 		startContent,
 		endContent,
 		slotProps = {},
 		className,
-		variant,
-		size,
-		color,
-		rounded,
-		fullWidth,
+		variant = variantContext,
+		size = sizeContext,
+		color = colorContext,
+		rounded = roundedContext,
+		fullWidth = fullWidthContext,
 		loading,
-		disabled,
-		iconOnly,
-		disableAnimation,
+		disabled = disabledContext,
+		iconOnly = iconOnlyContext,
+		disableAnimation = disableAnimationContext,
 		children,
 		...restProps
-	} = {
-		...buttonGroupContext,
-		...props,
-	}
+	} = props
 
 	const {
 		wrapperProps,
 		spinnerProps,
-	} = slotProps
+	} = {
+		...slotPropsContext,
+		...slotProps,
+	}
 
 	const classNames = useMemo(() => {
 		return buttonVariants({

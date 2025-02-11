@@ -13,6 +13,7 @@ export const useButtonGroupContext = () => use(ButtonGroupContext)
 
 export const ButtonGroup = (props: ButtonGroupProps) => {
 	const {
+		slotProps,
 		className,
 		variant,
 		color,
@@ -39,13 +40,14 @@ export const ButtonGroup = (props: ButtonGroupProps) => {
 	const contextValue: ButtonGroupContextValue = {
 		inGroup: true,
 		variant,
-		color,
 		size,
+		color,
 		rounded,
 		fullWidth,
 		disabled,
 		iconOnly,
 		disableAnimation,
+		slotProps,
 	}
 
 	return (

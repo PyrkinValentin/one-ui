@@ -3,17 +3,12 @@ import type { ComponentProps } from "@/shared/types/props"
 import type { SpinnerProps } from "@/shared/ui/spinner"
 import type { ButtonGroupVariantsProps, ButtonVariantsProps } from "./variants"
 
-export type ButtonGroupContextValue = Pick<
-	ButtonGroupProps,
-	| "variant"
-	| "color"
-	| "size"
-	| "rounded"
-	| "fullWidth"
-	| "disabled"
-	| "iconOnly"
-	| "disableAnimation"
-> & ButtonGroupContextOwnValue
+export type ButtonGroupContextValue =
+	Pick<
+		ButtonGroupProps,
+		"variant" | "size" | "color" | "rounded" | "fullWidth" | "disabled" | "iconOnly" | "disableAnimation" | "slotProps"
+	> &
+	ButtonGroupContextOwnValue
 
 type ButtonGroupContextOwnValue = {
 	inGroup?: boolean
@@ -22,19 +17,10 @@ type ButtonGroupContextOwnValue = {
 export type ButtonGroupProps = ComponentProps<
 	"div",
 	ButtonGroupVariantsProps &
-	ButtonGroupOwnProps
->
-
-type ButtonGroupOwnProps = Pick<
-	ButtonProps,
-	| "variant"
-	| "color"
-	| "size"
-	| "rounded"
-	| "fullWidth"
-	| "disabled"
-	| "iconOnly"
-	| "disableAnimation"
+	Pick<
+		ButtonProps,
+		"variant" | "color" | "size" | "rounded" | "fullWidth" | "disabled" | "iconOnly" | "disableAnimation" | "slotProps"
+	>
 >
 
 export type ButtonProps = ComponentProps<
