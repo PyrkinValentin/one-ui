@@ -39,7 +39,6 @@ export const useImageLoader = (options: UseImageLoaderOptions) => {
 		}
 
 		return () => {
-			ref.current = null
 			element.onload = null
 			element.onerror = null
 		}
