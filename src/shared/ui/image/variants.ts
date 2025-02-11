@@ -12,17 +12,35 @@ export const imageVariants = tv({
 	},
 	variants: {
 		rounded: {
-			none: "rounded-none",
-			sm: "rounded-small",
-			md: "rounded-medium",
-			lg: "rounded-large",
-			full: "rounded-full",
+			none: {
+				base: "rounded-none",
+			},
+			sm: {
+				base: "rounded-small",
+			},
+			md: {
+				base: "rounded-medium",
+			},
+			lg: {
+				base: "rounded-large",
+			},
+			full: {
+				base: "rounded-full",
+			},
 		},
 		shadow: {
-			none: "shadow-none",
-			sm: "shadow-small",
-			md: "shadow-medium",
-			lg: "shadow-large",
+			none: {
+				base: "shadow-none",
+			},
+			sm: {
+				base: "shadow-small",
+			},
+			md: {
+				base: "shadow-medium",
+			},
+			lg: {
+				base: "shadow-large",
+			},
 		},
 		zoomed: {
 			true: {
@@ -30,20 +48,21 @@ export const imageVariants = tv({
 			},
 		},
 		showPlaceholder: {
-			true: "bg-content3 dark:bg-content2",
+			true: {
+				base: "bg-content3 dark:bg-content2",
+			},
 		},
 		disableAnimation: {
 			true: {
 				img: "transition-none",
 			},
 			false: {
-				img: "transition motion-reduce:transition-none duration-300",
+				img: "transition duration-300 motion-reduce:transition-none",
 			},
 		},
 	},
 	defaultVariants: {
 		rounded: "lg",
 		showPlaceholder: true,
-		disableAnimation: false,
 	},
 })

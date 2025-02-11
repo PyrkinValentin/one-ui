@@ -1,12 +1,12 @@
 "use client"
 
-import type { SyntheticEvent } from "react"
 import type { ImageProps } from "./types"
 
-import { useEffect, useMemo, useRef, useState } from "react"
+import { useMemo, useRef } from "react"
 
 import { mergeRefs } from "@/shared/utils/merge"
 
+import { useImageLoader } from "./use-image-loader"
 import { imageVariants } from "./variants"
 
 export const Image = (props: ImageProps) => {
@@ -16,8 +16,6 @@ export const Image = (props: ImageProps) => {
 		loading = "lazy",
 		src,
 		alt,
-		onLoad,
-		onError,
 		className,
 		rounded,
 		shadow,
@@ -35,29 +33,7 @@ export const Image = (props: ImageProps) => {
 
 	const imageRef = useRef<HTMLImageElement>(null)
 
-	const [loaded, setLoaded] = useState(loading === "eager")
-
-	useEffect(() => {
-		const element = imageRef.current
-
-		if (!element || loading === "eager") return
-
-		if (element.complete && element.naturalWidth) {
-			queueMicrotask(() => {
-				setLoaded(true)
-			})
-		}
-	}, [loading])
-
-	const handleLoad = (ev: SyntheticEvent<HTMLImageElement>) => {
-		onLoad?.(ev)
-		setLoaded(true)
-	}
-
-	const handleError = (ev: SyntheticEvent<HTMLImageElement>) => {
-		onError?.(ev)
-		setLoaded(false)
-	}
+	const loaded = useImageLoader({ ref: imageRef, loading })
 
 	const classNames = useMemo(() => {
 		return imageVariants({
@@ -88,8 +64,6 @@ export const Image = (props: ImageProps) => {
 				src={src}
 				alt={alt}
 				className={classNames.img({ className })}
-				onLoad={handleLoad}
-				onError={handleError}
 				{...restProps}
 			/>
 
