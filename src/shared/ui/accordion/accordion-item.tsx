@@ -20,7 +20,7 @@ export const AccordionItem = (props: AccordionItemProps) => {
 		variant,
 		rounded,
 		compact: compactContext,
-		slotProps: slotPropsContext = {},
+		slotProps: slotPropsContext,
 		getItemState,
 	} = useAccordionContext()
 
@@ -43,19 +43,6 @@ export const AccordionItem = (props: AccordionItemProps) => {
 	} = props
 
 	const {
-		headingProps: headingPropsContext,
-		triggerProps: triggerPropsContext,
-		startContentProps: startContentPropsContext,
-		titleWrapperProps: titleWrapperPropsContext,
-		titleProps: titlePropsContext,
-		descriptionProps: descriptionPropsContext,
-		indicatorProps: indicatorPropsContext,
-		contentWrapperProps: contentWrapperPropsContext,
-		contentInnerWrapperProps: contentInnerWrapperPropsContext,
-		contentProps: contentPropsContext,
-	} = slotPropsContext
-
-	const {
 		headingProps,
 		triggerProps,
 		startContentProps,
@@ -66,7 +53,10 @@ export const AccordionItem = (props: AccordionItemProps) => {
 		contentWrapperProps,
 		contentInnerWrapperProps,
 		contentProps,
-	} = slotProps
+	} = {
+		...slotPropsContext,
+		...slotProps,
+	}
 
 	const valueId = useId()
 	const buttonId = useId()
@@ -106,78 +96,42 @@ export const AccordionItem = (props: AccordionItemProps) => {
 			{...restProps}
 		>
 			<h2
-				{...headingPropsContext}
 				{...headingProps}
-				className={classNames.heading({
-					className: [
-						headingPropsContext?.className,
-						headingProps?.className,
-					],
-				})}
+				className={classNames.heading({ className: headingProps?.className })}
 			>
 				<button
 					aria-expanded={itemState?.expanded || undefined}
 					aria-controls={contentId}
 					id={buttonId}
 					tabIndex={itemState?.disabled ? -1 : undefined}
-					{...triggerPropsContext}
 					{...triggerProps}
-					className={classNames.trigger({
-						className: [
-							triggerPropsContext?.className,
-							triggerProps?.className,
-						],
-					})}
+					className={classNames.trigger({ className: triggerProps?.className })}
 					onClick={handleClick}
 				>
 					{startContent ? (
 						<div
-							{...startContentPropsContext}
 							{...startContentProps}
-							className={classNames.startContent({
-								className: [
-									startContentPropsContext?.className,
-									startContentProps?.className,
-								],
-							})}
+							className={classNames.startContent({ className: startContentProps?.className })}
 						>
 							{startContent}
 						</div>
 					) : null}
 
 					<div
-						{...titleWrapperPropsContext}
 						{...titleWrapperProps}
-						className={classNames.titleWrapper({
-							className: [
-								titleWrapperPropsContext?.className,
-								titleWrapperProps?.className,
-							],
-						})}
+						className={classNames.titleWrapper({ className: titleWrapperProps?.className })}
 					>
 						<span
-							{...titlePropsContext}
 							{...titleProps}
-							className={classNames.title({
-								className: [
-									titlePropsContext?.className,
-									titleProps?.className,
-								],
-							})}
+							className={classNames.title({ className: titleProps?.className })}
 						>
 							{title}
 						</span>
 
 						{description ? (
 							<span
-								{...descriptionPropsContext}
 								{...descriptionProps}
-								className={classNames.description({
-									className: [
-										descriptionPropsContext?.className,
-										descriptionProps?.className,
-									],
-								})}
+								className={classNames.description({ className: descriptionProps?.className })}
 							>
 								{description}
 							</span>
@@ -187,14 +141,8 @@ export const AccordionItem = (props: AccordionItemProps) => {
 					{!hideIndicator ? (
 						<span
 							aria-hidden="true"
-							{...indicatorPropsContext}
 							{...indicatorProps}
-							className={classNames.indicator({
-								className: [
-									indicatorPropsContext?.className,
-									indicatorProps?.className,
-								],
-							})}
+							className={classNames.indicator({ className: indicatorProps?.className })}
 						>
 							{indicator
 								? isFunction(indicator)
@@ -211,37 +159,19 @@ export const AccordionItem = (props: AccordionItemProps) => {
 				keepMounted={keepMounted}
 				disableAnimation={disableAnimation}
 				expanded={itemState?.expanded}
-				{...contentWrapperPropsContext}
 				{...contentWrapperProps}
-				className={classNames.contentWrapper({
-					className: [
-						contentWrapperPropsContext?.className,
-						contentWrapperProps?.className,
-					],
-				})}
+				className={classNames.contentWrapper({ className: contentWrapperProps?.className })}
 			>
 				<div
-					{...contentInnerWrapperPropsContext}
 					{...contentInnerWrapperProps}
-					className={classNames.contentInnerWrapper({
-						className: [
-							contentInnerWrapperPropsContext?.className,
-							contentInnerWrapperProps?.className,
-						],
-					})}
+					className={classNames.contentInnerWrapper({ className: contentInnerWrapperProps?.className })}
 				>
 					<div
 						role="region"
 						aria-labelledby={buttonId}
 						id={contentId}
-						{...contentPropsContext}
 						{...contentProps}
-						className={classNames.content({
-							className: [
-								contentPropsContext?.className,
-								contentProps?.className,
-							],
-						})}
+						className={classNames.content({ className: contentProps?.className })}
 					>
 						{children}
 					</div>
