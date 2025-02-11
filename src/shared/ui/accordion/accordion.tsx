@@ -1,6 +1,6 @@
 "use client"
 
-import type { AccordionContextValue, AccordionProps } from "./types"
+import type { AccordionContextValue, AccordionProps, GetItemState } from "./types"
 
 import { use, useMemo } from "react"
 import { useControlledState } from "@/shared/hooks/use-controlled-state"
@@ -14,89 +14,85 @@ export const useAccordionContext = () => use(AccordionContext)
 
 export const Accordion = (props: AccordionProps) => {
 	const {
+		hideIndicator,
 		keepMounted,
+		compact,
 		selectionMode = "single",
-		showIndicator = true,
 		disabledValue,
 		defaultValue = selectionMode === "multiple" ? [] : "",
 		value,
 		onValueChange,
-		slotProps = {},
+		slotProps,
 		className,
 		variant,
-		compact,
-		showDivider,
+		rounded,
 		fullWidth,
-		disabled,
-		disableIndicatorAnimation,
-		disableAnimation,
 		children,
 		...restProps
 	} = props
 
-	const [controlledValue, setControlledValue] = useControlledState({
+	const [state, setState] = useControlledState({
 		defaultValue,
 		value,
-		onValueChange: onValueChange as (value: string | string[]) => void,
+		onValueChange: onValueChange as ((value: string | string[]) => void),
 	})
 
-	const disabledItem = (value: string) => {
-		return disabled || !!disabledValue?.includes(value)
-	}
+	const getItemState: GetItemState = (value, options) => {
+		const itemValue = value ?? options.valueId
 
-	const expandedItem = (value: string) => {
-		return selectionMode === "single"
-			? controlledValue === value
-			: controlledValue.includes(value)
-	}
+		const disabled = options.disabled || disabledValue?.includes(itemValue)
 
-	const handleExpandedChange = (value: string, expanded: boolean) => {
-		setControlledValue?.(
-			expanded
-				? selectionMode === "single"
-					? value
-					: [...(controlledValue as string[]), value]
-				: selectionMode === "single"
-					? ""
-					: (controlledValue as string[]).filter((v) => v !== value)
-		)
-	}
+		const expanded = selectionMode === "single"
+			? state === itemValue
+			: state.includes(itemValue)
 
-	const { base, ...restClassNames } = useMemo(() => {
-		return accordionVariants({
-			variant,
-			compact,
-			showDivider,
-			fullWidth,
+		const toggleExpanded = () => {
+			setState?.(
+				expanded
+					? selectionMode === "single"
+						? ""
+						: (state as string[]).filter((v) => v !== itemValue)
+					: selectionMode === "single"
+						? itemValue
+						: [...(state as string[]), itemValue]
+			)
+		}
+
+		return {
 			disabled,
-			disableIndicatorAnimation,
-			disableAnimation,
+			expanded,
+			toggleExpanded,
+		}
+	}
+
+	const classNames = useMemo(() => {
+		return accordionVariants({
+			className,
+			variant,
+			rounded,
+			fullWidth,
 		})
 	}, [
+		className,
 		variant,
-		compact,
-		showDivider,
+		rounded,
 		fullWidth,
-		disabled,
-		disableIndicatorAnimation,
-		disableAnimation,
 	])
 
 	const contextValue: AccordionContextValue = {
+		hideIndicator,
 		keepMounted,
-		showIndicator,
-		disableAnimation,
-		classNames: restClassNames,
+		variant,
+		rounded,
+		compact,
 		slotProps,
-		disabledItem,
-		expandedItem,
-		onExpandedChange: handleExpandedChange,
+		getItemState,
 	}
 
 	return (
 		<AccordionContext value={contextValue}>
 			<div
-				className={base({ className })}
+				className={classNames}
 				{...restProps}
 			>
 				{children}
