@@ -3,129 +3,202 @@
 import type { MouseEvent } from "react"
 import type { AccordionItemProps } from "./types"
 
-import { useId } from "react"
-import { useTransition } from "@/shared/hooks/use-transition"
+import { useId, useMemo } from "react"
 
 import { isFunction } from "@/shared/helpers/is-function"
 
 import { MdKeyboardArrowDown } from "react-icons/md"
 
 import { useAccordionContext } from "./accordion"
+import { accordionItemVariants } from "./variants"
+import { AccordionItemCollapse } from "./accordion-item-collapse"
 
 export const AccordionItem = (props: AccordionItemProps) => {
 	const {
-		keepMounted,
-		showIndicator,
-		disableAnimation,
-		classNames,
-		slotProps = {},
-		disabledItem,
-		expandedItem,
-		onExpandedChange,
+		hideIndicator: hideIndicatorContext,
+		keepMounted: keepMountedContext,
+		variant,
+		rounded,
+		compact: compactContext,
+		slotProps: slotPropsContext = {},
+		getItemState,
 	} = useAccordionContext()
 
 	const {
-		value: valueProp,
+		hideIndicator = hideIndicatorContext,
+		keepMounted = keepMountedContext,
+		value,
 		title,
 		description,
 		startContent,
 		indicator,
+		slotProps = {},
 		className,
+		compact = compactContext,
+		disabled,
+		disableIndicatorAnimation,
+		disableAnimation,
 		children,
 		...restProps
 	} = props
 
 	const {
+		headingProps: headingPropsContext,
+		triggerProps: triggerPropsContext,
+		startContentProps: startContentPropsContext,
+		titleWrapperProps: titleWrapperPropsContext,
+		titleProps: titlePropsContext,
+		descriptionProps: descriptionPropsContext,
+		indicatorProps: indicatorPropsContext,
+		contentWrapperProps: contentWrapperPropsContext,
+		contentInnerWrapperProps: contentInnerWrapperPropsContext,
+		contentProps: contentPropsContext,
+	} = slotPropsContext
+
+	const {
 		headingProps,
 		triggerProps,
 		startContentProps,
-		wrapperProps,
+		titleWrapperProps,
 		titleProps,
 		descriptionProps,
 		indicatorProps,
+		contentWrapperProps,
+		contentInnerWrapperProps,
 		contentProps,
 	} = slotProps
 
+	const valueId = useId()
 	const buttonId = useId()
 	const contentId = useId()
 
-	const value = valueProp ?? buttonId
-
-	const disabled = disabledItem?.(value)
-	const expanded = expandedItem?.(value)
-
-	const [mounted, styles] = useTransition(expanded, {
-		enabled: !disableAnimation,
-		initial: { opacity: 0, gridTemplateRows: "0fr" },
-		enter: { opacity: 1, gridTemplateRows: "1fr" },
+	const itemState = getItemState?.(value, {
+		valueId,
+		disabled,
 	})
 
 	const handleClick = (ev: MouseEvent<HTMLButtonElement>) => {
 		triggerProps?.onClick?.(ev)
-		onExpandedChange?.(value, !expanded)
+		itemState?.toggleExpanded()
 	}
+
+	const classNames = useMemo(() => {
+		return accordionItemVariants({
+			variant,
+			rounded,
+			compact,
+			disabled: itemState?.disabled,
+			disableIndicatorAnimation,
+			disableAnimation,
+		})
+	}, [
+		variant,
+		rounded,
+		compact,
+		itemState?.disabled,
+		disableIndicatorAnimation,
+		disableAnimation,
+	])
 
 	return (
 		<div
-			className={classNames?.item({ disabled, className })}
+			className={classNames.base({ className })}
 			{...restProps}
 		>
 			<h2
+				{...headingPropsContext}
 				{...headingProps}
-				className={classNames?.heading({ className: headingProps?.className })}
+				className={classNames.heading({
+					className: [
+						headingPropsContext?.className,
+						headingProps?.className,
+					],
+				})}
 			>
 				<button
-					aria-expanded={expanded || undefined}
+					aria-expanded={itemState?.expanded || undefined}
 					aria-controls={contentId}
 					id={buttonId}
-					disabled={disabled}
+					tabIndex={itemState?.disabled ? -1 : undefined}
+					{...triggerPropsContext}
 					{...triggerProps}
-					className={classNames?.trigger({ className: triggerProps?.className })}
+					className={classNames.trigger({
+						className: [
+							triggerPropsContext?.className,
+							triggerProps?.className,
+						],
+					})}
 					onClick={handleClick}
 				>
 					{startContent ? (
 						<div
+							{...startContentPropsContext}
 							{...startContentProps}
-							className={classNames?.startContent({ className: startContentProps?.className })}
+							className={classNames.startContent({
+								className: [
+									startContentPropsContext?.className,
+									startContentProps?.className,
+								],
+							})}
 						>
 							{startContent}
 						</div>
 					) : null}
 
-					{title || description ? (
-						<div
-							{...wrapperProps}
-							className={classNames?.wrapper({ className: wrapperProps?.className })}
+					<div
+						{...titleWrapperPropsContext}
+						{...titleWrapperProps}
+						className={classNames.titleWrapper({
+							className: [
+								titleWrapperPropsContext?.className,
+								titleWrapperProps?.className,
+							],
+						})}
+					>
+						<span
+							{...titlePropsContext}
+							{...titleProps}
+							className={classNames.title({
+								className: [
+									titlePropsContext?.className,
+									titleProps?.className,
+								],
+							})}
 						>
-							{title ? (
-								<span
-									{...titleProps}
-									className={classNames?.title({ className: titleProps?.className })}
-								>
-									{title}
-								</span>
-							) : null}
+							{title}
+						</span>
 
-							{description ? (
-								<span
-									{...descriptionProps}
-									className={classNames?.description({ className: descriptionProps?.className })}
-								>
-									{description}
-								</span>
-							) : null}
-						</div>
-					) : null}
+						{description ? (
+							<span
+								{...descriptionPropsContext}
+								{...descriptionProps}
+								className={classNames.description({
+									className: [
+										descriptionPropsContext?.className,
+										descriptionProps?.className,
+									],
+								})}
+							>
+								{description}
+							</span>
+						) : null}
+					</div>
 
-					{showIndicator ? (
+					{!hideIndicator ? (
 						<span
 							aria-hidden="true"
+							{...indicatorPropsContext}
 							{...indicatorProps}
-							className={classNames?.indicator({ className: indicatorProps?.className })}
+							className={classNames.indicator({
+								className: [
+									indicatorPropsContext?.className,
+									indicatorProps?.className,
+								],
+							})}
 						>
 							{indicator
 								? isFunction(indicator)
-									? indicator(!!expanded)
+									? indicator(itemState?.expanded)
 									: indicator
 								: <MdKeyboardArrowDown/>
 							}
@@ -134,21 +207,46 @@ export const AccordionItem = (props: AccordionItemProps) => {
 				</button>
 			</h2>
 
-			{mounted || keepMounted ? (
-				<section className="grid" style={styles}>
-					<div className="overflow-hidden">
-						<div
-							role="region"
-							aria-labelledby={buttonId}
-							id={contentId}
-							{...contentProps}
-							className={classNames?.content({ className: contentProps?.className })}
-						>
-							{children}
-						</div>
+			<AccordionItemCollapse
+				keepMounted={keepMounted}
+				disableAnimation={disableAnimation}
+				expanded={itemState?.expanded}
+				{...contentWrapperPropsContext}
+				{...contentWrapperProps}
+				className={classNames.contentWrapper({
+					className: [
+						contentWrapperPropsContext?.className,
+						contentWrapperProps?.className,
+					],
+				})}
+			>
+				<div
+					{...contentInnerWrapperPropsContext}
+					{...contentInnerWrapperProps}
+					className={classNames.contentInnerWrapper({
+						className: [
+							contentInnerWrapperPropsContext?.className,
+							contentInnerWrapperProps?.className,
+						],
+					})}
+				>
+					<div
+						role="region"
+						aria-labelledby={buttonId}
+						id={contentId}
+						{...contentPropsContext}
+						{...contentProps}
+						className={classNames.content({
+							className: [
+								contentPropsContext?.className,
+								contentProps?.className,
+							],
+						})}
+					>
+						{children}
 					</div>
-				</section>
-			) : null}
+				</div>
+			</AccordionItemCollapse>
 		</div>
 	)
 }

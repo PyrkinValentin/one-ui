@@ -1,45 +1,40 @@
 import type { ReactNode } from "react"
 import type { ComponentProps } from "@/shared/types/props"
-import type { AccordionVariantsProps, AccordionVariantsReturn } from "./variants"
+import type { AccordionVariantsProps, AccordionItemVariantsProps } from "./variants"
 
 export type AccordionContextValue =
-	Pick<
-		AccordionProps,
-		| "keepMounted"
-		| "showIndicator"
-		| "disableAnimation"
-	> &
+	Pick<AccordionProps, "hideIndicator" | "keepMounted" | "variant" | "rounded" | "compact" | "slotProps"> &
 	AccordionContextOwnValue
 
 type AccordionContextOwnValue = {
-	classNames?: Pick<AccordionVariantsReturn,
-		| "item"
-		| "heading"
-		| "trigger"
-		| "startContent"
-		| "indicator"
-		| "wrapper"
-		| "title"
-		| "description"
-		| "content"
-	>
-	slotProps?: AccordionSlotProps
-	disabledItem?: (value: string) => boolean
-	expandedItem?: (value: string) => boolean
-	onExpandedChange?: (value: string, expanded: boolean) => void
+	getItemState?: GetItemState
+}
+
+export type GetItemState = (
+	value: string | undefined,
+	options: GetItemStateOptions
+) => GetItemStateReturn
+
+type GetItemStateReturn = {
+	disabled?: boolean
+	expanded: boolean
+	toggleExpanded: () => void
+}
+
+type GetItemStateOptions = {
+	disabled?: boolean
+	valueId: string
 }
 
 export type AccordionProps = ComponentProps<
 	"div",
 	AccordionVariantsProps &
-	AccordionOwnProps
+	Pick<AccordionItemProps, "hideIndicator" | "keepMounted" | "compact" | "slotProps"> &
+	AccordionStateProps
 >
 
-type AccordionOwnProps = {
-	keepMounted?: boolean
-	showIndicator?: boolean
+type AccordionStateProps = {
 	disabledValue?: string[]
-	slotProps?: AccordionSlotProps
 } & ({
 	selectionMode?: "single"
 	defaultValue?: string
@@ -52,23 +47,42 @@ type AccordionOwnProps = {
 	onValueChange?: (value: string[]) => void
 })
 
-type AccordionSlotProps = {
+export type AccordionItemProps = ComponentProps<
+	"div",
+	Omit<AccordionItemVariantsProps, "variant" | "rounded"> &
+	AccordionItemOwnProps
+>
+
+type AccordionItemOwnProps = {
+	keepMounted?: boolean
+	hideIndicator?: boolean
+	value?: string
+	title: ReactNode
+	description?: ReactNode
+	startContent?: ReactNode
+	indicator?: ReactNode | ((expanded?: boolean) => ReactNode)
+	slotProps?: AccordionItemSlotProps
+}
+
+type AccordionItemSlotProps = {
 	headingProps?: ComponentProps<"h2">
 	triggerProps?: ComponentProps<"button">
 	startContentProps?: ComponentProps
-	wrapperProps?: ComponentProps
+	titleWrapperProps?: ComponentProps
 	titleProps?: ComponentProps<"span">
 	descriptionProps?: ComponentProps<"span">
 	indicatorProps?: ComponentProps<"span">
+	contentWrapperProps?: ComponentProps<"section">
+	contentInnerWrapperProps?: ComponentProps
 	contentProps?: ComponentProps
 }
 
-export type AccordionItemProps = ComponentProps<"div", AccordionItemOwnProps>
+export type AccordionItemCollapseProps = ComponentProps<
+	"section",
+	Pick<AccordionItemProps, "keepMounted" | "disableAnimation"> &
+	AccordionItemCollapseOwnProps
+>
 
-type AccordionItemOwnProps = {
-	value?: string
-	title?: ReactNode
-	description?: ReactNode
-	startContent?: ReactNode
-	indicator?: ReactNode | ((expanded: boolean) => ReactNode)
+type AccordionItemCollapseOwnProps = {
+	expanded?: boolean
 }
