@@ -30,7 +30,6 @@ export const Link = (props: LinkProps) => {
 			color,
 			underline,
 			block,
-			external,
 			disabled,
 			disableAnimation,
 		})
@@ -40,7 +39,6 @@ export const Link = (props: LinkProps) => {
 		color,
 		underline,
 		block,
-		external,
 		disabled,
 		disableAnimation,
 	])

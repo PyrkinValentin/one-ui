@@ -5,7 +5,7 @@ import { tv } from "@/core/theme"
 export type LinkVariantsProps = VariantProps<typeof linkVariants>
 
 export const linkVariants = tv({
-	base: "relative inline-flex items-center outline-none",
+	base: "relative inline-flex items-center gap-1 outline-none",
 	variants: {
 		size: {
 			sm: "text-sm",
@@ -30,21 +30,17 @@ export const linkVariants = tv({
 		},
 		block: {
 			true: [
-				"px-2 py-1 hover:after:opacity-100 after:content-[''] after:inset-0 after:opacity-0 after:w-full after:h-full",
-				"after:rounded-xl after:transition-[background] after:absolute",
+				"px-2 py-1 hover:after:opacity-100 after:content-[''] after:absolute after:inset-0 after:w-full after:h-full",
+				"after:opacity-0 after:rounded-xl",
 			],
-			false: "hover:opacity-80 active:opacity-disabled transition-opacity",
-		},
-		external: {
-			true: "gap-1",
+			false: "hover:opacity-80 active:opacity-disabled",
 		},
 		disabled: {
 			true: "opacity-disabled cursor-default pointer-events-none",
 			false: "focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-focus focus-visible:outline-offset-2",
 		},
 		disableAnimation: {
-			true: "after:transition-none transition-none",
-			false: "motion-reduce:transition-none",
+			true: "",
 		},
 	},
 	defaultVariants: {
@@ -82,6 +78,26 @@ export const linkVariants = tv({
 			block: true,
 			color: "danger",
 			className: "hover:after:bg-danger/20",
+		},
+		{
+			block: true,
+			disableAnimation: true,
+			className: "after:transition-none",
+		},
+		{
+			block: true,
+			disableAnimation: false,
+			className: "after:transition-colors after:motion-reduce:transition-none",
+		},
+		{
+			block: false,
+			disableAnimation: true,
+			className: "transition-none",
+		},
+		{
+			block: false,
+			disableAnimation: false,
+			className: "transition-opacity motion-reduce:transition-none",
 		},
 		{
 			underline: ["hover", "always", "active", "focus"],

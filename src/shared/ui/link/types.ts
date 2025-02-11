@@ -11,6 +11,7 @@ export type LinkProps = ComponentProps<
 >
 
 type LinkOwnProps = {
+	external?: boolean
 	showAnchorIcon?: boolean
 	anchorIcon?: ReactNode
 }
