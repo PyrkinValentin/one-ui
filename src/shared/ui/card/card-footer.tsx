@@ -2,10 +2,16 @@
 
 import type { CardFooterProps } from "./types"
 
+import { useMemo } from "react"
+
 import { useCardContext } from "./card"
+import { cardFooterVariants } from "./variants"
 
 export const CardFooter = (props: CardFooterProps) => {
-	const { classNames } = useCardContext()
+	const {
+		rounded,
+		footerBlurred,
+	} = useCardContext()
 
 	const {
 		className,
@@ -13,8 +19,23 @@ export const CardFooter = (props: CardFooterProps) => {
 		...restProps
 	} = props
 
+	const classNames = useMemo(() => {
+		return cardFooterVariants({
+			className,
+			rounded,
+			blurred: footerBlurred,
+		})
+	}, [
+		className,
+		rounded,
+		footerBlurred,
+	])
+
 	return (
-		<div className={classNames?.footer({ className })} {...restProps}>
+		<div
+			className={classNames}
+			{...restProps}
+		>
 			{children}
 		</div>
 	)
