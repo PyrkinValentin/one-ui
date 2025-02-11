@@ -17,13 +17,13 @@ export const CircularProgress = (props: CircularProgressProps) => {
 		valueLabel,
 		formatOptions = { style: "percent" },
 		strokeWidth: strokeWidthProp,
-		slotProps = {},
 		className,
 		size,
 		color,
 		indeterminate = !showValueLabel,
 		disabled,
 		disableAnimation,
+		slotProps = {},
 		...restProps
 	} = props
 

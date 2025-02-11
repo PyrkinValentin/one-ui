@@ -15,7 +15,6 @@ export const LinearProgress = (props: LinearProgressProps) => {
 		maxValue = 100,
 		label,
 		formatOptions = { style: "percent" },
-		slotProps = {},
 		className,
 		size,
 		color,
@@ -24,6 +23,7 @@ export const LinearProgress = (props: LinearProgressProps) => {
 		striped,
 		disabled,
 		disableAnimation,
+		slotProps = {},
 		...restProps
 	} = props
 

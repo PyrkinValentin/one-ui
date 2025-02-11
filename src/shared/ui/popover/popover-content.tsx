@@ -20,8 +20,8 @@ export const PopoverContent = (props: PopoverContentProps) => {
 		context,
 		refs,
 		classNames,
-		slotProps = {},
 		getFloatingProps,
+		slotProps = {},
 	} = usePopoverContext()
 
 	const {

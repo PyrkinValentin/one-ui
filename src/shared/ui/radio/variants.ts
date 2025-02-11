@@ -8,16 +8,19 @@ export const radioVariants = tv({
 	slots: {
 		base: "group relative p-2 -m-2 max-w-fit inline-flex items-center justify-start cursor-pointer touch-none select-none",
 		wrapper: [
-			"box-border overflow-hidden relative inline-flex items-center justify-center flex-shrink-0 outline-none",
+			"box-border overflow-hidden relative inline-flex items-center justify-center shrink-0 outline-none",
 			"border-solid border-2 border-default rounded-full",
 			"has-[input:focus-visible]:z-10 has-[input:focus-visible]:ring-2 has-[input:focus-visible]:ring-focus",
 			"has-[input:focus-visible]:ring-offset-2 has-[input:focus-visible]:ring-offset-background",
 			"group-hover:[&:has(input:not(:checked))]:bg-default-100",
 		],
-		input: "peer sr-only",
-		control: "z-10 w-2 h-2 opacity-0 scale-0 origin-center rounded-full peer-checked:opacity-100 peer-checked:scale-100",
+		input: "sr-only",
+		control: [
+			"z-10 w-2 h-2 opacity-0 scale-0 origin-center rounded-full group-has-[input:checked]:opacity-100",
+			"group-has-[input:checked]:scale-100"
+		],
 		labelWrapper: "ms-2 flex flex-col",
-		label: "relative text-foreground",
+		label: "relative text-foreground cursor-pointer",
 		description: "relative text-foreground-400",
 	},
 	variants: {
@@ -82,15 +85,17 @@ export const radioVariants = tv({
 				wrapper: "border-danger has-[input:checked]:border-danger",
 				control: "bg-danger text-danger-foreground",
 				label: "text-danger",
-				description: "text-danger-300",
+				description: "text-danger",
 			},
 		},
 		disableAnimation: {
 			true: "",
 			false: {
-				wrapper:
-					"group-active:scale-[0.97] transition-[transform,background-color,border-color] motion-reduce:transition-none",
-				control: "transition-[transform,opacity] motion-reduce:transition-none",
+				wrapper: [
+					"has-[input:active]:scale-[0.97] transition-[transform,background-color,border-color]",
+					"motion-reduce:transition-none",
+				],
+				control: "transition motion-reduce:transition-none",
 				label: "transition-colors motion-reduce:transition-none",
 				description: "transition-colors motion-reduce:transition-none",
 			},

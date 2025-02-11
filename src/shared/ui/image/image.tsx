@@ -16,7 +16,6 @@ export const Image = (props: ImageProps) => {
 		loading = "lazy",
 		src,
 		alt,
-		slotProps = {},
 		onLoad,
 		onError,
 		className,
@@ -25,6 +24,7 @@ export const Image = (props: ImageProps) => {
 		zoomed,
 		showPlaceholder,
 		disableAnimation,
+		slotProps = {},
 		...restProps
 	} = props
 

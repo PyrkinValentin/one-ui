@@ -2,10 +2,10 @@ import type { ReactNode } from "react"
 import type { ComponentProps } from "@/shared/types/props"
 import type { AvatarGroupVariantsProps, AvatarVariantsProps } from "./variants"
 
-export type AvatarGroupContextValue = Pick<
-	AvatarGroupProps, "size" | "color" | "rounded" | "bordered" | "disabled" | "disableAnimation"> &
-	Pick<AvatarProps, "slotProps"> &
-	AvatarGroupContextOwnValue
+export type AvatarGroupContextValue =
+	Pick<AvatarGroupProps, "size" | "color" | "rounded" | "bordered" | "disabled" | "disableAnimation"> &
+	AvatarGroupContextOwnValue &
+	Pick<AvatarProps, "slotProps">
 
 type AvatarGroupContextOwnValue = {
 	inGroup?: boolean
@@ -16,7 +16,7 @@ export type AvatarGroupProps = ComponentProps<
 	"div",
 	AvatarGroupVariantsProps &
 	AvatarGroupOwnProps &
-	Pick<AvatarProps, "size" | "color" | "rounded" | "bordered" | "disabled" | "disableAnimation" | "slotProps">
+	Pick<AvatarProps, "size" | "color" | "rounded" | "bordered" | "disabled" | "disableAnimation">
 >
 
 type AvatarGroupOwnProps = {
@@ -27,6 +27,7 @@ type AvatarGroupOwnProps = {
 
 type AvatarGroupSlotProps = {
 	countProps?: AvatarProps
+	avatarSlotProps?: AvatarSlotProps
 }
 
 export type AvatarProps = ComponentProps<

@@ -19,7 +19,6 @@ export const Tabs = (props: TabsProps) => {
 		defaultValue,
 		value,
 		onValueChange,
-		slotProps = {},
 		className,
 		variant,
 		size,
@@ -30,6 +29,7 @@ export const Tabs = (props: TabsProps) => {
 		disabled,
 		disableAnimation,
 		children,
+		slotProps = {},
 		...restProps
 	} = props
 

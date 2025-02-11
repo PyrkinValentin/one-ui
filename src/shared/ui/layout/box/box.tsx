@@ -5,9 +5,7 @@ import { useMemo } from "react"
 
 import { boxVariants } from "./variants"
 
-export const Box = <
-	As extends ElementType = "div"
->(props: BoxProps<As>) => {
+export const Box = <As extends ElementType = "div">(props: BoxProps<As>) => {
 	const {
 		as = "div",
 		className,

@@ -10,7 +10,6 @@ export const Chip = (props: ChipProps) => {
 	const {
 		startContent,
 		endContent,
-		slotProps = {},
 		onClose,
 		className,
 		variant,
@@ -19,6 +18,7 @@ export const Chip = (props: ChipProps) => {
 		rounded,
 		disabled,
 		children,
+		slotProps = {},
 		...restProps
 	} = props
 

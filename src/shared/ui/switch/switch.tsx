@@ -23,7 +23,6 @@ export const Switch = (props: SwitchProps) => {
 		checked,
 		onCheckedChange,
 		onChange,
-		slotProps = {},
 		className,
 		size,
 		color,
@@ -31,6 +30,7 @@ export const Switch = (props: SwitchProps) => {
 		disabled,
 		disableAnimation,
 		children,
+		slotProps = {},
 		...restProps
 	} = props
 

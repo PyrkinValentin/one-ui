@@ -5,9 +5,7 @@ import { useMemo } from "react"
 
 import { containerVariants } from "./variants"
 
-export const Container = <
-	As extends ElementType = "section"
->(props: ContainerProps<As>) => {
+export const Container = <As extends ElementType = "section">(props: ContainerProps<As>) => {
 	const {
 		as = "section",
 		className,

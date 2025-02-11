@@ -28,13 +28,13 @@ export const RadioGroup = (props: RadioGroupProps) => {
 		value,
 		onValueChange,
 		onChange,
-		slotProps = {},
 		className,
 		orientation = "vertical",
 		required,
 		invalid,
 		disableAnimation,
 		children,
+		slotProps = {},
 		...restProps
 	} = props
 
@@ -45,6 +45,7 @@ export const RadioGroup = (props: RadioGroupProps) => {
 		descriptionProps,
 	} = slotProps
 
+	const labelId = useId()
 	const descriptionId = useId()
 	const radioNameId = useId()
 
@@ -99,12 +100,14 @@ export const RadioGroup = (props: RadioGroupProps) => {
 			<div
 				role="radiogroup"
 				aria-orientation={orientation}
+				aria-labelledby={labelId}
 				aria-describedby={descriptionId}
 				className={classNames.base({ className })}
 				{...restProps}
 			>
 				{label ? (
 					<span
+						id={labelId}
 						{...labelProps}
 						className={classNames.label({ className: labelProps?.className })}
 					>

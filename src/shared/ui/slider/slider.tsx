@@ -36,7 +36,6 @@ export const Slider = (props: SliderProps) => {
 		onValueChange,
 		onValueChangeComplete,
 		renderValue,
-		slotProps = {},
 		className,
 		size,
 		rounded,
@@ -45,6 +44,7 @@ export const Slider = (props: SliderProps) => {
 		disabled,
 		showOutline,
 		hideThumb,
+		slotProps = {},
 		...restProps
 	} = props
 

@@ -26,7 +26,6 @@ export const Button = (props: ButtonProps) => {
 	const {
 		startContent,
 		endContent,
-		slotProps = {},
 		className,
 		variant = variantContext,
 		size = sizeContext,
@@ -38,6 +37,7 @@ export const Button = (props: ButtonProps) => {
 		iconOnly = iconOnlyContext,
 		disableAnimation = disableAnimationContext,
 		children,
+		slotProps = {},
 		...restProps
 	} = props
 

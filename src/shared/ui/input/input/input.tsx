@@ -30,7 +30,6 @@ export const Input = (props: InputProps) => {
 		endContent,
 		invalidMessage,
 		description,
-		slotProps = {},
 		className,
 		variant,
 		size,
@@ -44,6 +43,7 @@ export const Input = (props: InputProps) => {
 		invalid,
 		disabled,
 		disableAnimation,
+		slotProps = {},
 		...restProps
 	} = props
 

@@ -32,7 +32,6 @@ export const Tooltip = (props: TooltipProps) => {
 		content,
 		ref,
 		style,
-		slotProps = {},
 		className,
 		size,
 		color,
@@ -40,6 +39,7 @@ export const Tooltip = (props: TooltipProps) => {
 		shadow,
 		disableAnimation,
 		children,
+		slotProps = {},
 		...restProps
 	} = props
 

@@ -22,16 +22,16 @@ export const AvatarGroup = (props: AvatarGroupProps) => {
 		disabled,
 		disableAnimation,
 		renderCount,
-		slotProps = {},
 		className,
 		grid,
 		children,
+		slotProps = {},
 		...restProps
 	} = props
 
 	const {
 		countProps,
-		...restSlotProps
+		avatarSlotProps,
 	} = slotProps
 
 	const collection = Children.toArray(children)
@@ -51,7 +51,7 @@ export const AvatarGroup = (props: AvatarGroupProps) => {
 		bordered,
 		disabled,
 		disableAnimation,
-		slotProps: restSlotProps,
+		slotProps: avatarSlotProps,
 	}
 
 	return (

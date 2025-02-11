@@ -34,7 +34,6 @@ export const Textarea = (props: TextareaProps) => {
 		endContent,
 		invalidMessage,
 		description,
-		slotProps = {},
 		className,
 		variant,
 		size,
@@ -48,6 +47,7 @@ export const Textarea = (props: TextareaProps) => {
 		invalid,
 		disabled,
 		disableAnimation,
+		slotProps = {},
 		...restProps
 	} = props
 

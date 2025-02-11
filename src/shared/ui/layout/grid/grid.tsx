@@ -5,9 +5,7 @@ import { useMemo } from "react"
 
 import { gridVariants } from "./variants"
 
-export const Grid = <
-	As extends ElementType = "div"
->(props: GridProps<As>) => {
+export const Grid = <As extends ElementType = "div">(props: GridProps<As>) => {
 	const {
 		as = "div",
 		className,

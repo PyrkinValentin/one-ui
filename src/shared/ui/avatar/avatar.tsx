@@ -33,7 +33,6 @@ export const Avatar = (props: AvatarProps) => {
 		name,
 		src,
 		alt,
-		slotProps = {},
 		className,
 		size = sizeContext,
 		color = colorContext,
@@ -42,6 +41,7 @@ export const Avatar = (props: AvatarProps) => {
 		focusable,
 		disabled = disabledContext,
 		disableAnimation = disableAnimationContext,
+		slotProps = {},
 		...restProps
 	} = props
 

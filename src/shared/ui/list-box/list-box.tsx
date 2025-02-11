@@ -28,9 +28,9 @@ export const ListBox = (props: ListBoxProps) => {
 		defaultValue = selectionMode === "multiple" ? [] : "",
 		value,
 		onValueChange,
-		slotProps = {},
 		className,
 		children,
+		slotProps = {},
 		...restProps
 	} = props
 

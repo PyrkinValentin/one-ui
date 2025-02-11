@@ -1,6 +1,6 @@
 "use client"
 
-import type { CheckboxGroupContextValue, CheckboxGroupProps } from "./types"
+import type { CheckboxGroupContextValue, CheckboxGroupProps, GetItemState } from "./types"
 
 import { use, useId, useMemo } from "react"
 import { useControlledState } from "@/shared/hooks/use-controlled-state"
@@ -17,24 +17,23 @@ export const CheckboxGroup = (props: CheckboxGroupProps) => {
 		label,
 		description,
 		invalidMessage,
-		name,
-		size,
-		color,
-		rounded,
-		lineThrough,
-		readOnly,
-		disabled,
 		disabledValue,
 		defaultValue = [],
 		value,
 		onValueChange,
-		slotProps = {},
+		color,
+		size,
+		rounded,
+		lineThrough,
+		readOnly,
+		disabled,
 		className,
 		orientation,
 		required,
 		invalid,
 		disableAnimation,
 		children,
+		slotProps = {},
 		...restProps
 	} = props
 
@@ -43,46 +42,48 @@ export const CheckboxGroup = (props: CheckboxGroupProps) => {
 		wrapperProps,
 		invalidMessageProps,
 		descriptionProps,
+		checkboxSlotProps,
 	} = slotProps
 
+	const labelId = useId()
 	const descriptionId = useId()
 
-	const [controlledValue, setControlledValue] = useControlledState({
+	const [state, setState] = useControlledState({
 		defaultValue,
 		value,
 		onValueChange,
 	})
 
-	const disabledGroup = (value?: string) => {
-		return disabledValue && value
-			? disabledValue.includes(value)
-			: false
-	}
+	const getItemState: GetItemState = (value, options) => {
+		const itemValue = value ?? options.valueId
+		const disabled = options.disabled || disabledValue?.includes(itemValue)
+		const checked = state.includes(itemValue)
 
-	const checkedGroup = (value?: string) => {
-		return value
-			? controlledValue.includes(value)
-			: false
-	}
+		const toggleChecked = (checked: boolean) => {
+			setState?.(
+				checked
+					? [...state, itemValue]
+					: state.filter((value) => value !== itemValue)
+			)
+		}
 
-	const onCheckedChangeGroup = (value?: string) => (checked: boolean) => {
-		if (!value) return
-
-		setControlledValue?.(
-			checked
-				? [...controlledValue, value]
-				: controlledValue.filter((v) => v !== value)
-		)
+		return {
+			disabled,
+			checked,
+			toggleChecked,
+		}
 	}
 
 	const classNames = useMemo(() => {
 		return checkboxGroupVariants({
+			className,
 			orientation,
 			required,
 			invalid,
 			disableAnimation,
 		})
 	}, [
+		className,
 		orientation,
 		required,
 		invalid,
@@ -90,31 +91,31 @@ export const CheckboxGroup = (props: CheckboxGroupProps) => {
 	])
 
 	const contextValue: CheckboxGroupContextValue = {
-		name,
-		size,
 		color,
+		size,
 		rounded,
 		lineThrough,
-		invalid,
-		required,
 		readOnly,
 		disabled,
+		invalid,
+		required,
 		disableAnimation,
-		disabledGroup,
-		checkedGroup,
-		onCheckedChangeGroup,
+		slotProps: checkboxSlotProps,
+		getItemState,
 	}
 
 	return (
 		<CheckboxGroupContext value={contextValue}>
 			<div
 				role="group"
+				aria-labelledby={labelId}
 				aria-describedby={descriptionId}
 				className={classNames.base({ className })}
 				{...restProps}
 			>
 				{label ? (
 					<span
+						id={labelId}
 						{...labelProps}
 						className={classNames.label({ className: labelProps?.className })}
 					>

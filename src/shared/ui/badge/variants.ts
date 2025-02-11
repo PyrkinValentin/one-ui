@@ -73,7 +73,7 @@ export const badgeVariants = tv({
 				badge: "transition-none",
 			},
 			false: {
-				badge: "transition-[transform,opacity] duration-300",
+				badge: "transition duration-300 motion-reduce:transition-none",
 			},
 		},
 	},
