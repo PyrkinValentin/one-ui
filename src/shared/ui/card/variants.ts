@@ -3,102 +3,90 @@ import type { VariantProps } from "@/core/theme"
 import { tv } from "@/core/theme"
 
 export type CardVariantsProps = VariantProps<typeof cardVariants>
-export type CardVariantsReturn = ReturnType<typeof cardVariants>
 
 export const cardVariants = tv({
-	slots: {
-		base: "box-border overflow-hidden relative h-auto flex flex-col bg-content1 text-foreground",
-		header:
-			"overflow-inherit z-10 p-3 w-full shrink-0 flex justify-start items-center color-inherit subpixel-antialiased",
-		body: [
-			"overflow-y-auto relative p-3 w-full h-auto flex flex-1 flex-auto flex-col",
-			"break-words text-left subpixel-antialiased",
-		],
-		footer: "overflow-hidden p-3 w-full h-auto flex items-center color-inherit subpixel-antialiased",
-	},
+	base: "overflow-hidden box-border relative w-fit h-auto flex flex-col bg-content1 text-foreground outline-none",
 	variants: {
-		shadow: {
-			none: {
-				base: "shadow-none",
-			},
-			sm: {
-				base: "shadow-small",
-			},
-			md: {
-				base: "shadow-medium",
-			},
-			lg: {
-				base: "shadow-large",
-			},
-		},
 		rounded: {
-			none: {
-				base: "rounded-none",
-				header: "rounded-none",
-				footer: "rounded-none",
-			},
-			sm: {
-				base: "rounded-small",
-				header: "rounded-t-small",
-				footer: "rounded-b-small",
-			},
-			md: {
-				base: "rounded-medium",
-				header: "rounded-t-medium",
-				footer: "rounded-b-medium",
-			},
-			lg: {
-				base: "rounded-large",
-				header: "rounded-t-large",
-				footer: "rounded-b-large",
-			},
+			none: "rounded-none",
+			sm: "rounded-small",
+			md: "rounded-medium",
+			lg: "rounded-large",
 		},
-		fullWidth: {
-			true: {
-				base: "w-full",
-			},
+		shadow: {
+			none: "shadow-none",
+			sm: "shadow-small",
+			md: "shadow-medium",
+			lg: "shadow-large",
 		},
 		hoverable: {
-			true: {
-				base: "hover:bg-content2",
-			},
+			true: "hover:bg-content2 dark:hover:bg-content2",
 		},
 		clickable: {
-			true: {
-				base: [
-					"cursor-pointer outline-none",
-					"focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-focus focus-visible:outline-offset-2",
-				],
-			},
+			true: [
+				"cursor-pointer focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-focus",
+				"focus-visible:outline-offset-2",
+			],
 		},
 		blurred: {
-			true: {
-				base: "bg-background/80 dark:bg-background/20 backdrop-blur-md backdrop-saturate-150",
-			},
+			true: "bg-background/80 dark:bg-background/20 backdrop-blur-md backdrop-saturate-150",
 		},
-		footerBlurred: {
-			true: {
-				footer: "bg-background/10 backdrop-blur backdrop-saturate-150",
-			},
+		fullWidth: {
+			true: "w-full",
 		},
 		disabled: {
-			true: {
-				base: "opacity-disabled cursor-not-allowed",
-			},
+			true: "opacity-disabled pointer-events-none",
 		},
 		disableAnimation: {
-			false: "transition-[transform,background] motion-reduce:transition-none",
+			true: "transition-none",
+			false: "transition motion-reduce:transition-none",
 		},
 	},
 	defaultVariants: {
-		shadow: "md",
 		rounded: "lg",
+		shadow: "md",
 	},
 	compoundVariants: [
 		{
 			clickable: true,
-			disableAnimation: false,
 			className: "active:scale-[0.97]",
 		},
 	],
+})
+
+export const cardHeaderVariants = tv({
+	base: "overflow-inherit z-10 p-3 w-full flex justify-start items-center shrink-0 color-inherit subpixel-antialiased",
+	variants: {
+		rounded: {
+			none: "rounded-t-none",
+			sm: "rounded-t-small",
+			md: "rounded-t-medium",
+			lg: "rounded-t-large",
+		},
+	},
+	defaultVariants: {
+		rounded: "lg",
+	},
+})
+
+export const cardBodyVariants = tv({
+	base: "overflow-y-auto relative p-3 w-full h-auto flex flex-auto flex-col break-words text-left subpixel-antialiased",
+})
+
+export const cardFooterVariants = tv({
+	base: "overflow-hidden p-3 w-full h-auto flex items-center color-inherit subpixel-antialiased",
+	variants: {
+		rounded: {
+			none: "rounded-b-none",
+			sm: "rounded-b-small",
+			md: "rounded-b-medium",
+			lg: "rounded-b-large",
+		},
+		blurred: {
+			true: "bg-background/10 backdrop-blur backdrop-saturate-150",
+		},
+	},
+	defaultVariants: {
+		rounded: "lg",
+	},
 })

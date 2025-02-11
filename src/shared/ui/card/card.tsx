@@ -13,14 +13,14 @@ export const useCardContext = () => use(CardContext)
 
 export const Card = (props: CardProps) => {
 	const {
+		footerBlurred,
 		className,
-		shadow,
 		rounded,
-		fullWidth,
+		shadow,
 		hoverable,
 		clickable,
 		blurred,
-		footerBlurred,
+		fullWidth,
 		disabled,
 		disableAnimation,
 		children,
@@ -29,37 +29,38 @@ export const Card = (props: CardProps) => {
 
 	const classNames = useMemo(() => {
 		return cardVariants({
-			shadow,
+			className,
 			rounded,
-			fullWidth,
+			shadow,
 			hoverable,
 			clickable,
 			blurred,
-			footerBlurred,
+			fullWidth,
 			disabled,
 			disableAnimation,
 		})
 	}, [
-		shadow,
+		className,
 		rounded,
-		fullWidth,
+		shadow,
 		hoverable,
 		clickable,
 		blurred,
-		footerBlurred,
+		fullWidth,
 		disabled,
 		disableAnimation,
 	])
 
 	const contextValue: CardContextValue = {
-		classNames,
+		footerBlurred,
+		rounded,
 	}
 
 	return (
 		<CardContext value={contextValue}>
 			<div
-				className={classNames.base({ className })}
 				tabIndex={clickable && !disabled ? 0 : undefined}
+				className={classNames}
 				{...restProps}
 			>
 				{children}

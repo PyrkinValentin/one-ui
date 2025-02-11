@@ -1,11 +1,18 @@
 import type { ComponentProps } from "@/shared/types/props"
-import type { CardVariantsProps, CardVariantsReturn } from "./variants"
+import type { CardVariantsProps } from "./variants"
 
-export type CardContextValue = {
-	classNames?: CardVariantsReturn
+export type CardContextValue = Pick<CardProps, "rounded" | "footerBlurred">
+
+export type CardProps = ComponentProps<
+	"div",
+	CardVariantsProps &
+	CardOwnProps
+>
+
+type CardOwnProps = {
+	footerBlurred?: boolean
 }
 
-export type CardProps = ComponentProps<"div", CardVariantsProps>
 export type CardHeaderProps = ComponentProps
 export type CardBodyProps = ComponentProps
 export type CardFooterProps = ComponentProps

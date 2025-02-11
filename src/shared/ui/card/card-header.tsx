@@ -1,9 +1,14 @@
+"use client"
+
 import type { CardHeaderProps } from "./types"
 
+import { useMemo } from "react"
+
 import { useCardContext } from "./card"
+import { cardHeaderVariants } from "./variants"
 
 export const CardHeader = (props: CardHeaderProps) => {
-	const { classNames } = useCardContext()
+	const { rounded } = useCardContext()
 
 	const {
 		className,
@@ -11,8 +16,21 @@ export const CardHeader = (props: CardHeaderProps) => {
 		...restProps
 	} = props
 
+	const classNames = useMemo(() => {
+		return cardHeaderVariants({
+			className,
+			rounded,
+		})
+	}, [
+		className,
+		rounded,
+	])
+
 	return (
-		<div className={classNames?.header({ className })} {...restProps}>
+		<div
+			className={classNames}
+			{...restProps}
+		>
 			{children}
 		</div>
 	)
