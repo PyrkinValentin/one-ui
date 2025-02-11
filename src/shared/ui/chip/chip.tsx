@@ -2,6 +2,8 @@ import type { ChipProps } from "./types"
 
 import { useMemo } from "react"
 
+import { isString } from "@/shared/helpers/is-string"
+
 import { MdCancel } from "react-icons/md"
 
 import { chipVariants } from "./variants"
@@ -17,6 +19,7 @@ export const Chip = (props: ChipProps) => {
 		color,
 		rounded,
 		disabled,
+		disableAnimation,
 		children,
 		slotProps = {},
 		...restProps
@@ -28,6 +31,11 @@ export const Chip = (props: ChipProps) => {
 		closeButtonProps,
 	} = slotProps
 
+	const oneChar = isString(children) && children.length === 1
+	const closeable = !!onClose
+	const hasStartContent = !!startContent
+	const hasEndContent = !!endContent
+
 	const classNames = useMemo(() => {
 		return chipVariants({
 			className,
@@ -35,7 +43,12 @@ export const Chip = (props: ChipProps) => {
 			size,
 			color,
 			rounded,
+			oneChar,
+			closeable,
+			hasStartContent,
+			hasEndContent,
 			disabled,
+			disableAnimation,
 		})
 	}, [
 		className,
@@ -43,11 +56,19 @@ export const Chip = (props: ChipProps) => {
 		size,
 		color,
 		rounded,
+		oneChar,
+		closeable,
+		hasStartContent,
+		hasEndContent,
 		disabled,
+		disableAnimation,
 	])
 
 	return (
-		<div className={classNames.base({ className })} {...restProps}>
+		<div
+			className={classNames.base({ className })}
+			{...restProps}
+		>
 			{variant === "dot" && !startContent ? (
 				<span
 					{...dotProps}
@@ -64,7 +85,7 @@ export const Chip = (props: ChipProps) => {
 
 			{onClose ? (
 				<button
-					aria-labelledby="close"
+					aria-labelledby="close ship"
 					disabled={disabled}
 					onClick={onClose}
 					{...closeButtonProps}

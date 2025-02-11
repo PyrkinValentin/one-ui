@@ -83,7 +83,6 @@ export const buttonVariants = tv({
 		color: "primary",
 	},
 	compoundVariants: [
-		// solid / color
 		{
 			variant: "solid",
 			color: "default",
@@ -114,7 +113,6 @@ export const buttonVariants = tv({
 			color: "danger",
 			className: "bg-danger text-danger-foreground",
 		},
-		// bordered / color
 		{
 			variant: "bordered",
 			color: "default",
@@ -145,7 +143,6 @@ export const buttonVariants = tv({
 			color: "danger",
 			className: "border-danger text-danger",
 		},
-		// light / color
 		{
 			variant: "light",
 			color: "default",
@@ -176,7 +173,6 @@ export const buttonVariants = tv({
 			color: "danger",
 			className: "text-danger hover:bg-danger/20",
 		},
-		// flat / color
 		{
 			variant: "flat",
 			color: "default",
@@ -207,7 +203,6 @@ export const buttonVariants = tv({
 			color: "danger",
 			className: "bg-danger/20 text-danger-600 dark:text-danger-500",
 		},
-		// faded / color
 		{
 			variant: "faded",
 			color: "default",
@@ -238,7 +233,6 @@ export const buttonVariants = tv({
 			color: "danger",
 			className: "text-danger",
 		},
-		// shadow / color
 		{
 			variant: "shadow",
 			color: "default",
@@ -269,7 +263,6 @@ export const buttonVariants = tv({
 			color: "danger",
 			className: "shadow-danger/40 bg-danger text-danger-foreground",
 		},
-		// ghost / color
 		{
 			variant: "ghost",
 			color: "default",
@@ -300,7 +293,6 @@ export const buttonVariants = tv({
 			color: "danger",
 			className: "border-danger text-danger hover:bg-danger hover:text-danger-foreground",
 		},
-		// inGroup / rounded / size <-- rounded not provided
 		{
 			inGroup: true,
 			size: "sm",
@@ -316,7 +308,6 @@ export const buttonVariants = tv({
 			size: "lg",
 			className: "rounded-none first:rounded-s-large last:rounded-e-large",
 		},
-		// inGroup / rounded <-- rounded provided
 		{
 			inGroup: true,
 			rounded: "none",
@@ -342,13 +333,11 @@ export const buttonVariants = tv({
 			rounded: "full",
 			class: "rounded-none first:rounded-s-full last:rounded-e-full",
 		},
-		// inGroup / faded
 		{
 			inGroup: true,
 			variant: "faded",
 			className: "[&+.border-2.border-default]:ms-[calc(theme(borderWidth.2)*-1)]",
 		},
-		// inGroup / bordered / ghost
 		{
 			inGroup: true,
 			variant: ["bordered", "ghost"],
@@ -400,7 +389,6 @@ export const buttonVariants = tv({
 			size: "lg",
 			className: "min-w-12 w-12 h-12",
 		},
-		// variant / hover
 		{
 			variant: ["solid", "faded", "flat", "bordered", "shadow"],
 			className: "hover:opacity-hover",
