@@ -17,7 +17,13 @@ export const Avatar = (props: AvatarProps) => {
 	const {
 		inGroup,
 		inGridGroup,
-		...avatarGroupContext
+		size: sizeContext,
+		color: colorContext,
+		rounded: roundedContext,
+		bordered: borderedContext,
+		disabled: disabledContext,
+		disableAnimation: disableAnimationContext,
+		slotProps: slotPropsContext,
 	} = useAvatarGroupContext()
 
 	const {
@@ -29,25 +35,25 @@ export const Avatar = (props: AvatarProps) => {
 		alt,
 		slotProps = {},
 		className,
-		size,
-		color,
-		rounded,
-		bordered,
+		size = sizeContext,
+		color = colorContext,
+		rounded = roundedContext,
+		bordered = borderedContext,
 		focusable,
-		disabled,
-		disableAnimation,
+		disabled = disabledContext,
+		disableAnimation = disableAnimationContext,
 		...restProps
-	} = {
-		...avatarGroupContext,
-		...props,
-	}
+	} = props
 
 	const {
 		imgProps,
 		fallbackProps,
 		nameProps,
 		iconProps,
-	} = slotProps
+	} = {
+		...slotPropsContext,
+		...slotProps,
+	}
 
 	const imageRef = useRef<HTMLImageElement>(null)
 
