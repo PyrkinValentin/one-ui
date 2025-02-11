@@ -104,7 +104,6 @@ export const inputOtpVariants = tv({
 		rounded: "md",
 	},
 	compoundVariants: [
-		// flat & color
 		{
 			variant: "flat",
 			color: "default",
@@ -157,7 +156,6 @@ export const inputOtpVariants = tv({
 				passwordChar: "bg-danger",
 			},
 		},
-		// faded & color
 		{
 			variant: "faded",
 			color: "default",
@@ -210,7 +208,6 @@ export const inputOtpVariants = tv({
 				passwordChar: "bg-danger",
 			},
 		},
-		// bordered & color
 		{
 			variant: "bordered",
 			color: "default",
@@ -263,7 +260,6 @@ export const inputOtpVariants = tv({
 				passwordChar: "bg-danger",
 			},
 		},
-		// underlined & color
 		{
 			variant: "underlined",
 			color: "default",
@@ -319,7 +315,6 @@ export const inputOtpVariants = tv({
 				passwordChar: "bg-danger",
 			},
 		},
-		// invalid & flat
 		{
 			variant: "flat",
 			invalid: true,
@@ -328,7 +323,6 @@ export const inputOtpVariants = tv({
 				caret: "bg-danger",
 			},
 		},
-		// invalid & faded
 		{
 			variant: "faded",
 			invalid: true,
@@ -337,7 +331,6 @@ export const inputOtpVariants = tv({
 				caret: "bg-danger",
 			},
 		},
-		// invalid & bordered
 		{
 			variant: "bordered",
 			invalid: true,
@@ -346,7 +339,6 @@ export const inputOtpVariants = tv({
 				caret: "bg-danger",
 			},
 		},
-		// invalid & underlined
 		{
 			variant: "underlined",
 			invalid: true,
@@ -355,12 +347,11 @@ export const inputOtpVariants = tv({
 				caret: "bg-danger",
 			},
 		},
-		// disableAnimation & underlined
 		{
 			disableAnimation: false,
 			variant: "underlined",
 			className: {
-				segment: "after:transition-[width] motion-reduce:after:transition-none",
+				segment: "after:transition-[width] after:motion-reduce:transition-none",
 			},
 		},
 	],
