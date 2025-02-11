@@ -23,7 +23,6 @@ export const Alert = (props: AlertProps) => {
 		endContent,
 		title,
 		description,
-		slotProps = {},
 		className,
 		variant,
 		color = "default",
@@ -31,6 +30,7 @@ export const Alert = (props: AlertProps) => {
 		hideIconWrapper,
 		hideIcon,
 		children,
+		slotProps = {},
 		...restProps
 	} = props
 

@@ -1,76 +1,47 @@
-import type { ChangeEvent, ReactNode } from "react"
+import type { ReactNode } from "react"
 import type { ComponentProps } from "@/shared/types/props"
 import type { CheckboxGroupVariantsProps, CheckboxVariantsProps } from "./variants"
 
-export type CheckboxProps = ComponentProps<
-	"label",
-	CheckboxVariantsProps &
-	CheckboxOwnProps
->
-
-type CheckboxOwnProps = {
-	required?: boolean
-	name?: string
-	value?: string
-	icon?: ReactNode | ((checked: boolean) => ReactNode)
-	defaultChecked?: boolean
-	checked?: boolean
-	onCheckedChange?: (checked: boolean) => void
-	onChange?: (ev: ChangeEvent<HTMLInputElement>) => void
-	slotProps?: CheckboxSlotProps
-}
-
-type CheckboxSlotProps = {
-	wrapperProps?: ComponentProps<"span">
-	inputProps?: ComponentProps<"input">
-	iconProps?: ComponentProps<"svg">
-	labelProps?: ComponentProps<"span">
-}
-
-export type CheckboxGroupContextValue = Pick<
-	CheckboxGroupProps,
-	| "name"
-	| "size"
-	| "color"
-	| "rounded"
-	| "lineThrough"
-	| "invalid"
-	| "required"
-	| "readOnly"
-	| "disabled"
-	| "disableAnimation"
-> & CheckboxGroupContextOwnValue
+export type CheckboxGroupContextValue =
+	Pick<CheckboxGroupProps,
+		| "invalid" | "required" | "size" | "color" | "rounded" | "lineThrough" | "readOnly" | "disabled"
+		| "disableAnimation"
+	> &
+	Pick<CheckboxProps, "slotProps"> &
+	CheckboxGroupContextOwnValue
 
 type CheckboxGroupContextOwnValue = {
-	disabledGroup?: (value?: string) => boolean
-	checkedGroup?: (value?: string) => boolean
-	onCheckedChangeGroup?: (value?: string) => (checked: boolean) => void
+	getItemState?: GetItemState
+}
+
+export type GetItemState = (
+	value: string | undefined,
+	options: GetItemStateOptions
+) => GetItemStateReturn
+
+type GetItemStateReturn = {
+	disabled?: boolean
+	checked: boolean
+	toggleChecked: (checked: boolean) => void
+}
+
+type GetItemStateOptions = {
+	disabled?: boolean
+	valueId: string
 }
 
 export type CheckboxGroupProps = ComponentProps<
 	"div",
 	CheckboxGroupVariantsProps &
-	Pick<
-		CheckboxProps,
-		| "name"
-		| "size"
-		| "color"
-		| "rounded"
-		| "lineThrough"
-		| "readOnly"
-		| "disabled"
-	> &
-	CheckboxGroupOwnProps
+	CheckboxGroupOwnProps &
+	CheckboxGroupStateProps &
+	Pick<CheckboxProps, "size" | "color" | "rounded" | "lineThrough" | "readOnly" | "disabled">
 >
 
 type CheckboxGroupOwnProps = {
 	label?: ReactNode
 	description?: ReactNode
 	invalidMessage?: ReactNode
-	disabledValue?: string[]
-	defaultValue?: string[]
-	value?: string[]
-	onValueChange?: (value: string[]) => void
 	slotProps?: CheckboxGroupSlotProps
 }
 
@@ -79,4 +50,39 @@ type CheckboxGroupSlotProps = {
 	wrapperProps?: ComponentProps
 	invalidMessageProps?: ComponentProps<"p">
 	descriptionProps?: ComponentProps<"p">
+	checkboxSlotProps?: CheckboxSlotProps
+}
+
+type CheckboxGroupStateProps = {
+	disabledValue?: string[]
+	defaultValue?: string[]
+	value?: string[]
+	onValueChange?: (value: string[]) => void
+}
+
+export type CheckboxProps = ComponentProps<
+	"label",
+	Pick<ComponentProps<"input">, "required" | "name" | "onChange"> &
+	CheckboxVariantsProps &
+	CheckboxOwnProps &
+	CheckboxStateProps
+>
+
+type CheckboxOwnProps = {
+	value?: string
+	icon?: ReactNode | ((checked: boolean) => ReactNode)
+	slotProps?: CheckboxSlotProps
+}
+
+type CheckboxSlotProps = {
+	wrapperProps?: ComponentProps<"span">
+	inputProps?: ComponentProps<"input">
+	iconProps?: ComponentProps<"svg">
+	labelProps?: ComponentProps<"label">
+}
+
+type CheckboxStateProps = {
+	defaultChecked?: boolean
+	checked?: boolean
+	onCheckedChange?: (checked: boolean) => void
 }

@@ -6,11 +6,11 @@ import { spinnerVariants } from "./variants"
 
 export const Spinner = (props: SpinnerProps) => {
 	const {
-		slotProps = {},
 		className,
 		size,
 		color,
 		children,
+		slotProps = {},
 		...restProps
 	} = props
 

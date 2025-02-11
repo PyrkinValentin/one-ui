@@ -18,7 +18,6 @@ export const Breadcrumbs = (props: BreadcrumbsProps) => {
 		afterCollapse = 2,
 		separator,
 		renderEllipsis,
-		slotProps = {},
 		className,
 		variant,
 		size,
@@ -28,6 +27,7 @@ export const Breadcrumbs = (props: BreadcrumbsProps) => {
 		disabled,
 		disableAnimation,
 		children,
+		slotProps = {},
 		...restProps
 	} = props
 

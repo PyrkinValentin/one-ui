@@ -19,7 +19,7 @@ type RadioSlotProps = {
 	inputProps?: ComponentProps<"input">
 	controlProps?: ComponentProps<"span">
 	labelWrapperProps?: ComponentProps<"span">
-	labelProps?: ComponentProps<"span">
+	labelProps?: ComponentProps<"label">
 	descriptionProps?: ComponentProps<"span">
 }
 

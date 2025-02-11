@@ -2,13 +2,58 @@ import type { VariantProps } from "@/core/theme"
 
 import { tv } from "@/core/theme"
 
+export type CheckboxGroupVariantsProps = VariantProps<typeof checkboxGroupVariants>
+
+export const checkboxGroupVariants = tv({
+	slots: {
+		base: "relative flex flex-col gap-2",
+		label: "relative text-md text-default-500",
+		wrapper: "flex flex-wrap gap-2",
+		invalidMessage: "text-sm text-danger",
+		description: "text-sm text-default-400",
+	},
+	variants: {
+		orientation: {
+			horizontal: {
+				wrapper: "flex-row",
+			},
+			vertical: {
+				wrapper: "flex-col",
+			},
+		},
+		required: {
+			true: {
+				label: "after:content-['*'] after:text-danger after:ml-0.5",
+			},
+		},
+		invalid: {
+			true: {
+				description: "text-danger",
+			},
+		},
+		disableAnimation: {
+			true: {
+				invalidMessage: "transition-none",
+				description: "transition-none",
+			},
+			false: {
+				invalidMessage: "transition-colors motion-reduce:transition-none",
+				description: "transition-colors motion-reduce:transition-none",
+			},
+		},
+	},
+	defaultVariants: {
+		orientation: "vertical",
+	},
+})
+
 export type CheckboxVariantsProps = VariantProps<typeof checkboxVariants>
 
 export const checkboxVariants = tv({
 	slots: {
 		base: "group relative p-2 -m-2 max-w-fit inline-flex items-center justify-start cursor-pointer touch-none select-none",
 		wrapper: [
-			"overflow-hidden relative inline-flex items-center justify-start flex-shrink-0 outline-none",
+			"overflow-hidden relative inline-flex items-center justify-start shrink-0 outline-none",
 			"before:content-[''] before:box-border before:absolute before:inset-0 before:border-solid before:border-2",
 			"before:border-default after:content-[''] after:absolute after:inset-0 after:scale-50 after:opacity-0",
 			"after:origin-center has-[input:checked]:after:scale-100 has-[input:checked]:after:opacity-100",
@@ -16,9 +61,9 @@ export const checkboxVariants = tv({
 			"has-[input:focus-visible]:ring-offset-2 has-[input:focus-visible]:ring-offset-background",
 			"group-hover:before:bg-default-100",
 		],
-		input: "peer sr-only",
-		icon: "z-10 opacity-0 peer-checked:opacity-100 pointer-events-none",
-		label: "relative ms-2 text-foreground",
+		input: "sr-only",
+		icon: "z-10 opacity-0 group-has-[input:checked]:opacity-100 pointer-events-none",
+		label: "relative ms-2 text-foreground cursor-pointer",
 	},
 	variants: {
 		size: {
@@ -96,10 +141,9 @@ export const checkboxVariants = tv({
 		lineThrough: {
 			true: {
 				label: [
-					"inline-flex items-center justify-center",
-					"before:content-[''] before:absolute before:bg-foreground before:w-0 before:h-0.5",
-					"group-has-[input:checked]:opacity-60",
-					"group-has-[input:checked]:before:w-full",
+					"inline-flex items-center justify-center group-has-[input:checked]:opacity-60",
+					"group-has-[input:checked]:before:w-full before:content-[''] before:absolute before:bg-foreground",
+					"before:w-0 before:h-0.5",
 				],
 			},
 		},
@@ -127,11 +171,12 @@ export const checkboxVariants = tv({
 			},
 			false: {
 				wrapper: [
-					"before:transition-colors group-active:scale-[0.97] transition-transform",
-					"after:transition-[transform,opacity] after:ease-linear motion-reduce:transition-none",
+					"before:transition-colors before:motion-reduce:transition-none",
+					"has-[input:active]:scale-[0.97] transition-transform motion-reduce:transition-none",
+					"after:transition after:ease-linear after:motion-reduce:transition-none",
 				],
 				icon: "transition-opacity motion-reduce:transition-none",
-				label: "transition-[color,opacity] motion-reduce:transition-none",
+				label: "transition motion-reduce:transition-none",
 			},
 		},
 	},
@@ -141,52 +186,18 @@ export const checkboxVariants = tv({
 	},
 	compoundVariants: [
 		{
+			disableAnimation: true,
+			lineThrough: true,
+			className: {
+				label: "before:transition-none",
+			},
+		},
+		{
 			disableAnimation: false,
 			lineThrough: true,
 			className: {
-				label: "before:transition-[width]",
+				label: "before:transition-[width] before:motion-reduce:transition-none",
 			},
 		},
 	],
-})
-
-export type CheckboxGroupVariantsProps = VariantProps<typeof checkboxGroupVariants>
-
-export const checkboxGroupVariants = tv({
-	slots: {
-		base: "relative flex flex-col gap-2",
-		label: "relative text-md text-default-500",
-		wrapper: "flex flex-wrap gap-2",
-		invalidMessage: "text-sm text-danger",
-		description: "text-sm text-default-400",
-	},
-	variants: {
-		orientation: {
-			horizontal: {
-				wrapper: "flex-row",
-			},
-			vertical: {
-				wrapper: "flex-col",
-			},
-		},
-		required: {
-			true: {
-				label: "after:content-['*'] after:text-danger after:ml-0.5",
-			},
-		},
-		invalid: {
-			true: {
-				description: "text-danger",
-			},
-		},
-		disableAnimation: {
-			true: "",
-			false: {
-				description: "transition-colors motion-reduce:transition-none",
-			},
-		},
-	},
-	defaultVariants: {
-		orientation: "vertical",
-	},
 })

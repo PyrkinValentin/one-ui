@@ -15,56 +15,70 @@ import { checkboxVariants } from "./variants"
 
 export const Checkbox = (props: CheckboxProps) => {
 	const {
-		disabledGroup,
-		checkedGroup,
-		onCheckedChangeGroup,
-		...checkboxGroupContext
+		size: sizeContext,
+		color: colorContext,
+		rounded: roundedContext,
+		lineThrough: lineThroughContext,
+		readOnly: readOnlyContext,
+		disabled: disabledContext,
+		invalid: invalidContext,
+		required: requiredContext,
+		disableAnimation: disableAnimationContext,
+		slotProps: slotPropsContext,
+		getItemState,
 	} = useCheckboxGroupContext()
 
 	const {
-		required,
+		required = requiredContext,
+		autoFocus,
 		name,
 		value,
 		icon,
 		defaultChecked = false,
-		checked = checkedGroup?.(value),
-		onCheckedChange = onCheckedChangeGroup?.(value),
+		checked,
+		onCheckedChange,
 		onChange,
-		slotProps = {},
 		className,
-		size,
-		color,
-		rounded,
-		lineThrough,
-		readOnly,
-		disabled = disabledGroup?.(value),
-		invalid,
-		disableAnimation,
+		size = sizeContext,
+		color = colorContext,
+		rounded = roundedContext,
+		lineThrough = lineThroughContext,
+		readOnly = readOnlyContext,
+		disabled = disabledContext,
+		invalid = invalidContext,
+		disableAnimation = disableAnimationContext,
 		children,
+		slotProps = {},
 		...restProps
-	} = {
-		...checkboxGroupContext,
-		...props,
-	}
+	} = props
 
 	const {
 		wrapperProps,
 		inputProps,
 		iconProps,
 		labelProps,
-	} = slotProps
+	} = {
+		...slotPropsContext,
+		...slotProps,
+	}
 
-	const labelId = useId()
+	const valueId = useId()
+	const inputId = useId()
 
-	const [controlledChecked, setControlledChecked] = useControlledState({
+	const itemState = getItemState?.(value, {
+		valueId,
+		disabled,
+	})
+
+	const [state, setState] = useControlledState({
 		defaultValue: defaultChecked,
-		value: checked,
-		onValueChange: onCheckedChange,
+		value: checked ?? itemState?.checked,
+		onValueChange: onCheckedChange ?? itemState?.toggleChecked,
 	})
 
 	const handleChange = (ev: ChangeEvent<HTMLInputElement>) => {
 		onChange?.(ev)
-		setControlledChecked?.(ev.target.checked)
+		setState?.(ev.target.checked)
 	}
 
 	const classNames = useMemo(() => {
@@ -74,7 +88,7 @@ export const Checkbox = (props: CheckboxProps) => {
 			rounded,
 			lineThrough,
 			readOnly,
-			disabled,
+			disabled: itemState?.disabled,
 			invalid,
 			disableAnimation,
 		})
@@ -84,7 +98,7 @@ export const Checkbox = (props: CheckboxProps) => {
 		rounded,
 		lineThrough,
 		readOnly,
-		disabled,
+		itemState?.disabled,
 		invalid,
 		disableAnimation,
 	])
@@ -100,13 +114,14 @@ export const Checkbox = (props: CheckboxProps) => {
 			>
 				<input
 					type="checkbox"
-					aria-labelledby={labelId}
+					id={inputId}
+					autoFocus={autoFocus}
 					name={name}
 					value={value}
 					required={required}
 					readOnly={readOnly}
 					disabled={disabled}
-					checked={controlledChecked}
+					checked={state}
 					onChange={handleChange}
 					{...inputProps}
 					className={classNames.input({ className: inputProps?.className })}
@@ -119,7 +134,7 @@ export const Checkbox = (props: CheckboxProps) => {
 						className={classNames.icon({ className: iconProps?.className })}
 					>
 						{isFunction(icon)
-							? icon(controlledChecked)
+							? icon(state)
 							: icon
 						}
 					</Slot>
@@ -136,7 +151,7 @@ export const Checkbox = (props: CheckboxProps) => {
 							points="1 9 7 14 15 4"
 							stroke="currentColor"
 							strokeDasharray="22"
-							strokeDashoffset={controlledChecked ? 44 : 66}
+							strokeDashoffset={state ? 44 : 66}
 							strokeLinecap="round"
 							strokeLinejoin="round"
 							strokeWidth="2"
@@ -152,13 +167,13 @@ export const Checkbox = (props: CheckboxProps) => {
 			</span>
 
 			{children ? (
-				<span
-					id={labelId}
+				<label
+					htmlFor={inputId}
 					{...labelProps}
 					className={classNames.label({ className: labelProps?.className })}
 				>
 					{children}
-				</span>
+				</label>
 			) : null}
 		</label>
 	)

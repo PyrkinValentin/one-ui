@@ -26,7 +26,6 @@ export const Popover = (props: PopoverProps) => {
 		defaultOpen = false,
 		open,
 		onOpenChange,
-		slotProps,
 		size,
 		color,
 		rounded,
@@ -35,6 +34,7 @@ export const Popover = (props: PopoverProps) => {
 		triggerScaleOnOpen,
 		disableAnimation,
 		children,
+		slotProps,
 	} = props
 
 	const [controlledOpen, setControlledOpen] = useControlledState({

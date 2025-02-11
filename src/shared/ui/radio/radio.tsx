@@ -19,7 +19,6 @@ export const Radio = (props: RadioProps) => {
 	const {
 		value,
 		description,
-		slotProps = {},
 		className,
 		size,
 		color,
@@ -28,6 +27,7 @@ export const Radio = (props: RadioProps) => {
 		invalid,
 		disableAnimation,
 		children,
+		slotProps = {},
 		...restProps
 	} = {
 		...radioGroupContext,
@@ -43,7 +43,7 @@ export const Radio = (props: RadioProps) => {
 		descriptionProps,
 	} = slotProps
 
-	const labelId = useId()
+	const inputId = useId()
 	const descriptionId = useId()
 
 	const classNames = useMemo(() => {
@@ -75,8 +75,8 @@ export const Radio = (props: RadioProps) => {
 			>
 				<input
 					type="radio"
-					aria-labelledby={labelId}
 					aria-describedby={descriptionId}
+					id={inputId}
 					name={name}
 					value={value}
 					readOnly={readOnly}
@@ -98,13 +98,13 @@ export const Radio = (props: RadioProps) => {
 				className={classNames.labelWrapper({ className: labelWrapperProps?.className })}
 			>
 				{children ? (
-					<span
-						id={labelId}
+					<label
+						htmlFor={inputId}
 						{...labelProps}
 						className={classNames.label({ className: labelProps?.className })}
 					>
 						{children}
-					</span>
+					</label>
 				) : null}
 
 				{description ? (

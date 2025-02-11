@@ -27,7 +27,6 @@ export const Pagination = (props: PaginationProps) => {
 		page,
 		onPageChange,
 		renderItem,
-		slotProps = {},
 		className,
 		variant,
 		size,
@@ -37,6 +36,7 @@ export const Pagination = (props: PaginationProps) => {
 		showShadow,
 		disabled: disabledProp,
 		disableAnimation,
+		slotProps = {},
 		...restProps
 	} = props
 

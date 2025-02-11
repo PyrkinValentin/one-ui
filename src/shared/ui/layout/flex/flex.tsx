@@ -5,9 +5,7 @@ import { useMemo } from "react"
 
 import { flexVariants } from "./variants"
 
-export const Flex = <
-	As extends ElementType = "div"
->(props: FlexProps<As>) => {
+export const Flex = <As extends ElementType = "div">(props: FlexProps<As>) => {
 	const {
 		as = "div",
 		className,

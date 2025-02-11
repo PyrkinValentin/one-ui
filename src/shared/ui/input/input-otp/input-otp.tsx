@@ -26,7 +26,6 @@ export const InputOtp = (props: InputOtpProps) => {
 		onChange,
 		onValueChange,
 		onComplete,
-		slotProps = {},
 		className,
 		variant,
 		size,
@@ -37,6 +36,7 @@ export const InputOtp = (props: InputOtpProps) => {
 		invalid,
 		disabled,
 		disableAnimation,
+		slotProps = {},
 		...restProps
 	} = props
 

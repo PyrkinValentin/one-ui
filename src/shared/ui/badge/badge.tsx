@@ -7,7 +7,6 @@ import { badgeVariants } from "./variants"
 export const Badge = (props: BadgeProps) => {
 	const {
 		content,
-		slotProps = {},
 		className,
 		variant,
 		size,
@@ -18,6 +17,7 @@ export const Badge = (props: BadgeProps) => {
 		dot = !content,
 		showOutline,
 		children,
+		slotProps = {},
 		...restProps
 	} = props
 

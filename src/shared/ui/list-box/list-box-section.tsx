@@ -14,10 +14,10 @@ export const ListBoxSection = (props: ListBoxSectionProps) => {
 
 	const {
 		title,
-		slotProps = {},
 		className,
 		showDivider,
 		children,
+		slotProps = {},
 		...restProps
 	} = props
 

@@ -22,12 +22,12 @@ export const Accordion = (props: AccordionProps) => {
 		defaultValue = selectionMode === "multiple" ? [] : "",
 		value,
 		onValueChange,
-		slotProps,
 		className,
 		variant,
 		rounded,
 		fullWidth,
 		children,
+		slotProps,
 		...restProps
 	} = props
 
@@ -51,7 +51,7 @@ export const Accordion = (props: AccordionProps) => {
 				expanded
 					? selectionMode === "single"
 						? ""
-						: (state as string[]).filter((v) => v !== itemValue)
+						: (state as string[]).filter((value) => value !== itemValue)
 					: selectionMode === "single"
 						? itemValue
 						: [...(state as string[]), itemValue]
