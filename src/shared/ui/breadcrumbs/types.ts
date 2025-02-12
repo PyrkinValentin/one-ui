@@ -1,43 +1,56 @@
-import type { LinkProps } from "next/link"
-import type { ReactNode } from "react"
+import type { ElementType, ReactNode } from "react"
 import type { ComponentProps, ComponentPropsWithAs } from "@/shared/types/props"
-import type { BreadcrumbsVariantsProps } from "./variants"
+import type { BreadcrumbItemVariantsProps, BreadcrumbsVariantsProps } from "./variants"
+
+export type BreadcrumbsContextValue =
+	Pick<
+		BreadcrumbsProps,
+		"hideSeparator" | "separator" | "onAction" | "size" | "color" | "underline" | "disabled" | "disableAnimation"
+	> &
+	BreadcrumbsContextOwnValue
+
+type BreadcrumbsContextOwnValue = {
+	slotProps?: BreadcrumbItemSlotProps
+}
 
 export type BreadcrumbsProps = ComponentProps<
 	"nav",
 	BreadcrumbsVariantsProps &
-	BreadcrumbsOwnProps
+	BreadcrumbsOwnProps &
+	Pick<BreadcrumbItemProps, "hideSeparator" | "separator" | "color" | "underline" | "disabled" | "disableAnimation">
 >
 
 type BreadcrumbsOwnProps = {
-	showSeparator?: boolean
 	maxItems?: number
 	beforeCollapse?: number
 	afterCollapse?: number
-	separator?: ReactNode
-	renderEllipsis?: (props: BreadcrumbsRenderEllipsisProps) => ReactNode
+	onAction?: (value: string) => void
 	slotProps?: BreadcrumbsSlotProps
 }
 
 type BreadcrumbsSlotProps = {
 	listProps?: ComponentProps<"ol">
-	itemProps?: ComponentProps<"li">
 	ellipsisProps?: ComponentProps<"svg">
-	separatorProps?: ComponentProps<"span">
+	breadcrumbItemSlotProps?: BreadcrumbItemSlotProps
 }
 
-type BreadcrumbsRenderEllipsisProps = {
-	items: BreadcrumbProps[]
-	icon: ReactNode
-}
-
-export type BreadcrumbProps = ComponentPropsWithAs<
-	"a",
-	LinkProps &
-	BreadcrumbOwnProps
+export type BreadcrumbItemProps<As extends ElementType = "button"> = ComponentPropsWithAs<
+	As,
+	BreadcrumbItemVariantsProps &
+	BreadcrumbItemOwnProps
 >
 
-type BreadcrumbOwnProps = {
+type BreadcrumbItemOwnProps = {
+	last?: boolean
+	hideSeparator?: boolean
+	value?: string | null
 	startContent?: ReactNode
 	endContent?: ReactNode
+	separator?: ReactNode
+	slotProps?: BreadcrumbItemSlotProps
+}
+
+type BreadcrumbItemSlotProps = {
+	baseProps?: ComponentProps<"li">
+	separatorProps?: ComponentProps<"span">
 }
