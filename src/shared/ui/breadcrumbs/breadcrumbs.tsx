@@ -38,7 +38,7 @@ export const Breadcrumbs = (props: BreadcrumbsProps) => {
 	const {
 		listProps,
 		ellipsisProps,
-		breadcrumbItemSlotProps,
+		itemSlotProps,
 	} = slotProps
 
 	const items = Children
@@ -98,7 +98,7 @@ export const Breadcrumbs = (props: BreadcrumbsProps) => {
 		disabled,
 		disableAnimation,
 		onAction,
-		slotProps: breadcrumbItemSlotProps,
+		slotProps: itemSlotProps,
 	}
 
 	return (

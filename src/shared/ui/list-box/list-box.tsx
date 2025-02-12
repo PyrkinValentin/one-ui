@@ -27,6 +27,7 @@ export const ListBox = (props: ListBoxProps) => {
 		onValueChange,
 		className,
 		children,
+		slotProps,
 		...restProps
 	} = props
 
@@ -84,6 +85,7 @@ export const ListBox = (props: ListBoxProps) => {
 		color,
 		disableAnimation,
 		getItemState,
+		slotProps,
 	}
 
 	return (

@@ -31,7 +31,7 @@ type BreadcrumbsOwnProps = {
 type BreadcrumbsSlotProps = {
 	listProps?: ComponentProps<"ol">
 	ellipsisProps?: ComponentProps<"svg">
-	breadcrumbItemSlotProps?: BreadcrumbItemSlotProps
+	itemSlotProps?: BreadcrumbItemSlotProps
 }
 
 export type BreadcrumbItemProps<As extends ElementType = "button"> = ComponentPropsWithAs<
