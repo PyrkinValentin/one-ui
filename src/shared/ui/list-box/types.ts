@@ -3,7 +3,10 @@ import type { ComponentProps, ComponentPropsWithAs } from "@/shared/types/props"
 import type { ListBoxVariantsProps, ListBoxSectionVariantsProps, ListBoxItemVariantsProps } from "./variants"
 
 export type ListBoxContextValue =
-	Pick<ListBoxProps, "hideSelectedIcon" | "selectedIcon" | "selectionMode" | "variant" | "color" | "disableAnimation"> &
+	Pick<
+		ListBoxProps,
+		"hideSelectedIcon" | "selectedIcon" | "selectionMode" | "variant" | "color" | "disableAnimation" | "slotProps"
+	> &
 	ListBoxContextOwnValue
 
 type ListBoxContextOwnValue = {
@@ -37,6 +40,12 @@ export type ListBoxProps = ComponentProps<
 type ListBoxOwnProps = {
 	disallowEmptySelection?: boolean
 	disabledValue?: string[]
+	slotProps?: ListBoxSlotProps
+}
+
+type ListBoxSlotProps = {
+	sectionSlotProps?: ListBoxSectionSlotProps
+	itemSlotProps?: ListBoxItemSlotProps
 }
 
 type ListBoxStateProps = {
@@ -86,4 +95,13 @@ type ListBoxItemOwnProps = {
 	startContent?: ReactNode
 	endContent?: ReactNode
 	selectedIcon?: ReactNode | ((selected?: boolean) => ReactNode)
+	slotProps?: ListBoxItemSlotProps
+}
+
+type ListBoxItemSlotProps = {
+	baseProps?: ComponentProps<"li">
+	wrapperProps?: ComponentProps
+	titleProps?: ComponentProps<"span">
+	descriptionProps?: ComponentProps<"span">
+	selectedIconProps?: ComponentProps<"span">
 }

@@ -19,6 +19,7 @@ export const ListBoxItem = <As extends ElementType = "button">(props: ListBoxIte
 		color: colorContext,
 		disableAnimation: disableAnimationContext,
 		getItemState,
+		slotProps: slotPropsContext,
 	} = useListBoxContext()
 
 	const {
@@ -39,8 +40,20 @@ export const ListBoxItem = <As extends ElementType = "button">(props: ListBoxIte
 		disabled,
 		disableAnimation = disableAnimationContext,
 		children,
+		slotProps = {},
 		...restProps
 	} = props as ListBoxItemProps
+
+	const {
+		baseProps,
+		wrapperProps,
+		titleProps,
+		descriptionProps,
+		selectedIconProps,
+	} = {
+		...slotPropsContext?.itemSlotProps,
+		...slotProps,
+	}
 
 	const valueId = useId()
 	const titleId = useId()
@@ -82,7 +95,8 @@ export const ListBoxItem = <As extends ElementType = "button">(props: ListBoxIte
 			aria-labelledby={titleId}
 			aria-describedby={descriptionId}
 			aria-selected={itemState?.selected}
-			className={classNames.base()}
+			{...baseProps}
+			className={classNames.base({ className: baseProps?.className })}
 		>
 			<Component
 				tabIndex={disabled || readOnly ? -1 : undefined}
@@ -93,17 +107,22 @@ export const ListBoxItem = <As extends ElementType = "button">(props: ListBoxIte
 				{startContent}
 
 				{description ? (
-					<div className={classNames.wrapper()}>
+					<div
+						{...wrapperProps}
+						className={classNames.wrapper({ className: wrapperProps?.className })}
+					>
 						<span
 							id={titleId}
-							className={classNames.title()}
+							{...titleProps}
+							className={classNames.title({ className: titleProps?.className })}
 						>
 							{title ?? children}
 						</span>
 
 						<span
 							id={descriptionId}
-							className={classNames.description()}
+							{...descriptionProps}
+							className={classNames.description({ className: descriptionProps?.className })}
 						>
 							{description}
 						</span>
@@ -111,14 +130,18 @@ export const ListBoxItem = <As extends ElementType = "button">(props: ListBoxIte
 				) : (
 					<span
 						id={titleId}
-						className={classNames.title()}
+						{...titleProps}
+						className={classNames.title({ className: titleProps?.className })}
 					>
 						{title ?? children}
 					</span>
 				)}
 
 				{selectionMode !== "none" && !hideSelectedIcon ? (
-					<span className={classNames.selectedIcon()}>
+					<span
+						{...selectedIconProps}
+						className={classNames.selectedIcon({ className: selectedIconProps?.className })}
+					>
 						{selectedIcon ? (
 							<>
 								{isFunction(selectedIcon)
