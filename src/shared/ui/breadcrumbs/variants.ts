@@ -7,7 +7,7 @@ export type BreadcrumbsVariantsProps = VariantProps<typeof breadcrumbsVariants>
 export const breadcrumbsVariants = tv({
 	slots: {
 		base: "",
-		list: "flex flex-wrap list-none",
+		list: "flex flex-wrap",
 	},
 	variants: {
 		variant: {
