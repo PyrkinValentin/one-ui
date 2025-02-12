@@ -1,6 +1,6 @@
 "use client"
 
-import type { AccordionContextValue, AccordionProps, GetItemState } from "./types"
+import type { AccordionContextValue, AccordionProps, GetAccordionItemState } from "./types"
 
 import { use, useMemo } from "react"
 import { useControlledState } from "@/shared/hooks/use-controlled-state"
@@ -37,9 +37,8 @@ export const Accordion = (props: AccordionProps) => {
 		onValueChange: onValueChange as ((value: string | string[]) => void),
 	})
 
-	const getItemState: GetItemState = (value, options) => {
+	const getItemState: GetAccordionItemState = (value, options) => {
 		const itemValue = value ?? options.valueId
-
 		const disabled = options.disabled || disabledValue?.includes(itemValue)
 
 		const expanded = selectionMode === "single"

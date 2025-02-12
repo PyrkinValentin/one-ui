@@ -1,11 +1,11 @@
 "use client"
 
-import type { ListBoxContextValue, ListBoxProps } from "./types"
+import type { GetListBoxItemState, ListBoxContextValue, ListBoxProps } from "./types"
 
 import { use, useMemo } from "react"
 import { useControlledState } from "@/shared/hooks/use-controlled-state"
 
-import { Children, createContext } from "react"
+import { createContext } from "react"
 
 import { listBoxVariants } from "./variants"
 
@@ -15,84 +15,75 @@ export const useListBoxContext = () => use(ListBoxContext)
 export const ListBox = (props: ListBoxProps) => {
 	const {
 		disallowEmptySelection,
-		hideEmptyContent,
 		hideSelectedIcon,
-		emptyContent = "Список пуст",
-		selectionMode = "none",
 		selectedIcon,
 		variant,
 		color,
-		disabled,
 		disableAnimation,
+		selectionMode = "none",
 		disabledValue,
 		defaultValue = selectionMode === "multiple" ? [] : "",
 		value,
 		onValueChange,
 		className,
 		children,
-		slotProps = {},
 		...restProps
 	} = props
 
-	const {
-		emptyContentProps,
-		...restSlotProps
-	} = slotProps
-
-	const [controlledValue, setControlledValue] = useControlledState({
+	const [state, setState] = useControlledState({
 		defaultValue,
 		value,
 		onValueChange: onValueChange as (value: string | string[]) => void,
 	})
 
-	const disabledItem = (value: string) => {
-		return !!disabledValue?.includes(value)
-	}
-
-	const selectedItem = (value: string) => {
+	const getItemState: GetListBoxItemState = (value, options) => {
 		if (selectionMode === "none") return
 
-		return selectionMode === "single"
-			? controlledValue === value
-			: controlledValue.includes(value)
-	}
+		const itemValue = value ?? options.valueId
+		const disabled = options.disabled || disabledValue?.includes(itemValue)
 
-	const handleValueChange = (value: string, selected: boolean) => {
-		if (
-			selectionMode === "none" ||
-			disallowEmptySelection && !selected && (
-				selectionMode === "single" ||
-				selectionMode === "multiple" && controlledValue.length === 1
+		const selected = selectionMode === "single"
+			? state === itemValue
+			: state.includes(itemValue)
+
+		const toggleSelected = () => {
+			if (
+				disallowEmptySelection && selected && (
+					selectionMode === "single" ||
+					selectionMode === "multiple" && state.length === 1
+				)
+			) return
+
+			setState?.(
+				selected
+					? selectionMode === "single"
+						? ""
+						: (state as string[]).filter((value) => value !== itemValue)
+					: selectionMode === "single"
+						? itemValue
+						: [...(state as string[]), itemValue]
 			)
-		) return
+		}
 
-		setControlledValue?.(
-			selected
-				? selectionMode === "single"
-					? value
-					: [...(controlledValue as string[]), value]
-				: selectionMode === "single"
-					? ""
-					: (controlledValue as string[]).filter((v) => v !== value)
-		)
+		return {
+			disabled,
+			selected,
+			toggleSelected,
+		}
 	}
 
 	const classNames = useMemo(() => {
-		return listBoxVariants()
-	}, [])
+		return listBoxVariants({ className })
+	}, [className])
 
 	const contextValue: ListBoxContextValue = {
 		hideSelectedIcon,
-		selectionMode,
 		selectedIcon,
+		selectionMode,
 		variant,
 		color,
-		disabled,
 		disableAnimation,
-		disabledItem,
-		selectedItem,
-		onValueChange: handleValueChange,
-		slotProps: restSlotProps,
+		getItemState,
 	}
 
 	return (
@@ -100,17 +91,10 @@ export const ListBox = (props: ListBoxProps) => {
 			<ul
 				role="listbox"
 				aria-multiselectable={selectionMode === "multiple" || undefined}
-				className={classNames.base({ className })}
+				className={classNames}
 				{...restProps}
 			>
-				{!hideEmptyContent && !Children.count(children) ? (
-					<li
-						{...emptyContentProps}
-						className={classNames.emptyContent({ className: emptyContentProps?.className })}
-					>
-						{emptyContent}
-					</li>
-				) : children}
+				{children}
 			</ul>
 		</ListBoxContext>
 	)

@@ -5,18 +5,15 @@ import { tv } from "@/core/theme"
 export type ListBoxVariantsProps = VariantProps<typeof listBoxVariants>
 
 export const listBoxVariants = tv({
-	slots: {
-		base: "w-full flex flex-col gap-0.5 outline-none",
-		emptyContent: "px-2 py-1.5 w-full h-full text-start text-default-400",
-	},
+	base: "w-full flex flex-col gap-0.5 outline-none",
 })
 
 export type ListBoxSectionVariantsProps = VariantProps<typeof listBoxSectionVariants>
 
 export const listBoxSectionVariants = tv({
 	slots: {
-		base: "relative mb-2 last-of-type:mb-0 flex flex-col gap-2",
-		heading: "pl-1 text-xs text-default-500",
+		base: "relative mb-2 last-of-type:mb-0",
+		heading: "block mb-2 pl-1 text-xs text-default-500",
 		group: "w-full flex flex-col gap-0.5 outline-none",
 	},
 	variants: {
@@ -35,8 +32,8 @@ export type ListBoxItemVariantsProps = VariantProps<typeof listBoxItemVariants>
 
 export const listBoxItemVariants = tv({
 	slots: {
-		base: "w-full h-full",
-		button: [
+		base: "",
+		item: [
 			"group box-border relative px-2 py-1.5 w-full h-full flex items-center justify-between gap-2 rounded-small",
 			"subpixel-antialiased outline-none focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-focus",
 			"focus-visible:outline-offset-2",
@@ -44,24 +41,24 @@ export const listBoxItemVariants = tv({
 		wrapper: "w-full flex flex-col items-start justify-center",
 		title: "w-full text-sm font-normal text-start",
 		description: "w-full text-xs text-default-500 text-start group-hover:text-current group-focus:text-current",
-		selectedIcon: "text-inherit w-3 h-3 shrink-0",
+		selectedIcon: "w-3 h-3 shrink-0 text-inherit",
 	},
 	variants: {
 		variant: {
 			solid: "",
 			bordered: {
-				button: "border-2 border-transparent",
+				item: "border-2 border-transparent",
 			},
 			light: "",
 			faded: {
-				button: [
-					"border border-transparent hover:border-default hover:bg-default-100",
-					"focus:border-default focus:bg-default-100",
+				item: [
+					"border border-transparent hover:border-default hover:bg-default-100 focus:border-default",
+					"focus:bg-default-100",
 				],
 			},
 			flat: "",
 			shadow: {
-				button: "hover:shadow-lg",
+				item: "hover:shadow-lg",
 			},
 		},
 		color: {
@@ -74,7 +71,7 @@ export const listBoxItemVariants = tv({
 		},
 		showDivider: {
 			true: {
-				button: [
+				item: [
 					"mb-1.5 after:content-[''] after:absolute after:-bottom-1 after:left-0 after:right-0 after:h-px",
 					"after:bg-divider",
 				],
@@ -82,26 +79,24 @@ export const listBoxItemVariants = tv({
 		},
 		readOnly: {
 			true: {
-				button: "pointer-events-none",
+				item: "pointer-events-none",
 			},
 		},
 		disabled: {
 			true: {
-				button: "opacity-disabled pointer-events-none",
+				item: "opacity-disabled pointer-events-none",
 			},
 		},
 		disableAnimation: {
 			true: {
-				button: "transition-none",
+				item: "transition-none",
 				title: "transition-none",
 				description: "transition-none",
-				selectedIcon: "transition-none",
 			},
 			false: {
-				button: "transition-[border-color,background,box-shadow] motion-reduce:transition-none",
+				item: "transition-[background,border-color,box-shadow] motion-reduce:transition-none",
 				title: "transition-colors motion-reduce:transition-none",
 				description: "transition-colors motion-reduce:transition-none",
-				selectedIcon: "transition-colors motion-reduce:transition-none",
 			},
 		},
 	},
@@ -114,49 +109,49 @@ export const listBoxItemVariants = tv({
 			variant: "solid",
 			color: "default",
 			className: {
-				button: "hover:bg-default hover:text-default-foreground focus:bg-default focus:text-default-foreground",
+				item: "hover:bg-default hover:text-default-foreground focus:bg-default focus:text-default-foreground",
 			},
 		},
 		{
 			variant: "solid",
 			color: "primary",
 			className: {
-				button: "hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground",
+				item: "hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground",
 			},
 		},
 		{
 			variant: "solid",
 			color: "secondary",
 			className: {
-				button: "hover:bg-secondary hover:text-secondary-foreground focus:bg-secondary focus:text-secondary-foreground",
+				item: "hover:bg-secondary hover:text-secondary-foreground focus:bg-secondary focus:text-secondary-foreground",
 			},
 		},
 		{
 			variant: "solid",
 			color: "success",
 			className: {
-				button: "hover:bg-success hover:text-success-foreground focus:bg-success focus:text-success-foreground",
+				item: "hover:bg-success hover:text-success-foreground focus:bg-success focus:text-success-foreground",
 			},
 		},
 		{
 			variant: "solid",
 			color: "warning",
 			className: {
-				button: "hover:bg-warning hover:text-warning-foreground focus:bg-warning focus:text-warning-foreground",
+				item: "hover:bg-warning hover:text-warning-foreground focus:bg-warning focus:text-warning-foreground",
 			},
 		},
 		{
 			variant: "solid",
 			color: "danger",
 			className: {
-				button: "hover:bg-danger hover:text-danger-foreground focus:bg-danger focus:text-danger-foreground",
+				item: "hover:bg-danger hover:text-danger-foreground focus:bg-danger focus:text-danger-foreground",
 			},
 		},
 		{
 			variant: "shadow",
 			color: "default",
 			className: {
-				button: [
+				item: [
 					"hover:shadow-default/50 hover:bg-default hover:text-default-foreground",
 					"focus:shadow-default/50 focus:bg-default focus:text-default-foreground",
 				],
@@ -166,7 +161,7 @@ export const listBoxItemVariants = tv({
 			variant: "shadow",
 			color: "primary",
 			className: {
-				button: [
+				item: [
 					"hover:shadow-primary/30 hover:bg-primary hover:text-primary-foreground",
 					"focus:shadow-primary/30 focus:bg-primary focus:text-primary-foreground",
 				],
@@ -176,7 +171,7 @@ export const listBoxItemVariants = tv({
 			variant: "shadow",
 			color: "secondary",
 			className: {
-				button: [
+				item: [
 					"hover:shadow-secondary/30 hover:bg-secondary hover:text-secondary-foreground",
 					"focus:shadow-secondary/30 focus:bg-secondary focus:text-secondary-foreground",
 				],
@@ -186,7 +181,7 @@ export const listBoxItemVariants = tv({
 			variant: "shadow",
 			color: "success",
 			className: {
-				button: [
+				item: [
 					"hover:shadow-success/30 hover:bg-success hover:text-success-foreground",
 					"focus:shadow-success/30 focus:bg-success focus:text-success-foreground",
 				],
@@ -196,7 +191,7 @@ export const listBoxItemVariants = tv({
 			variant: "shadow",
 			color: "warning",
 			className: {
-				button: [
+				item: [
 					"hover:shadow-warning/30 hover:bg-warning hover:text-warning-foreground",
 					"focus:shadow-warning/30 focus:bg-warning focus:text-warning-foreground",
 				],
@@ -206,7 +201,7 @@ export const listBoxItemVariants = tv({
 			variant: "shadow",
 			color: "danger",
 			className: {
-				button: [
+				item: [
 					"hover:shadow-danger/30 hover:bg-danger hover:text-danger-foreground",
 					"focus:shadow-danger/30 focus:bg-danger focus:text-danger-foreground",
 				],
@@ -216,172 +211,168 @@ export const listBoxItemVariants = tv({
 			variant: "bordered",
 			color: "default",
 			className: {
-				button: "hover:border-default focus:border-default",
+				item: "hover:border-default focus:border-default",
 			},
 		},
 		{
 			variant: "bordered",
 			color: "primary",
 			className: {
-				button: "hover:border-primary hover:text-primary focus:border-primary focus:text-primary",
+				item: "hover:border-primary hover:text-primary focus:border-primary focus:text-primary",
 			},
 		},
 		{
 			variant: "bordered",
 			color: "secondary",
 			className: {
-				button:
-					"hover:border-secondary hover:text-secondary focus:border-secondary focus:text-secondary",
+				item: "hover:border-secondary hover:text-secondary focus:border-secondary focus:text-secondary",
 			},
 		},
 		{
 			variant: "bordered",
 			color: "success",
 			className: {
-				button: "hover:border-success hover:text-success focus:border-success focus:text-success",
+				item: "hover:border-success hover:text-success focus:border-success focus:text-success",
 			},
 		},
 		{
 			variant: "bordered",
 			color: "warning",
 			className: {
-				button: "hover:border-warning hover:text-warning focus:border-warning focus:text-warning",
+				item: "hover:border-warning hover:text-warning focus:border-warning focus:text-warning",
 			},
 		},
 		{
 			variant: "bordered",
 			color: "danger",
 			className: {
-				button: "hover:border-danger hover:text-danger focus:border-danger focus:text-danger",
+				item: "hover:border-danger hover:text-danger focus:border-danger focus:text-danger",
 			},
 		},
 		{
 			variant: "flat",
 			color: "default",
 			className: {
-				button: [
-					"hover:bg-default/40 hover:text-default-foreground focus:bg-default/40",
-					"focus:text-default-foreground",
-				],
+				item: "hover:bg-default/40 hover:text-default-foreground focus:bg-default/40 focus:text-default-foreground",
 			},
 		},
 		{
 			variant: "flat",
 			color: "primary",
 			className: {
-				button: "hover:bg-primary/20 hover:text-primary focus:bg-primary/20 focus:text-primary",
+				item: "hover:bg-primary/20 hover:text-primary focus:bg-primary/20 focus:text-primary",
 			},
 		},
 		{
 			variant: "flat",
 			color: "secondary",
 			className: {
-				button: "hover:bg-secondary/20 hover:text-secondary focus:bg-secondary/20 focus:text-secondary",
+				item: "hover:bg-secondary/20 hover:text-secondary focus:bg-secondary/20 focus:text-secondary",
 			},
 		},
 		{
 			variant: "flat",
 			color: "success",
 			className: {
-				button: "hover:bg-success/20 hover:text-success focus:bg-success/20 focus:text-success",
+				item: "hover:bg-success/20 hover:text-success focus:bg-success/20 focus:text-success",
 			},
 		},
 		{
 			variant: "flat",
 			color: "warning",
 			className: {
-				button: "hover:bg-warning/20 hover:text-warning focus:bg-warning/20 focus:text-warning",
+				item: "hover:bg-warning/20 hover:text-warning focus:bg-warning/20 focus:text-warning",
 			},
 		},
 		{
 			variant: "flat",
 			color: "danger",
 			className: {
-				button: "hover:bg-danger/20 hover:text-danger focus:bg-danger/20 focus:text-danger",
+				item: "hover:bg-danger/20 hover:text-danger focus:bg-danger/20 focus:text-danger",
 			},
 		},
 		{
 			variant: "faded",
 			color: "default",
 			className: {
-				button: "hover:text-default-foreground focus:text-default-foreground",
+				item: "hover:text-default-foreground focus:text-default-foreground",
 			},
 		},
 		{
 			variant: "faded",
 			color: "primary",
 			className: {
-				button: "hover:text-primary focus:text-primary",
+				item: "hover:text-primary focus:text-primary",
 			},
 		},
 		{
 			variant: "faded",
 			color: "secondary",
 			className: {
-				button: "hover:text-secondary focus:text-secondary",
+				item: "hover:text-secondary focus:text-secondary",
 			},
 		},
 		{
 			variant: "faded",
 			color: "success",
 			className: {
-				button: "hover:text-success focus:text-success",
+				item: "hover:text-success focus:text-success",
 			},
 		},
 		{
 			variant: "faded",
 			color: "warning",
 			className: {
-				button: "hover:text-warning focus:text-warning",
+				item: "hover:text-warning focus:text-warning",
 			},
 		},
 		{
 			variant: "faded",
 			color: "danger",
 			className: {
-				button: "hover:text-danger focus:text-danger",
+				item: "hover:text-danger focus:text-danger",
 			},
 		},
 		{
 			variant: "light",
 			color: "default",
 			className: {
-				button: "hover:text-default-500 focus:text-default-500",
+				item: "hover:text-default-500 focus:text-default-500",
 			},
 		},
 		{
 			variant: "light",
 			color: "primary",
 			className: {
-				button: "hover:text-primary focus:text-primary",
+				item: "hover:text-primary focus:text-primary",
 			},
 		},
 		{
 			variant: "light",
 			color: "secondary",
 			className: {
-				button: "hover:text-secondary focus:text-secondary",
+				item: "hover:text-secondary focus:text-secondary",
 			},
 		},
 		{
 			variant: "light",
 			color: "success",
 			className: {
-				button: "hover:text-success focus:text-success",
+				item: "hover:text-success focus:text-success",
 			},
 		},
 		{
 			variant: "light",
 			color: "warning",
 			className: {
-				button: "hover:text-warning focus:text-warning",
+				item: "hover:text-warning focus:text-warning",
 			},
 		},
 		{
 			variant: "light",
 			color: "danger",
 			className: {
-				button: "hover:text-danger focus:text-danger",
+				item: "hover:text-danger focus:text-danger",
 			},
 		},
 	],

@@ -7,10 +7,10 @@ export type AccordionContextValue =
 	AccordionContextOwnValue
 
 type AccordionContextOwnValue = {
-	getItemState?: GetItemState
+	getItemState?: GetAccordionItemState
 }
 
-export type GetItemState = (
+export type GetAccordionItemState = (
 	value: string | undefined,
 	options: GetItemStateOptions
 ) => GetItemStateReturn

@@ -4,13 +4,8 @@ import type { AvatarGroupVariantsProps, AvatarVariantsProps } from "./variants"
 
 export type AvatarGroupContextValue =
 	Pick<AvatarGroupProps, "size" | "color" | "rounded" | "bordered" | "disabled" | "disableAnimation"> &
-	AvatarGroupContextOwnValue &
-	Pick<AvatarProps, "slotProps">
-
-type AvatarGroupContextOwnValue = {
-	inGroup?: boolean
-	inGridGroup?: boolean
-}
+	Pick<AvatarProps, "slotProps"> &
+	Pick<AvatarVariantsProps, "inGroup" | "inGridGroup">
 
 export type AvatarGroupProps = ComponentProps<
 	"div",
