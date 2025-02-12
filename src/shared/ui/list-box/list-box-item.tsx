@@ -3,7 +3,7 @@
 import type { ElementType, MouseEvent } from "react"
 import type { ListBoxItemProps } from "./types"
 
-import { useId, useMemo } from "react"
+import { useMemo, useId } from "react"
 
 import { isFunction } from "@/shared/helpers/is-function"
 
@@ -12,68 +12,48 @@ import { listBoxItemVariants } from "./variants"
 
 export const ListBoxItem = <As extends ElementType = "button">(props: ListBoxItemProps<As>) => {
 	const {
-		selectionMode,
 		hideSelectedIcon: hideSelectedIconContext,
 		selectedIcon: selectedIconContext,
+		selectionMode,
 		variant: variantContext,
 		color: colorContext,
-		disabled: disabledContext,
 		disableAnimation: disableAnimationContext,
-		disabledItem,
-		selectedItem,
-		onValueChange,
-		slotProps: slotPropsContext = {},
+		getItemState,
 	} = useListBoxContext()
 
 	const {
 		as = "button",
 		hideSelectedIcon = hideSelectedIconContext,
-		value: valueProp,
 		title,
 		description,
-		selectedIcon = selectedIconContext,
 		startContent,
 		endContent,
+		selectedIcon = selectedIconContext,
+		value,
 		onClick,
 		className,
 		variant = variantContext,
 		color = colorContext,
 		showDivider,
 		readOnly,
-		disabled: disabledProp = disabledContext,
+		disabled,
 		disableAnimation = disableAnimationContext,
 		children,
-		slotProps = {},
 		...restProps
 	} = props as ListBoxItemProps
 
-	const {
-		itemProps: itemPropsContext,
-		wrapperProps: wrapperPropsContext,
-		titleProps: titlePropsContext,
-		descriptionProps: descriptionPropsContext,
-		selectedIconProps: selectedIconPropsContext,
-	} = slotPropsContext
-
-	const {
-		itemProps,
-		wrapperProps,
-		titleProps,
-		descriptionProps,
-		selectedIconProps,
-	} = slotProps
-
+	const valueId = useId()
 	const titleId = useId()
 	const descriptionId = useId()
 
-	const value = valueProp ?? titleId
-
-	const disabled = disabledProp || disabledItem?.(value)
-	const selected = selectedItem?.(value)
+	const itemState = getItemState?.(value, {
+		valueId,
+		disabled,
+	})
 
 	const handleClick = (ev: MouseEvent<HTMLButtonElement>) => {
 		onClick?.(ev)
-		onValueChange?.(value, !selected)
+		itemState?.toggleSelected()
 	}
 
 	const classNames = useMemo(() => {
@@ -101,59 +81,29 @@ export const ListBoxItem = <As extends ElementType = "button">(props: ListBoxIte
 			role="option"
 			aria-labelledby={titleId}
 			aria-describedby={descriptionId}
-			aria-selected={selected}
-			{...itemPropsContext}
-			{...itemProps}
-			className={classNames.base({
-				className: [
-					itemPropsContext?.className,
-					itemProps?.className,
-				],
-			})}
+			aria-selected={itemState?.selected}
+			className={classNames.base()}
 		>
 			<Component
 				tabIndex={disabled || readOnly ? -1 : undefined}
-				className={classNames.button({ className })}
+				className={classNames.item({ className })}
 				onClick={handleClick}
 				{...restProps}
 			>
 				{startContent}
 
 				{description ? (
-					<div
-						{...wrapperPropsContext}
-						{...wrapperProps}
-						className={classNames.wrapper({
-							className: [
-								wrapperPropsContext?.className,
-								wrapperProps?.className,
-							],
-						})}
-					>
+					<div className={classNames.wrapper()}>
 						<span
 							id={titleId}
-							{...titlePropsContext}
-							{...titleProps}
-							className={classNames.title({
-								className: [
-									titlePropsContext?.className,
-									titleProps?.className,
-								],
-							})}
+							className={classNames.title()}
 						>
 							{title ?? children}
 						</span>
 
 						<span
 							id={descriptionId}
-							{...descriptionPropsContext}
-							{...descriptionProps}
-							className={classNames.description({
-								className: [
-									descriptionPropsContext?.className,
-									descriptionProps?.className,
-								],
-							})}
+							className={classNames.description()}
 						>
 							{description}
 						</span>
@@ -161,31 +111,22 @@ export const ListBoxItem = <As extends ElementType = "button">(props: ListBoxIte
 				) : (
 					<span
 						id={titleId}
-						{...titlePropsContext}
-						{...titleProps}
-						className={classNames.title({
-							className: [
-								titlePropsContext?.className,
-								titleProps?.className,
-							],
-						})}
+						className={classNames.title()}
 					>
 						{title ?? children}
 					</span>
 				)}
 
 				{selectionMode !== "none" && !hideSelectedIcon ? (
-					<span
-						{...selectedIconPropsContext}
-						{...selectedIconProps}
-						className={classNames.selectedIcon({
-							className: [
-								selectedIconPropsContext?.className,
-								selectedIconProps?.className,
-							],
-						})}
-					>
-						{!selectedIcon ? (
+					<span className={classNames.selectedIcon()}>
+						{selectedIcon ? (
+							<>
+								{isFunction(selectedIcon)
+									? selectedIcon(itemState?.selected)
+									: selectedIcon
+								}
+							</>
+						) : (
 							<svg
 								aria-hidden="true"
 								role="presentation"
@@ -196,7 +137,7 @@ export const ListBoxItem = <As extends ElementType = "button">(props: ListBoxIte
 									points="1 9 7 14 15 4"
 									stroke="currentColor"
 									strokeDasharray="22"
-									strokeDashoffset={selected ? 44 : 66}
+									strokeDashoffset={itemState?.selected ? 44 : 66}
 									strokeLinecap="round"
 									strokeLinejoin="round"
 									strokeWidth="2"
@@ -208,13 +149,6 @@ export const ListBoxItem = <As extends ElementType = "button">(props: ListBoxIte
 									}}
 								/>
 							</svg>
-						) : (
-							<>
-								{isFunction(selectedIcon)
-									? selectedIcon(!!selected)
-									: selectedIcon
-								}
-							</>
 						)}
 					</span>
 				) : null}

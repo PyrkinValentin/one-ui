@@ -1,49 +1,45 @@
 import type { ElementType, ReactNode } from "react"
 import type { ComponentProps, ComponentPropsWithAs } from "@/shared/types/props"
-import type { ListBoxItemVariantsProps, ListBoxSectionVariantsProps, ListBoxVariantsProps } from "./variants"
+import type { ListBoxVariantsProps, ListBoxSectionVariantsProps, ListBoxItemVariantsProps } from "./variants"
 
 export type ListBoxContextValue =
-	Pick<
-		ListBoxProps,
-		| "hideSelectedIcon"
-		| "selectionMode"
-		| "selectedIcon"
-		| "variant"
-		| "color"
-		| "disabled"
-		| "disableAnimation"
-	> &
-	Pick<ListBoxProps, "slotProps"> &
+	Pick<ListBoxProps, "hideSelectedIcon" | "selectedIcon" | "selectionMode" | "variant" | "color" | "disableAnimation"> &
 	ListBoxContextOwnValue
 
 type ListBoxContextOwnValue = {
-	disabledItem?: (value: string) => boolean
-	selectedItem?: (value: string) => boolean | undefined
-	onValueChange?: (value: string, selected: boolean) => void
+	getItemState?: GetListBoxItemState
+}
+
+export type GetListBoxItemState = (
+	value: string | undefined,
+	options: GetItemStateOptions
+) => GetItemStateReturn | void
+
+type GetItemStateReturn = {
+	disabled?: boolean
+	selected: boolean
+	toggleSelected: () => void
+}
+
+type GetItemStateOptions = {
+	disabled?: boolean
+	valueId: string
 }
 
 export type ListBoxProps = ComponentProps<
 	"ul",
 	ListBoxVariantsProps &
-	Pick<
-		ListBoxItemProps,
-		| "selectedIcon"
-		| "variant"
-		| "color"
-		| "disabled"
-		| "disableAnimation"
-	> &
-	ListBoxOwnProps
+	ListBoxOwnProps &
+	ListBoxStateProps &
+	Pick<ListBoxItemProps, "hideSelectedIcon" | "selectedIcon" | "variant" | "color" | "disableAnimation">
 >
 
 type ListBoxOwnProps = {
 	disallowEmptySelection?: boolean
-	hideEmptyContent?: boolean
-	hideSelectedIcon?: boolean
 	disabledValue?: string[]
-	emptyContent?: ReactNode
-	slotProps?: ListBoxSlotProps
-} & ({
+}
+
+type ListBoxStateProps = {
 	selectionMode?: "none"
 	defaultValue?: undefined
 	value?: undefined
@@ -58,15 +54,6 @@ type ListBoxOwnProps = {
 	defaultValue?: string[]
 	value?: string[]
 	onValueChange?: (value: string[]) => void
-})
-
-type ListBoxSlotProps =
-	ListBoxSectionSlotProps &
-	ListBoxItemSlotProps &
-	ListBoxOwnSlotProps
-
-type ListBoxOwnSlotProps = {
-	emptyContentProps?: ComponentProps<"li">
 }
 
 export type ListBoxSectionProps = ComponentProps<
@@ -85,9 +72,7 @@ type ListBoxSectionSlotProps = {
 	groupProps?: ComponentProps<"ul">
 }
 
-export type ListBoxItemProps<
-	As extends ElementType = "button"
-> = ComponentPropsWithAs<
+export type ListBoxItemProps<As extends ElementType = "button"> = ComponentPropsWithAs<
 	As,
 	ListBoxItemVariantsProps &
 	ListBoxItemOwnProps
@@ -98,16 +83,7 @@ type ListBoxItemOwnProps = {
 	value?: string
 	title?: ReactNode
 	description?: ReactNode
-	selectedIcon?: ReactNode | ((selected: boolean) => ReactNode)
 	startContent?: ReactNode
 	endContent?: ReactNode
-	slotProps?: ListBoxItemSlotProps
-}
-
-type ListBoxItemSlotProps = {
-	itemProps?: ComponentProps<"li">
-	wrapperProps?: ComponentProps
-	titleProps?: ComponentProps<"span">
-	descriptionProps?: ComponentProps<"span">
-	selectedIconProps?: ComponentProps<"span">
+	selectedIcon?: ReactNode | ((selected?: boolean) => ReactNode)
 }
