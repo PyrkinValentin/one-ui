@@ -1,31 +1,35 @@
-import type { BreadcrumbProps, BreadcrumbsProps } from "./types"
+"use client"
 
-import { useMemo } from "react"
+import type { ReactElement } from "react"
+import type { BreadcrumbsProps, BreadcrumbItemProps, BreadcrumbsContextValue } from "./types"
 
-import { Children, isValidElement } from "react"
-import { isArray } from "@/shared/helpers/is-array"
+import { use, useMemo } from "react"
 
-import { MdChevronRight, MdMoreHoriz } from "react-icons/md"
+import { Children, cloneElement, createContext, isValidElement } from "react"
+
+import { MdMoreHoriz } from "react-icons/md"
 
 import { breadcrumbsVariants } from "./variants"
-import { Breadcrumb } from "./breadcrumb"
+
+const BreadcrumbsContext = createContext<BreadcrumbsContextValue>({})
+export const useBreadcrumbsContext = () => use(BreadcrumbsContext)
 
 export const Breadcrumbs = (props: BreadcrumbsProps) => {
 	const {
-		showSeparator = true,
+		hideSeparator,
 		maxItems = 8,
 		beforeCollapse = 1,
 		afterCollapse = 2,
 		separator,
-		renderEllipsis,
-		className,
-		variant,
-		size,
 		color,
-		rounded,
 		underline,
 		disabled,
 		disableAnimation,
+		onAction,
+		className,
+		variant,
+		size,
+		rounded,
 		children,
 		slotProps = {},
 		...restProps
@@ -33,20 +37,20 @@ export const Breadcrumbs = (props: BreadcrumbsProps) => {
 
 	const {
 		listProps,
-		itemProps,
 		ellipsisProps,
-		separatorProps,
+		breadcrumbItemSlotProps,
 	} = slotProps
 
-	const collection = Children.map(children, (child) => {
-		return isValidElement<BreadcrumbProps>(child)
-			? child.props
-			: null
-	})
+	const items = Children
+		.toArray(children)
+		.filter<ReactElement<BreadcrumbItemProps>>(isValidElement)
+		.map((item, i, items) => {
+			return cloneElement(item, {
+				last: (items.length - 1) === i,
+			})
+		})
 
-	const getBreadcrumbs = () => {
-		const items = collection ?? []
-
+	const renderBreadcrumbs = () => {
 		if (items.length < maxItems) {
 			return items
 		}
@@ -57,88 +61,59 @@ export const Breadcrumbs = (props: BreadcrumbsProps) => {
 			return items
 		}
 
+		const ellipsisIcon = (
+			<MdMoreHoriz {...ellipsisProps}/>
+		)
+
+		const collapsedItem = cloneElement(itemsInEllipsis[0], {
+			key: "ellipsis",
+			children: ellipsisIcon,
+		})
+
 		return [
 			...items.slice(0, beforeCollapse),
-			itemsInEllipsis,
+			collapsedItem,
 			...items.slice(items.length - afterCollapse, items.length),
 		]
-	}
-
-	const breadcrumbs = getBreadcrumbs()
-
-	const lastBreadcrumb = (i: number) => {
-		return (breadcrumbs.length - 1) === i
 	}
 
 	const classNames = useMemo(() => {
 		return breadcrumbsVariants({
 			variant,
 			size,
-			color,
 			rounded,
-			underline,
-			disabled,
-			disableAnimation,
 		})
 	}, [
 		variant,
 		size,
-		color,
 		rounded,
+	])
+
+	const contextValue: BreadcrumbsContextValue = {
+		hideSeparator,
+		separator,
+		size,
+		color,
 		underline,
 		disabled,
 		disableAnimation,
-	])
-
-	const ellipsisIcon = (
-		<MdMoreHoriz
-			{...ellipsisProps}
-			className={classNames.ellipsis({ className: ellipsisProps?.className })}
-		/>
-	)
+		onAction,
+		slotProps: breadcrumbItemSlotProps,
+	}
 
 	return (
-		<nav
-			className={classNames.base({ className })}
-			{...restProps}
-		>
-			<ol
-				{...listProps}
-				className={classNames.list({ className: listProps?.className })}
+		<BreadcrumbsContext value={contextValue}>
+			<nav
+				className={classNames.base({ className })}
+				{...restProps}
 			>
-				{breadcrumbs.map((breadcrumb, i) => (
-					<li
-						key={i}
-						{...itemProps}
-						className={classNames.item({ className: itemProps?.className })}
-					>
-						{isArray(breadcrumb) ? (
-							<>
-								{renderEllipsis
-									? renderEllipsis({ items: breadcrumb, icon: ellipsisIcon })
-									: ellipsisIcon
-								}
-							</>
-						) : (
-							<Breadcrumb
-								aria-current={lastBreadcrumb(i) ? "page" : undefined}
-								tabIndex={disabled || lastBreadcrumb(i) ? -1 : undefined}
-								{...breadcrumb}
-								className={classNames.link({ className: breadcrumb.className })}
-							/>
-						)}
-
-						{showSeparator && !lastBreadcrumb(i) ? (
-							<span
-								{...separatorProps}
-								className={classNames.separator({ className: separatorProps?.className })}
-							>
-								{separator ?? <MdChevronRight/>}
-							</span>
-						) : null}
-					</li>
-				))}
-			</ol>
-		</nav>
+				<ol
+					{...listProps}
+					className={classNames.list({ className: listProps?.className })}
+				>
+					{renderBreadcrumbs()}
+				</ol>
+			</nav>
+		</BreadcrumbsContext>
 	)
 }
