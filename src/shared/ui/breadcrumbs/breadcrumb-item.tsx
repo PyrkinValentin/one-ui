@@ -3,7 +3,7 @@
 import type { ElementType, MouseEvent } from "react"
 import type { BreadcrumbItemProps } from "./types"
 
-import { useMemo, useId } from "react"
+import { useMemo } from "react"
 
 import { MdChevronRight } from "react-icons/md"
 
@@ -52,11 +52,12 @@ export const BreadcrumbItem = <As extends ElementType = "button">(props: Breadcr
 		...slotProps,
 	}
 
-	const valueId = useId()
-
 	const handleClick = (ev: MouseEvent<HTMLButtonElement>) => {
 		onClick?.(ev)
-		onAction?.(value ?? valueId)
+
+		if (value) {
+			onAction?.(value)
+		}
 	}
 
 	const classNames = useMemo(() => {
