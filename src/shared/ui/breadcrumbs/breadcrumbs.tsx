@@ -8,8 +8,10 @@ import { use, useMemo } from "react"
 import { Children, cloneElement, createContext, isValidElement } from "react"
 
 import { MdMoreHoriz } from "react-icons/md"
+import { Slot } from "@/shared/ui/system"
 
 import { breadcrumbsVariants } from "./variants"
+import { BreadcrumbItem } from "./breadcrumb-item"
 
 const BreadcrumbsContext = createContext<BreadcrumbsContextValue>({})
 export const useBreadcrumbsContext = () => use(BreadcrumbsContext)
@@ -44,13 +46,8 @@ export const Breadcrumbs = (props: BreadcrumbsProps) => {
 	const items = Children
 		.toArray(children)
 		.filter<ReactElement<BreadcrumbItemProps>>(isValidElement)
-		.map((item, i, items) => {
-			return cloneElement(item, {
-				last: (items.length - 1) === i,
-			})
-		})
 
-	const renderBreadcrumbs = () => {
+	const getBreadcrumbs = () => {
 		if (items.length < maxItems) {
 			return items
 		}
@@ -76,6 +73,8 @@ export const Breadcrumbs = (props: BreadcrumbsProps) => {
 			...items.slice(items.length - afterCollapse, items.length),
 		]
 	}
+
+	const breadcrumbs = getBreadcrumbs()
 
 	const classNames = useMemo(() => {
 		return breadcrumbsVariants({
@@ -111,7 +110,15 @@ export const Breadcrumbs = (props: BreadcrumbsProps) => {
 					{...listProps}
 					className={classNames.list({ className: listProps?.className })}
 				>
-					{renderBreadcrumbs()}
+					{breadcrumbs.map((item, i) => (
+						<Slot
+							key={item.key}
+							as={BreadcrumbItem}
+							last={(breadcrumbs.length - 1) === i}
+						>
+							{item}
+						</Slot>
+					))}
 				</ol>
 			</nav>
 		</BreadcrumbsContext>
