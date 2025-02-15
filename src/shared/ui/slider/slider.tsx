@@ -77,39 +77,39 @@ export const Slider = (props: SliderProps) => {
 		onChangeComplete: () => handleChangeComplete(),
 	})
 
-	const [controlledValue, setControlledValue] = useControlledState({
+	const [state, setState] = useControlledState({
 		defaultValue: numberClump(defaultValue, minValue, maxValue),
 		value: value ? numberClump(value, minValue, maxValue) : value,
 		onValueChange,
 	})
 
-	const range = controlledValue.length > 1
+	const range = state.length > 1
 
 	const handleChangeRange = (trigger: number, value: number) => {
 		const findIndex = () => {
-			const closestValue = numberFindClosest(controlledValue, value)
+			const closestValue = numberFindClosest(state, value)
 
-			return controlledValue.findIndex((v) => v === closestValue)
+			return state.findIndex((v) => v === closestValue)
 		}
 
 		const indexValue = trigger === -1
 			? findIndex()
 			: trigger
 
-		setControlledValue?.(
-			controlledValue.with(
+		setState?.(
+			state.with(
 				indexValue,
 				numberClump(
 					value,
-					controlledValue[indexValue - 1] ?? minValue,
-					controlledValue[indexValue + 1] ?? maxValue,
+					state[indexValue - 1] ?? minValue,
+					state[indexValue + 1] ?? maxValue,
 				)
 			)
 		)
 	}
 
 	const handleChangeComplete = () => {
-		onValueChangeComplete?.(controlledValue)
+		onValueChangeComplete?.(state)
 	}
 
 	const handleChange =
@@ -129,7 +129,7 @@ export const Slider = (props: SliderProps) => {
 	}
 
 	const getThumbPercent = (index: number) => {
-		return getValuePercent(controlledValue[index])
+		return getValuePercent(state[index])
 	}
 
 	const offsetThumbValue = [
@@ -138,15 +138,15 @@ export const Slider = (props: SliderProps) => {
 			: !isUndefined(fillOffset)
 				? getValuePercent(fillOffset)
 				: 0,
-		getThumbPercent(controlledValue.length - 1),
+		getThumbPercent(state.length - 1),
 	]
 
 	const [startOffset, endOffset] = offsetThumbValue.toSorted()
 
 	const getTextValue = () => {
 		return range
-			? formatArrayNumber(formatOptions).formatRange(controlledValue)
-			: formatArrayNumber(formatOptions).format(controlledValue)
+			? formatArrayNumber(formatOptions).formatRange(state)
+			: formatArrayNumber(formatOptions).format(state)
 	}
 
 	const steps = showSteps
@@ -234,11 +234,11 @@ export const Slider = (props: SliderProps) => {
 						<output
 							aria-live="off"
 							{...valueProps}
-							htmlFor={controlledValue.map((_, index) => `${labelId}-${index}`).join(" ")}
+							htmlFor={state.map((_, index) => `${labelId}-${index}`).join(" ")}
 							className={classNames.value({ className: valueProps?.className })}
 						>
 							{renderValue
-								? renderValue({ value: controlledValue, textValue: getTextValue() })
+								? renderValue({ value: state, textValue: getTextValue() })
 								: getTextValue().join(" ")
 							}
 						</output>
@@ -285,7 +285,7 @@ export const Slider = (props: SliderProps) => {
 						})
 					) : null}
 
-					{controlledValue.map((value, index) => (
+					{state.map((value, index) => (
 						<Fragment key={index}>
 							{showTooltip ? (
 								<Tooltip

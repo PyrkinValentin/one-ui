@@ -82,11 +82,11 @@ export const BreadcrumbItem = <As extends ElementType = "button">(props: Breadcr
 
 	return (
 		<li
+			aria-current={current ? "page" : undefined}
 			{...baseProps}
 			className={classNames.base({ className: baseProps?.className })}
 		>
 			<Component
-				aria-current={current ? "page" : undefined}
 				tabIndex={disabled || current ? -1 : undefined}
 				className={classNames.item({ className })}
 				onClick={handleClick}
