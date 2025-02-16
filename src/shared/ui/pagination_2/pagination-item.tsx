@@ -31,10 +31,14 @@ export const PaginationItem = <As extends ElementType = "button">(props: Paginat
 		color,
 		rounded,
 		compact,
+		disabled,
+		disableAnimation,
 		...restProps
 	} = props as PaginationItemProps
 
-	const itemState = getItemState?.(itemValue)
+	const itemState = getItemState?.(itemValue, {
+		disabled,
+	})
 
 	const handleClick = (ev: MouseEvent<HTMLButtonElement>) => {
 		onClick?.(ev)
@@ -48,6 +52,8 @@ export const PaginationItem = <As extends ElementType = "button">(props: Paginat
 			color,
 			rounded,
 			compact,
+			disabled,
+			disableAnimation,
 		})
 	}, [
 		variant,
@@ -55,6 +61,8 @@ export const PaginationItem = <As extends ElementType = "button">(props: Paginat
 		color,
 		rounded,
 		compact,
+		disabled,
+		disableAnimation,
 	])
 
 	const Component = as

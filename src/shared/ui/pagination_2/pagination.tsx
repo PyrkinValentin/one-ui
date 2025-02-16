@@ -86,10 +86,10 @@ export const Pagination = (props: PaginationProps) => {
 		}
 	}
 
-	const getItemState: GetPaginationItemState = (itemValue) => {
+	const getItemState: GetPaginationItemState = (itemValue, options) => {
 		if (!itemValue) return
 
-		const disabled = disabledPage(itemValue)
+		const disabled = options?.disabled || disabledPage(itemValue)
 		const page = getPage(itemValue)
 		const current = isNumber(itemValue) && state === page
 

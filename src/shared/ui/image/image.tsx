@@ -3,10 +3,10 @@
 import type { ImageProps } from "./types"
 
 import { useMemo, useRef } from "react"
+import { useImageLoader } from "@/shared/hooks/use-image-loader"
 
 import { mergeRefs } from "@/shared/utils/merge"
 
-import { useImageLoader } from "./use-image-loader"
 import { imageVariants } from "./variants"
 
 export const Image = (props: ImageProps) => {
@@ -33,7 +33,10 @@ export const Image = (props: ImageProps) => {
 
 	const imageRef = useRef<HTMLImageElement>(null)
 
-	const loaded = useImageLoader({ ref: imageRef, loading })
+	const loaded = useImageLoader({
+		loading,
+		ref: imageRef,
+	})
 
 	const classNames = useMemo(() => {
 		return imageVariants({
