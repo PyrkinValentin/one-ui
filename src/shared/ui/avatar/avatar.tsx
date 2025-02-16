@@ -1,9 +1,9 @@
 "use client"
 
-import type { SyntheticEvent } from "react"
 import type { AvatarProps } from "./types"
 
-import { useEffect, useMemo, useRef, useState } from "react"
+import { useMemo, useRef } from "react"
+import { useImageLoader } from "@/shared/hooks/use-image-loader"
 
 import { mergeRefs } from "@/shared/utils/merge"
 import { getInitials } from "@/shared/utils/word"
@@ -57,29 +57,10 @@ export const Avatar = (props: AvatarProps) => {
 
 	const imageRef = useRef<HTMLImageElement>(null)
 
-	const [loaded, setLoaded] = useState(false)
-
-	useEffect(() => {
-		const element = imageRef.current
-
-		if (!element) return
-
-		if (element.complete && element.naturalWidth) {
-			queueMicrotask(() => {
-				setLoaded(true)
-			})
-		}
-	}, [])
-
-	const handleLoad = (ev: SyntheticEvent<HTMLImageElement>) => {
-		imgProps?.onLoad?.(ev)
-		setLoaded(true)
-	}
-
-	const handleError = (ev: SyntheticEvent<HTMLImageElement>) => {
-		imgProps?.onError?.(ev)
-		setLoaded(false)
-	}
+	const loaded = useImageLoader({
+		loading: "lazy",
+		ref: imageRef,
+	})
 
 	const classNames = useMemo(() => {
 		return avatarVariants({
@@ -114,15 +95,13 @@ export const Avatar = (props: AvatarProps) => {
 			{src ? (
 				// eslint-disable-next-line @next/next/no-img-element
 				<img
+					ref={mergeRefs(imgProps?.ref, imageRef)}
 					data-loaded={loaded}
 					loading="lazy"
 					src={src}
 					alt={alt}
 					{...imgProps}
-					ref={mergeRefs(imgProps?.ref, imageRef)}
 					className={classNames.img({ className: imgProps?.className })}
-					onLoad={handleLoad}
-					onError={handleError}
 				/>
 			) : null}
 

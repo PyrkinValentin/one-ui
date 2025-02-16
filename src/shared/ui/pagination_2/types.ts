@@ -13,7 +13,14 @@ export type PaginationContextValue = {
 	getItemState?: GetPaginationItemState
 }
 
-export type GetPaginationItemState = (itemValue?: PaginationItemValue) => GetItemStateReturn | undefined
+export type GetPaginationItemState = (
+	itemValue?: PaginationItemValue,
+	options?: GetItemStateOptions
+) => GetItemStateReturn | undefined
+
+type GetItemStateOptions = {
+	disabled?: boolean
+}
 
 type GetItemStateReturn = {
 	disabled?: boolean

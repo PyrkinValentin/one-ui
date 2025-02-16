@@ -32,19 +32,6 @@ export const paginationVariants = tv({
 				list: "gap-0 shadow-sm",
 			},
 		},
-		disabled: {
-			true: {
-				base: "opacity-disabled pointer-events-none",
-			},
-		},
-		disableAnimation: {
-			true: {
-				base: "transition-none",
-			},
-			false: {
-				base: "transition-opacity motion-reduce:transition-none",
-			},
-		},
 	},
 	defaultVariants: {
 		rounded: "md",
@@ -135,6 +122,19 @@ export const paginationItemVariants = tv({
 					"last-of-type:rounded-s-none",
 					"[&:not(:first-of-type):not(:last-of-type)]:rounded-none",
 				],
+			},
+		},
+		disabled: {
+			true: {
+				base: "opacity-disabled pointer-events-none",
+			},
+		},
+		disableAnimation: {
+			true: {
+				base: "transition-none",
+			},
+			false: {
+				base: "transition-opacity motion-reduce:transition-none",
 			},
 		},
 	},
