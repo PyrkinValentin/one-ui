@@ -91,14 +91,14 @@ export const ListBoxItem = <As extends ElementType = "button">(props: ListBoxIte
 
 	return (
 		<li
-			role="option"
-			aria-labelledby={titleId}
-			aria-describedby={descriptionId}
-			aria-selected={itemState?.selected}
 			{...baseProps}
 			className={classNames.base({ className: baseProps?.className })}
 		>
 			<Component
+				role="option"
+				aria-labelledby={titleId}
+				aria-describedby={descriptionId}
+				aria-selected={itemState?.selected}
 				tabIndex={disabled || readOnly ? -1 : undefined}
 				className={classNames.item({ className })}
 				onClick={handleClick}

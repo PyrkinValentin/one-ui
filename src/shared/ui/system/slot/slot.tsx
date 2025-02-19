@@ -7,8 +7,8 @@ import { mergeProps } from "@/shared/utils/merge"
 export const Slot = <As extends ElementType = "span">(props: SlotProps<As>) => {
 	const {
 		as = "span",
-		fallbackElement = true,
-		shouldMergeProps = true,
+		disallowMergeProps,
+		disallowFallbackElement,
 		children,
 		...restProps
 	} = props as SlotProps
@@ -18,8 +18,8 @@ export const Slot = <As extends ElementType = "span">(props: SlotProps<As>) => {
 	return (
 		<>
 			{isValidElement<SlotProps>(children)
-				? cloneElement(children, shouldMergeProps ? mergeProps(children.props, restProps) : restProps)
-				: fallbackElement
+				? cloneElement(children, !disallowMergeProps ? mergeProps(children.props, restProps) : restProps)
+				: !disallowFallbackElement
 					? <Component {...restProps}>{children}</Component>
 					: null
 			}

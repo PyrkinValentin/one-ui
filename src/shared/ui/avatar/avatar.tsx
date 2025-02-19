@@ -95,8 +95,8 @@ export const Avatar = (props: AvatarProps) => {
 			{src ? (
 				// eslint-disable-next-line @next/next/no-img-element
 				<img
-					ref={mergeRefs(imgProps?.ref, imageRef)}
 					data-loaded={loaded}
+					ref={mergeRefs(imgProps?.ref, imageRef)}
 					loading="lazy"
 					src={src}
 					alt={alt}

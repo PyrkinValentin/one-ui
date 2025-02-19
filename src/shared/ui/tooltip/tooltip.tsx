@@ -77,12 +77,16 @@ export const Tooltip = (props: TooltipProps) => {
 	})
 
 	const role = useRole(context, {
+		enabled: !!content,
 		role: "tooltip",
 	})
 
-	const focus = useFocus(context)
+	const focus = useFocus(context, {
+		enabled: !!content,
+	})
 
 	const hover = useHover(context, {
+		enabled: !!content,
 		handleClose: safePolygon(),
 		delay: {
 			open: delay,
