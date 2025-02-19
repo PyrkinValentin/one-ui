@@ -112,7 +112,7 @@ export const Pagination = (props: PaginationProps) => {
 		const page = getPage(itemValue)
 
 		const item = renderItem
-			? renderItem(getPage(itemValue))
+			? renderItem(page)
 			: null
 
 		const renderItemProps = isValidElement<PaginationItemProps>(item)
