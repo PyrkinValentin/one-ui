@@ -1,25 +1,29 @@
 "use client"
 
-import type { PaginationContextValue, PaginationProps, PaginationRangeValue } from "./types"
+import type { PaginationItemProps, PaginationItemValue, PaginationProps } from "./types"
 
-import { use, useMemo } from "react"
+import { useMemo } from "react"
 import { useControlledState } from "@/shared/hooks/use-controlled-state"
 
-import { createContext } from "react"
-import { isNumber } from "@/shared/helpers/is-number"
+import { isValidElement } from "react"
 
 import { usePaginationRange } from "./use-pagination-range"
 import { paginationVariants } from "./variants"
 import { PaginationItem } from "./pagination-item"
 
-const PaginationContext = createContext<PaginationContextValue>({})
-export const usePaginationContext = () => use(PaginationContext)
+import {
+	MdChevronLeft,
+	MdChevronRight,
+	MdKeyboardDoubleArrowLeft,
+	MdKeyboardDoubleArrowRight,
+	MdMoreHoriz
+} from "react-icons/md"
 
 export const Pagination = (props: PaginationProps) => {
 	const {
 		loop,
 		showControls = false,
-		totalPages = 10,
+		total = 10,
 		dotsJump = 5,
 		siblings = 1,
 		boundaries = 1,
@@ -32,9 +36,8 @@ export const Pagination = (props: PaginationProps) => {
 		size,
 		color,
 		rounded,
-		compact,
 		showShadow,
-		disabled: disabledProp,
+		disabled,
 		disableAnimation,
 		slotProps = {},
 		...restProps
@@ -43,79 +46,56 @@ export const Pagination = (props: PaginationProps) => {
 	const {
 		listProps,
 		itemProps,
-		...restSlotProps
+		controlProps,
+		dotsProps,
+		pageProps,
 	} = slotProps
 
-	const [controlledPage, setControlledPage] = useControlledState({
+	const [state, setState] = useControlledState({
 		defaultValue: defaultPage,
 		value: page,
 		onValueChange: onPageChange,
 	})
 
-	const paginationRange = usePaginationRange({
-		totalPages,
+	const range = usePaginationRange({
+		total,
 		siblings,
 		boundaries,
 		showControls,
-		page: controlledPage,
+		page: state,
 	})
 
-	const handlePageChange = (rangeValue: PaginationRangeValue) => {
-		setControlledPage?.(getPage(rangeValue))
-	}
-
-	const getPage = (rangeValue: PaginationRangeValue) => {
-		switch (rangeValue) {
+	const getPage = (itemValue: PaginationItemValue) => {
+		switch (itemValue) {
 			case "prev":
-				return controlledPage <= 1
-					? loop ? totalPages : 1
-					: controlledPage - 1
+				return state <= 1
+					? loop ? total : 1
+					: state - 1
 			case "next":
-				return controlledPage >= totalPages
-					? loop ? 1 : totalPages
-					: controlledPage + 1
+				return state >= total
+					? loop ? 1 : total
+					: state + 1
 			case "prevDots":
-				return controlledPage - dotsJump >= 1
-					? controlledPage - dotsJump
+				return state - dotsJump >= 1
+					? state - dotsJump
 					: 1
 			case "nextDots":
-				return controlledPage + dotsJump <= totalPages
-					? controlledPage + dotsJump
-					: totalPages
+				return state + dotsJump <= total
+					? state + dotsJump
+					: total
 			default:
-				return rangeValue
+				return itemValue
 		}
 	}
 
-	const disabledItem = (rangeValue: PaginationRangeValue) => {
-		switch (rangeValue) {
-			case "prev":
-				return disabledProp || !loop && controlledPage === 1
-			case "next":
-				return disabledProp || !loop && controlledPage === totalPages
-			default:
-				return !!disabledProp
-		}
-	}
-
-	const currentItem = (rangeValue: PaginationRangeValue) => {
-		return isNumber(rangeValue) && controlledPage === getPage(rangeValue)
-	}
-
-	const {
-		base: classNameBase,
-		list: classNameList,
-		item: classNameItem,
-		...restClassNames
-	} = useMemo(() => {
+	const classNames = useMemo(() => {
 		return paginationVariants({
 			variant,
 			size,
 			color,
 			rounded,
-			compact,
 			showShadow,
-			disabled: disabledProp,
+			disabled,
 			disableAnimation,
 		})
 	}, [
@@ -123,45 +103,153 @@ export const Pagination = (props: PaginationProps) => {
 		size,
 		color,
 		rounded,
-		compact,
 		showShadow,
-		disabledProp,
+		disabled,
 		disableAnimation,
 	])
 
-	const contextValue: PaginationContextValue = {
-		classNames: restClassNames,
-		slotProps: restSlotProps,
-		disabledItem,
-		currentItem,
-		onPageChange: handlePageChange,
+	const getItemProps = (itemValue: PaginationItemValue): PaginationItemProps => {
+		const page = getPage(itemValue)
+
+		const item = renderItem
+			? renderItem(getPage(itemValue))
+			: null
+
+		const renderItemProps = isValidElement<PaginationItemProps>(item)
+			? item.props
+			: null
+
+		if (itemValue === "prev") {
+			const disabledControl = !loop && state === 1
+
+			return {
+				"aria-label": "prev page",
+				"aria-disabled": !loop && state === 1 || undefined,
+				tabIndex: disabled || disabledControl ? -1 : undefined,
+				...controlProps,
+				...renderItemProps,
+				className: classNames.prev({
+					className: [controlProps?.className, renderItemProps?.className],
+				}),
+				onClick: (ev) => {
+					controlProps?.onClick?.(ev)
+					renderItemProps?.onClick?.(ev)
+					setState?.(page)
+				},
+				children: (
+					<MdChevronLeft/>
+				),
+			}
+		}
+
+		if (itemValue === "next") {
+			const disabledControl = !loop && state === total
+
+			return {
+				"aria-label": "next page",
+				"aria-disabled": disabledControl || undefined,
+				tabIndex: disabled || disabledControl ? -1 : undefined,
+				...controlProps,
+				...renderItemProps,
+				className: classNames.next({
+					className: [controlProps?.className, renderItemProps?.className],
+				}),
+				onClick: (ev) => {
+					controlProps?.onClick?.(ev)
+					renderItemProps?.onClick?.(ev)
+					setState?.(page)
+				},
+				children: (
+					<MdChevronRight/>
+				),
+			}
+		}
+
+		if (itemValue === "prevDots") {
+			return {
+				"aria-label": "jump prev page",
+				tabIndex: disabled ? -1 : undefined,
+				...dotsProps,
+				...renderItemProps,
+				className: classNames.dots({
+					className: [dotsProps?.className, renderItemProps?.className],
+				}),
+				onClick: (ev) => {
+					dotsProps?.onClick?.(ev)
+					renderItemProps?.onClick?.(ev)
+					setState?.(page)
+				},
+				children: (
+					<>
+						<MdMoreHoriz className={classNames.ellipsis()}/>
+						<MdKeyboardDoubleArrowLeft className={classNames.forwardIcon()}/>
+					</>
+				),
+			}
+		}
+
+		if (itemValue === "nextDots") {
+			return {
+				"aria-label": "jump next page",
+				tabIndex: disabled ? -1 : undefined,
+				...dotsProps,
+				...renderItemProps,
+				className: classNames.dots({
+					className: [dotsProps?.className, renderItemProps?.className],
+				}),
+				onClick: (ev) => {
+					dotsProps?.onClick?.(ev)
+					renderItemProps?.onClick?.(ev)
+					setState?.(page)
+				},
+				children: (
+					<>
+						<MdMoreHoriz className={classNames.ellipsis()}/>
+						<MdKeyboardDoubleArrowRight className={classNames.forwardIcon()}/>
+					</>
+				),
+			}
+		}
+
+		const current = page === state
+
+		return {
+			"aria-label": `page ${page}`,
+			"aria-current": current ? "page" : undefined,
+			tabIndex: disabled || current ? -1 : undefined,
+			...pageProps,
+			...renderItemProps,
+			className: classNames.page({
+				className: [pageProps?.className, renderItemProps?.className],
+			}),
+			onClick: (ev) => {
+				pageProps?.onClick?.(ev)
+				renderItemProps?.onClick?.(ev)
+				setState?.(page)
+			},
+			children: page,
+		}
 	}
 
 	return (
-		<PaginationContext value={contextValue}>
-			<nav
-				aria-label="pages navigation"
-				className={classNameBase({ className })}
-				{...restProps}
+		<nav
+			className={classNames.base({ className })}
+			{...restProps}
+		>
+			<ul
+				{...listProps}
+				className={classNames.list({ className: listProps?.className })}
 			>
-				<ul
-					{...listProps}
-					className={classNameList({ className: listProps?.className })}
-				>
-					{paginationRange.map((rangeValue) => (
-						<li
-							key={rangeValue}
-							{...itemProps}
-							className={classNameItem({ className: itemProps?.className })}
-						>
-							{renderItem
-								? renderItem({ page: getPage(rangeValue), rangeValue })
-								: <PaginationItem rangeValue={rangeValue}/>
-							}
-						</li>
-					))}
-				</ul>
-			</nav>
-		</PaginationContext>
+				{range.map((itemValue) => (
+					<li
+						key={itemValue}
+						{...itemProps}
+						className={classNames.item({ className: itemProps?.className })}
+					>
+						<PaginationItem {...getItemProps(itemValue)}/>
+					</li>
+				))}
+			</ul>
+		</nav>
 	)
 }

@@ -1,10 +1,10 @@
-import type { PaginationRangeValue, PaginationProps } from "./types"
+import type { PaginationItemValue, PaginationProps } from "./types"
 
 import { useMemo } from "react"
 
-type UsePaginationOptions = Required<Pick<
+type UsePaginationRangeOptions = Required<Pick<
 	PaginationProps,
-	| "totalPages"
+	| "total"
 	| "siblings"
 	| "boundaries"
 	| "showControls"
@@ -12,23 +12,21 @@ type UsePaginationOptions = Required<Pick<
 >>
 
 const range = (start: number, end: number) => {
-	const length = end - start + 1
-
-	return Array.from({ length }, (_, index) => index + start)
+	return Array.from(
+		{ length: end - start + 1 },
+		(_, index) => index + start
+	)
 }
 
-const formatRange = (
-	range: PaginationRangeValue[],
-	showControls?: boolean
-): PaginationRangeValue[] => {
+const formatRange = (range: PaginationItemValue[], showControls?: boolean): PaginationItemValue[] => {
 	return showControls
 		? ["prev", ...range, "next"]
 		: range
 }
 
-export const usePaginationRange = (options: UsePaginationOptions) => {
+export const usePaginationRange = (options: UsePaginationRangeOptions) => {
 	const {
-		totalPages,
+		total,
 		siblings,
 		boundaries,
 		showControls,
@@ -38,15 +36,15 @@ export const usePaginationRange = (options: UsePaginationOptions) => {
 	return useMemo(() => {
 		const totalPageNumbers = siblings * 2 + 3 + boundaries * 2
 
-		if (totalPageNumbers >= totalPages) {
-			return formatRange(range(1, totalPages), showControls)
+		if (totalPageNumbers >= total) {
+			return formatRange(range(1, total), showControls)
 		}
 
 		const leftSiblingIndex = Math.max(page - siblings, boundaries)
-		const rightSiblingIndex = Math.min(page + siblings, totalPages - boundaries)
+		const rightSiblingIndex = Math.min(page + siblings, total - boundaries)
 
 		const shouldShowLeftDots = leftSiblingIndex > boundaries + 2
-		const shouldShowRightDots = rightSiblingIndex < totalPages - (boundaries + 1)
+		const shouldShowRightDots = rightSiblingIndex < total - (boundaries + 1)
 
 		if (shouldShowLeftDots && !shouldShowRightDots) {
 			const rightItemCount = boundaries + 1 + 2 * siblings
@@ -54,7 +52,7 @@ export const usePaginationRange = (options: UsePaginationOptions) => {
 			return formatRange([
 				...range(1, boundaries),
 				"prevDots",
-				...range(totalPages - rightItemCount, totalPages),
+				...range(total - rightItemCount, total),
 			], showControls)
 		}
 
@@ -64,7 +62,7 @@ export const usePaginationRange = (options: UsePaginationOptions) => {
 			return formatRange([
 				...range(1, leftItemCount),
 				"nextDots",
-				...range(totalPages - (boundaries - 1), totalPages),
+				...range(total - (boundaries - 1), total),
 			], showControls)
 		}
 
@@ -73,10 +71,10 @@ export const usePaginationRange = (options: UsePaginationOptions) => {
 			"prevDots",
 			...range(leftSiblingIndex, rightSiblingIndex),
 			"nextDots",
-			...range(totalPages - boundaries + 1, totalPages),
+			...range(total - boundaries + 1, total),
 		], showControls)
 	}, [
-		totalPages,
+		total,
 		siblings,
 		boundaries,
 		showControls,

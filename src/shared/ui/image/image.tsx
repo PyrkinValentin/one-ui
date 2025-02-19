@@ -61,8 +61,8 @@ export const Image = (props: ImageProps) => {
 		>
 			{/* eslint-disable-next-line @next/next/no-img-element */}
 			<img
-				ref={mergeRefs(ref, imageRef)}
 				data-loaded={loaded}
+				ref={mergeRefs(ref, imageRef)}
 				loading={loading}
 				src={src}
 				alt={alt}

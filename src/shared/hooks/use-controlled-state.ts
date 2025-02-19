@@ -45,9 +45,5 @@ export const useControlledState = <
 		setControlledState,
 	])
 
-	return [
-		state,
-		setState,
-		controlled,
-	] as const
+	return [state, setState, controlled] as const
 }

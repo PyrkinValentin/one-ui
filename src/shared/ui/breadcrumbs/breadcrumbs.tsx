@@ -8,7 +8,6 @@ import { use, useMemo } from "react"
 import { Children, cloneElement, createContext, isValidElement } from "react"
 
 import { MdMoreHoriz } from "react-icons/md"
-import { Slot } from "@/shared/ui/system"
 
 import { breadcrumbsVariants } from "./variants"
 import { BreadcrumbItem } from "./breadcrumb-item"
@@ -58,13 +57,9 @@ export const Breadcrumbs = (props: BreadcrumbsProps) => {
 			return items
 		}
 
-		const ellipsisIcon = (
-			<MdMoreHoriz {...ellipsisProps}/>
-		)
-
 		const collapsedItem = cloneElement(itemsInEllipsis[0], {
 			key: "ellipsis",
-			children: ellipsisIcon,
+			children: <MdMoreHoriz {...ellipsisProps}/>,
 		})
 
 		return [
@@ -110,14 +105,12 @@ export const Breadcrumbs = (props: BreadcrumbsProps) => {
 					{...listProps}
 					className={classNames.list({ className: listProps?.className })}
 				>
-					{breadcrumbs.map((item, i) => (
-						<Slot
-							key={item.key}
-							as={BreadcrumbItem}
+					{breadcrumbs.map((breadcrumb, i) => (
+						<BreadcrumbItem
+							key={breadcrumb.key}
 							last={(breadcrumbs.length - 1) === i}
-						>
-							{item}
-						</Slot>
+							{...breadcrumb.props}
+						/>
 					))}
 				</ol>
 			</nav>
