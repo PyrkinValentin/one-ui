@@ -104,12 +104,15 @@ export const popoverVariants = tv({
 		},
 		triggerScaleOnOpen: {
 			true: {
-				trigger: "aria-expanded:scale-[0.97] aria-expanded:opacity-disabled subpixel-antialiased",
+				trigger: "aria-[expanded=true]:scale-[0.97] aria-[expanded=true]:opacity-disabled subpixel-antialiased",
 			},
 		},
 		disableAnimation: {
 			true: {
-				base: "transition-none",
+				trigger: "transition-none",
+			},
+			false: {
+				trigger: "transition motion-reduce:transition-none",
 			},
 		},
 	},

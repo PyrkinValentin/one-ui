@@ -85,14 +85,18 @@ export const linearProgressVariants = tv({
 		},
 		disabled: {
 			true: {
-				base: "opacity-disabled",
+				base: "opacity-disabled pointer-events-none",
 			},
 		},
 		disableAnimation: {
 			true: {
+				base: "transition-none",
 				indicator: "transition-none",
 			},
-		}
+			false: {
+				base: "transition-opacity motion-reduce:transition-none"
+			},
+		},
 	},
 	defaultVariants: {
 		color: "primary",
@@ -101,7 +105,6 @@ export const linearProgressVariants = tv({
 		indeterminate: false,
 	},
 	compoundVariants: [
-		// !disableAnimation && !indeterminate
 		{
 			disableAnimation: false,
 			indeterminate: false,
@@ -109,7 +112,6 @@ export const linearProgressVariants = tv({
 				indicator: "transition-transform duration-300 motion-reduce:transition-none",
 			},
 		},
-		// Striped & color
 		{
 			striped: true,
 			color: "default",

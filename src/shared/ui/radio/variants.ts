@@ -2,11 +2,55 @@ import type { VariantProps } from "@/core/theme"
 
 import { tv } from "@/core/theme"
 
+export type RadioGroupVariantsProps = VariantProps<typeof radioGroupVariants>
+
+export const radioGroupVariants = tv({
+	slots: {
+		base: "relative flex flex-col gap-2",
+		label: "relative text-md text-default-500",
+		wrapper: "flex flex-wrap gap-2",
+		invalidMessage: "pt-2 text-xs text-danger",
+		description: "pt-2 text-xs text-default-400",
+	},
+	variants: {
+		orientation: {
+			horizontal: {
+				wrapper: "flex-row",
+			},
+			vertical: {
+				wrapper: "flex-col",
+			},
+		},
+		required: {
+			true: {
+				label: "after:content-['*'] after:text-danger after:ml-0.5",
+			},
+		},
+		invalid: {
+			true: {
+				description: "text-danger",
+			},
+		},
+		disableAnimation: {
+			true: {
+				description: "transition-none",
+			},
+			false: {
+				description: "transition-colors motion-reduce:transition-none",
+			},
+		},
+	},
+	defaultVariants: {
+		orientation: "vertical",
+	},
+})
+
 export type RadioVariantsProps = VariantProps<typeof radioVariants>
 
 export const radioVariants = tv({
 	slots: {
-		base: "group relative p-2 -m-2 max-w-fit inline-flex items-center justify-start cursor-pointer touch-none select-none",
+		base:
+			"group relative p-2 -m-2 max-w-fit inline-flex items-center justify-start cursor-pointer touch-none select-none",
 		wrapper: [
 			"box-border overflow-hidden relative inline-flex items-center justify-center shrink-0 outline-none",
 			"border-solid border-2 border-default rounded-full",
@@ -21,7 +65,7 @@ export const radioVariants = tv({
 		],
 		labelWrapper: "ms-2 flex flex-col",
 		label: "relative text-foreground cursor-pointer",
-		description: "relative text-foreground-400",
+		description: "relative text-default-400",
 	},
 	variants: {
 		size: {
@@ -89,8 +133,15 @@ export const radioVariants = tv({
 			},
 		},
 		disableAnimation: {
-			true: "",
+			true: {
+				base: "transition-none",
+				wrapper: "transition-none",
+				control: "transition-none",
+				label: "transition-none",
+				description: "transition-none",
+			},
 			false: {
+				base: "transition-opacity motion-reduce:transition-none",
 				wrapper: [
 					"has-[input:active]:scale-[0.97] transition-[transform,background-color,border-color]",
 					"motion-reduce:transition-none",
@@ -104,46 +155,5 @@ export const radioVariants = tv({
 	defaultVariants: {
 		size: "md",
 		color: "primary",
-	},
-})
-
-export type RadioGroupVariantsProps = VariantProps<typeof radioGroupVariants>
-
-export const radioGroupVariants = tv({
-	slots: {
-		base: "relative flex flex-col gap-2",
-		label: "relative text-md text-default-500",
-		wrapper: "flex flex-wrap gap-2",
-		invalidMessage: "pt-2 text-xs text-danger",
-		description: "pt-2 text-xs text-default-400",
-	},
-	variants: {
-		orientation: {
-			horizontal: {
-				wrapper: "flex-row",
-			},
-			vertical: {
-				wrapper: "flex-col",
-			},
-		},
-		required: {
-			true: {
-				label: "after:content-['*'] after:text-danger after:ml-0.5",
-			},
-		},
-		invalid: {
-			true: {
-				description: "text-danger",
-			},
-		},
-		disableAnimation: {
-			true: "",
-			false: {
-				description: "transition-colors motion-reduce:transition-none",
-			},
-		},
-	},
-	defaultVariants: {
-		orientation: "vertical",
 	},
 })

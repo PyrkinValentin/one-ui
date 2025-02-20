@@ -18,9 +18,13 @@ export const ListBoxItem = <As extends ElementType = "button">(props: ListBoxIte
 		variant: variantContext,
 		color: colorContext,
 		disableAnimation: disableAnimationContext,
-		getItemState,
 		slotProps: slotPropsContext,
+		isDisabled,
+		isSelected,
+		onSelected,
 	} = useListBoxContext()
+
+	const valueId = useId()
 
 	const {
 		as = "button",
@@ -37,7 +41,7 @@ export const ListBoxItem = <As extends ElementType = "button">(props: ListBoxIte
 		color = colorContext,
 		showDivider,
 		readOnly,
-		disabled,
+		disabled = isDisabled?.(value ?? valueId),
 		disableAnimation = disableAnimationContext,
 		children,
 		slotProps = {},
@@ -55,18 +59,14 @@ export const ListBoxItem = <As extends ElementType = "button">(props: ListBoxIte
 		...slotProps,
 	}
 
-	const valueId = useId()
 	const titleId = useId()
 	const descriptionId = useId()
 
-	const itemState = getItemState?.(value, {
-		valueId,
-		disabled,
-	})
+	const selected = !!isSelected?.(value ?? valueId)
 
 	const handleClick = (ev: MouseEvent<HTMLButtonElement>) => {
 		onClick?.(ev)
-		itemState?.toggleSelected()
+		onSelected?.(value ?? valueId, selected)
 	}
 
 	const classNames = useMemo(() => {
@@ -98,7 +98,7 @@ export const ListBoxItem = <As extends ElementType = "button">(props: ListBoxIte
 				role="option"
 				aria-labelledby={titleId}
 				aria-describedby={descriptionId}
-				aria-selected={itemState?.selected}
+				aria-selected={selected}
 				tabIndex={disabled || readOnly ? -1 : undefined}
 				className={classNames.item({ className })}
 				onClick={handleClick}
@@ -145,7 +145,7 @@ export const ListBoxItem = <As extends ElementType = "button">(props: ListBoxIte
 						{selectedIcon ? (
 							<>
 								{isFunction(selectedIcon)
-									? selectedIcon(itemState?.selected)
+									? selectedIcon(selected)
 									: selectedIcon
 								}
 							</>
@@ -160,7 +160,7 @@ export const ListBoxItem = <As extends ElementType = "button">(props: ListBoxIte
 									points="1 9 7 14 15 4"
 									stroke="currentColor"
 									strokeDasharray="22"
-									strokeDashoffset={itemState?.selected ? 44 : 66}
+									strokeDashoffset={selected ? 44 : 66}
 									strokeLinecap="round"
 									strokeLinejoin="round"
 									strokeWidth="2"

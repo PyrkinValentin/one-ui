@@ -3,20 +3,8 @@ import type { ComponentProps } from "@/shared/types/props"
 import type { TextareaVariantsProps } from "./variants"
 
 export type TextareaProps = ComponentProps<
-	"div",
+	"textarea",
 	TextareaVariantsProps &
-	Pick<ComponentProps<"textarea">,
-		| "inputMode"
-		| "name"
-		| "placeholder"
-		| "autoFocus"
-		| "autoComplete"
-		| "cols"
-		| "rows"
-		| "minLength"
-		| "maxLength"
-		| "onChange"
-	> &
 	TextareaOwnProps
 >
 
@@ -34,10 +22,10 @@ type TextareaOwnProps = {
 }
 
 type TextareaSlotProps = {
+	baseProps?: ComponentProps
 	wrapperProps?: ComponentProps
 	labelProps?: ComponentProps<"label">
 	textareaWrapperProps?: ComponentProps<"label">
-	textareaProps?: ComponentProps<"textarea">
 	clearButtonProps?: ComponentProps<"button">
 	invalidMessageProps?: ComponentProps<"p">
 	descriptionProps?: ComponentProps<"p">

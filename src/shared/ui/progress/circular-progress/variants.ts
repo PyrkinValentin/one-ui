@@ -59,12 +59,16 @@ export const circularProgressVariants = tv({
 		},
 		disabled: {
 			true: {
-				base: "opacity-disabled",
+				base: "opacity-disabled pointer-events-none",
 			},
 		},
 		disableAnimation: {
 			true: {
+				base: "transition-none",
 				indicator: "transition-none",
+			},
+			false: {
+				base: "transition-opacity motion-reduce:transition-none"
 			},
 		},
 	},
@@ -73,7 +77,6 @@ export const circularProgressVariants = tv({
 		size: "md",
 	},
 	compoundVariants: [
-		// !disableAnimation && !indeterminate
 		{
 			disableAnimation: false,
 			indeterminate: false,

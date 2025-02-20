@@ -1,6 +1,5 @@
 "use client"
 
-import type { ChangeEvent } from "react"
 import type { RadioGroupContextValue, RadioGroupProps } from "./types"
 
 import { use, useId, useMemo } from "react"
@@ -25,9 +24,8 @@ export const RadioGroup = (props: RadioGroupProps) => {
 		disabled,
 		disabledValue,
 		defaultValue = "",
-		value,
+		value: valueProp,
 		onValueChange,
-		onChange,
 		className,
 		orientation = "vertical",
 		required,
@@ -43,29 +41,29 @@ export const RadioGroup = (props: RadioGroupProps) => {
 		wrapperProps,
 		invalidMessageProps,
 		descriptionProps,
+		radioSlotProps,
 	} = slotProps
 
 	const labelId = useId()
 	const descriptionId = useId()
 	const radioNameId = useId()
 
-	const [controlledValue, setControlledValue] = useControlledState({
+	const [value, setValue] = useControlledState({
 		defaultValue,
-		value,
+		value: valueProp,
 		onValueChange,
 	})
 
-	const disabledGroup = (value: string) => {
-		return disabledValue
-			? disabledValue.includes(value)
-			: false
+	const isDisabled = (itemValue: string) => {
+		return disabled || !!disabledValue?.includes(itemValue)
 	}
 
-	const checkedGroup = (value: string) => value === controlledValue
+	const isChecked = (itemValue: string) => {
+		return value.includes(itemValue)
+	}
 
-	const onChangeGroup = (ev: ChangeEvent<HTMLInputElement>) => {
-		onChange?.(ev)
-		setControlledValue?.(ev.target.value)
+	const onChecked = (itemValue: string) => {
+		setValue?.(itemValue)
 	}
 
 	const classNames = useMemo(() => {
@@ -84,15 +82,15 @@ export const RadioGroup = (props: RadioGroupProps) => {
 
 	const contextValue: RadioGroupContextValue = {
 		name: name ?? radioNameId,
-		disabledGroup,
-		checkedGroup,
-		onChangeGroup,
 		size,
 		color,
 		readOnly,
-		disabled,
 		invalid,
 		disableAnimation,
+		slotProps: radioSlotProps,
+		isDisabled,
+		isChecked,
+		onChecked,
 	}
 
 	return (

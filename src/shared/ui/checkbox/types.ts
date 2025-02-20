@@ -3,31 +3,14 @@ import type { ComponentProps } from "@/shared/types/props"
 import type { CheckboxGroupVariantsProps, CheckboxVariantsProps } from "./variants"
 
 export type CheckboxGroupContextValue =
-	Pick<CheckboxGroupProps,
-		| "invalid" | "required" | "size" | "color" | "rounded" | "lineThrough" | "readOnly" | "disabled"
-		| "disableAnimation"
-	> &
+	Pick<CheckboxGroupProps, "invalid" | "size" | "color" | "rounded" | "lineThrough" | "readOnly" | "disableAnimation"> &
 	Pick<CheckboxProps, "slotProps"> &
 	CheckboxGroupContextOwnValue
 
 type CheckboxGroupContextOwnValue = {
-	getItemState?: GetItemState
-}
-
-export type GetItemState = (
-	value: string | undefined,
-	options: GetItemStateOptions
-) => GetItemStateReturn
-
-type GetItemStateReturn = {
-	disabled?: boolean
-	checked: boolean
-	toggleChecked: (checked: boolean) => void
-}
-
-type GetItemStateOptions = {
-	disabled?: boolean
-	valueId: string
+	isDisabled?: (value: string) => boolean
+	isChecked?: (value: string) => boolean
+	onChecked?: (value: string) => (checked: boolean) => void
 }
 
 export type CheckboxGroupProps = ComponentProps<
@@ -61,8 +44,7 @@ type CheckboxGroupStateProps = {
 }
 
 export type CheckboxProps = ComponentProps<
-	"label",
-	Pick<ComponentProps<"input">, "required" | "name" | "onChange"> &
+	"input",
 	CheckboxVariantsProps &
 	CheckboxOwnProps &
 	CheckboxStateProps
@@ -75,8 +57,8 @@ type CheckboxOwnProps = {
 }
 
 type CheckboxSlotProps = {
+	baseProps?: ComponentProps<"label">
 	wrapperProps?: ComponentProps<"span">
-	inputProps?: ComponentProps<"input">
 	iconProps?: ComponentProps<"svg">
 	labelProps?: ComponentProps<"label">
 }

@@ -3,7 +3,7 @@ import type { ComponentProps } from "@/shared/types/props"
 import type { SwitchVariantsProps } from "./variants"
 
 export type SwitchProps = ComponentProps<
-	"label",
+	"input",
 	SwitchVariantsProps &
 	SwitchOwnProps
 >
@@ -22,8 +22,8 @@ type SwitchOwnProps = {
 }
 
 type SwitchSlotProps = {
+	baseProps?: ComponentProps<"label">
 	wrapperProps?: ComponentProps<"span">
-	inputProps?: ComponentProps<"input">
 	thumbProps?: ComponentProps<"span">
 	labelProps?: ComponentProps<"span">
 }

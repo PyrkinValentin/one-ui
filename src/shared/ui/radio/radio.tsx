@@ -1,5 +1,6 @@
 "use client"
 
+import type { ChangeEvent } from "react"
 import type { RadioProps } from "./types"
 
 import { useId, useMemo } from "react"
@@ -10,41 +11,53 @@ import { radioVariants } from "./variants"
 export const Radio = (props: RadioProps) => {
 	const {
 		name,
-		disabledGroup,
-		checkedGroup,
-		onChangeGroup,
-		...radioGroupContext
+		size: sizeContext,
+		color: colorContext,
+		readOnly: readOnlyContext,
+		invalid: invalidContext,
+		disableAnimation: disableAnimationContext,
+		slotProps: slotPropsContext,
+		isDisabled,
+		isChecked,
+		onChecked,
 	} = useRadioGroupContext()
 
 	const {
 		value,
 		description,
+		checked = isChecked?.(value),
+		onChange,
 		className,
-		size,
-		color,
-		readOnly,
-		disabled = disabledGroup?.(value),
-		invalid,
-		disableAnimation,
+		size = sizeContext,
+		color = colorContext,
+		readOnly = readOnlyContext,
+		disabled = isDisabled?.(value),
+		invalid = invalidContext,
+		disableAnimation = disableAnimationContext,
 		children,
-		slotProps = {},
+		slotProps,
 		...restProps
-	} = {
-		...radioGroupContext,
-		...props,
-	}
+	} = props
 
 	const {
+		baseProps,
 		wrapperProps,
-		inputProps,
 		controlProps,
 		labelWrapperProps,
 		labelProps,
 		descriptionProps,
-	} = slotProps
+	} = {
+		...slotPropsContext,
+		...slotProps,
+	}
 
 	const inputId = useId()
 	const descriptionId = useId()
+
+	const handleChange = (ev: ChangeEvent<HTMLInputElement>) => {
+		onChange?.(ev)
+		onChecked?.(value)
+	}
 
 	const classNames = useMemo(() => {
 		return radioVariants({
@@ -66,8 +79,8 @@ export const Radio = (props: RadioProps) => {
 
 	return (
 		<label
-			className={classNames.base({ className })}
-			{...restProps}
+			{...baseProps}
+			className={classNames.base({ className: baseProps?.className })}
 		>
 			<span
 				{...wrapperProps}
@@ -81,10 +94,10 @@ export const Radio = (props: RadioProps) => {
 					value={value}
 					readOnly={readOnly}
 					disabled={disabled}
-					checked={checkedGroup?.(value)}
-					onChange={onChangeGroup}
-					{...inputProps}
-					className={classNames.input({ className: inputProps?.className })}
+					className={classNames.input({ className })}
+					checked={checked}
+					onChange={handleChange}
+					{...restProps}
 				/>
 
 				<span

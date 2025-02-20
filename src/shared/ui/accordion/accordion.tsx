@@ -1,6 +1,6 @@
 "use client"
 
-import type { AccordionContextValue, AccordionProps, GetAccordionItemState } from "./types"
+import type { AccordionContextValue, AccordionProps } from "./types"
 
 import { use, useMemo } from "react"
 import { useControlledState } from "@/shared/hooks/use-controlled-state"
@@ -20,7 +20,7 @@ export const Accordion = (props: AccordionProps) => {
 		selectionMode = "single",
 		disabledValue,
 		defaultValue = selectionMode === "multiple" ? [] : "",
-		value,
+		value: valueProp,
 		onValueChange,
 		className,
 		variant,
@@ -31,37 +31,32 @@ export const Accordion = (props: AccordionProps) => {
 		...restProps
 	} = props
 
-	const [state, setState] = useControlledState({
+	const [value, setValue] = useControlledState({
 		defaultValue,
-		value,
+		value: valueProp,
 		onValueChange: onValueChange as ((value: string | string[]) => void),
 	})
 
-	const getItemState: GetAccordionItemState = (value, options) => {
-		const itemValue = value ?? options.valueId
-		const disabled = options.disabled || disabledValue?.includes(itemValue)
+	const isDisabled = (itemValue: string) => {
+		return !!disabledValue?.includes(itemValue)
+	}
 
-		const expanded = selectionMode === "single"
-			? state === itemValue
-			: state.includes(itemValue)
+	const isExpanded = (itemValue: string) => {
+		return selectionMode === "single"
+			? value === itemValue
+			: value.includes(itemValue)
+	}
 
-		const toggleExpanded = () => {
-			setState?.(
-				expanded
-					? selectionMode === "single"
-						? ""
-						: (state as string[]).filter((value) => value !== itemValue)
-					: selectionMode === "single"
-						? itemValue
-						: [...(state as string[]), itemValue]
-			)
-		}
-
-		return {
-			disabled,
-			expanded,
-			toggleExpanded,
-		}
+	const onExpand = (itemValue: string, expanded: boolean) => {
+		setValue?.(
+			expanded
+				? selectionMode === "single"
+					? ""
+					: (value as string[]).filter((v) => v !== itemValue)
+				: selectionMode === "single"
+					? itemValue
+					: [...(value as string[]), itemValue]
+		)
 	}
 
 	const classNames = useMemo(() => {
@@ -85,7 +80,9 @@ export const Accordion = (props: AccordionProps) => {
 		rounded,
 		compact,
 		slotProps,
-		getItemState,
+		isDisabled,
+		isExpanded,
+		onExpand,
 	}
 
 	return (

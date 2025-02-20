@@ -32,7 +32,7 @@ export const Slider = (props: SliderProps) => {
 		minValue = 0,
 		maxValue = 100,
 		defaultValue = [0],
-		value,
+		value: valueProp,
 		onValueChange,
 		onValueChangeComplete,
 		renderValue,
@@ -77,39 +77,39 @@ export const Slider = (props: SliderProps) => {
 		onChangeComplete: () => handleChangeComplete(),
 	})
 
-	const [state, setState] = useControlledState({
+	const [value, setValue] = useControlledState({
 		defaultValue: numberClump(defaultValue, minValue, maxValue),
-		value: value ? numberClump(value, minValue, maxValue) : value,
+		value: valueProp ? numberClump(valueProp, minValue, maxValue) : valueProp,
 		onValueChange,
 	})
 
-	const range = state.length > 1
+	const range = value.length > 1
 
-	const handleChangeRange = (trigger: number, value: number) => {
+	const handleChangeRange = (trigger: number, rangeValue: number) => {
 		const findIndex = () => {
-			const closestValue = numberFindClosest(state, value)
+			const closestValue = numberFindClosest(value, rangeValue)
 
-			return state.findIndex((v) => v === closestValue)
+			return value.findIndex((v) => v === closestValue)
 		}
 
 		const indexValue = trigger === -1
 			? findIndex()
 			: trigger
 
-		setState?.(
-			state.with(
+		setValue?.(
+			value.with(
 				indexValue,
 				numberClump(
-					value,
-					state[indexValue - 1] ?? minValue,
-					state[indexValue + 1] ?? maxValue,
+					rangeValue,
+					value[indexValue - 1] ?? minValue,
+					value[indexValue + 1] ?? maxValue,
 				)
 			)
 		)
 	}
 
 	const handleChangeComplete = () => {
-		onValueChangeComplete?.(state)
+		onValueChangeComplete?.(value)
 	}
 
 	const handleChange =
@@ -129,7 +129,7 @@ export const Slider = (props: SliderProps) => {
 	}
 
 	const getThumbPercent = (index: number) => {
-		return getValuePercent(state[index])
+		return getValuePercent(value[index])
 	}
 
 	const offsetThumbValue = [
@@ -138,15 +138,15 @@ export const Slider = (props: SliderProps) => {
 			: !isUndefined(fillOffset)
 				? getValuePercent(fillOffset)
 				: 0,
-		getThumbPercent(state.length - 1),
+		getThumbPercent(value.length - 1),
 	]
 
 	const [startOffset, endOffset] = offsetThumbValue.toSorted()
 
 	const getTextValue = () => {
 		return range
-			? formatArrayNumber(formatOptions).formatRange(state)
-			: formatArrayNumber(formatOptions).format(state)
+			? formatArrayNumber(formatOptions).formatRange(value)
+			: formatArrayNumber(formatOptions).format(value)
 	}
 
 	const steps = showSteps
@@ -234,11 +234,11 @@ export const Slider = (props: SliderProps) => {
 						<output
 							aria-live="off"
 							{...valueProps}
-							htmlFor={state.map((_, index) => `${labelId}-${index}`).join(" ")}
+							htmlFor={value.map((_, index) => `${labelId}-${index}`).join(" ")}
 							className={classNames.value({ className: valueProps?.className })}
 						>
 							{renderValue
-								? renderValue({ value: state, textValue: getTextValue() })
+								? renderValue({ value: value, textValue: getTextValue() })
 								: getTextValue().join(" ")
 							}
 						</output>
@@ -285,7 +285,7 @@ export const Slider = (props: SliderProps) => {
 						})
 					) : null}
 
-					{state.map((value, index) => (
+					{value.map((value, index) => (
 						<Fragment key={index}>
 							{showTooltip ? (
 								<Tooltip

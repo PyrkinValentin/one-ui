@@ -7,23 +7,9 @@ export type AccordionContextValue =
 	AccordionContextOwnValue
 
 type AccordionContextOwnValue = {
-	getItemState?: GetAccordionItemState
-}
-
-export type GetAccordionItemState = (
-	value: string | undefined,
-	options: GetItemStateOptions
-) => GetItemStateReturn
-
-type GetItemStateReturn = {
-	disabled?: boolean
-	expanded: boolean
-	toggleExpanded: () => void
-}
-
-type GetItemStateOptions = {
-	disabled?: boolean
-	valueId: string
+	isDisabled?: (value: string) => boolean
+	isExpanded?: (value: string) => boolean
+	onExpand?: (value: string, expanded: boolean) => void
 }
 
 export type AccordionProps = ComponentProps<
@@ -60,7 +46,7 @@ type AccordionItemOwnProps = {
 	title: ReactNode
 	description?: ReactNode
 	startContent?: ReactNode
-	indicator?: ReactNode | ((expanded?: boolean) => ReactNode)
+	indicator?: ReactNode | ((expanded: boolean) => ReactNode)
 	slotProps?: AccordionItemSlotProps
 }
 

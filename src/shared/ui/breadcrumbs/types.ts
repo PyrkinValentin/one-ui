@@ -24,8 +24,8 @@ type BreadcrumbsOwnProps = {
 	maxItems?: number
 	beforeCollapse?: number
 	afterCollapse?: number
-	onAction?: (value: string) => void
 	slotProps?: BreadcrumbsSlotProps
+	onAction?: (value: string) => void
 }
 
 type BreadcrumbsSlotProps = {

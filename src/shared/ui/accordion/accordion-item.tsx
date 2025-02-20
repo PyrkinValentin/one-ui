@@ -21,24 +21,28 @@ export const AccordionItem = (props: AccordionItemProps) => {
 		rounded,
 		compact: compactContext,
 		slotProps: slotPropsContext,
-		getItemState,
+		isDisabled,
+		isExpanded,
+		onExpand,
 	} = useAccordionContext()
+
+	const valueId = useId()
 
 	const {
 		hideIndicator = hideIndicatorContext,
 		keepMounted = keepMountedContext,
-		value,
+		value = valueId,
 		title,
 		description,
 		startContent,
 		indicator,
-		slotProps = {},
 		className,
 		compact = compactContext,
-		disabled,
+		disabled = isDisabled?.(value),
 		disableIndicatorAnimation,
 		disableAnimation,
 		children,
+		slotProps,
 		...restProps
 	} = props
 
@@ -58,18 +62,14 @@ export const AccordionItem = (props: AccordionItemProps) => {
 		...slotProps,
 	}
 
-	const valueId = useId()
 	const buttonId = useId()
 	const contentId = useId()
 
-	const itemState = getItemState?.(value, {
-		valueId,
-		disabled,
-	})
+	const expanded = !!isExpanded?.(value)
 
 	const handleClick = (ev: MouseEvent<HTMLButtonElement>) => {
 		triggerProps?.onClick?.(ev)
-		itemState?.toggleExpanded()
+		onExpand?.(value, expanded)
 	}
 
 	const classNames = useMemo(() => {
@@ -77,7 +77,7 @@ export const AccordionItem = (props: AccordionItemProps) => {
 			variant,
 			rounded,
 			compact,
-			disabled: itemState?.disabled,
+			disabled,
 			disableIndicatorAnimation,
 			disableAnimation,
 		})
@@ -85,7 +85,7 @@ export const AccordionItem = (props: AccordionItemProps) => {
 		variant,
 		rounded,
 		compact,
-		itemState?.disabled,
+		disabled,
 		disableIndicatorAnimation,
 		disableAnimation,
 	])
@@ -100,10 +100,10 @@ export const AccordionItem = (props: AccordionItemProps) => {
 				className={classNames.heading({ className: headingProps?.className })}
 			>
 				<button
-					aria-expanded={itemState?.expanded || undefined}
+					aria-expanded={expanded || undefined}
 					aria-controls={contentId}
 					id={buttonId}
-					tabIndex={itemState?.disabled ? -1 : undefined}
+					tabIndex={disabled ? -1 : undefined}
 					{...triggerProps}
 					className={classNames.trigger({ className: triggerProps?.className })}
 					onClick={handleClick}
@@ -146,7 +146,7 @@ export const AccordionItem = (props: AccordionItemProps) => {
 						>
 							{indicator
 								? isFunction(indicator)
-									? indicator(itemState?.expanded)
+									? indicator(expanded)
 									: indicator
 								: <MdKeyboardArrowDown/>
 							}
@@ -158,7 +158,7 @@ export const AccordionItem = (props: AccordionItemProps) => {
 			<AccordionItemCollapse
 				keepMounted={keepMounted}
 				disableAnimation={disableAnimation}
-				expanded={itemState?.expanded}
+				expanded={expanded}
 				{...contentWrapperProps}
 				className={classNames.contentWrapper({ className: contentWrapperProps?.className })}
 			>

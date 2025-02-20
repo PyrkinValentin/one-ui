@@ -3,19 +3,8 @@ import type { ComponentProps } from "@/shared/types/props"
 import type { InputVariantsProps } from "./variants"
 
 export type InputProps = ComponentProps<
-	"div",
+	"input",
 	InputVariantsProps &
-	Pick<ComponentProps<"input">,
-		| "type"
-		| "inputMode"
-		| "name"
-		| "placeholder"
-		| "autoFocus"
-		| "autoComplete"
-		| "minLength"
-		| "maxLength"
-		| "onChange"
-	> &
 	InputOwnProps
 >
 
@@ -33,10 +22,10 @@ type InputOwnProps = {
 }
 
 type InputSlotProps = {
+	baseProps?: ComponentProps
 	wrapperProps?: ComponentProps
 	labelProps?: ComponentProps<"label">
 	inputWrapperProps?: ComponentProps<"label">
-	inputProps?: ComponentProps<"input">
 	clearButtonProps?: ComponentProps<"button">
 	invalidMessageProps?: ComponentProps<"p">
 	descriptionProps?: ComponentProps<"p">

@@ -12,16 +12,8 @@ import { inputVariants } from "./variants"
 
 export const Input = (props: InputProps) => {
 	const {
-		type,
-		inputMode,
-		name,
-		placeholder,
-		autoFocus,
-		autoComplete,
-		minLength,
-		maxLength,
 		defaultValue = "",
-		value,
+		value: valueProp,
 		onChange,
 		onValueChange,
 		onClear,
@@ -48,10 +40,10 @@ export const Input = (props: InputProps) => {
 	} = props
 
 	const {
+		baseProps,
 		wrapperProps,
 		labelProps,
 		inputWrapperProps,
-		inputProps,
 		clearButtonProps,
 		invalidMessageProps,
 		descriptionProps,
@@ -59,20 +51,20 @@ export const Input = (props: InputProps) => {
 
 	const inputId = useId()
 
-	const [state, setState] = useControlledState({
+	const [value, setValue] = useControlledState({
 		defaultValue,
-		value,
+		value: valueProp,
 		onValueChange,
 	})
 
 	const handleChange = (ev: ChangeEvent<HTMLInputElement>) => {
 		onChange?.(ev)
-		setState?.(ev.target.value)
+		setValue?.(ev.target.value)
 	}
 
 	const handleClickClear = () => {
 		onClear?.()
-		setState?.("")
+		setValue?.("")
 	}
 
 	const classNames = useMemo(() => {
@@ -107,8 +99,8 @@ export const Input = (props: InputProps) => {
 
 	return (
 		<div
-			className={classNames.base({ className })}
-			{...restProps}
+			{...baseProps}
+			className={classNames.base({ className: baseProps?.className })}
 		>
 			{label ? (
 				<label
@@ -120,67 +112,59 @@ export const Input = (props: InputProps) => {
 				</label>
 			) : null}
 
-			<div
-				{...wrapperProps}
-				className={classNames.wrapper({ className: wrapperProps?.className })}
-			>
-				<label
-					{...inputWrapperProps}
-					className={classNames.inputWrapper({ className: inputWrapperProps?.className })}
+				<div
+					{...wrapperProps}
+					className={classNames.wrapper({ className: wrapperProps?.className })}
 				>
-					{startContent}
-
-					<input
-						id={inputId}
-						type={type}
-						inputMode={inputMode}
-						name={name}
-						required={required}
-						readOnly={readOnly}
-						disabled={disabled}
-						placeholder={placeholder}
-						autoFocus={autoFocus}
-						autoComplete={autoComplete}
-						minLength={minLength}
-						maxLength={maxLength}
-						value={state}
-						onChange={handleChange}
-						{...inputProps}
-						className={classNames.input({ className: inputProps?.className })}
-					/>
-
-					{clearable ? (
-						<>
-							{state ? (
-								<button
-									disabled={readOnly || disabled}
-									onClick={handleClickClear}
-									{...clearButtonProps}
-									className={classNames.clearButton({ className: clearButtonProps?.className })}
-								>
-									{endContent ?? <MdCancel/>}
-								</button>
-							) : null}
-						</>
-					) : endContent}
-				</label>
-
-				{invalid && invalidMessage ? (
-					<p
-						{...invalidMessageProps}
-						className={classNames.invalidMessage({ className: invalidMessageProps?.className })}
+					<label
+						{...inputWrapperProps}
+						className={classNames.inputWrapper({ className: inputWrapperProps?.className })}
 					>
-						{invalidMessage}
-					</p>
-				) : description ? (
-					<p
-						{...descriptionProps}
-						className={classNames.description({ className: descriptionProps?.className })}
-					>
-						{description}
-					</p>
-				) : null}
-			</div>
+						{startContent}
+
+						<input
+							id={inputId}
+							required={required}
+							readOnly={readOnly}
+							disabled={disabled}
+							value={value}
+							onChange={handleChange}
+							className={classNames.input({ className })}
+							{...restProps}
+						/>
+
+						{clearable ? (
+							<>
+								{value ? (
+									<button
+										disabled={readOnly || disabled}
+										onClick={handleClickClear}
+										{...clearButtonProps}
+										className={classNames.clearButton({ className: clearButtonProps?.className })}
+									>
+										{endContent ?? <MdCancel/>}
+									</button>
+								) : null}
+							</>
+						) : endContent}
+					</label>
+
+					{invalid && invalidMessage ? (
+						<p
+							{...invalidMessageProps}
+							className={classNames.invalidMessage({ className: invalidMessageProps?.className })}
+						>
+							{invalidMessage}
+						</p>
+					) : description ? (
+						<p
+							{...descriptionProps}
+							className={classNames.description({ className: descriptionProps?.className })}
+						>
+							{description}
+						</p>
+					) : null}
+				</div>
 		</div>
 	)
 }

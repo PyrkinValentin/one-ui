@@ -17,10 +17,8 @@ export const Switch = (props: SwitchProps) => {
 		startContent,
 		endContent,
 		thumbIcon,
-		name,
-		value,
 		defaultChecked = false,
-		checked,
+		checked: checkedProp,
 		onCheckedChange,
 		onChange,
 		className,
@@ -35,23 +33,23 @@ export const Switch = (props: SwitchProps) => {
 	} = props
 
 	const {
+		baseProps,
 		wrapperProps,
-		inputProps,
 		thumbProps,
 		labelProps,
 	} = slotProps
 
 	const labelId = useId()
 
-	const [controlledChecked, setControlledChecked] = useControlledState({
+	const [checked, setChecked] = useControlledState({
 		defaultValue: defaultChecked,
-		value: checked,
+		value: checkedProp,
 		onValueChange: onCheckedChange,
 	})
 
 	const handleChange = (ev: ChangeEvent<HTMLInputElement>) => {
 		onChange?.(ev)
-		setControlledChecked?.(ev.target.checked)
+		setChecked?.(ev.target.checked)
 	}
 
 	const classNames = useMemo(() => {
@@ -72,8 +70,8 @@ export const Switch = (props: SwitchProps) => {
 
 	return (
 		<label
-			className={classNames.base({ className })}
-			{...restProps}
+			{...baseProps}
+			className={classNames.base({ className: baseProps?.className })}
 		>
 			<span
 				{...wrapperProps}
@@ -83,14 +81,12 @@ export const Switch = (props: SwitchProps) => {
 					type="checkbox"
 					role="switch"
 					aria-labelledby={labelId}
-					name={name}
-					value={value}
-					checked={controlledChecked}
 					readOnly={readOnly}
 					disabled={disabled}
+					className={classNames.input({ className })}
+					checked={checked}
 					onChange={handleChange}
-					{...inputProps}
-					className={classNames.input({ className: inputProps?.className })}
+					{...restProps}
 				/>
 
 				{startContent ? (
@@ -106,7 +102,7 @@ export const Switch = (props: SwitchProps) => {
 					{thumbIcon ? (
 						<Slot className={classNames.thumbIcon()}>
 							{isFunction(thumbIcon)
-								? thumbIcon(controlledChecked)
+								? thumbIcon(checked)
 								: thumbIcon
 							}
 						</Slot>

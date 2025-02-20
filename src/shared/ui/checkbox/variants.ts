@@ -165,11 +165,13 @@ export const checkboxVariants = tv({
 		},
 		disableAnimation: {
 			true: {
+				base: "transition-none",
 				wrapper: "transition-none",
 				icon: "transition-none",
 				label: "transition-none",
 			},
 			false: {
+				base: "transition-opacity motion-reduce:transition-none",
 				wrapper: [
 					"before:transition-colors before:motion-reduce:transition-none",
 					"has-[input:active]:scale-[0.97] transition-transform motion-reduce:transition-none",

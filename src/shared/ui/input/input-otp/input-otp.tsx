@@ -12,9 +12,6 @@ import { inputOtpVariants } from "./variants"
 export const InputOtp = (props: InputOtpProps) => {
 	const {
 		type,
-		inputMode,
-		name,
-		autoFocus,
 		pattern = "^[0-9]*$",
 		length = 5,
 		minLength = length,
@@ -23,9 +20,9 @@ export const InputOtp = (props: InputOtpProps) => {
 		description,
 		defaultValue,
 		value,
-		onChange,
 		onValueChange,
 		onComplete,
+		onChange,
 		className,
 		variant,
 		size,
@@ -41,7 +38,7 @@ export const InputOtp = (props: InputOtpProps) => {
 	} = props
 
 	const {
-		inputProps,
+		baseProps,
 		segmentWrapperProps,
 		segmentProps,
 		caretProps,
@@ -85,15 +82,12 @@ export const InputOtp = (props: InputOtpProps) => {
 
 	return (
 		<div
-			className={classNames.base({ className })}
+			{...baseProps}
+			className={classNames.base({ className: baseProps?.className })}
 			onChange={handleChange}
-			{...restProps}
 		>
 			<OTPInput
 				type={type}
-				inputMode={inputMode}
-				name={name}
-				autoFocus={autoFocus}
 				readOnly={readOnly}
 				disabled={disabled}
 				pattern={pattern}
@@ -104,8 +98,8 @@ export const InputOtp = (props: InputOtpProps) => {
 				onChange={onValueChange}
 				onComplete={onComplete}
 				noScriptCSSFallback={null}
-				{...inputProps}
-				containerClassName={classNames.wrapper({ className: inputProps?.containerClassName })}
+				containerClassName={classNames.wrapper({ className })}
+				{...restProps}
 				render={(props) => (
 					<div
 						{...segmentWrapperProps}

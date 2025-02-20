@@ -1,6 +1,6 @@
 "use client"
 
-import type { GetListBoxItemState, ListBoxContextValue, ListBoxProps } from "./types"
+import type { ListBoxContextValue, ListBoxProps } from "./types"
 
 import { use, useMemo } from "react"
 import { useControlledState } from "@/shared/hooks/use-controlled-state"
@@ -23,7 +23,7 @@ export const ListBox = (props: ListBoxProps) => {
 		selectionMode = "none",
 		disabledValue,
 		defaultValue = selectionMode === "multiple" ? [] : "",
-		value,
+		value: valueProp,
 		onValueChange,
 		className,
 		children,
@@ -31,46 +31,42 @@ export const ListBox = (props: ListBoxProps) => {
 		...restProps
 	} = props
 
-	const [state, setState] = useControlledState({
+	const [value, setValue] = useControlledState({
 		defaultValue,
-		value,
+		value: valueProp,
 		onValueChange: onValueChange as (value: string | string[]) => void,
 	})
 
-	const getItemState: GetListBoxItemState = (value, options) => {
-		if (selectionMode === "none") return
+	const isDisabled = (itemValue: string) => {
+		return !!disabledValue?.includes(itemValue)
+	}
 
-		const itemValue = value ?? options.valueId
-		const disabled = options.disabled || disabledValue?.includes(itemValue)
+	const isSelected = (itemValue: string) => {
+		if (selectionMode === "none") return false
 
-		const selected = selectionMode === "single"
-			? state === itemValue
-			: state.includes(itemValue)
+		return selectionMode === "single"
+			? value === itemValue
+			: value.includes(itemValue)
+	}
 
-		const toggleSelected = () => {
-			if (
-				disallowEmptySelection && selected && (
-					selectionMode === "single" ||
-					selectionMode === "multiple" && state.length === 1
-				)
-			) return
-
-			setState?.(
-				selected
-					? selectionMode === "single"
-						? ""
-						: (state as string[]).filter((value) => value !== itemValue)
-					: selectionMode === "single"
-						? itemValue
-						: [...(state as string[]), itemValue]
+	const onSelected = (itemValue: string, selected: boolean) => {
+		if (
+			selectionMode === "none" ||
+			disallowEmptySelection && selected && (
+				selectionMode === "single" ||
+				selectionMode === "multiple" && value.length === 1
 			)
-		}
+		) return
 
-		return {
-			disabled,
-			selected,
-			toggleSelected,
-		}
+		setValue?.(
+			selected
+				? selectionMode === "single"
+					? ""
+					: (value as string[]).filter((v) => v !== itemValue)
+				: selectionMode === "single"
+					? itemValue
+					: [...(value as string[]), itemValue]
+		)
 	}
 
 	const classNames = useMemo(() => {
@@ -84,8 +80,10 @@ export const ListBox = (props: ListBoxProps) => {
 		variant,
 		color,
 		disableAnimation,
-		getItemState,
 		slotProps,
+		isDisabled,
+		isSelected,
+		onSelected,
 	}
 
 	return (

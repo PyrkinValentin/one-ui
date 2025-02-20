@@ -10,23 +10,9 @@ export type ListBoxContextValue =
 	ListBoxContextOwnValue
 
 type ListBoxContextOwnValue = {
-	getItemState?: GetListBoxItemState
-}
-
-export type GetListBoxItemState = (
-	value: string | undefined,
-	options: GetItemStateOptions
-) => GetItemStateReturn | void
-
-type GetItemStateReturn = {
-	disabled?: boolean
-	selected: boolean
-	toggleSelected: () => void
-}
-
-type GetItemStateOptions = {
-	disabled?: boolean
-	valueId: string
+	isDisabled?: (value: string) => boolean
+	isSelected?: (value: string) => boolean
+	onSelected?: (value: string, selected: boolean) => void
 }
 
 export type ListBoxProps = ComponentProps<
@@ -94,7 +80,7 @@ type ListBoxItemOwnProps = {
 	description?: ReactNode
 	startContent?: ReactNode
 	endContent?: ReactNode
-	selectedIcon?: ReactNode | ((selected?: boolean) => ReactNode)
+	selectedIcon?: ReactNode | ((selected: boolean) => ReactNode)
 	slotProps?: ListBoxItemSlotProps
 }
 

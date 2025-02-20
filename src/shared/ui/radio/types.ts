@@ -1,9 +1,51 @@
-import type { ChangeEvent, ReactNode } from "react"
+import type { ReactNode } from "react"
 import type { ComponentProps } from "@/shared/types/props"
 import type { RadioVariantsProps, RadioGroupVariantsProps } from "./variants"
 
+export type RadioGroupContextValue =
+	Pick<RadioGroupProps, "name" | "size" | "color" | "readOnly" | "invalid" | "disableAnimation"> &
+	Pick<RadioProps, "slotProps"> &
+	RadioGroupContextOwnValue
+
+type RadioGroupContextOwnValue = {
+	isDisabled?: (value: string) => boolean
+	isChecked?: (value: string) => boolean
+	onChecked?: (value: string) => void
+}
+
+export type RadioGroupProps = ComponentProps<
+	"div",
+	RadioGroupVariantsProps &
+	RadioGroupOwnProps &
+	RadioGroupStateProps &
+	Pick<RadioProps, "size" | "color" | "readOnly" | "disabled">
+>
+
+type RadioGroupOwnProps = {
+	name?: string
+	label?: ReactNode
+	description?: ReactNode
+	invalidMessage?: ReactNode
+	slotProps?: RadioGroupSlotProps
+}
+
+type RadioGroupSlotProps = {
+	labelProps?: ComponentProps<"span">
+	wrapperProps?: ComponentProps
+	invalidMessageProps?: ComponentProps<"p">
+	descriptionProps?: ComponentProps<"p">
+	radioSlotProps?: RadioSlotProps
+}
+
+type RadioGroupStateProps = {
+	disabledValue?: string[]
+	defaultValue?: string
+	value?: string
+	onValueChange?: (value: string) => void
+}
+
 export type RadioProps = ComponentProps<
-	"label",
+	"input",
 	RadioVariantsProps &
 	RadioOwnProps
 >
@@ -15,60 +57,10 @@ type RadioOwnProps = {
 }
 
 type RadioSlotProps = {
+	baseProps?: ComponentProps<"label">
 	wrapperProps?: ComponentProps<"span">
-	inputProps?: ComponentProps<"input">
 	controlProps?: ComponentProps<"span">
 	labelWrapperProps?: ComponentProps<"span">
 	labelProps?: ComponentProps<"label">
 	descriptionProps?: ComponentProps<"span">
-}
-
-export type RadioGroupContextValue = Pick<
-	RadioGroupProps,
-	| "name"
-	| "size"
-	| "color"
-	| "readOnly"
-	| "disabled"
-	| "invalid"
-	| "disableAnimation"
-> & RadioGroupContextOwnValue
-
-type RadioGroupContextOwnValue = {
-	disabledGroup?: (value: string) => boolean
-	checkedGroup?: (value: string) => boolean
-	onChangeGroup?: (ev: ChangeEvent<HTMLInputElement>) => void
-}
-
-export type RadioGroupProps = ComponentProps<
-	"div",
-	RadioGroupVariantsProps &
-	Pick<
-		RadioProps,
-		| "size"
-		| "color"
-		| "readOnly"
-		| "disabled"
-	> &
-	RadioGroupOwnProps
->
-
-type RadioGroupOwnProps = {
-	name?: string
-	label?: ReactNode
-	description?: ReactNode
-	invalidMessage?: ReactNode
-	disabledValue?: string[]
-	defaultValue?: string
-	value?: string
-	onValueChange?: (value: string) => void
-	onChange?: (ev: ChangeEvent<HTMLInputElement>) => void
-	slotProps?: RadioGroupSlotProps
-}
-
-type RadioGroupSlotProps = {
-	labelProps?: ComponentProps<"span">
-	wrapperProps?: ComponentProps
-	invalidMessageProps?: ComponentProps<"p">
-	descriptionProps?: ComponentProps<"p">
 }

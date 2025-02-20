@@ -1,6 +1,6 @@
 "use client"
 
-import type { CheckboxGroupContextValue, CheckboxGroupProps, GetItemState } from "./types"
+import type { CheckboxGroupContextValue, CheckboxGroupProps } from "./types"
 
 import { use, useId, useMemo } from "react"
 import { useControlledState } from "@/shared/hooks/use-controlled-state"
@@ -19,7 +19,7 @@ export const CheckboxGroup = (props: CheckboxGroupProps) => {
 		invalidMessage,
 		disabledValue,
 		defaultValue = [],
-		value,
+		value: valueProp,
 		onValueChange,
 		color,
 		size,
@@ -48,42 +48,36 @@ export const CheckboxGroup = (props: CheckboxGroupProps) => {
 	const labelId = useId()
 	const descriptionId = useId()
 
-	const [state, setState] = useControlledState({
+	const [value, setValue] = useControlledState({
 		defaultValue,
-		value,
+		value: valueProp,
 		onValueChange,
 	})
 
-	const getItemState: GetItemState = (value, options) => {
-		const itemValue = value ?? options.valueId
-		const disabled = options.disabled || disabledValue?.includes(itemValue)
-		const checked = state.includes(itemValue)
+	const isDisabled = (itemValue: string) => {
+		return disabled || !!disabledValue?.includes(itemValue)
+	}
 
-		const toggleChecked = (checked: boolean) => {
-			setState?.(
-				checked
-					? [...state, itemValue]
-					: state.filter((value) => value !== itemValue)
-			)
-		}
+	const isChecked = (itemValue: string) => {
+		return value.includes(itemValue)
+	}
 
-		return {
-			disabled,
-			checked,
-			toggleChecked,
-		}
+	const onChecked = (itemValue: string) => (checked: boolean) => {
+		setValue?.(
+			checked
+				? [...value, itemValue]
+				: value.filter((v) => v !== itemValue)
+		)
 	}
 
 	const classNames = useMemo(() => {
 		return checkboxGroupVariants({
-			className,
 			orientation,
 			required,
 			invalid,
 			disableAnimation,
 		})
 	}, [
-		className,
 		orientation,
 		required,
 		invalid,
@@ -91,17 +85,17 @@ export const CheckboxGroup = (props: CheckboxGroupProps) => {
 	])
 
 	const contextValue: CheckboxGroupContextValue = {
-		color,
 		size,
+		color,
 		rounded,
 		lineThrough,
 		readOnly,
-		disabled,
 		invalid,
-		required,
 		disableAnimation,
 		slotProps: checkboxSlotProps,
-		getItemState,
+		isDisabled,
+		isChecked,
+		onChecked,
 	}
 
 	return (

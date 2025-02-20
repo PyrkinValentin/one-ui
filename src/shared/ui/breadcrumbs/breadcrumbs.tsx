@@ -91,8 +91,8 @@ export const Breadcrumbs = (props: BreadcrumbsProps) => {
 		underline,
 		disabled,
 		disableAnimation,
-		onAction,
 		slotProps: itemSlotProps,
+		onAction,
 	}
 
 	return (

@@ -20,23 +20,22 @@ export const Checkbox = (props: CheckboxProps) => {
 		rounded: roundedContext,
 		lineThrough: lineThroughContext,
 		readOnly: readOnlyContext,
-		disabled: disabledContext,
 		invalid: invalidContext,
-		required: requiredContext,
 		disableAnimation: disableAnimationContext,
 		slotProps: slotPropsContext,
-		getItemState,
+		isDisabled,
+		isChecked,
+		onChecked,
 	} = useCheckboxGroupContext()
 
+	const valueId = useId()
+
 	const {
-		required = requiredContext,
-		autoFocus,
-		name,
 		value,
 		icon,
 		defaultChecked = false,
-		checked,
-		onCheckedChange,
+		checked: checkedProp = isChecked?.(value ?? valueId),
+		onCheckedChange = onChecked?.(value ?? valueId),
 		onChange,
 		className,
 		size = sizeContext,
@@ -44,41 +43,36 @@ export const Checkbox = (props: CheckboxProps) => {
 		rounded = roundedContext,
 		lineThrough = lineThroughContext,
 		readOnly = readOnlyContext,
-		disabled = disabledContext,
+		disabled = isDisabled?.(value ?? valueId),
 		invalid = invalidContext,
 		disableAnimation = disableAnimationContext,
 		children,
-		slotProps = {},
+		slotProps,
 		...restProps
 	} = props
 
+
 	const {
+		baseProps,
 		wrapperProps,
-		inputProps,
-		iconProps,
 		labelProps,
+		iconProps,
 	} = {
 		...slotPropsContext,
 		...slotProps,
 	}
 
-	const valueId = useId()
 	const inputId = useId()
 
-	const itemState = getItemState?.(value, {
-		valueId,
-		disabled,
-	})
-
-	const [state, setState] = useControlledState({
+	const [checked, setChecked] = useControlledState({
 		defaultValue: defaultChecked,
-		value: checked ?? itemState?.checked,
-		onValueChange: onCheckedChange ?? itemState?.toggleChecked,
+		value: checkedProp,
+		onValueChange: onCheckedChange,
 	})
 
 	const handleChange = (ev: ChangeEvent<HTMLInputElement>) => {
 		onChange?.(ev)
-		setState?.(ev.target.checked)
+		setChecked(ev.target.checked)
 	}
 
 	const classNames = useMemo(() => {
@@ -88,7 +82,7 @@ export const Checkbox = (props: CheckboxProps) => {
 			rounded,
 			lineThrough,
 			readOnly,
-			disabled: itemState?.disabled,
+			disabled,
 			invalid,
 			disableAnimation,
 		})
@@ -98,15 +92,15 @@ export const Checkbox = (props: CheckboxProps) => {
 		rounded,
 		lineThrough,
 		readOnly,
-		itemState?.disabled,
+		disabled,
 		invalid,
 		disableAnimation,
 	])
 
 	return (
 		<label
-			className={classNames.base({ className })}
-			{...restProps}
+			{...baseProps}
+			className={classNames.base({ className: baseProps?.className })}
 		>
 			<span
 				{...wrapperProps}
@@ -115,16 +109,13 @@ export const Checkbox = (props: CheckboxProps) => {
 				<input
 					type="checkbox"
 					id={inputId}
-					autoFocus={autoFocus}
-					name={name}
 					value={value}
-					required={required}
 					readOnly={readOnly}
 					disabled={disabled}
-					checked={state}
+					className={classNames.input({ className })}
+					checked={checked}
 					onChange={handleChange}
-					{...inputProps}
-					className={classNames.input({ className: inputProps?.className })}
+					{...restProps}
 				/>
 
 				{icon ? (
@@ -134,7 +125,7 @@ export const Checkbox = (props: CheckboxProps) => {
 						className={classNames.icon({ className: iconProps?.className })}
 					>
 						{isFunction(icon)
-							? icon(state)
+							? icon(checked)
 							: icon
 						}
 					</Slot>
@@ -151,7 +142,7 @@ export const Checkbox = (props: CheckboxProps) => {
 							points="1 9 7 14 15 4"
 							stroke="currentColor"
 							strokeDasharray="22"
-							strokeDashoffset={state ? 44 : 66}
+							strokeDashoffset={checked ? 44 : 66}
 							strokeLinecap="round"
 							strokeLinejoin="round"
 							strokeWidth="2"

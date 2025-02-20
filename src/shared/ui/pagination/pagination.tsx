@@ -51,7 +51,7 @@ export const Pagination = (props: PaginationProps) => {
 		pageProps,
 	} = slotProps
 
-	const [state, setState] = useControlledState({
+	const [currentPage, setCurrentPage] = useControlledState({
 		defaultValue: defaultPage,
 		value: page,
 		onValueChange: onPageChange,
@@ -62,26 +62,26 @@ export const Pagination = (props: PaginationProps) => {
 		siblings,
 		boundaries,
 		showControls,
-		page: state,
+		page: currentPage,
 	})
 
 	const getPage = (itemValue: PaginationItemValue) => {
 		switch (itemValue) {
 			case "prev":
-				return state <= 1
+				return currentPage <= 1
 					? loop ? total : 1
-					: state - 1
+					: currentPage - 1
 			case "next":
-				return state >= total
+				return currentPage >= total
 					? loop ? 1 : total
-					: state + 1
+					: currentPage + 1
 			case "prevDots":
-				return state - dotsJump >= 1
-					? state - dotsJump
+				return currentPage - dotsJump >= 1
+					? currentPage - dotsJump
 					: 1
 			case "nextDots":
-				return state + dotsJump <= total
-					? state + dotsJump
+				return currentPage + dotsJump <= total
+					? currentPage + dotsJump
 					: total
 			default:
 				return itemValue
@@ -120,11 +120,11 @@ export const Pagination = (props: PaginationProps) => {
 			: null
 
 		if (itemValue === "prev") {
-			const disabledControl = !loop && state === 1
+			const disabledControl = !loop && currentPage === 1
 
 			return {
 				"aria-label": "prev page",
-				"aria-disabled": !loop && state === 1 || undefined,
+				"aria-disabled": !loop && currentPage === 1 || undefined,
 				tabIndex: disabled || disabledControl ? -1 : undefined,
 				...controlProps,
 				...renderItemProps,
@@ -134,7 +134,7 @@ export const Pagination = (props: PaginationProps) => {
 				onClick: (ev) => {
 					controlProps?.onClick?.(ev)
 					renderItemProps?.onClick?.(ev)
-					setState?.(page)
+					setCurrentPage?.(page)
 				},
 				children: (
 					<MdChevronLeft/>
@@ -143,7 +143,7 @@ export const Pagination = (props: PaginationProps) => {
 		}
 
 		if (itemValue === "next") {
-			const disabledControl = !loop && state === total
+			const disabledControl = !loop && currentPage === total
 
 			return {
 				"aria-label": "next page",
@@ -157,7 +157,7 @@ export const Pagination = (props: PaginationProps) => {
 				onClick: (ev) => {
 					controlProps?.onClick?.(ev)
 					renderItemProps?.onClick?.(ev)
-					setState?.(page)
+					setCurrentPage?.(page)
 				},
 				children: (
 					<MdChevronRight/>
@@ -177,7 +177,7 @@ export const Pagination = (props: PaginationProps) => {
 				onClick: (ev) => {
 					dotsProps?.onClick?.(ev)
 					renderItemProps?.onClick?.(ev)
-					setState?.(page)
+					setCurrentPage?.(page)
 				},
 				children: (
 					<>
@@ -200,7 +200,7 @@ export const Pagination = (props: PaginationProps) => {
 				onClick: (ev) => {
 					dotsProps?.onClick?.(ev)
 					renderItemProps?.onClick?.(ev)
-					setState?.(page)
+					setCurrentPage?.(page)
 				},
 				children: (
 					<>
@@ -211,7 +211,7 @@ export const Pagination = (props: PaginationProps) => {
 			}
 		}
 
-		const current = page === state
+		const current = page === currentPage
 
 		return {
 			"aria-label": `page ${page}`,
@@ -225,7 +225,7 @@ export const Pagination = (props: PaginationProps) => {
 			onClick: (ev) => {
 				pageProps?.onClick?.(ev)
 				renderItemProps?.onClick?.(ev)
-				setState?.(page)
+				setCurrentPage?.(page)
 			},
 			children: page,
 		}
