@@ -41,7 +41,7 @@ export const RadioGroup = (props: RadioGroupProps) => {
 		wrapperProps,
 		invalidMessageProps,
 		descriptionProps,
-		radioSlotProps,
+		...restSlotProps
 	} = slotProps
 
 	const labelId = useId()
@@ -87,7 +87,7 @@ export const RadioGroup = (props: RadioGroupProps) => {
 		readOnly,
 		invalid,
 		disableAnimation,
-		slotProps: radioSlotProps,
+		slotProps: restSlotProps,
 		isDisabled,
 		isChecked,
 		onChecked,

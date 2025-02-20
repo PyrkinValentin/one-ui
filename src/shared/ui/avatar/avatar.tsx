@@ -23,7 +23,7 @@ export const Avatar = (props: AvatarProps) => {
 		bordered: borderedContext,
 		disabled: disabledContext,
 		disableAnimation: disableAnimationContext,
-		slotProps: slotPropsContext,
+		slotProps: slotPropsContext = {},
 	} = useAvatarGroupContext()
 
 	const {
@@ -45,13 +45,16 @@ export const Avatar = (props: AvatarProps) => {
 		...restProps
 	} = props
 
+	const { avatarSlotProps } = slotPropsContext
+
 	const {
+		baseProps,
 		imgProps,
 		fallbackProps,
 		nameProps,
 		iconProps,
 	} = {
-		...slotPropsContext,
+		...avatarSlotProps,
 		...slotProps,
 	}
 
@@ -89,7 +92,8 @@ export const Avatar = (props: AvatarProps) => {
 	return (
 		<span
 			tabIndex={focusable && !disabled ? 0 : undefined}
-			className={classNames.base({ className })}
+			{...baseProps}
+			className={classNames.base({ className: [baseProps?.className, className] })}
 			{...restProps}
 		>
 			{src ? (
@@ -105,42 +109,42 @@ export const Avatar = (props: AvatarProps) => {
 				/>
 			) : null}
 
-			{!src || (!loaded && showFallback) ? (
-				<>
-					{fallback ? (
-						<div
-							role="img"
-							aria-label={alt}
-							{...fallbackProps}
-							className={classNames.fallback({ className: fallbackProps?.className })}
-						>
-							{fallback}
-						</div>
-					) : (
-						<>
-							{name ? (
-								<span
-									role="img"
-									aria-label={alt}
-									{...nameProps}
-									className={classNames.name({ className: nameProps?.className })}
-								>
+				{!src || (!loaded && showFallback) ? (
+					<>
+						{fallback ? (
+							<div
+								role="img"
+								aria-label={alt}
+								{...fallbackProps}
+								className={classNames.fallback({ className: fallbackProps?.className })}
+							>
+								{fallback}
+							</div>
+						) : (
+							<>
+								{name ? (
+									<span
+										role="img"
+										aria-label={alt}
+										{...nameProps}
+										className={classNames.name({ className: nameProps?.className })}
+									>
         					{getInitials(name)}
       					</span>
-							) : (
-								<span
-									role="img"
-									aria-label={alt}
-									{...iconProps}
-									className={classNames.icon({ className: iconProps?.className })}
-								>
+								) : (
+									<span
+										role="img"
+										aria-label={alt}
+										{...iconProps}
+										className={classNames.icon({ className: iconProps?.className })}
+									>
         					{icon}
       					</span>
-							)}
-						</>
-					)}
-				</>
-			) : null}
+								)}
+							</>
+						)}
+					</>
+				) : null}
 		</span>
 	)
 }

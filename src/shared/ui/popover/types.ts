@@ -1,5 +1,14 @@
 import type { ReactNode } from "react"
-import type { FloatingOverlayProps, OpenChangeReason, Placement, UseInteractionsReturn } from "@floating-ui/react"
+
+import type {
+	FloatingFocusManagerProps,
+	FloatingOverlayProps,
+	OpenChangeReason,
+	Placement,
+	UseInteractionsReturn,
+	UseRoleProps,
+} from "@floating-ui/react"
+
 import type { ComponentProps } from "@/shared/types/props"
 import type { PortalProps } from "@/shared/ui/system"
 import type { UseFloatingReturn } from "@/shared/hooks/use-floating"
@@ -24,6 +33,7 @@ export type PopoverProps =
 	PopoverStateProps
 
 type PopoverOwnProps = {
+	role?: UseRoleProps["role"]
 	arrow?: boolean
 	dismissable?: boolean
 	placement?: Placement
@@ -36,6 +46,7 @@ type PopoverSlotProps = {
 	backdropProps?: ComponentProps<"div", FloatingOverlayProps>
 	contentProps?: ComponentProps
 	arrowProps?: ComponentProps
+	focusManagerProps?: Omit<FloatingFocusManagerProps, "context" | "children">
 }
 
 type PopoverStateProps = {
@@ -48,8 +59,8 @@ export type PopoverTriggerProps = {
 	children?: ReactNode
 }
 
-export type PopoverContentProps = ComponentProps
-
 export type PopoverCloseProps = {
 	children?: ReactNode
 }
+
+export type PopoverContentProps = ComponentProps

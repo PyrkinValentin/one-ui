@@ -8,7 +8,9 @@ import { useListBoxContext } from "./list-box"
 import { listBoxSectionVariants } from "./variants"
 
 export const ListBoxSection = (props: ListBoxSectionProps) => {
-	const { slotProps: slotPropsContext } = useListBoxContext()
+	const {
+		slotProps: slotPropsContext = {},
+	} = useListBoxContext()
 
 	const {
 		title,
@@ -19,11 +21,13 @@ export const ListBoxSection = (props: ListBoxSectionProps) => {
 		...restProps
 	} = props
 
+	const { sectionSlotProps } = slotPropsContext
+
 	const {
 		headingProps,
 		groupProps,
 	} = {
-		...slotPropsContext?.sectionSlotProps,
+		...sectionSlotProps,
 		...slotProps,
 	}
 

@@ -6,7 +6,7 @@ import { useTransition } from "@/shared/hooks/use-transition"
 
 import { mergeRefs } from "@/shared/utils/merge"
 
-import { FloatingOverlay } from "@floating-ui/react"
+import { FloatingOverlay, FloatingFocusManager } from "@floating-ui/react"
 import { Portal } from "@/shared/ui/system"
 
 import { usePopoverContext } from "./popover"
@@ -36,6 +36,7 @@ export const PopoverContent = (props: PopoverContentProps) => {
 		backdropProps,
 		contentProps,
 		arrowProps,
+		focusManagerProps,
 	} = slotProps
 
 	const [mounted, fadeStyle] = useTransition(context?.open, {
@@ -52,7 +53,7 @@ export const PopoverContent = (props: PopoverContentProps) => {
 
 	return (
 		<>
-			{mounted ? (
+			{mounted && context ? (
 				<Portal disablePortal={disablePortal}>
 					<FloatingOverlay
 						lockScroll={lockScroll}
@@ -63,35 +64,40 @@ export const PopoverContent = (props: PopoverContentProps) => {
 							...backdropProps?.style,
 						}}
 					>
-						<div
-							ref={mergeRefs(ref, refs?.setFloating)}
-							className={classNames?.base({ className })}
-							style={{
-								...context?.floatingStyles,
-								...zoomStyle,
-								...style,
-							}}
-							{...getFloatingProps?.(restProps)}
+						<FloatingFocusManager
+							context={context}
+							{...focusManagerProps}
 						>
 							<div
-								{...contentProps}
-								className={classNames?.content({ className: contentProps?.className })}
+								ref={mergeRefs(ref, refs?.setFloating)}
+								className={classNames?.base({ className })}
+								style={{
+									...context.floatingStyles,
+									...zoomStyle,
+									...style,
+								}}
+								{...getFloatingProps?.(restProps)}
 							>
-								{children}
-							</div>
-
-							{arrow ? (
 								<div
-									{...arrowProps}
-									ref={mergeRefs(arrowProps?.ref, refs?.setArrow)}
-									className={classNames?.arrow({ className: arrowProps?.className })}
-									style={{
-										...context?.arrowStyles,
-										...arrowProps?.style,
-									}}
-								/>
-							) : null}
-						</div>
+									{...contentProps}
+									className={classNames?.content({ className: contentProps?.className })}
+								>
+									{children}
+								</div>
+
+								{arrow ? (
+									<div
+										{...arrowProps}
+										ref={mergeRefs(arrowProps?.ref, refs?.setArrow)}
+										className={classNames?.arrow({ className: arrowProps?.className })}
+										style={{
+											...context.arrowStyles,
+											...arrowProps?.style,
+										}}
+									/>
+								) : null}
+							</div>
+						</FloatingFocusManager>
 					</FloatingOverlay>
 				</Portal>
 			) : null}

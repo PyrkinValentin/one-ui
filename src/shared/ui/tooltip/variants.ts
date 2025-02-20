@@ -15,15 +15,15 @@ export const tooltipVariants = tv({
 		size: {
 			sm: {
 				content: "text-xs",
-				arrow: "w-1.5 h-1.5",
+				arrow: "w-2 h-2",
 			},
 			md: {
 				content: "text-sm",
-				arrow: "w-2 h-2",
+				arrow: "w-2.5 h-2.5",
 			},
 			lg: {
 				content: "text-md",
-				arrow: "w-2.5 h-2.5",
+				arrow: "w-3 h-3",
 			},
 		},
 		color: {

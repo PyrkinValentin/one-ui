@@ -16,7 +16,7 @@ export const Radio = (props: RadioProps) => {
 		readOnly: readOnlyContext,
 		invalid: invalidContext,
 		disableAnimation: disableAnimationContext,
-		slotProps: slotPropsContext,
+		slotProps: slotPropsContext = {},
 		isDisabled,
 		isChecked,
 		onChecked,
@@ -39,6 +39,8 @@ export const Radio = (props: RadioProps) => {
 		...restProps
 	} = props
 
+	const { radioSlotProps } = slotPropsContext
+
 	const {
 		baseProps,
 		wrapperProps,
@@ -47,7 +49,7 @@ export const Radio = (props: RadioProps) => {
 		labelProps,
 		descriptionProps,
 	} = {
-		...slotPropsContext,
+		...radioSlotProps,
 		...slotProps,
 	}
 

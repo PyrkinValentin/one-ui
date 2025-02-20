@@ -3,9 +3,13 @@ import type { ComponentProps } from "@/shared/types/props"
 import type { AvatarGroupVariantsProps, AvatarVariantsProps } from "./variants"
 
 export type AvatarGroupContextValue =
+	AvatarGroupContextOwnValue &
 	Pick<AvatarGroupProps, "size" | "color" | "rounded" | "bordered" | "disabled" | "disableAnimation"> &
-	Pick<AvatarProps, "slotProps"> &
 	Pick<AvatarVariantsProps, "inGroup" | "inGridGroup">
+
+type AvatarGroupContextOwnValue = {
+	slotProps?: Pick<AvatarGroupSlotProps, "avatarSlotProps">
+}
 
 export type AvatarGroupProps = ComponentProps<
 	"div",
@@ -42,6 +46,7 @@ type AvatarOwnProps = {
 }
 
 type AvatarSlotProps = {
+	baseProps?: ComponentProps<"span">
 	imgProps?: ComponentProps<"img">
 	fallbackProps?: ComponentProps
 	nameProps?: ComponentProps<"span">

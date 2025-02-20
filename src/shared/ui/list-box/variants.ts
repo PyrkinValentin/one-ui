@@ -13,14 +13,14 @@ export type ListBoxSectionVariantsProps = VariantProps<typeof listBoxSectionVari
 export const listBoxSectionVariants = tv({
 	slots: {
 		base: "relative mb-2 last-of-type:mb-0",
-		heading: "block mb-2 pl-1 text-xs text-default-500",
+		heading: "block mb-1 pl-1 text-xs text-default-500",
 		group: "w-full flex flex-col gap-0.5 outline-none",
 	},
 	variants: {
 		showDivider: {
 			true: {
 				base: [
-					"mb-5 after:content-[''] after:absolute after:-bottom-1 after:left-0 after:right-0 after:h-px",
+					"mb-3.5 after:content-[''] after:absolute after:-bottom-2 after:left-0 after:right-0 after:h-px",
 					"after:bg-divider",
 				],
 			},

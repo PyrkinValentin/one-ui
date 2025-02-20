@@ -3,21 +3,31 @@ import type { ComponentProps } from "@/shared/types/props"
 import type { AccordionVariantsProps, AccordionItemVariantsProps } from "./variants"
 
 export type AccordionContextValue =
-	Pick<AccordionProps, "hideIndicator" | "keepMounted" | "variant" | "rounded" | "compact" | "slotProps"> &
+	Pick<AccordionProps, "hideIndicator" | "keepMounted" | "variant" | "rounded" | "compact"> &
 	AccordionContextOwnValue
 
 type AccordionContextOwnValue = {
 	isDisabled?: (value: string) => boolean
 	isExpanded?: (value: string) => boolean
 	onExpand?: (value: string, expanded: boolean) => void
+	slotProps?: Pick<AccordionSlotProps, "itemSlotProps">
 }
 
 export type AccordionProps = ComponentProps<
 	"div",
 	AccordionVariantsProps &
-	Pick<AccordionItemProps, "hideIndicator" | "keepMounted" | "compact" | "slotProps"> &
-	AccordionStateProps
+	AccordionOwnProps &
+	AccordionStateProps &
+	Pick<AccordionItemProps, "hideIndicator" | "keepMounted" | "compact">
 >
+
+type AccordionOwnProps = {
+	slotProps?: AccordionSlotProps
+}
+
+type AccordionSlotProps = {
+	itemSlotProps?: AccordionItemSlotProps
+}
 
 type AccordionStateProps = {
 	disabledValue?: string[]

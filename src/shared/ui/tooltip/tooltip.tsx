@@ -18,10 +18,10 @@ import { tooltipVariants } from "./variants"
 
 export const Tooltip = (props: TooltipProps) => {
 	const {
-		arrow = true,
+		arrow,
 		dismissable = true,
 		placement,
-		offset: offsetProp = 7,
+		offset: offsetProp = arrow ? 9 : 7,
 		delay,
 		delayClose,
 		delayHover,

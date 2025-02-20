@@ -20,7 +20,7 @@ export const AccordionItem = (props: AccordionItemProps) => {
 		variant,
 		rounded,
 		compact: compactContext,
-		slotProps: slotPropsContext,
+		slotProps: slotPropsContext = {},
 		isDisabled,
 		isExpanded,
 		onExpand,
@@ -46,6 +46,8 @@ export const AccordionItem = (props: AccordionItemProps) => {
 		...restProps
 	} = props
 
+	const { itemSlotProps } = slotPropsContext
+
 	const {
 		headingProps,
 		triggerProps,
@@ -58,7 +60,7 @@ export const AccordionItem = (props: AccordionItemProps) => {
 		contentInnerWrapperProps,
 		contentProps,
 	} = {
-		...slotPropsContext,
+		...itemSlotProps,
 		...slotProps,
 	}
 
