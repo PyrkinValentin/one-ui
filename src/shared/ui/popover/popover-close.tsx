@@ -7,12 +7,16 @@ import { Slot } from "@/shared/ui/system"
 import { usePopoverContext } from "./popover"
 
 export const PopoverClose = (props: PopoverCloseProps) => {
-	const { refs, getReferenceProps } = usePopoverContext()
+	const { context } = usePopoverContext()
 
 	const { children } = props
 
+	const handleClick = () => {
+		context?.onOpenChange(false, undefined, "click")
+	}
+
 	return (
-		<Slot ref={refs?.setReference} {...getReferenceProps?.()}>
+		<Slot onClick={handleClick}>
 			{children}
 		</Slot>
 	)

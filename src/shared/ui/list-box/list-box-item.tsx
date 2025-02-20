@@ -18,7 +18,7 @@ export const ListBoxItem = <As extends ElementType = "button">(props: ListBoxIte
 		variant: variantContext,
 		color: colorContext,
 		disableAnimation: disableAnimationContext,
-		slotProps: slotPropsContext,
+		slotProps: slotPropsContext = {},
 		isDisabled,
 		isSelected,
 		onSelected,
@@ -48,6 +48,8 @@ export const ListBoxItem = <As extends ElementType = "button">(props: ListBoxIte
 		...restProps
 	} = props as ListBoxItemProps
 
+	const { itemSlotProps } = slotPropsContext
+
 	const {
 		baseProps,
 		wrapperProps,
@@ -55,7 +57,7 @@ export const ListBoxItem = <As extends ElementType = "button">(props: ListBoxIte
 		descriptionProps,
 		selectedIconProps,
 	} = {
-		...slotPropsContext?.itemSlotProps,
+		...itemSlotProps,
 		...slotProps,
 	}
 

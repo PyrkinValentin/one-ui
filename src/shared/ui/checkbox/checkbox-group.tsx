@@ -42,7 +42,7 @@ export const CheckboxGroup = (props: CheckboxGroupProps) => {
 		wrapperProps,
 		invalidMessageProps,
 		descriptionProps,
-		checkboxSlotProps,
+		...restSlotProps
 	} = slotProps
 
 	const labelId = useId()
@@ -92,7 +92,7 @@ export const CheckboxGroup = (props: CheckboxGroupProps) => {
 		readOnly,
 		invalid,
 		disableAnimation,
-		slotProps: checkboxSlotProps,
+		slotProps: restSlotProps,
 		isDisabled,
 		isChecked,
 		onChecked,

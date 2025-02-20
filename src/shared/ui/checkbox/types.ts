@@ -4,13 +4,13 @@ import type { CheckboxGroupVariantsProps, CheckboxVariantsProps } from "./varian
 
 export type CheckboxGroupContextValue =
 	Pick<CheckboxGroupProps, "invalid" | "size" | "color" | "rounded" | "lineThrough" | "readOnly" | "disableAnimation"> &
-	Pick<CheckboxProps, "slotProps"> &
 	CheckboxGroupContextOwnValue
 
 type CheckboxGroupContextOwnValue = {
 	isDisabled?: (value: string) => boolean
 	isChecked?: (value: string) => boolean
 	onChecked?: (value: string) => (checked: boolean) => void
+	slotProps?: Pick<CheckboxGroupSlotProps, "checkboxSlotProps">
 }
 
 export type CheckboxGroupProps = ComponentProps<

@@ -17,11 +17,12 @@ export const usePopoverContext = () => use(PopoverContext)
 
 export const Popover = (props: PopoverProps) => {
 	const {
-		arrow = true,
+		role: roleProp = "dialog",
+		arrow,
 		lockScroll,
 		dismissable,
 		placement,
-		offset: offsetProp = 7,
+		offset: offsetProp = arrow ? 10 : 7,
 		disablePortal,
 		defaultOpen = false,
 		open: openProp,
@@ -61,7 +62,7 @@ export const Popover = (props: PopoverProps) => {
 	})
 
 	const role = useRole(context, {
-		role: "dialog",
+		role: roleProp,
 	})
 
 	const click = useClick(context)

@@ -289,6 +289,7 @@ export const Slider = (props: SliderProps) => {
 						<Fragment key={index}>
 							{showTooltip ? (
 								<Tooltip
+									arrow
 									color={color}
 									open={dragging}
 									content={formatNumber(formatOptions).format(value)}

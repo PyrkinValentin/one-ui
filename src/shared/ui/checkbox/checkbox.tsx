@@ -22,7 +22,7 @@ export const Checkbox = (props: CheckboxProps) => {
 		readOnly: readOnlyContext,
 		invalid: invalidContext,
 		disableAnimation: disableAnimationContext,
-		slotProps: slotPropsContext,
+		slotProps: slotPropsContext = {},
 		isDisabled,
 		isChecked,
 		onChecked,
@@ -51,6 +51,7 @@ export const Checkbox = (props: CheckboxProps) => {
 		...restProps
 	} = props
 
+	const { checkboxSlotProps } = slotPropsContext
 
 	const {
 		baseProps,
@@ -58,7 +59,7 @@ export const Checkbox = (props: CheckboxProps) => {
 		labelProps,
 		iconProps,
 	} = {
-		...slotPropsContext,
+		...checkboxSlotProps,
 		...slotProps,
 	}
 

@@ -3,16 +3,14 @@ import type { ComponentProps, ComponentPropsWithAs } from "@/shared/types/props"
 import type { ListBoxVariantsProps, ListBoxSectionVariantsProps, ListBoxItemVariantsProps } from "./variants"
 
 export type ListBoxContextValue =
-	Pick<
-		ListBoxProps,
-		"hideSelectedIcon" | "selectedIcon" | "selectionMode" | "variant" | "color" | "disableAnimation" | "slotProps"
-	> &
+	Pick<ListBoxProps, "hideSelectedIcon" | "selectedIcon" | "selectionMode" | "variant" | "color" | "disableAnimation"> &
 	ListBoxContextOwnValue
 
 type ListBoxContextOwnValue = {
 	isDisabled?: (value: string) => boolean
 	isSelected?: (value: string) => boolean
 	onSelected?: (value: string, selected: boolean) => void
+	slotProps?: Pick<ListBoxSlotProps, "itemSlotProps" | "sectionSlotProps">
 }
 
 export type ListBoxProps = ComponentProps<

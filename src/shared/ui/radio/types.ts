@@ -4,13 +4,13 @@ import type { RadioVariantsProps, RadioGroupVariantsProps } from "./variants"
 
 export type RadioGroupContextValue =
 	Pick<RadioGroupProps, "name" | "size" | "color" | "readOnly" | "invalid" | "disableAnimation"> &
-	Pick<RadioProps, "slotProps"> &
 	RadioGroupContextOwnValue
 
 type RadioGroupContextOwnValue = {
 	isDisabled?: (value: string) => boolean
 	isChecked?: (value: string) => boolean
 	onChecked?: (value: string) => void
+	slotProps?: Pick<RadioGroupSlotProps, "radioSlotProps">
 }
 
 export type RadioGroupProps = ComponentProps<
