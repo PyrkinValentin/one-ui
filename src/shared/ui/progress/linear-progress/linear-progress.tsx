@@ -19,7 +19,7 @@ export const LinearProgress = (props: LinearProgressProps) => {
 		size,
 		color,
 		rounded,
-		indeterminate = !showValueLabel,
+		indeterminate,
 		striped,
 		disabled,
 		disableAnimation,
