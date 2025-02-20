@@ -1,14 +1,16 @@
 "use client"
 
+import type { ReactElement } from "react"
 import type { TabProps, TabsContextValue, TabsProps } from "./types"
 
 import { use, useMemo } from "react"
 import { useControlledState } from "@/shared/hooks/use-controlled-state"
 
-import { Children, createContext, cloneElement, isValidElement } from "react"
+import { Children, createContext, isValidElement } from "react"
 
 import { tabsVariants } from "./variants"
 import { Tab } from "./tab"
+import { TabPanel } from "./tab-panel"
 
 const TabsContext = createContext<TabsContextValue>({})
 export const useTabsContext = () => use(TabsContext)
@@ -17,7 +19,7 @@ export const Tabs = (props: TabsProps) => {
 	const {
 		disabledValue,
 		defaultValue,
-		value,
+		value: valueProp,
 		onValueChange,
 		className,
 		variant,
@@ -38,50 +40,40 @@ export const Tabs = (props: TabsProps) => {
 		tabPanelProps,
 	} = slotProps
 
-	const collection = Children.map(children, (child, i) => {
-		return isValidElement<TabProps>(child)
-			? child.props.value
-				? child
-				: cloneElement(child, { value: String(i) })
-			: null
-	})
-
-	const tabs = collection ?? []
+	const items = Children
+		.toArray(children)
+		.filter<ReactElement<TabProps>>(isValidElement)
 
 	const getDefaultValue = () => {
 		if (defaultValue) {
 			return defaultValue
 		}
 
-		const tab = tabs.find((tab) => {
-			const { disabled, value } = tab.props
-
-			return !disabled && value
-				? !disabledValue?.includes(value)
-				: false
+		const tab = items.find((item, i) => {
+			return !disabledValue?.includes(item.props.value ?? String(i))
 		})
 
-		return tab?.props.value ?? tabs.at(0)?.props.value ?? "0"
+		return tab?.props.value ?? "0"
 	}
 
-	const [controlledValue, setControlledValue] = useControlledState({
+	const [value, setValue] = useControlledState({
 		defaultValue: getDefaultValue,
-		value,
+		value: valueProp,
 		onValueChange,
 	})
 
-	const disabledTab = (value?: string) => {
-		return value
-			? !!disabledValue?.includes(value)
+	const isDisabled = (itemValue?: string) => {
+		return itemValue
+			? !!disabledValue?.includes(itemValue)
 			: false
 	}
 
-	const selectedTab = (value?: string) => {
-		return controlledValue === value
+	const isSelected = (itemValue?: string) => {
+		return value === itemValue
 	}
 
-	const handleValueChange = (value: string) => {
-		setControlledValue?.(value)
+	const onSelect = (itemValue: string) => {
+		setValue(itemValue)
 	}
 
 	const orientation = !placement
@@ -113,9 +105,9 @@ export const Tabs = (props: TabsProps) => {
 	])
 
 	const contextValue: TabsContextValue = {
-		disabledTab,
-		selectedTab,
-		onValueChange: handleValueChange,
+		isDisabled,
+		isSelected,
+		onSelect,
 	}
 
 	return (
@@ -130,29 +122,24 @@ export const Tabs = (props: TabsProps) => {
 					{...tabListProps}
 					className={classNames.tabList({ className: tabListProps?.className })}
 				>
-					{tabs.map((tab) => (
+					{items.map((item, i) => (
 						<Tab
-							key={tab.props.value}
-							{...tab.props}
-							className={classNames.tab({ className: tab.props.className })}
+							key={item.key}
+							value={String(i)}
+							{...item.props}
+							className={classNames.tab({ className: item.props.className })}
 						/>
 					))}
 				</div>
 
-				{tabs.map((tab) => (
-					<>
-						{selectedTab(tab.props.value) ? (
-							<div
-								key={tab.props.value}
-								role="tabpanel"
-								aria-labelledby={`tab-${tab.props.value}`}
-								id={`tabPanel-${tab.props.value}`}
-								{...tabPanelProps}
-							>
-								{tab.props.children}
-							</div>
-						) : null}
-					</>
+				{items.map((item, i) => (
+					<TabPanel
+						key={item.key}
+						value={item.props.value ?? String(i)}
+						{...tabPanelProps}
+					>
+						{item.props.children}
+					</TabPanel>
 				))}
 			</div>
 		</TabsContext>

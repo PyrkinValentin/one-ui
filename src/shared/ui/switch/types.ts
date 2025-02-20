@@ -1,20 +1,17 @@
-import type { ChangeEvent, ReactNode } from "react"
+import type { ReactNode } from "react"
 import type { ComponentProps } from "@/shared/types/props"
 import type { SwitchVariantsProps } from "./variants"
 
 export type SwitchProps = ComponentProps<
 	"input",
 	SwitchVariantsProps &
-	SwitchOwnProps
+	SwitchOwnProps &
+	SwitchStateProps
 >
 
 type SwitchOwnProps = {
 	name?: string
 	value?: string
-	defaultChecked?: boolean
-	checked?: boolean
-	onCheckedChange?: (checked: boolean) => void
-	onChange?: (ev: ChangeEvent<HTMLInputElement>) => void
 	startContent?: ReactNode
 	endContent?: ReactNode
 	thumbIcon?: ReactNode | ((checked: boolean) => ReactNode)
@@ -26,4 +23,10 @@ type SwitchSlotProps = {
 	wrapperProps?: ComponentProps<"span">
 	thumbProps?: ComponentProps<"span">
 	labelProps?: ComponentProps<"span">
+}
+
+type SwitchStateProps = {
+	defaultChecked?: boolean
+	checked?: boolean
+	onCheckedChange?: (checked: boolean) => void
 }

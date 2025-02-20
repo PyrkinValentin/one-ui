@@ -134,7 +134,7 @@ export const Pagination = (props: PaginationProps) => {
 				onClick: (ev) => {
 					controlProps?.onClick?.(ev)
 					renderItemProps?.onClick?.(ev)
-					setCurrentPage?.(page)
+					setCurrentPage(page)
 				},
 				children: (
 					<MdChevronLeft/>
@@ -157,7 +157,7 @@ export const Pagination = (props: PaginationProps) => {
 				onClick: (ev) => {
 					controlProps?.onClick?.(ev)
 					renderItemProps?.onClick?.(ev)
-					setCurrentPage?.(page)
+					setCurrentPage(page)
 				},
 				children: (
 					<MdChevronRight/>
@@ -177,7 +177,7 @@ export const Pagination = (props: PaginationProps) => {
 				onClick: (ev) => {
 					dotsProps?.onClick?.(ev)
 					renderItemProps?.onClick?.(ev)
-					setCurrentPage?.(page)
+					setCurrentPage(page)
 				},
 				children: (
 					<>
@@ -200,7 +200,7 @@ export const Pagination = (props: PaginationProps) => {
 				onClick: (ev) => {
 					dotsProps?.onClick?.(ev)
 					renderItemProps?.onClick?.(ev)
-					setCurrentPage?.(page)
+					setCurrentPage(page)
 				},
 				children: (
 					<>
@@ -225,7 +225,7 @@ export const Pagination = (props: PaginationProps) => {
 			onClick: (ev) => {
 				pageProps?.onClick?.(ev)
 				renderItemProps?.onClick?.(ev)
-				setCurrentPage?.(page)
+				setCurrentPage(page)
 			},
 			children: page,
 		}

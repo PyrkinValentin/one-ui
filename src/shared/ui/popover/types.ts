@@ -20,16 +20,14 @@ export type PopoverProps =
 	Pick<FloatingOverlayProps, "lockScroll"> &
 	Pick<PortalProps, "disablePortal"> &
 	PopoverVariantsProps &
-	PopoverOwnProps
+	PopoverOwnProps &
+	PopoverStateProps
 
 type PopoverOwnProps = {
 	arrow?: boolean
 	dismissable?: boolean
 	placement?: Placement
 	offset?: number
-	defaultOpen?: boolean
-	open?: boolean
-	onOpenChange?: (open: boolean, reason?: OpenChangeReason) => void
 	slotProps?: PopoverSlotProps
 	children?: ReactNode
 }
@@ -38,6 +36,12 @@ type PopoverSlotProps = {
 	backdropProps?: ComponentProps<"div", FloatingOverlayProps>
 	contentProps?: ComponentProps
 	arrowProps?: ComponentProps
+}
+
+type PopoverStateProps = {
+	defaultOpen?: boolean
+	open?: boolean
+	onOpenChange?: (open: boolean, reason?: OpenChangeReason) => void
 }
 
 export type PopoverTriggerProps = {

@@ -7,29 +7,29 @@ import { useTabsContext } from "./tabs"
 
 export const Tab = <As extends ElementType = "button">(props: TabProps<As>) => {
 	const {
-		disabledTab,
-		selectedTab,
-		onValueChange,
+		isDisabled,
+		isSelected,
+		onSelect,
 	} = useTabsContext()
 
 	const {
 		as = "button",
 		value,
-		disabled = disabledTab?.(value),
+		disabled = isDisabled?.(value),
 		title,
 		onClick,
 		...restProps
 	} = props as TabProps
 
+	const selected = !!isSelected?.(value)
+
 	const handleClick = (ev: MouseEvent<HTMLButtonElement>) => {
 		onClick?.(ev)
 
 		if (value) {
-			onValueChange?.(value)
+			onSelect?.(value, selected)
 		}
 	}
-
-	const selected = selectedTab?.(value)
 
 	const Component = as
 

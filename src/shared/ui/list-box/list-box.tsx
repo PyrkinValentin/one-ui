@@ -58,7 +58,7 @@ export const ListBox = (props: ListBoxProps) => {
 			)
 		) return
 
-		setValue?.(
+		setValue(
 			selected
 				? selectionMode === "single"
 					? ""
