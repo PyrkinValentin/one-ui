@@ -96,7 +96,7 @@ export const Slider = (props: SliderProps) => {
 			? findIndex()
 			: trigger
 
-		setValue?.(
+		setValue(
 			value.with(
 				indexValue,
 				numberClump(

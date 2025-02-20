@@ -63,7 +63,7 @@ export const CheckboxGroup = (props: CheckboxGroupProps) => {
 	}
 
 	const onChecked = (itemValue: string) => (checked: boolean) => {
-		setValue?.(
+		setValue(
 			checked
 				? [...value, itemValue]
 				: value.filter((v) => v !== itemValue)

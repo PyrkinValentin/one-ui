@@ -48,7 +48,7 @@ export const Accordion = (props: AccordionProps) => {
 	}
 
 	const onExpand = (itemValue: string, expanded: boolean) => {
-		setValue?.(
+		setValue(
 			expanded
 				? selectionMode === "single"
 					? ""

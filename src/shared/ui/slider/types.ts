@@ -6,7 +6,8 @@ import type { SliderVariantsProps } from "./variants"
 export type SliderProps = ComponentProps<
 	"div",
 	Omit<SliderVariantsProps, "singleThumb"> &
-	SliderOwnProps
+	SliderOwnProps &
+	SliderStateProps
 >
 
 type SliderOwnProps = {
@@ -22,10 +23,6 @@ type SliderOwnProps = {
 	step?: number
 	minValue?: number
 	maxValue?: number
-	value?: number[]
-	defaultValue?: number[]
-	onValueChange?: (value: number[]) => void
-	onValueChangeComplete?: (value: number[]) => void
 	renderValue?: (props: RenderValueProps) => ReactNode
 	slotProps?: SliderSlotProps
 }
@@ -42,6 +39,13 @@ type SliderSlotProps = {
 	thumbProps?: ComponentProps
 	inputProps?: ComponentProps<"input">
 	tooltipProps?: TooltipProps
+}
+
+type SliderStateProps = {
+	defaultValue?: number[]
+	value?: number[]
+	onValueChange?: (value: number[]) => void
+	onValueChangeComplete?: (value: number[]) => void
 }
 
 type Mark = {

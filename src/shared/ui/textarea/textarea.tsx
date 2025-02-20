@@ -64,12 +64,12 @@ export const Textarea = (props: TextareaProps) => {
 
 	const handleChange = (ev: ChangeEvent<HTMLTextAreaElement>) => {
 		onChange?.(ev)
-		setValue?.(ev.target.value)
+		setValue(ev.target.value)
 	}
 
 	const handleClickClear = () => {
 		onClear?.()
-		setValue?.("")
+		setValue("")
 	}
 
 	const classNames = useMemo(() => {
@@ -117,63 +117,63 @@ export const Textarea = (props: TextareaProps) => {
 				</label>
 			) : null}
 
-				<div
-					{...wrapperProps}
-					className={classNames.wrapper({ className: wrapperProps?.className })}
+			<div
+				{...wrapperProps}
+				className={classNames.wrapper({ className: wrapperProps?.className })}
+			>
+				<label
+					{...textareaWrapperProps}
+					className={classNames.textareaWrapper({ className: textareaWrapperProps?.className })}
 				>
-					<label
-						{...textareaWrapperProps}
-						className={classNames.textareaWrapper({ className: textareaWrapperProps?.className })}
+					{startContent}
+
+					<textarea
+						id={textareaId}
+						required={required}
+						readOnly={readOnly}
+						disabled={disabled}
+						className={classNames.textarea({ className })}
+						value={value}
+						onChange={handleChange}
+						{...restProps}
+						{...(autosize
+								? { ref: mergeRefs(restProps?.ref, textareaRef) }
+								: undefined
+						)}
+					/>
+
+					{clearable ? (
+						<>
+							{value ? (
+								<button
+									disabled={readOnly || disabled}
+									onClick={handleClickClear}
+									{...clearButtonProps}
+									className={classNames.clearButton({ className: clearButtonProps?.className })}
+								>
+									{endContent ?? <MdCancel/>}
+								</button>
+							) : null}
+						</>
+					) : endContent}
+				</label>
+
+				{invalid && invalidMessage ? (
+					<p
+						{...invalidMessageProps}
+						className={classNames.invalidMessage({ className: invalidMessageProps?.className })}
 					>
-						{startContent}
-
-						<textarea
-							id={textareaId}
-							required={required}
-							readOnly={readOnly}
-							disabled={disabled}
-							className={classNames.textarea({ className })}
-							value={value}
-							onChange={handleChange}
-							{...restProps}
-							{...(autosize
-									? { ref: mergeRefs(restProps?.ref, textareaRef) }
-									: undefined
-							)}
-						/>
-
-						{clearable ? (
-							<>
-								{value ? (
-									<button
-										disabled={readOnly || disabled}
-										onClick={handleClickClear}
-										{...clearButtonProps}
-										className={classNames.clearButton({ className: clearButtonProps?.className })}
-									>
-										{endContent ?? <MdCancel/>}
-									</button>
-								) : null}
-							</>
-						) : endContent}
-					</label>
-
-					{invalid && invalidMessage ? (
-						<p
-							{...invalidMessageProps}
-							className={classNames.invalidMessage({ className: invalidMessageProps?.className })}
-						>
-							{invalidMessage}
-						</p>
-					) : description ? (
-						<p
-							{...descriptionProps}
-							className={classNames.description({ className: descriptionProps?.className })}
-						>
-							{description}
-						</p>
-					) : null}
-				</div>
+						{invalidMessage}
+					</p>
+				) : description ? (
+					<p
+						{...descriptionProps}
+						className={classNames.description({ className: descriptionProps?.className })}
+					>
+						{description}
+					</p>
+				) : null}
+			</div>
 		</div>
 	)
 }

@@ -3,22 +3,19 @@ import type { ComponentProps, ComponentPropsWithAs } from "@/shared/types/props"
 import type { TabsVariantsProps } from "./variants"
 
 export type TabsContextValue = {
-	disabledTab?: (value?: string) => boolean
-	selectedTab?: (value?: string) => boolean
-	onValueChange?: (value: string) => void
+	isDisabled?: (value?: string) => boolean
+	isSelected?: (value?: string) => boolean
+	onSelect?: (value: string, selected: boolean) => void
 }
 
 export type TabsProps = ComponentProps<
 	"div",
 	TabsVariantsProps &
-	TabsOwnProps
+	TabsOwnProps &
+	TabsStateProps
 >
 
 type TabsOwnProps = {
-	disabledValue?: string[]
-	defaultValue?: string
-	value?: string
-	onValueChange?: (value: string) => void
 	slotProps?: TabsSlotProps
 }
 
@@ -27,12 +24,22 @@ type TabsSlotProps = {
 	tabPanelProps?: ComponentProps
 }
 
-export type TabProps<
-	As extends ElementType = "button"
-> = ComponentPropsWithAs<As, TabOwnProps>
+type TabsStateProps = {
+	disabledValue?: string[]
+	defaultValue?: string
+	value?: string
+	onValueChange?: (value: string) => void
+}
+
+export type TabProps<As extends ElementType = "button"> = ComponentPropsWithAs<
+	As,
+	TabOwnProps
+>
 
 type TabOwnProps = {
 	disabled?: boolean
 	value?: string
-	title?: ReactNode
+	title: ReactNode
 }
+
+export type TabPanelProps = ComponentProps<"div", Pick<TabProps, "value">>

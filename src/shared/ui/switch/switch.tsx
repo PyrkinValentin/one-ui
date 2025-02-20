@@ -49,7 +49,7 @@ export const Switch = (props: SwitchProps) => {
 
 	const handleChange = (ev: ChangeEvent<HTMLInputElement>) => {
 		onChange?.(ev)
-		setChecked?.(ev.target.checked)
+		setChecked(ev.target.checked)
 	}
 
 	const classNames = useMemo(() => {

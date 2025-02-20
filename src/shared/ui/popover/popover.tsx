@@ -24,7 +24,7 @@ export const Popover = (props: PopoverProps) => {
 		offset: offsetProp = 7,
 		disablePortal,
 		defaultOpen = false,
-		open,
+		open: openProp,
 		onOpenChange,
 		size,
 		color,
@@ -37,19 +37,19 @@ export const Popover = (props: PopoverProps) => {
 		slotProps,
 	} = props
 
-	const [state, setState] = useControlledState({
+	const [open, setOpen] = useControlledState({
 		defaultValue: defaultOpen,
-		value: open,
+		value: openProp,
 		onValueChange: onOpenChange,
 	})
 
 	const handleOpenChange = (open: boolean, _ev?: Event, reason?: OpenChangeReason) => {
-		setState?.(open, reason)
+		setOpen(open, reason)
 	}
 
 	const { context, refs } = useFloating({
 		placement,
-		open: state,
+		open,
 		onOpenChange: handleOpenChange,
 		offsetOptions: {
 			mainAxis: offsetProp,

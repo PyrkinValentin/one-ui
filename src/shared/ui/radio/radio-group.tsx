@@ -63,7 +63,7 @@ export const RadioGroup = (props: RadioGroupProps) => {
 	}
 
 	const onChecked = (itemValue: string) => {
-		setValue?.(itemValue)
+		setValue(itemValue)
 	}
 
 	const classNames = useMemo(() => {

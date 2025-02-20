@@ -27,7 +27,7 @@ export const Tooltip = (props: TooltipProps) => {
 		delayHover,
 		disablePortal,
 		defaultOpen = false,
-		open,
+		open: openProp,
 		onOpenChange,
 		content,
 		ref,
@@ -48,14 +48,14 @@ export const Tooltip = (props: TooltipProps) => {
 		arrowProps,
 	} = slotProps
 
-	const [state, setState] = useControlledState({
+	const [open, setOpen] = useControlledState({
 		defaultValue: defaultOpen,
-		value: open,
+		value: openProp,
 		onValueChange: onOpenChange,
 	})
 
 	const handleOpenChange = (open: boolean, _ev?: Event, reason?: OpenChangeReason) => {
-		setState?.(open, reason)
+		setOpen(open, reason)
 	}
 
 	const {
@@ -65,7 +65,7 @@ export const Tooltip = (props: TooltipProps) => {
 		arrowStyles,
 	} = useFloating({
 		placement,
-		open: state,
+		open,
 		onOpenChange: handleOpenChange,
 		offsetOptions: {
 			mainAxis: offsetProp,
@@ -103,7 +103,7 @@ export const Tooltip = (props: TooltipProps) => {
 		dismiss,
 	])
 
-	const [mounted, growStyle] = useTransition(state, {
+	const [mounted, growStyle] = useTransition(context.open, {
 		enabled: !disableAnimation,
 		initial: { opacity: 0, transform: "scale(0.97)" },
 		enter: { opacity: 1, transform: "scale(1)" },

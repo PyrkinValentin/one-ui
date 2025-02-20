@@ -8,7 +8,8 @@ export type TooltipProps = ComponentProps<
 	"div",
 	TooltipVariantsProps &
 	Pick<PortalProps, "disablePortal"> &
-	TooltipOwnProps
+	TooltipOwnProps &
+	TooltipStateProps
 >
 
 type TooltipOwnProps = {
@@ -19,9 +20,6 @@ type TooltipOwnProps = {
 	delay?: number
 	delayClose?: number
 	delayHover?: number
-	defaultOpen?: boolean
-	open?: boolean
-	onOpenChange?: (open: boolean, reason?: OpenChangeReason) => void
 	content?: ReactNode
 	slotProps?: TooltipSlotProps
 }
@@ -29,4 +27,10 @@ type TooltipOwnProps = {
 type TooltipSlotProps = {
 	contentProps?: ComponentProps
 	arrowProps?: ComponentProps
+}
+
+type TooltipStateProps = {
+	defaultOpen?: boolean
+	open?: boolean
+	onOpenChange?: (open: boolean, reason?: OpenChangeReason) => void
 }
