@@ -2,13 +2,13 @@ import type { VariantProps } from "@/core/theme"
 
 import { tv } from "@/core/theme"
 
-export type DialogVariantsProps = VariantProps<typeof dialogVariants>
-export type DialogVariantsReturn = ReturnType<typeof dialogVariants>
+export type DrawerVariantsProps = VariantProps<typeof drawerVariants>
+export type DrawerVariantsReturn = ReturnType<typeof drawerVariants>
 
-export const dialogVariants = tv({
+export const drawerVariants = tv({
 	slots: {
 		wrapper: "z-50 overflow-x-auto fixed inset-0 w-screen h-dvh flex justify-center",
-		base: "box-border relative m-1 sm:mx-6 sm:my-16 w-full flex flex-col bg-content1",
+		base: "box-border fixed w-full flex flex-col bg-content1",
 		backdrop: "z-50",
 		header: "flex py-4 px-6 flex-initial text-lg font-semibold",
 		body: [
@@ -39,54 +39,48 @@ export const dialogVariants = tv({
 		},
 		size: {
 			xs: {
-				base: "max-w-xs",
+				base: "max-w-xs max-h-[20rem]",
 			},
 			sm: {
-				base: "max-w-sm",
+				base: "max-w-sm max-h-[24rem]",
 			},
 			md: {
-				base: "max-w-md",
+				base: "max-w-md max-h-[28rem]",
 			},
 			lg: {
-				base: "max-w-lg",
+				base: "max-w-lg max-h-[32rem]",
 			},
 			xl: {
-				base: "max-w-xl",
+				base: "max-w-xl max-h-[36rem]",
 			},
 			"2xl": {
-				base: "max-w-2xl",
+				base: "max-w-2xl max-h-[42rem]",
 			},
 			"3xl": {
-				base: "max-w-3xl",
+				base: "max-w-3xl max-h-[48rem]",
 			},
 			"4xl": {
-				base: "max-w-4xl",
+				base: "max-w-4xl max-h-[56rem]",
 			},
 			"5xl": {
-				base: "max-w-5xl",
+				base: "max-w-5xl max-h-[64rem]",
 			},
 			full: {
-				base: "m-0 sm:mx-0 sm:my-0 max-w-full h-dvh min-h-dvh rounded-none",
+				base: "max-w-full max-h-full h-dvh rounded-none",
 			},
 		},
 		placement: {
-			auto: {
-				wrapper: "items-end sm:items-center",
-			},
-			center: {
-				wrapper: "items-center sm:items-center",
-			},
 			top: {
-				wrapper: "items-start sm:items-start",
+				base: "inset-x-0 top-0 max-w-[none] rounded-t-none",
 			},
-			"top-center": {
-				wrapper: "items-start sm:items-center",
+			right: {
+				base: "inset-y-0 right-0 max-h-[none] rounded-r-none",
 			},
 			bottom: {
-				wrapper: "items-end sm:items-end",
+				base: "inset-x-0 bottom-0 max-w-[none] rounded-b-none",
 			},
-			"bottom-center": {
-				wrapper: "items-end sm:items-center",
+			left: {
+				base: "inset-y-0 left-0 max-h-[none] rounded-l-none",
 			},
 		},
 		shadow: {
@@ -113,15 +107,11 @@ export const dialogVariants = tv({
 			},
 		},
 		scrollBehavior: {
-			normal: {
-				base: "overflow-y-hidden",
-			},
 			inside: {
-				base: "max-h-[calc(100%_-_8rem)]",
 				body: "overflow-y-auto",
 			},
 			outside: {
-				wrapper: "items-start sm:items-start overflow-y-auto",
+				base: "overflow-y-auto",
 			},
 		},
 		disableAnimation: {
@@ -136,9 +126,9 @@ export const dialogVariants = tv({
 	defaultVariants: {
 		size: "md",
 		rounded: "lg",
-		placement: "auto",
+		placement: "right",
 		shadow: "sm",
 		backdrop: "opaque",
-		scrollBehavior: "normal",
+		scrollBehavior: "inside",
 	},
 })
