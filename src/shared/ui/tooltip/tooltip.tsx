@@ -29,6 +29,7 @@ export const Tooltip = (props: TooltipProps) => {
 		defaultOpen = false,
 		open: openProp,
 		onOpenChange,
+		onClose,
 		content,
 		ref,
 		style,
@@ -56,6 +57,10 @@ export const Tooltip = (props: TooltipProps) => {
 
 	const handleOpenChange = (open: boolean, _ev?: Event, reason?: OpenChangeReason) => {
 		setOpen(open, reason)
+
+		if (!open) {
+			onClose?.(reason)
+		}
 	}
 
 	const {
@@ -64,10 +69,21 @@ export const Tooltip = (props: TooltipProps) => {
 		floatingStyles,
 		arrowStyles,
 	} = useFloating({
+		transform: false,
 		placement,
 		open,
 		onOpenChange: handleOpenChange,
+		autoUpdateOptions: {
+			enabled: true,
+		},
+		flipOptions: {
+			enabled: true,
+		},
+		shiftOptions: {
+			enabled: true,
+		},
 		offsetOptions: {
+			enabled: true,
 			mainAxis: offsetProp,
 		},
 		arrowOptions: {

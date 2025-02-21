@@ -129,8 +129,8 @@ export const Avatar = (props: AvatarProps) => {
 										{...nameProps}
 										className={classNames.name({ className: nameProps?.className })}
 									>
-        					{getInitials(name)}
-      					</span>
+								{getInitials(name)}
+							</span>
 								) : (
 									<span
 										role="img"
@@ -138,8 +138,8 @@ export const Avatar = (props: AvatarProps) => {
 										{...iconProps}
 										className={classNames.icon({ className: iconProps?.className })}
 									>
-        					{icon}
-      					</span>
+								{icon}
+							</span>
 								)}
 							</>
 						)}

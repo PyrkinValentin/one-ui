@@ -1,43 +1,44 @@
 "use client"
 
 import type { OpenChangeReason } from "@floating-ui/react"
-import type { PopoverContextValue, PopoverProps } from "./types"
+import type { DialogContextValue, DialogProps } from './types'
 
-import { use, useMemo } from "react"
+import { use, useId, useMemo } from "react"
 import { useClick, useDismiss, useInteractions, useRole } from "@floating-ui/react"
 import { useControlledState } from "@/shared/hooks/use-controlled-state"
 import { useFloating } from "@/shared/hooks/use-floating"
 
 import { createContext } from "react"
 
-import { popoverVariants } from "./variants"
+import { dialogVariants } from "./variants"
 
-const PopoverContext = createContext<PopoverContextValue>({})
-export const usePopoverContext = () => use(PopoverContext)
+const DialogContext = createContext<DialogContextValue>({})
+export const useDialogContext = () => use(DialogContext)
 
-export const Popover = (props: PopoverProps) => {
+export const Dialog = (props: DialogProps) => {
 	const {
-		role: roleProp = "dialog",
-		arrow,
-		lockScroll,
-		dismissable,
-		placement,
-		offset: offsetProp = arrow ? 10 : 7,
+		lockScroll = true,
 		disablePortal,
+		dismissable = true,
+		hideCloseButton,
+		closeButtonIcon,
 		defaultOpen = false,
 		open: openProp,
 		onOpenChange,
 		onClose,
 		size,
-		color,
 		rounded,
+		placement,
 		shadow,
 		backdrop,
-		triggerScaleOnOpen,
+		scrollBehavior,
 		disableAnimation,
 		children,
 		slotProps,
 	} = props
+
+	const headerId = useId()
+	const bodyId = useId()
 
 	const [open, setOpen] = useControlledState({
 		defaultValue: defaultOpen,
@@ -54,38 +55,19 @@ export const Popover = (props: PopoverProps) => {
 	}
 
 	const { context, refs } = useFloating({
-		transform: false,
-		placement,
+		strategy: "fixed",
 		open,
 		onOpenChange: handleOpenChange,
-		autoUpdateOptions: {
-			enabled: true,
-		},
-		flipOptions: {
-			enabled: true,
-		},
-		shiftOptions: {
-			enabled: true,
-		},
-		offsetOptions: {
-			enabled: true,
-			mainAxis: offsetProp,
-		},
-		arrowOptions: {
-			enabled: arrow,
-			padding: 10,
-		},
 	})
 
 	const role = useRole(context, {
-		role: roleProp,
+		role: "dialog",
 	})
 
 	const click = useClick(context)
 
 	const dismiss = useDismiss(context, {
 		enabled: dismissable,
-		ancestorScroll: true,
 	})
 
 	const { getReferenceProps, getFloatingProps } = useInteractions([
@@ -95,30 +77,33 @@ export const Popover = (props: PopoverProps) => {
 	])
 
 	const classNames = useMemo(() => {
-		return popoverVariants({
+		return dialogVariants({
 			size,
-			color,
 			rounded,
+			placement,
 			shadow,
 			backdrop,
-			triggerScaleOnOpen,
+			scrollBehavior,
 			disableAnimation,
 		})
 	}, [
 		size,
-		color,
 		rounded,
+		placement,
 		shadow,
 		backdrop,
-		triggerScaleOnOpen,
+		scrollBehavior,
 		disableAnimation,
 	])
 
-	const contextValue: PopoverContextValue = {
-		arrow,
+	const contextValue: DialogContextValue = {
 		lockScroll,
 		disablePortal,
 		disableAnimation,
+		hideCloseButton,
+		closeButtonIcon,
+		headerId,
+		bodyId,
 		context,
 		refs,
 		classNames,
@@ -128,8 +113,8 @@ export const Popover = (props: PopoverProps) => {
 	}
 
 	return (
-		<PopoverContext value={contextValue}>
+		<DialogContext value={contextValue}>
 			{children}
-		</PopoverContext>
+		</DialogContext>
 	)
 }

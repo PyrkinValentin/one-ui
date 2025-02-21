@@ -7,10 +7,10 @@ export type PopoverVariantsReturn = ReturnType<typeof popoverVariants>
 
 export const popoverVariants = tv({
 	slots: {
-		base: "outline-none",
+		base: "z-50 outline-none",
+		content: "box-border relative px-2.5 py-1 subpixel-antialiased",
 		backdrop: "z-50",
 		trigger: "z-10",
-		content: "box-border z-10 relative px-2.5 py-1 subpixel-antialiased",
 		arrow: "",
 	},
 	variants: {

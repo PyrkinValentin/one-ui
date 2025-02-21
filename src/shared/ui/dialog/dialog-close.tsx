@@ -1,13 +1,13 @@
 "use client"
 
-import type { PopoverCloseProps } from "./types"
+import type { DialogCloseProps } from "./types"
 
 import { Slot } from "@/shared/ui/system"
 
-import { usePopoverContext } from "./popover"
+import { useDialogContext } from "./dialog"
 
-export const PopoverClose = (props: PopoverCloseProps) => {
-	const { context } = usePopoverContext()
+export const DialogClose = (props: DialogCloseProps) => {
+	const { context } = useDialogContext()
 	const { children } = props
 
 	const handleClick = () => {

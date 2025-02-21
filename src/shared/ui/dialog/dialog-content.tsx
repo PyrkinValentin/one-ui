@@ -1,28 +1,31 @@
 "use client"
 
-import type { PopoverContentProps } from "./types"
+import type { MouseEvent } from "react"
+import type { DialogContentProps } from "./types"
 
 import { useTransition } from "@/shared/hooks/use-transition"
 
 import { mergeRefs } from "@/shared/utils/merge"
 
-import { FloatingOverlay, FloatingFocusManager } from "@floating-ui/react"
+import { FloatingFocusManager, FloatingOverlay } from "@floating-ui/react"
+import { MdClear } from "react-icons/md"
 import { Portal } from "@/shared/ui/system"
 
-import { usePopoverContext } from "./popover"
+import { useDialogContext } from "./dialog"
 
-export const PopoverContent = (props: PopoverContentProps) => {
+export const DialogContent = (props: DialogContentProps) => {
 	const {
-		arrow,
 		lockScroll,
 		disablePortal,
 		disableAnimation,
+		hideCloseButton,
+		closeButtonIcon,
 		context,
 		refs,
 		classNames,
 		getFloatingProps,
 		slotProps = {},
-	} = usePopoverContext()
+	} = useDialogContext()
 
 	const {
 		ref,
@@ -34,9 +37,9 @@ export const PopoverContent = (props: PopoverContentProps) => {
 
 	const {
 		backdropProps,
-		contentProps,
-		arrowProps,
 		focusManagerProps,
+		wrapperProps,
+		closeButtonProps,
 	} = slotProps
 
 	const [mounted, fadeStyle] = useTransition(context?.open, {
@@ -51,6 +54,11 @@ export const PopoverContent = (props: PopoverContentProps) => {
 		enter: { opacity: 1, transform: "scale(1)" },
 	})
 
+	const handleClickClose = (ev: MouseEvent<HTMLButtonElement>) => {
+		closeButtonProps?.onClick?.(ev)
+		context?.onOpenChange(false, undefined, "click")
+	}
+
 	return (
 		<>
 			{mounted && context ? (
@@ -58,7 +66,7 @@ export const PopoverContent = (props: PopoverContentProps) => {
 					<FloatingOverlay
 						lockScroll={lockScroll}
 						{...backdropProps}
-						className={classNames?.backdrop({ className: backdropProps?.className })}
+						className={classNames?.backdrop()}
 						style={{
 							...fadeStyle,
 							...backdropProps?.style,
@@ -70,33 +78,30 @@ export const PopoverContent = (props: PopoverContentProps) => {
 						{...focusManagerProps}
 					>
 						<div
-							ref={mergeRefs(ref, refs?.setFloating)}
-							className={classNames?.base({ className })}
-							style={{
-								...context.floatingStyles,
-								...zoomStyle,
-								...style,
-							}}
-							{...getFloatingProps?.(restProps)}
+							{...wrapperProps}
+							className={classNames?.wrapper({ className: wrapperProps?.className })}
 						>
 							<div
-								{...contentProps}
-								className={classNames?.content({ className: contentProps?.className })}
+								ref={mergeRefs(ref, refs?.setFloating)}
+								className={classNames?.base({ className })}
+								style={{
+									...zoomStyle,
+									...style,
+								}}
+								{...getFloatingProps?.(restProps)}
 							>
+								{!hideCloseButton ? (
+									<button
+										{...closeButtonProps}
+										className={classNames?.closeButton({ className: closeButtonProps?.className })}
+										onClick={handleClickClose}
+									>
+										{closeButtonIcon ?? <MdClear/>}
+									</button>
+								) : null}
+
 								{children}
 							</div>
-
-							{arrow ? (
-								<div
-									{...arrowProps}
-									ref={mergeRefs(arrowProps?.ref, refs?.setArrow)}
-									className={classNames?.arrow({ className: arrowProps?.className })}
-									style={{
-										...context.arrowStyles,
-										...arrowProps?.style,
-									}}
-								/>
-							) : null}
 						</div>
 					</FloatingFocusManager>
 				</Portal>

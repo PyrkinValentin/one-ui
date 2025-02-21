@@ -33,4 +33,5 @@ type TooltipStateProps = {
 	defaultOpen?: boolean
 	open?: boolean
 	onOpenChange?: (open: boolean, reason?: OpenChangeReason) => void
+	onClose?: (reason?: OpenChangeReason) => void
 }
