@@ -18,9 +18,9 @@ export type PopoverContextValue =
 	Partial<Pick<UseFloatingReturn, "context" | "refs">> &
 	Partial<Pick<UseInteractionsReturn, "getReferenceProps" | "getFloatingProps">> &
 	Pick<PopoverProps, "arrow" | "lockScroll" | "disablePortal" | "disableAnimation"> &
-	PopoverOwnContextValue
+	PopoverContextOwnValue
 
-type PopoverOwnContextValue = {
+type PopoverContextOwnValue = {
 	classNames?: PopoverVariantsReturn
 	slotProps?: PopoverSlotProps
 }
@@ -53,6 +53,7 @@ type PopoverStateProps = {
 	defaultOpen?: boolean
 	open?: boolean
 	onOpenChange?: (open: boolean, reason?: OpenChangeReason) => void
+	onClose?: (reason?: OpenChangeReason) => void
 }
 
 export type PopoverTriggerProps = {

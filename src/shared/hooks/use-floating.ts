@@ -14,12 +14,12 @@ import { useFloating as useFloatingReact } from "@floating-ui/react"
 
 import { arrow, autoUpdate, flip, offset, shift } from "@floating-ui/react"
 
-export type UseFloatingOptions = Pick<
-	UseFloatingOptionsReact,
-	| "placement"
-	| "open"
-	| "onOpenChange"
-> & UseFloatingOwnOptions
+export type UseFloatingOptions =
+	Pick<
+		UseFloatingOptionsReact,
+		"elements" | "nodeId" | "platform" | "rootContext" | "strategy" | "transform" | "placement" | "open" | "onOpenChange"
+	> &
+	UseFloatingOwnOptions
 
 type UseFloatingOwnOptions = {
 	autoUpdateOptions?: AutoUpdateOptions & { enabled?: boolean }
@@ -53,6 +53,7 @@ const sideTransform: Record<Side, string> = {
 
 export const useFloating = (options: UseFloatingOptions) => {
 	const {
+		transform,
 		placement,
 		open,
 		onOpenChange,
@@ -61,15 +62,16 @@ export const useFloating = (options: UseFloatingOptions) => {
 		shiftOptions = {},
 		flipOptions = {},
 		arrowOptions = {},
+		...restOptions
 	} = options
 
-	const { enabled: autoUpdateEnabled = true, ...restAutoUpdateOptions } = autoUpdateOptions
-	const { enabled: offsetEnabled = true, ...restOffsetOptions } = offsetOptions
-	const { enabled: shiftEnabled = true, ...restShiftOptions } = shiftOptions
-	const { enabled: flipEnabled = true, ...restFlipOptions } = flipOptions
-	const { enabled: arrowEnabled, ...restArrowOptions } = arrowOptions
-
 	const arrowRef = useRef<HTMLElement>(null)
+
+	const enableMiddleware =
+		offsetOptions.enabled ||
+		shiftOptions.enabled ||
+		flipOptions.enabled ||
+		arrowOptions.enabled
 
 	const {
 		context,
@@ -79,27 +81,31 @@ export const useFloating = (options: UseFloatingOptions) => {
 		placement,
 		open,
 		onOpenChange,
-		whileElementsMounted: autoUpdateEnabled ? (referenceEl, floatingEl, update) => (
-			autoUpdate(referenceEl, floatingEl, update, {
-				layoutShift: false,
-				...restAutoUpdateOptions,
-			})
-		) : undefined,
-		transform: false,
-		middleware: [
-			offsetEnabled
-				? offset(restOffsetOptions)
-				: undefined,
-			shiftEnabled
-				? shift(restShiftOptions)
-				: undefined,
-			flipEnabled
-				? flip(restFlipOptions)
-				: undefined,
-			arrowEnabled
-				? arrow({ ...restArrowOptions, element: arrowRef })
-				: undefined,
-		],
+		whileElementsMounted: autoUpdateOptions.enabled
+			? (referenceEl, floatingEl, update) => (
+				autoUpdate(referenceEl, floatingEl, update, {
+					layoutShift: false,
+					...autoUpdateOptions,
+				})
+			) : undefined,
+		transform,
+		...(enableMiddleware ? {
+			middleware: [
+				offsetOptions.enabled
+					? offset(offsetOptions)
+					: undefined,
+				shiftOptions.enabled
+					? shift(shiftOptions)
+					: undefined,
+				flipOptions.enabled
+					? flip(flipOptions)
+					: undefined,
+				arrowOptions.enabled
+					? arrow({ ...arrowOptions, element: arrowRef })
+					: undefined,
+			],
+		} : undefined),
+		...restOptions,
 	})
 
 	const setArrow = (node: HTMLElement | null) => {
@@ -118,7 +124,7 @@ export const useFloating = (options: UseFloatingOptions) => {
 		}
 	}
 
-	const arrowStyles = arrowEnabled
+	const arrowStyles = arrowOptions.enabled
 		? getArrowStyles()
 		: undefined
 
