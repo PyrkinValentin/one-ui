@@ -139,6 +139,6 @@ export const dialogVariants = tv({
 		placement: "auto",
 		shadow: "sm",
 		backdrop: "opaque",
-		scrollBehavior: "normal",
+		scrollBehavior: "inside",
 	},
 })

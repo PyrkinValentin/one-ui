@@ -22,6 +22,8 @@ export const DialogContent = (props: DialogContentProps) => {
 		closeButtonIcon,
 		context,
 		refs,
+		headerId,
+		bodyId,
 		classNames,
 		getFloatingProps,
 		slotProps = {},
@@ -81,7 +83,9 @@ export const DialogContent = (props: DialogContentProps) => {
 							{...wrapperProps}
 							className={classNames?.wrapper({ className: wrapperProps?.className })}
 						>
-							<div
+							<section
+								aria-labelledby={headerId}
+								aria-describedby={bodyId}
 								ref={mergeRefs(ref, refs?.setFloating)}
 								className={classNames?.base({ className })}
 								style={{
@@ -101,7 +105,7 @@ export const DialogContent = (props: DialogContentProps) => {
 								) : null}
 
 								{children}
-							</div>
+							</section>
 						</div>
 					</FloatingFocusManager>
 				</Portal>

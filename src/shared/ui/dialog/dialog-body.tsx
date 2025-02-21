@@ -5,7 +5,10 @@ import type { DialogBodyProps } from "./types"
 import { useDialogContext } from "./dialog"
 
 export const DialogBody = (props: DialogBodyProps) => {
-	const { classNames } = useDialogContext()
+	const {
+		bodyId,
+		classNames,
+	} = useDialogContext()
 
 	const {
 		className,
@@ -15,6 +18,7 @@ export const DialogBody = (props: DialogBodyProps) => {
 
 	return (
 		<div
+			id={bodyId}
 			className={classNames?.body({ className })}
 			{...restProps}
 		>

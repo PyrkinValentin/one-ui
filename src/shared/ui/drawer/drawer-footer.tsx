@@ -14,11 +14,11 @@ export const DrawerFooter = (props: DrawerFooterProps) => {
 	} = props
 
 	return (
-		<div
+		<footer
 			className={classNames?.footer({ className })}
 			{...restProps}
 		>
 			{children}
-		</div>
+		</footer>
 	)
 }

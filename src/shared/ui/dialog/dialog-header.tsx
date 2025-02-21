@@ -5,7 +5,10 @@ import type { DialogHeaderProps } from "./types"
 import { useDialogContext } from "./dialog"
 
 export const DialogHeader = (props: DialogHeaderProps) => {
-	const { classNames } = useDialogContext()
+	const {
+		headerId,
+		classNames,
+	} = useDialogContext()
 
 	const {
 		className,
@@ -14,11 +17,12 @@ export const DialogHeader = (props: DialogHeaderProps) => {
 	} = props
 
 	return (
-		<div
+		<header
+			id={headerId}
 			className={classNames?.header({ className })}
 			{...restProps}
 		>
 			{children}
-		</div>
+		</header>
 	)
 }
