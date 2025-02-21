@@ -46,7 +46,6 @@ type DrawerOwnProps = {
 type DrawerSlotProps = {
 	backdropProps?: ComponentProps<"div", FloatingOverlayProps>
 	focusManagerProps?: Omit<FloatingFocusManagerProps, "context" | "children">
-	wrapperProps?: ComponentProps
 	closeButtonProps?: ComponentProps<"button">
 }
 
@@ -65,7 +64,7 @@ export type DrawerCloseProps = {
 	children?: ReactNode
 }
 
-export type DrawerContentProps = ComponentProps
-export type DrawerHeaderProps = ComponentProps
+export type DrawerContentProps = ComponentProps<"section">
+export type DrawerHeaderProps = ComponentProps<"header">
 export type DrawerBodyProps = ComponentProps
-export type DrawerFooterProps = ComponentProps
+export type DrawerFooterProps = ComponentProps<"footer">

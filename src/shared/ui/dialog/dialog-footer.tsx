@@ -14,11 +14,11 @@ export const DialogFooter = (props: DialogFooterProps) => {
 	} = props
 
 	return (
-		<div
+		<footer
 			className={classNames?.footer({ className })}
 			{...restProps}
 		>
 			{children}
-		</div>
+		</footer>
 	)
 }

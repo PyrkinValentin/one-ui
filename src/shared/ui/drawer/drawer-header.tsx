@@ -5,7 +5,10 @@ import type { DrawerHeaderProps } from "./types"
 import { useDrawerContext } from "./drawer"
 
 export const DrawerHeader = (props: DrawerHeaderProps) => {
-	const { classNames } = useDrawerContext()
+	const {
+		headerId,
+		classNames,
+	} = useDrawerContext()
 
 	const {
 		className,
@@ -14,11 +17,12 @@ export const DrawerHeader = (props: DrawerHeaderProps) => {
 	} = props
 
 	return (
-		<div
+		<header
+			id={headerId}
 			className={classNames?.header({ className })}
 			{...restProps}
 		>
 			{children}
-		</div>
+		</header>
 	)
 }

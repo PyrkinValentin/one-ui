@@ -5,7 +5,10 @@ import type { DrawerBodyProps } from "./types"
 import { useDrawerContext } from "./drawer"
 
 export const DrawerBody = (props: DrawerBodyProps) => {
-	const { classNames } = useDrawerContext()
+	const {
+		bodyId,
+		classNames,
+	} = useDrawerContext()
 
 	const {
 		className,
@@ -15,6 +18,7 @@ export const DrawerBody = (props: DrawerBodyProps) => {
 
 	return (
 		<div
+			id={bodyId}
 			className={classNames?.body({ className })}
 			{...restProps}
 		>

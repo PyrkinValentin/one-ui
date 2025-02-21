@@ -58,6 +58,8 @@ export const DrawerContent = (props: DrawerContentProps) => {
 		placement,
 		context,
 		refs,
+		headerId,
+		bodyId,
 		classNames,
 		getFloatingProps,
 		slotProps = {},
@@ -74,7 +76,6 @@ export const DrawerContent = (props: DrawerContentProps) => {
 	const {
 		backdropProps,
 		focusManagerProps,
-		wrapperProps,
 		closeButtonProps,
 	} = slotProps
 
@@ -112,32 +113,29 @@ export const DrawerContent = (props: DrawerContentProps) => {
 						context={context}
 						{...focusManagerProps}
 					>
-						<div
-							{...wrapperProps}
-							className={classNames?.wrapper({ className: wrapperProps?.className })}
+						<section
+							aria-labelledby={headerId}
+							aria-describedby={bodyId}
+							ref={mergeRefs(ref, refs?.setFloating)}
+							className={classNames?.base({ className })}
+							style={{
+								...slideStyle,
+								...style,
+							}}
+							{...getFloatingProps?.(restProps)}
 						>
-							<div
-								ref={mergeRefs(ref, refs?.setFloating)}
-								className={classNames?.base({ className })}
-								style={{
-									...slideStyle,
-									...style,
-								}}
-								{...getFloatingProps?.(restProps)}
-							>
-								{!hideCloseButton ? (
-									<button
-										{...closeButtonProps}
-										className={classNames?.closeButton({ className: closeButtonProps?.className })}
-										onClick={handleClickClose}
-									>
-										{closeButtonIcon ?? <MdClear/>}
-									</button>
-								) : null}
+							{!hideCloseButton ? (
+								<button
+									{...closeButtonProps}
+									className={classNames?.closeButton({ className: closeButtonProps?.className })}
+									onClick={handleClickClose}
+								>
+									{closeButtonIcon ?? <MdClear/>}
+								</button>
+							) : null}
 
-								{children}
-							</div>
-						</div>
+							{children}
+						</section>
 					</FloatingFocusManager>
 				</Portal>
 			) : null}

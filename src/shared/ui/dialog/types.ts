@@ -62,7 +62,7 @@ export type DialogCloseProps = {
 	children?: ReactNode
 }
 
-export type DialogContentProps = ComponentProps
-export type DialogHeaderProps = ComponentProps
+export type DialogContentProps = ComponentProps<"section">
+export type DialogHeaderProps = ComponentProps<"header">
 export type DialogBodyProps = ComponentProps
-export type DialogFooterProps = ComponentProps
+export type DialogFooterProps = ComponentProps<"footer">
