@@ -28,6 +28,25 @@ export const plugin = Plugin((api) => {
 			backgroundColor: "rgb(var(--background))",
 			color: "rgb(var(--foreground))",
 		},
+		"::-webkit-scrollbar": {
+			width: "17px",
+		},
+		"::-webkit-scrollbar-thumb": {
+			height: "56px",
+			borderRadius: "8px",
+			border: "4px solid transparent",
+			backgroundClip: "content-box",
+			backgroundColor: "rgb(var(--content4))",
+		},
+		"::-webkit-scrollbar-track": {
+			borderRadius: "8px",
+		},
+		"::-webkit-scrollbar-thumb:hover": {
+			cursor: "pointer",
+		},
+		"::-webkit-scrollbar-thumb:active": {
+			backgroundColor: "rgb(var(--content3))",
+		},
 		":root, [data-theme]": {
 			...lightBackgroundVars,
 			...lightForegroundVars,
