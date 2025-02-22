@@ -80,7 +80,7 @@ export const buttonVariants = tv({
 	defaultVariants: {
 		variant: "solid",
 		size: "md",
-		color: "primary",
+		color: "default",
 	},
 	compoundVariants: [
 		{

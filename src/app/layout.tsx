@@ -4,8 +4,9 @@ import type { ReactNode } from "react"
 import { Inter } from "next/font/google"
 
 import { ThemeProvider } from "next-themes"
+import { Toast } from "@/shared/ui/toast"
 
-import "@/core/theme/styles.css"
+import "@/styles/global-styles.css"
 
 export const viewport: Viewport = {
 	viewportFit: "cover",
@@ -28,7 +29,9 @@ const font = Inter({
 	variable: "--font-sans",
 })
 
-const RootLayout = ({ children }: RootLayoutProps) => {
+const RootLayout = (props: RootLayoutProps) => {
+	const { children } = props
+
 	return (
 		<html
 			suppressHydrationWarning
@@ -42,6 +45,7 @@ const RootLayout = ({ children }: RootLayoutProps) => {
 			disableTransitionOnChange
 		>
 			{children}
+			<Toast/>
 		</ThemeProvider>
 		</body>
 		</html>

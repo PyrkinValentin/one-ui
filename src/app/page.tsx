@@ -1,3 +1,5 @@
+"use client"
+
 import { Container } from "@/shared/ui/layout"
 
 const Home = () => {
