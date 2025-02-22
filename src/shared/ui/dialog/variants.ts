@@ -7,7 +7,7 @@ export type DialogVariantsReturn = ReturnType<typeof dialogVariants>
 
 export const dialogVariants = tv({
 	slots: {
-		wrapper: "z-50 overflow-x-auto fixed inset-0 w-screen h-dvh flex justify-center",
+		wrapper: "z-50 overflow-x-auto fixed inset-0 flex justify-center",
 		base: "box-border relative m-1 sm:mx-6 sm:my-16 w-full flex flex-col bg-content1",
 		backdrop: "z-50",
 		header: "flex py-4 px-6 flex-initial text-lg font-semibold",

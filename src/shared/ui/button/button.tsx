@@ -100,8 +100,8 @@ export const Button = (props: ButtonProps) => {
 
 			{loading ? (
 				<Spinner
-					color="current"
 					size="sm"
+					color="current"
 					{...spinnerProps}
 					className={classNames.spinner({ className: spinnerProps?.className })}
 				/>
