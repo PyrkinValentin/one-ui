@@ -1,7 +1,11 @@
 import type {
 	MenuProps,
 	MenuTriggerProps,
+	MenuPortalProps,
+	MenuBackdropProps,
+	MenuPositionerProps,
 	MenuPopupProps,
+	MenuArrowProps,
 	MenuGroupProps,
 	MenuGroupLabelProps,
 	MenuItemProps,
@@ -16,26 +20,26 @@ import type {
 	MenuSubTriggerProps,
 } from "./menu.props"
 
-import { composeComponent, getDataAttributes, resolveClassNames } from "../../utils"
+import { getDataAttributes, resolveClassNames } from "../../utils"
 
 import Link from "next/link"
-import { Menu as MenuPrimitive } from "@base-ui/react"
+import { Menu } from "@base-ui/react"
 import { Check } from "lucide-react"
 
-const Root = <P = unknown>(props: MenuProps<P>) => {
+export const MenuRoot = <Payload = unknown>(props: MenuProps<Payload>) => {
 	const {
 		children,
 		...restProps
 	} = props
 
 	return (
-		<MenuPrimitive.Root {...restProps}>
+		<Menu.Root {...restProps}>
 			{children}
-		</MenuPrimitive.Root>
+		</Menu.Root>
 	)
 }
 
-const Trigger = <P = unknown>(props: MenuTriggerProps<P>) => {
+export const MenuTrigger = <Payload = unknown>(props: MenuTriggerProps<Payload>) => {
 	const {
 		className,
 		children,
@@ -43,63 +47,35 @@ const Trigger = <P = unknown>(props: MenuTriggerProps<P>) => {
 	} = props
 
 	return (
-		<MenuPrimitive.Trigger
+		<Menu.Trigger
 			{...restProps}
 			data-slot="menu-trigger"
 			className={resolveClassNames(className, "menu__trigger")}
 		>
 			{children}
-		</MenuPrimitive.Trigger>
+		</Menu.Trigger>
 	)
 }
 
-const Popup = (props: MenuPopupProps) => {
+export const MenuPortal = (props: MenuPortalProps) => {
 	const {
-		arrow,
-		keepMounted,
-		disableAnchorTracking,
-		side,
-		sideOffset = arrow ? 7 : 3,
-		align,
-		alignOffset,
 		className,
 		children,
 		...restProps
 	} = props
 
 	return (
-		<MenuPrimitive.Portal
+		<Menu.Portal
+			{...restProps}
 			data-slot="menu-portal"
-			keepMounted={keepMounted}
+			className={resolveClassNames(className, "menu__portal")}
 		>
-			<MenuPrimitive.Positioner
-				data-slot="menu-positioner"
-				disableAnchorTracking={disableAnchorTracking}
-				side={side}
-				sideOffset={sideOffset}
-				align={align}
-				alignOffset={alignOffset}
-			>
-				<MenuPrimitive.Popup
-					{...restProps}
-					data-slot="menu-popup"
-					className={resolveClassNames(className, "menu__popup")}
-				>
-					{arrow && (
-						<MenuPrimitive.Arrow
-							data-slot="menu-arrow"
-							className="menu__arrow"
-						/>
-					)}
-
-					{children}
-				</MenuPrimitive.Popup>
-			</MenuPrimitive.Positioner>
-		</MenuPrimitive.Portal>
+			{children}
+		</Menu.Portal>
 	)
 }
 
-const Group = (props: MenuGroupProps) => {
+export const MenuBackdrop = (props: MenuBackdropProps) => {
 	const {
 		className,
 		children,
@@ -107,17 +83,91 @@ const Group = (props: MenuGroupProps) => {
 	} = props
 
 	return (
-		<MenuPrimitive.Group
+		<Menu.Backdrop
+			{...restProps}
+			data-slot="menu-backdrop"
+			className={resolveClassNames(className, "menu__backdrop")}
+		>
+			{children}
+		</Menu.Backdrop>
+	)
+}
+
+export const MenuPositioner = (props: MenuPositionerProps) => {
+	const {
+		sideOffset = 7,
+		className,
+		children,
+		...restProps
+	} = props
+
+	return (
+		<Menu.Positioner
+			{...restProps}
+			sideOffset={sideOffset}
+			data-slot="menu-positioner"
+			className={resolveClassNames(className, "menu__positioner")}
+		>
+			{children}
+		</Menu.Positioner>
+	)
+}
+
+export const MenuPopup = (props: MenuPopupProps) => {
+	const {
+		className,
+		children,
+		...restProps
+	} = props
+
+	return (
+		<Menu.Popup
+			{...restProps}
+			data-slot="menu-popup"
+			className={resolveClassNames(className, "menu__popup")}
+		>
+			{children}
+		</Menu.Popup>
+	)
+}
+
+export const MenuArrow = (props: MenuArrowProps) => {
+	const {
+		className,
+		children,
+		...restProps
+	} = props
+
+	return (
+		<Menu.Arrow
+			{...restProps}
+			data-slot="menu-arrow"
+			className={resolveClassNames(className, "menu__arrow")}
+		>
+			{children}
+		</Menu.Arrow>
+	)
+}
+
+export const MenuGroup = (props: MenuGroupProps) => {
+	const {
+		className,
+		children,
+		...restProps
+	} = props
+
+	return (
+		<Menu.Group
 			{...restProps}
 			data-slot="menu-group"
 			className={resolveClassNames(className, "menu__group")}
 		>
 			{children}
-		</MenuPrimitive.Group>
+		</Menu.Group>
 	)
 }
 
-const GroupLabel = (props: MenuGroupLabelProps) => {
+export const MenuGroupLabel = (props: MenuGroupLabelProps) => {
 	const {
 		className,
 		children,
@@ -125,17 +175,17 @@ const GroupLabel = (props: MenuGroupLabelProps) => {
 	} = props
 
 	return (
-		<MenuPrimitive.GroupLabel
+		<Menu.GroupLabel
 			{...restProps}
 			data-slot="menu-group-label"
 			className={resolveClassNames(className, "menu__group-label")}
 		>
 			{children}
-		</MenuPrimitive.GroupLabel>
+		</Menu.GroupLabel>
 	)
 }
 
-const Item = (props: MenuItemProps) => {
+export const MenuItem = (props: MenuItemProps) => {
 	const {
 		color = "default",
 		className,
@@ -144,18 +194,18 @@ const Item = (props: MenuItemProps) => {
 	} = props
 
 	return (
-		<MenuPrimitive.Item
+		<Menu.Item
 			{...restProps}
 			{...getDataAttributes({ color })}
 			data-slot="menu-item"
 			className={resolveClassNames(className, "menu__item")}
 		>
 			{children}
-		</MenuPrimitive.Item>
+		</Menu.Item>
 	)
 }
 
-const LinkItem = (props: MenuLinkItemProps) => {
+export const MenuLinkItem = (props: MenuLinkItemProps) => {
 	const {
 		color = "default",
 		href,
@@ -166,7 +216,7 @@ const LinkItem = (props: MenuLinkItemProps) => {
 	} = props
 
 	return (
-		<MenuPrimitive.LinkItem
+		<Menu.LinkItem
 			{...restProps}
 			{...getDataAttributes({ color })}
 			data-slot="menu-link-item"
@@ -175,11 +225,11 @@ const LinkItem = (props: MenuLinkItemProps) => {
 			render={render}
 		>
 			{children}
-		</MenuPrimitive.LinkItem>
+		</Menu.LinkItem>
 	)
 }
 
-const CheckboxItem = (props: MenuCheckboxItemProps) => {
+export const MenuCheckboxItem = (props: MenuCheckboxItemProps) => {
 	const {
 		color = "default",
 		className,
@@ -188,18 +238,18 @@ const CheckboxItem = (props: MenuCheckboxItemProps) => {
 	} = props
 
 	return (
-		<MenuPrimitive.CheckboxItem
+		<Menu.CheckboxItem
 			{...restProps}
 			{...getDataAttributes({ color })}
 			data-slot="menu-checkbox-item"
 			className={resolveClassNames(className, "menu__checkbox-item")}
 		>
 			{children}
-		</MenuPrimitive.CheckboxItem>
+		</Menu.CheckboxItem>
 	)
 }
 
-const CheckboxItemIndicator = (props: MenuCheckboxItemIndicatorProps) => {
+export const MenuCheckboxItemIndicator = (props: MenuCheckboxItemIndicatorProps) => {
 	const {
 		keepMounted = true,
 		className,
@@ -208,18 +258,18 @@ const CheckboxItemIndicator = (props: MenuCheckboxItemIndicatorProps) => {
 	} = props
 
 	return (
-		<MenuPrimitive.CheckboxItemIndicator
+		<Menu.CheckboxItemIndicator
 			{...restProps}
-			data-slot="menu-checkbox-item-indicator"
 			keepMounted={keepMounted}
+			data-slot="menu-checkbox-item-indicator"
 			className={resolveClassNames(className, "menu__checkbox-item-indicator")}
 		>
 			{children}
-		</MenuPrimitive.CheckboxItemIndicator>
+		</Menu.CheckboxItemIndicator>
 	)
 }
 
-const RadioGroup = (props: MenuRadioGroupProps) => {
+export const MenuRadioGroup = (props: MenuRadioGroupProps) => {
 	const {
 		className,
 		children,
@@ -227,17 +277,17 @@ const RadioGroup = (props: MenuRadioGroupProps) => {
 	} = props
 
 	return (
-		<MenuPrimitive.RadioGroup
+		<Menu.RadioGroup
 			{...restProps}
 			data-slot="menu-radio-group"
 			className={resolveClassNames(className, "menu__radio-group")}
 		>
 			{children}
-		</MenuPrimitive.RadioGroup>
+		</Menu.RadioGroup>
 	)
 }
 
-const RadioItem = (props: MenuRadioItemProps) => {
+export const MenuRadioItem = (props: MenuRadioItemProps) => {
 	const {
 		color = "default",
 		className,
@@ -246,18 +296,18 @@ const RadioItem = (props: MenuRadioItemProps) => {
 	} = props
 
 	return (
-		<MenuPrimitive.RadioItem
+		<Menu.RadioItem
 			{...restProps}
 			{...getDataAttributes({ color })}
 			data-slot="menu-radio-item"
 			className={resolveClassNames(className, "menu__radio-item")}
 		>
 			{children}
-		</MenuPrimitive.RadioItem>
+		</Menu.RadioItem>
 	)
 }
 
-const RadioItemIndicator = (props: MenuRadioItemIndicatorProps) => {
+export const MenuRadioItemIndicator = (props: MenuRadioItemIndicatorProps) => {
 	const {
 		keepMounted = true,
 		className,
@@ -266,25 +316,25 @@ const RadioItemIndicator = (props: MenuRadioItemIndicatorProps) => {
 	} = props
 
 	return (
-		<MenuPrimitive.RadioItemIndicator
+		<Menu.RadioItemIndicator
 			{...restProps}
 			data-slot="menu-radio-item-indicator"
 			keepMounted={keepMounted}
 			className={resolveClassNames(className, "menu__radio-item-indicator")}
 		>
 			{children}
-		</MenuPrimitive.RadioItemIndicator>
+		</Menu.RadioItemIndicator>
 	)
 }
 
-const Separator = (props: MenuSeparatorProps) => {
+export const MenuSeparator = (props: MenuSeparatorProps) => {
 	const {
 		className,
 		...restProps
 	} = props
 
 	return (
-		<MenuPrimitive.Separator
+		<Menu.Separator
 			{...restProps}
 			data-slot="menu-separator"
 			className={resolveClassNames(className, "menu__separator")}
@@ -292,20 +342,20 @@ const Separator = (props: MenuSeparatorProps) => {
 	)
 }
 
-const Sub = (props: MenuSubProps) => {
+export const MenuSub = (props: MenuSubProps) => {
 	const {
 		children,
 		...restProps
 	} = props
 
 	return (
-		<MenuPrimitive.SubmenuRoot {...restProps}>
+		<Menu.SubmenuRoot {...restProps}>
 			{children}
-		</MenuPrimitive.SubmenuRoot>
+		</Menu.SubmenuRoot>
 	)
 }
 
-const SubTrigger = (props: MenuSubTriggerProps) => {
+export const MenuSubTrigger = (props: MenuSubTriggerProps) => {
 	const {
 		color = "default",
 		className,
@@ -314,49 +364,15 @@ const SubTrigger = (props: MenuSubTriggerProps) => {
 	} = props
 
 	return (
-		<MenuPrimitive.SubmenuTrigger
+		<Menu.SubmenuTrigger
 			{...restProps}
 			{...getDataAttributes({ color })}
 			data-slot="menu-sub-trigger"
 			className={resolveClassNames(className, "menu__sub-trigger")}
 		>
 			{children}
-		</MenuPrimitive.SubmenuTrigger>
+		</Menu.SubmenuTrigger>
 	)
 }
 
-type MenuSlots = {
-	Trigger: typeof Trigger
-	Popup: typeof Popup
-	Group: typeof Group
-	GroupLabel: typeof GroupLabel
-	Item: typeof Item
-	LinkItem: typeof LinkItem
-	CheckboxItem: typeof CheckboxItem
-	CheckboxItemIndicator: typeof CheckboxItemIndicator
-	RadioGroup: typeof RadioGroup
-	RadioItem: typeof RadioItem
-	RadioItemIndicator: typeof RadioItemIndicator
-	Separator: typeof Separator
-	Sub: typeof Sub
-	SubTrigger: typeof SubTrigger
-	createHandle: typeof MenuPrimitive.createHandle
-}
-
-export const Menu = composeComponent<typeof Root, MenuSlots>(Root, {
-	Trigger,
-	Popup,
-	Group,
-	GroupLabel,
-	Item,
-	LinkItem,
-	CheckboxItem,
-	CheckboxItemIndicator,
-	RadioGroup,
-	RadioItem,
-	RadioItemIndicator,
-	Separator,
-	Sub,
-	SubTrigger,
-	createHandle: MenuPrimitive.createHandle,
-})
+export const MenuCreateHandle = Menu.createHandle

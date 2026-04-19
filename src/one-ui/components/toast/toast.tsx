@@ -5,19 +5,19 @@ import { useSwipeDirection } from "./toast.hooks"
 import { getDataAttributes } from "../../utils"
 import { getDefaultColor, getIndicator } from "./toast.utils"
 
-import { Toast as ToastPrimitive } from "@base-ui/react"
+import { Toast } from "@base-ui/react"
 import { X } from "lucide-react"
 
 export const ToastList = () => {
 	const swipeDirection = useSwipeDirection()
 
-	const { toasts } = ToastPrimitive.useToastManager()
+	const { toasts } = Toast.useToastManager()
 
 	if (toasts.length === 0) return null
 
 	return (
-		<ToastPrimitive.Portal data-slot="toast-portal">
-			<ToastPrimitive.Viewport
+		<Toast.Portal data-slot="toast-portal">
+			<Toast.Viewport
 				data-slot="toast-viewport"
 				className="toast__viewport"
 			>
@@ -28,8 +28,8 @@ export const ToastList = () => {
 						toast={toast}
 					/>
 				))}
-			</ToastPrimitive.Viewport>
-		</ToastPrimitive.Portal>
+			</Toast.Viewport>
+		</Toast.Portal>
 	)
 }
 
@@ -53,14 +53,14 @@ export const ToastListItem = (props: ToastListItemProps) => {
 	)
 
 	return (
-		<ToastPrimitive.Root
+		<Toast.Root
 			{...restProps}
 			{...getDataAttributes({ color })}
 			data-slot="toast-item"
 			className="toast__item"
 			toast={toast}
 		>
-			<ToastPrimitive.Content
+			<Toast.Content
 				data-slot="toast-content"
 				className="toast__content"
 			>
@@ -77,29 +77,29 @@ export const ToastListItem = (props: ToastListItemProps) => {
 					data-slot="toast-wrapper"
 					className="toast__wrapper"
 				>
-					<ToastPrimitive.Title
+					<Toast.Title
 						data-slot="toast-title"
 						className="toast__title"
 					/>
 
-					<ToastPrimitive.Description
+					<Toast.Description
 						data-slot="toast-description"
 						className="toast__description"
 					/>
 				</div>
 
-				<ToastPrimitive.Action
+				<Toast.Action
 					data-slot="toast-action"
 					className="toast__action"
 				/>
 
-				<ToastPrimitive.Close
+				<Toast.Close
 					data-slot="toast-close"
 					className="toast__close"
 				>
 					<X/>
-				</ToastPrimitive.Close>
-			</ToastPrimitive.Content>
-		</ToastPrimitive.Root>
+				</Toast.Close>
+			</Toast.Content>
+		</Toast.Root>
 	)
 }

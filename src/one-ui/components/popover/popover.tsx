@@ -1,30 +1,34 @@
 import type {
 	PopoverProps,
 	PopoverTriggerProps,
+	PopoverPortalProps,
+	PopoverBackdropProps,
+	PopoverPositionerProps,
 	PopoverPopupProps,
+	PopoverArrowProps,
 	PopoverTitleProps,
 	PopoverDescriptionProps,
 	PopoverCloseProps,
 } from "./popover.props"
 
-import { composeComponent, resolveClassNames } from "../../utils"
+import { resolveClassNames } from "../../utils"
 
-import { Popover as PopoverPrimitive } from "@base-ui/react"
+import { Popover } from "@base-ui/react"
 
-const Root = <P = unknown>(props: PopoverProps<P>) => {
+export const PopoverRoot = <P = unknown>(props: PopoverProps<P>) => {
 	const {
 		children,
 		...restProps
 	} = props
 
 	return (
-		<PopoverPrimitive.Root {...restProps}>
+		<Popover.Root {...restProps}>
 			{children}
-		</PopoverPrimitive.Root>
+		</Popover.Root>
 	)
 }
 
-const Trigger = <P = unknown>(props: PopoverTriggerProps<P>) => {
+export const PopoverTrigger = <P = unknown>(props: PopoverTriggerProps<P>) => {
 	const {
 		className,
 		children,
@@ -32,63 +36,35 @@ const Trigger = <P = unknown>(props: PopoverTriggerProps<P>) => {
 	} = props
 
 	return (
-		<PopoverPrimitive.Trigger
+		<Popover.Trigger
 			{...restProps}
 			data-slot="popover-trigger"
 			className={resolveClassNames(className, "popover__trigger")}
 		>
 			{children}
-		</PopoverPrimitive.Trigger>
+		</Popover.Trigger>
 	)
 }
 
-const Popup = (props: PopoverPopupProps) => {
+export const PopoverPortal = (props: PopoverPortalProps) => {
 	const {
-		arrow,
-		keepMounted,
-		disableAnchorTracking,
-		side,
-		sideOffset = arrow ? 7 : 3,
-		align,
-		alignOffset,
 		className,
 		children,
 		...restProps
 	} = props
 
 	return (
-		<PopoverPrimitive.Portal
+		<Popover.Portal
+			{...restProps}
 			data-slot="popover-portal"
-			keepMounted={keepMounted}
+			className={resolveClassNames(className, "popover__portal")}
 		>
-			<PopoverPrimitive.Positioner
-				data-slot="popover-positioner"
-				disableAnchorTracking={disableAnchorTracking}
-				side={side}
-				sideOffset={sideOffset}
-				align={align}
-				alignOffset={alignOffset}
-			>
-				<PopoverPrimitive.Popup
-					{...restProps}
-					data-slot="popover-popup"
-					className={resolveClassNames(className, "popover__popup")}
-				>
-					{arrow && (
-						<PopoverPrimitive.Arrow
-							data-slot="popover-arrow"
-							className="popover__arrow"
-						/>
-					)}
-
-					{children}
-				</PopoverPrimitive.Popup>
-			</PopoverPrimitive.Positioner>
-		</PopoverPrimitive.Portal>
+			{children}
+		</Popover.Portal>
 	)
 }
 
-const Title = (props: PopoverTitleProps) => {
+export const PopoverBackdrop = (props: PopoverBackdropProps) => {
 	const {
 		className,
 		children,
@@ -96,17 +72,91 @@ const Title = (props: PopoverTitleProps) => {
 	} = props
 
 	return (
-		<PopoverPrimitive.Title
+		<Popover.Backdrop
+			{...restProps}
+			data-slot="popover-backdrop"
+			className={resolveClassNames(className, "popover__backdrop")}
+		>
+			{children}
+		</Popover.Backdrop>
+	)
+}
+
+export const PopoverPositioner = (props: PopoverPositionerProps) => {
+	const {
+		sideOffset = 7,
+		className,
+		children,
+		...restProps
+	} = props
+
+	return (
+		<Popover.Positioner
+			{...restProps}
+			sideOffset={sideOffset}
+			data-slot="popover-positioner"
+			className={resolveClassNames(className, "popover__positioner")}
+		>
+			{children}
+		</Popover.Positioner>
+	)
+}
+
+export const PopoverPopup = (props: PopoverPopupProps) => {
+	const {
+		className,
+		children,
+		...restProps
+	} = props
+
+	return (
+		<Popover.Popup
+			{...restProps}
+			data-slot="popover-popup"
+			className={resolveClassNames(className, "popover__popup")}
+		>
+			{children}
+		</Popover.Popup>
+	)
+}
+
+export const PopoverArrow = (props: PopoverArrowProps) => {
+	const {
+		className,
+		children,
+		...restProps
+	} = props
+
+	return (
+		<Popover.Arrow
+			{...restProps}
+			data-slot="popover-arrow"
+			className={resolveClassNames(className, "popover__arrow")}
+		>
+			{children}
+		</Popover.Arrow>
+	)
+}
+
+export const PopoverTitle = (props: PopoverTitleProps) => {
+	const {
+		className,
+		children,
+		...restProps
+	} = props
+
+	return (
+		<Popover.Title
 			{...restProps}
 			data-slot="popover-title"
 			className={resolveClassNames(className, "popover__title")}
 		>
 			{children}
-		</PopoverPrimitive.Title>
+		</Popover.Title>
 	)
 }
 
-const Description = (props: PopoverDescriptionProps) => {
+export const PopoverDescription = (props: PopoverDescriptionProps) => {
 	const {
 		className,
 		children,
@@ -114,46 +164,30 @@ const Description = (props: PopoverDescriptionProps) => {
 	} = props
 
 	return (
-		<PopoverPrimitive.Description
+		<Popover.Description
 			{...restProps}
 			data-slot="popover-description"
 			className={resolveClassNames(className, "popover__description")}
 		>
 			{children}
-		</PopoverPrimitive.Description>
+		</Popover.Description>
 	)
 }
 
-const Close = (props: PopoverCloseProps) => {
+export const PopoverClose = (props: PopoverCloseProps) => {
 	const {
 		children,
 		...restProps
 	} = props
 
 	return (
-		<PopoverPrimitive.Close
+		<Popover.Close
 			{...restProps}
 			data-slot="popover-close"
 		>
 			{children}
-		</PopoverPrimitive.Close>
+		</Popover.Close>
 	)
 }
 
-type PopoverSlots = {
-	Trigger: typeof Trigger
-	Popup: typeof Popup
-	Title: typeof Title
-	Description: typeof Description
-	Close: typeof Close
-	createHandle: typeof PopoverPrimitive.createHandle
-}
-
-export const Popover = composeComponent<typeof Root, PopoverSlots>(Root, {
-	Trigger,
-	Popup,
-	Title,
-	Description,
-	Close,
-	createHandle: PopoverPrimitive.createHandle,
-})
+export const popoverCreateHandle = Popover.createHandle

@@ -2,7 +2,7 @@ import type { SpinnerProps } from "./spinner.props"
 
 import { getDataAttributes, resolveClassNames } from "../../utils"
 
-export const Spinner = (props: SpinnerProps) => {
+export const SpinnerRoot = (props: SpinnerProps) => {
 	const {
 		size = "md",
 		color = "current",

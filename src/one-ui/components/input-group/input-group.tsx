@@ -6,7 +6,7 @@ import type { InputGroupProps } from "./input-group.props"
 import { resolveClassNames } from "../../utils"
 import { focusInputSlot } from "./input-group.utils"
 
-export const InputGroup = (props: InputGroupProps) => {
+export const InputGroupRoot = (props: InputGroupProps) => {
 	const {
 		className,
 		onClick,

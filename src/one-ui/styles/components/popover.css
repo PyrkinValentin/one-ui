@@ -1,3 +1,12 @@
+.popover__backdrop {
+  @apply fixed inset-0 bg-black opacity-50 transition-opacity motion-reduce:transition-none;
+
+  &[data-starting-style],
+  &[data-ending-style] {
+    @apply opacity-0;
+  }
+}
+
 .popover__popup {
   @apply px-4 py-3 bg-overlay rounded-md border border-border shadow-lg wrap-break-word origin-(--transform-origin)
   transition motion-reduce:transition-none transform-gpu;

@@ -2,19 +2,19 @@ import type { ClassValue } from "clsx"
 
 import { clsx } from "clsx"
 
-type ResolveClassNamesReturn<S> = S extends string
+type ResolveClassNamesReturn<State> = State extends string
 	? string
-	: string | ((state: S) => string | undefined)
+	: string | ((state: State) => string | undefined)
 
-export const resolveClassNames = <S = string>(
-	className?: ClassValue | ((state: S) => string | undefined),
-	...styles: ClassValue[]
-): ResolveClassNamesReturn<S> => {
-	if (!className) return clsx(styles) as ResolveClassNamesReturn<S>
+export const resolveClassNames = <State = string>(
+	className?: ClassValue | ((state: State) => string | undefined),
+	styles?: ClassValue
+): ResolveClassNamesReturn<State> => {
+	if (!className) return clsx(styles) as ResolveClassNamesReturn<State>
 
 	if (typeof className === "function") {
-		return ((state: S) => clsx(styles, className(state))) as ResolveClassNamesReturn<S>
+		return ((state: State) => clsx(styles, className(state))) as ResolveClassNamesReturn<State>
 	}
 
-	return clsx(styles, className) as ResolveClassNamesReturn<S>
+	return clsx(styles, className) as ResolveClassNamesReturn<State>
 }

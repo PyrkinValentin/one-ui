@@ -1,3 +1,12 @@
+.menu__backdrop {
+  @apply fixed inset-0 bg-black opacity-50 transition-opacity motion-reduce:transition-none;
+
+  &[data-starting-style],
+  &[data-ending-style] {
+    @apply opacity-0;
+  }
+}
+
 .menu__popup {
   @apply p-1 min-w-48 max-w-xs flex flex-col origin-(--transform-origin) bg-overlay rounded-lg border border-border
   shadow-lg transition motion-reduce:transition-none transform-gpu;
@@ -39,7 +48,7 @@
 }
 
 .menu__group-label {
-  @apply px-2 py-1 text-xs text-muted font-medium;
+  @apply z-1 sticky top-0 px-2 py-1 bg-overlay text-xs text-muted font-medium;
 }
 
 .menu__item,

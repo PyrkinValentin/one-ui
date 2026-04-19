@@ -4,15 +4,15 @@ import type {
 	AccordionHeaderProps,
 	AccordionTriggerProps,
 	AccordionIndicatorProps,
-	AccordionPanelProps
+	AccordionPanelProps,
 } from "./accordion.props"
 
-import { composeComponent, resolveClassNames } from "../../utils"
+import { resolveClassNames } from "../../utils"
 
-import { Accordion as AccordionPrimitive } from "@base-ui/react"
+import { Accordion } from "@base-ui/react"
 import { ChevronDown } from "lucide-react"
 
-const Root = <V = unknown>(props: AccordionProps<V>) => {
+export const AccordionRoot = <Value = unknown>(props: AccordionProps<Value>) => {
 	const {
 		className,
 		children,
@@ -20,17 +20,17 @@ const Root = <V = unknown>(props: AccordionProps<V>) => {
 	} = props
 
 	return (
-		<AccordionPrimitive.Root
+		<Accordion.Root
 			{...restProps}
 			data-slot="accordion"
 			className={resolveClassNames(className, "accordion")}
 		>
 			{children}
-		</AccordionPrimitive.Root>
+		</Accordion.Root>
 	)
 }
 
-const Item = (props: AccordionItemProps) => {
+export const AccordionItem = (props: AccordionItemProps) => {
 	const {
 		className,
 		children,
@@ -38,17 +38,17 @@ const Item = (props: AccordionItemProps) => {
 	} = props
 
 	return (
-		<AccordionPrimitive.Item
+		<Accordion.Item
 			{...restProps}
 			data-slot="accordion-item"
 			className={resolveClassNames(className, "accordion__item")}
 		>
 			{children}
-		</AccordionPrimitive.Item>
+		</Accordion.Item>
 	)
 }
 
-const Header = (props: AccordionHeaderProps) => {
+export const AccordionHeader = (props: AccordionHeaderProps) => {
 	const {
 		className,
 		children,
@@ -56,17 +56,17 @@ const Header = (props: AccordionHeaderProps) => {
 	} = props
 
 	return (
-		<AccordionPrimitive.Header
+		<Accordion.Header
 			{...restProps}
 			data-slot="accordion-header"
 			className={resolveClassNames(className, "accordion__header")}
 		>
 			{children}
-		</AccordionPrimitive.Header>
+		</Accordion.Header>
 	)
 }
 
-const Trigger = (props: AccordionTriggerProps) => {
+export const AccordionTrigger = (props: AccordionTriggerProps) => {
 	const {
 		className,
 		children,
@@ -74,17 +74,17 @@ const Trigger = (props: AccordionTriggerProps) => {
 	} = props
 
 	return (
-		<AccordionPrimitive.Trigger
+		<Accordion.Trigger
 			{...restProps}
 			data-slot="accordion-trigger"
 			className={resolveClassNames(className, "accordion__trigger")}
 		>
 			{children}
-		</AccordionPrimitive.Trigger>
+		</Accordion.Trigger>
 	)
 }
 
-const Indicator = (props: AccordionIndicatorProps) => {
+export const AccordionIndicator = (props: AccordionIndicatorProps) => {
 	const {
 		className,
 		children = <ChevronDown/>,
@@ -102,7 +102,7 @@ const Indicator = (props: AccordionIndicatorProps) => {
 	)
 }
 
-const Panel = (props: AccordionPanelProps) => {
+export const AccordionPanel = (props: AccordionPanelProps) => {
 	const {
 		className,
 		children,
@@ -110,28 +110,12 @@ const Panel = (props: AccordionPanelProps) => {
 	} = props
 
 	return (
-		<AccordionPrimitive.Panel
+		<Accordion.Panel
 			{...restProps}
 			data-slot="accordion-panel"
 			className={resolveClassNames(className, "accordion__panel")}
 		>
 			{children}
-		</AccordionPrimitive.Panel>
+		</Accordion.Panel>
 	)
 }
-
-type AccordionSlots = {
-	Item: typeof Item
-	Header: typeof Header
-	Trigger: typeof Trigger
-	Indicator: typeof Indicator
-	Panel: typeof Panel
-}
-
-export const Accordion = composeComponent<typeof Root, AccordionSlots>(Root, {
-	Item,
-	Header,
-	Trigger,
-	Indicator,
-	Panel,
-})

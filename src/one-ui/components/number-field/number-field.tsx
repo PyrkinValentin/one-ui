@@ -8,12 +8,12 @@ import type {
 	NumberFieldIncrementProps,
 } from "./number-field.props"
 
-import { composeComponent, getDataAttributes, resolveClassNames } from "../../utils"
+import { getDataAttributes, resolveClassNames } from "../../utils"
 
-import { NumberField as NumberFieldPrimitive } from "@base-ui/react"
+import { NumberField } from "@base-ui/react"
 import { Minus, MoveHorizontal, Plus } from "lucide-react"
 
-const Root = (props: NumberFieldProps) => {
+export const NumberFieldRoot = (props: NumberFieldProps) => {
 	const {
 		fullWidth,
 		size = "md",
@@ -23,18 +23,18 @@ const Root = (props: NumberFieldProps) => {
 	} = props
 
 	return (
-		<NumberFieldPrimitive.Root
+		<NumberField.Root
 			{...restProps}
 			{...getDataAttributes({ fullWidth, size })}
 			data-slot="number-field"
 			className={resolveClassNames(className, "number-field")}
 		>
 			{children}
-		</NumberFieldPrimitive.Root>
+		</NumberField.Root>
 	)
 }
 
-const ScrubArea = (props: NumberFieldScrubAreaProps) => {
+export const NumberFieldScrubArea = (props: NumberFieldScrubAreaProps) => {
 	const {
 		className,
 		children,
@@ -42,17 +42,17 @@ const ScrubArea = (props: NumberFieldScrubAreaProps) => {
 	} = props
 
 	return (
-		<NumberFieldPrimitive.ScrubArea
+		<NumberField.ScrubArea
 			{...restProps}
 			data-slot="number-field-scrub-area"
 			className={resolveClassNames(className, "number-field__scrub-area")}
 		>
 			{children}
-		</NumberFieldPrimitive.ScrubArea>
+		</NumberField.ScrubArea>
 	)
 }
 
-const ScrubAreaCursor = (props: NumberFieldScrubAreaCursorProps) => {
+export const NumberFieldScrubAreaCursor = (props: NumberFieldScrubAreaCursorProps) => {
 	const {
 		className,
 		children = <MoveHorizontal/>,
@@ -60,17 +60,17 @@ const ScrubAreaCursor = (props: NumberFieldScrubAreaCursorProps) => {
 	} = props
 
 	return (
-		<NumberFieldPrimitive.ScrubAreaCursor
+		<NumberField.ScrubAreaCursor
 			{...restProps}
 			data-slot="number-field-scrub-area-cursor"
 			className={resolveClassNames(className, "number-field__scrub-area-cursor")}
 		>
 			{children}
-		</NumberFieldPrimitive.ScrubAreaCursor>
+		</NumberField.ScrubAreaCursor>
 	)
 }
 
-const Group = (props: NumberFieldGroupProps) => {
+export const NumberFieldGroup = (props: NumberFieldGroupProps) => {
 	const {
 		className,
 		children,
@@ -78,17 +78,17 @@ const Group = (props: NumberFieldGroupProps) => {
 	} = props
 
 	return (
-		<NumberFieldPrimitive.Group
+		<NumberField.Group
 			{...restProps}
 			data-slot="number-field-group"
 			className={resolveClassNames(className, "number-field__group")}
 		>
 			{children}
-		</NumberFieldPrimitive.Group>
+		</NumberField.Group>
 	)
 }
 
-const Decrement = (props: NumberFieldDecrementProps) => {
+export const NumberFieldDecrement = (props: NumberFieldDecrementProps) => {
 	const {
 		className,
 		children = <Minus/>,
@@ -96,24 +96,24 @@ const Decrement = (props: NumberFieldDecrementProps) => {
 	} = props
 
 	return (
-		<NumberFieldPrimitive.Decrement
+		<NumberField.Decrement
 			{...restProps}
 			data-slot="number-field-decrement"
 			className={resolveClassNames(className, "number-field__decrement")}
 		>
 			{children}
-		</NumberFieldPrimitive.Decrement>
+		</NumberField.Decrement>
 	)
 }
 
-const Input = (props: NumberFieldInputProps) => {
+export const NumberFieldInput = (props: NumberFieldInputProps) => {
 	const {
 		className,
 		...restProps
 	} = props
 
 	return (
-		<NumberFieldPrimitive.Input
+		<NumberField.Input
 			{...restProps}
 			data-slot="number-field-input"
 			className={resolveClassNames(className, "number-field__input")}
@@ -121,7 +121,7 @@ const Input = (props: NumberFieldInputProps) => {
 	)
 }
 
-const Increment = (props: NumberFieldIncrementProps) => {
+export const NumberFieldIncrement = (props: NumberFieldIncrementProps) => {
 	const {
 		className,
 		children = <Plus/>,
@@ -129,30 +129,12 @@ const Increment = (props: NumberFieldIncrementProps) => {
 	} = props
 
 	return (
-		<NumberFieldPrimitive.Increment
+		<NumberField.Increment
 			{...restProps}
 			data-slot="number-field-increment"
 			className={resolveClassNames(className, "number-field__increment")}
 		>
 			{children}
-		</NumberFieldPrimitive.Increment>
+		</NumberField.Increment>
 	)
 }
-
-type NumberFieldSlots = {
-	ScrubArea: typeof ScrubArea
-	ScrubAreaCursor: typeof ScrubAreaCursor
-	Group: typeof Group
-	Decrement: typeof Decrement
-	Input: typeof Input
-	Increment: typeof Increment
-}
-
-export const NumberField = composeComponent<typeof Root, NumberFieldSlots>(Root, {
-	ScrubArea,
-	ScrubAreaCursor,
-	Group,
-	Decrement,
-	Input,
-	Increment,
-})

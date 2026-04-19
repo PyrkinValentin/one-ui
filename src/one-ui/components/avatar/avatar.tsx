@@ -1,12 +1,12 @@
 import type { AvatarProps, AvatarImageProps, AvatarFallbackProps } from "./avatar.props"
 
-import { composeComponent, getDataAttributes, resolveClassNames } from "../../utils"
+import { getDataAttributes, resolveClassNames } from "../../utils"
 import { getFallback } from "./avatar.utils"
 
-import { Avatar as AvatarPrimitive } from "@base-ui/react"
+import { Avatar } from "@base-ui/react"
 import { UserRound } from "lucide-react"
 
-const Root = (props: AvatarProps) => {
+export const AvatarRoot = (props: AvatarProps) => {
 	const {
 		variant = "solid",
 		size = "md",
@@ -17,25 +17,25 @@ const Root = (props: AvatarProps) => {
 	} = props
 
 	return (
-		<AvatarPrimitive.Root
+		<Avatar.Root
 			{...restProps}
 			{...getDataAttributes({ variant, size, color })}
 			data-slot="avatar"
 			className={resolveClassNames(className, "avatar")}
 		>
 			{children}
-		</AvatarPrimitive.Root>
+		</Avatar.Root>
 	)
 }
 
-const Img = (props: AvatarImageProps) => {
+export const AvatarImage = (props: AvatarImageProps) => {
 	const {
 		className,
 		...restProps
 	} = props
 
 	return (
-		<AvatarPrimitive.Image
+		<Avatar.Image
 			{...restProps}
 			data-slot="avatar-image"
 			className={resolveClassNames(className, "avatar__image")}
@@ -43,7 +43,7 @@ const Img = (props: AvatarImageProps) => {
 	)
 }
 
-const Fallback = (props: AvatarFallbackProps) => {
+export const AvatarFallback = (props: AvatarFallbackProps) => {
 	const {
 		className,
 		children = <UserRound/>,
@@ -51,22 +51,12 @@ const Fallback = (props: AvatarFallbackProps) => {
 	} = props
 
 	return (
-		<AvatarPrimitive.Fallback
+		<Avatar.Fallback
 			{...restProps}
 			data-slot="avatar-fallback"
 			className={resolveClassNames(className, "avatar__fallback")}
 		>
 			{getFallback(children)}
-		</AvatarPrimitive.Fallback>
+		</Avatar.Fallback>
 	)
 }
-
-type AvatarSlots = {
-	Image: typeof Img
-	Fallback: typeof Fallback
-}
-
-export const Avatar = composeComponent<typeof Root, AvatarSlots>(Root, {
-	Image: Img,
-	Fallback,
-})

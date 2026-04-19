@@ -49,7 +49,7 @@ const kebabCase = (value?: string) => {
 	return result
 }
 
-export const getDataAttributes = <T extends DataObject>(object?: T) => {
+export const getDataAttributes = <Data extends DataObject>(object?: Data) => {
 	if (
 		!object ||
 		typeof object !== "object"

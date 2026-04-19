@@ -1,10 +1,10 @@
 import type { RadioProps, RadioIndicatorProps } from "./radio.props"
 
-import { composeComponent, getDataAttributes, resolveClassNames } from "../../utils"
+import { getDataAttributes, resolveClassNames } from "../../utils"
 
-import { Radio as RadioPrimitive } from "@base-ui/react"
+import { Radio } from "@base-ui/react"
 
-const Root = <V = unknown>(props: RadioProps<V>) => {
+export const RadioRoot = <Value = unknown>(props: RadioProps<Value>) => {
 	const {
 		size = "md",
 		color = "default",
@@ -14,18 +14,18 @@ const Root = <V = unknown>(props: RadioProps<V>) => {
 	} = props
 
 	return (
-		<RadioPrimitive.Root
+		<Radio.Root
 			{...restProps}
 			{...getDataAttributes({ size, color })}
 			data-slot="radio"
 			className={resolveClassNames(className, "radio")}
 		>
 			{children}
-		</RadioPrimitive.Root>
+		</Radio.Root>
 	)
 }
 
-const Indicator = (props: RadioIndicatorProps) => {
+export const RadioIndicator = (props: RadioIndicatorProps) => {
 	const {
 		keepMounted = true,
 		className,
@@ -34,21 +34,13 @@ const Indicator = (props: RadioIndicatorProps) => {
 	} = props
 
 	return (
-		<RadioPrimitive.Indicator
+		<Radio.Indicator
 			{...restProps}
 			data-slot="radio-indicator"
 			keepMounted={keepMounted}
 			className={resolveClassNames(className, "radio__indicator")}
 		>
 			{children}
-		</RadioPrimitive.Indicator>
+		</Radio.Indicator>
 	)
 }
-
-type RadioSlots = {
-	Indicator: typeof Indicator
-}
-
-export const Radio = composeComponent<typeof Root, RadioSlots>(Root, {
-	Indicator,
-})

@@ -1,17 +1,9 @@
 import type { Tooltip } from "@base-ui/react"
-import type { SafetyPick } from "../../types"
 
-export type TooltipProps<P = unknown> = Tooltip.Root.Props<P>
-export type TooltipTriggerProps<P = unknown> = Tooltip.Trigger.Props<P>
-
-export type TooltipPopupProps = Tooltip.Popup.Props & SafetyPick<Tooltip.Portal.Props,
-	| "keepMounted"
-> & SafetyPick<Tooltip.Positioner.Props,
-	| "disableAnchorTracking"
-	| "side"
-	| "sideOffset"
-	| "align"
-	| "alignOffset"
-> & {
-	arrow?: boolean
-}
+export type TooltipProviderProps = Tooltip.Provider.Props
+export type TooltipProps<Payload = unknown> = Tooltip.Root.Props<Payload>
+export type TooltipTriggerProps<Payload = unknown> = Tooltip.Trigger.Props<Payload>
+export type TooltipPortalProps = Tooltip.Portal.Props
+export type TooltipPositionerProps = Tooltip.Positioner.Props
+export type TooltipPopupProps = Tooltip.Popup.Props
+export type TooltipArrowProps = Tooltip.Arrow.Props

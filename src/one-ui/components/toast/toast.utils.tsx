@@ -3,7 +3,7 @@ import type { ToastData } from "./toast.types"
 
 import { INDICATORS } from "./toast.constants"
 
-import { Spinner } from "../spinner/spinner"
+import { Spinner } from "../spinner"
 
 export const getDefaultColor = (type?: string) => {
 	if (!type || type === "loading") return "default"

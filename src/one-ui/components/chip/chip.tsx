@@ -2,7 +2,7 @@ import type { ChipProps } from "./chip.props"
 
 import { getDataAttributes, resolveClassNames } from "../../utils"
 
-export const Chip = (props: ChipProps) => {
+export const ChipRoot = (props: ChipProps) => {
 	const {
 		variant = "solid",
 		size = "md",

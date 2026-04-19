@@ -1,16 +1,20 @@
 import type { ComponentProps } from "react"
 import type { Dialog } from "@base-ui/react"
-import type { SafetyPick } from "../../types"
 
-export type DialogProps<P = unknown> = Dialog.Root.Props<P>
-export type DialogTriggerProps<P = unknown> = Dialog.Trigger.Props<P>
+export type DialogProps<Payload = unknown> = Dialog.Root.Props<Payload>
+export type DialogTriggerProps<Payload = unknown> = Dialog.Trigger.Props<Payload>
+export type DialogPortalProps = Dialog.Portal.Props
+export type DialogBackdropProps = Dialog.Backdrop.Props
 
-export type DialogPopupProps = Dialog.Popup.Props & SafetyPick<Dialog.Portal.Props, "keepMounted"> & {
-	backdrop?: "transparent" | "opaque" | "blur"
+export type DialogViewportProps = Dialog.Viewport.Props & {
 	position?: "auto" | "top" | "center" | "bottom"
+}
+
+export type DialogPopupProps = Dialog.Popup.Props & {
 	size?: "xs" | "sm" | "md" | "lg" | "full"
 }
 
+export type DialogDismissProps = Dialog.Close.Props
 export type DialogTitleProps = Dialog.Title.Props
 export type DialogDescriptionProps = Dialog.Description.Props
 export type DialogActionsProps = ComponentProps<"div">

@@ -1,32 +1,36 @@
 import type {
 	DialogProps,
 	DialogTriggerProps,
+	DialogPortalProps,
+	DialogBackdropProps,
+	DialogViewportProps,
 	DialogPopupProps,
+	DialogDismissProps,
 	DialogTitleProps,
 	DialogDescriptionProps,
 	DialogActionsProps,
 	DialogCloseProps,
 } from "./dialog.props"
 
-import { composeComponent, getDataAttributes, resolveClassNames } from "../../utils"
+import { getDataAttributes, resolveClassNames } from "../../utils"
 
-import { Dialog as DialogPrimitive } from "@base-ui/react"
+import { Dialog } from "@base-ui/react"
 import { X } from "lucide-react"
 
-const Root = <P = unknown>(props: DialogProps<P>) => {
+export const DialogRoot = <Payload = unknown>(props: DialogProps<Payload>) => {
 	const {
 		children,
 		...restProps
 	} = props
 
 	return (
-		<DialogPrimitive.Root {...restProps}>
+		<Dialog.Root {...restProps}>
 			{children}
-		</DialogPrimitive.Root>
+		</Dialog.Root>
 	)
 }
 
-const Trigger = <P = unknown>(props: DialogTriggerProps<P>) => {
+export const DialogTrigger = <Payload = unknown>(props: DialogTriggerProps<Payload>) => {
 	const {
 		className,
 		children,
@@ -34,21 +38,74 @@ const Trigger = <P = unknown>(props: DialogTriggerProps<P>) => {
 	} = props
 
 	return (
-		<DialogPrimitive.Trigger
+		<Dialog.Trigger
 			{...restProps}
 			data-slot="dialog-trigger"
 			className={resolveClassNames(className, "dialog__trigger")}
 		>
 			{children}
-		</DialogPrimitive.Trigger>
+		</Dialog.Trigger>
 	)
 }
 
-const Popup = (props: DialogPopupProps) => {
+export const DialogPortal = (props: DialogPortalProps) => {
 	const {
-		keepMounted,
-		backdrop = "opaque",
+		className,
+		children,
+		...restProps
+	} = props
+
+	return (
+		<Dialog.Portal
+			{...restProps}
+			data-slot="dialog-portal"
+			className={resolveClassNames(className, "dialog__portal")}
+		>
+			{children}
+		</Dialog.Portal>
+	)
+}
+
+export const DialogBackdrop = (props: DialogBackdropProps) => {
+	const {
+		className,
+		children,
+		...restProps
+	} = props
+
+	return (
+		<Dialog.Backdrop
+			{...restProps}
+			data-slot="dialog-backdrop"
+			className={resolveClassNames(className, "dialog__backdrop")}
+		>
+			{children}
+		</Dialog.Backdrop>
+	)
+}
+
+export const DialogViewport = (props: DialogViewportProps) => {
+	const {
 		position = "auto",
+		className,
+		children,
+		...restProps
+	} = props
+
+	return (
+		<Dialog.Viewport
+			{...restProps}
+			{...getDataAttributes({ position })}
+			data-slot="dialog-viewport"
+			className={resolveClassNames(className, "dialog__viewport")}
+		>
+			{children}
+		</Dialog.Viewport>
+	)
+}
+
+export const DialogPopup = (props: DialogPopupProps) => {
+	const {
 		size = "md",
 		className,
 		children,
@@ -56,42 +113,36 @@ const Popup = (props: DialogPopupProps) => {
 	} = props
 
 	return (
-		<DialogPrimitive.Portal
-			data-slot="dialog-portal"
-			keepMounted={keepMounted}
+		<Dialog.Popup
+			{...restProps}
+			{...getDataAttributes({ size })}
+			data-slot="dialog-popup"
+			className={resolveClassNames(className, "dialog__popup")}
 		>
-			<DialogPrimitive.Backdrop
-				{...getDataAttributes({ backdrop })}
-				data-slot="dialog-backdrop"
-				className="dialog__backdrop"
-			/>
-
-			<DialogPrimitive.Viewport
-				{...getDataAttributes({ position })}
-				data-slot="dialog-viewport"
-				className="dialog__viewport"
-			>
-				<DialogPrimitive.Popup
-					{...restProps}
-					{...getDataAttributes({ size })}
-					data-slot="dialog-popup"
-					className={resolveClassNames(className, "dialog__popup")}
-				>
-					<DialogPrimitive.Close
-						data-slot="dialog-close"
-						className="dialog__close"
-					>
-						<X/>
-					</DialogPrimitive.Close>
-
-					{children}
-				</DialogPrimitive.Popup>
-			</DialogPrimitive.Viewport>
-		</DialogPrimitive.Portal>
+			{children}
+		</Dialog.Popup>
 	)
 }
 
-const Title = (props: DialogTitleProps) => {
+export const DialogDismiss = (props: DialogDismissProps) => {
+	const {
+		className,
+		children = <X/>,
+		...restProps
+	} = props
+
+	return (
+		<Dialog.Close
+			{...restProps}
+			data-slot="dialog-dismiss"
+			className={resolveClassNames(className, "dialog__dismiss")}
+		>
+			{children}
+		</Dialog.Close>
+	)
+}
+
+export const DialogTitle = (props: DialogTitleProps) => {
 	const {
 		className,
 		children,
@@ -99,17 +150,17 @@ const Title = (props: DialogTitleProps) => {
 	} = props
 
 	return (
-		<DialogPrimitive.Title
+		<Dialog.Title
 			{...restProps}
 			data-slot="dialog-title"
 			className={resolveClassNames(className, "dialog__title")}
 		>
 			{children}
-		</DialogPrimitive.Title>
+		</Dialog.Title>
 	)
 }
 
-const Description = (props: DialogDescriptionProps) => {
+export const DialogDescription = (props: DialogDescriptionProps) => {
 	const {
 		className,
 		children,
@@ -117,17 +168,17 @@ const Description = (props: DialogDescriptionProps) => {
 	} = props
 
 	return (
-		<DialogPrimitive.Description
+		<Dialog.Description
 			{...restProps}
 			data-slot="dialog-description"
 			className={resolveClassNames(className, "dialog__description")}
 		>
 			{children}
-		</DialogPrimitive.Description>
+		</Dialog.Description>
 	)
 }
 
-const Actions = (props: DialogActionsProps) => {
+export const DialogActions = (props: DialogActionsProps) => {
 	const {
 		className,
 		children,
@@ -145,38 +196,20 @@ const Actions = (props: DialogActionsProps) => {
 	)
 }
 
-const Close = (props: DialogCloseProps) => {
+export const DialogClose = (props: DialogCloseProps) => {
 	const {
 		children,
 		...restProps
 	} = props
 
 	return (
-		<DialogPrimitive.Close
+		<Dialog.Close
 			{...restProps}
 			data-slot="dialog-close"
 		>
 			{children}
-		</DialogPrimitive.Close>
+		</Dialog.Close>
 	)
 }
 
-type DialogSlots = {
-	Trigger: typeof Trigger
-	Popup: typeof Popup
-	Title: typeof Title
-	Description: typeof Description
-	Actions: typeof Actions
-	Close: typeof Close
-	createHandle: typeof DialogPrimitive.createHandle
-}
-
-export const Dialog = composeComponent<typeof Root, DialogSlots>(Root, {
-	Trigger,
-	Popup,
-	Title,
-	Description,
-	Actions,
-	Close,
-	createHandle: DialogPrimitive.createHandle,
-})
+export const dialogCreateHandle = Dialog.createHandle

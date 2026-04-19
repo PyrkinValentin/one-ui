@@ -1,10 +1,10 @@
 import type { SwitchProps, SwitchThumbProps } from "./switch.props"
 
-import { composeComponent, getDataAttributes, resolveClassNames } from "../../utils"
+import { getDataAttributes, resolveClassNames } from "../../utils"
 
-import { Switch as SwitchPrimitive } from "@base-ui/react"
+import { Switch } from "@base-ui/react"
 
-const Root = (props: SwitchProps) => {
+export const SwitchRoot = (props: SwitchProps) => {
 	const {
 		size = "md",
 		color = "primary",
@@ -14,18 +14,18 @@ const Root = (props: SwitchProps) => {
 	} = props
 
 	return (
-		<SwitchPrimitive.Root
+		<Switch.Root
 			{...restProps}
 			{...getDataAttributes({ size, color })}
 			data-slot="switch"
 			className={resolveClassNames(className, "switch")}
 		>
 			{children}
-		</SwitchPrimitive.Root>
+		</Switch.Root>
 	)
 }
 
-const Thumb = (props: SwitchThumbProps) => {
+export const SwitchThumb = (props: SwitchThumbProps) => {
 	const {
 		className,
 		children,
@@ -33,20 +33,12 @@ const Thumb = (props: SwitchThumbProps) => {
 	} = props
 
 	return (
-		<SwitchPrimitive.Thumb
+		<Switch.Thumb
 			{...restProps}
 			data-slot="switch-thumb"
 			className={resolveClassNames(className, "switch__thumb")}
 		>
 			{children}
-		</SwitchPrimitive.Thumb>
+		</Switch.Thumb>
 	)
 }
-
-type SwitchSlots = {
-	Thumb: typeof Thumb
-}
-
-export const Switch = composeComponent<typeof Root, SwitchSlots>(Root, {
-	Thumb,
-})

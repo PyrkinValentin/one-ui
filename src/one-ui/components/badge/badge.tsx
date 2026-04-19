@@ -1,8 +1,8 @@
 import type { BadgeProps, BadgeIndicatorProps } from "./badge.props"
 
-import { composeComponent, getDataAttributes, resolveClassNames } from "../../utils"
+import { getDataAttributes, resolveClassNames } from "../../utils"
 
-const Root = (props: BadgeProps) => {
+export const BadgeRoot = (props: BadgeProps) => {
 	const {
 		variant = "solid",
 		size = "md",
@@ -25,7 +25,7 @@ const Root = (props: BadgeProps) => {
 	)
 }
 
-const Indicator = (props: BadgeIndicatorProps) => {
+export const BadgeIndicator = (props: BadgeIndicatorProps) => {
 	const {
 		className,
 		children,
@@ -42,11 +42,3 @@ const Indicator = (props: BadgeIndicatorProps) => {
 		</span>
 	)
 }
-
-type BadgeSlots = {
-	Indicator: typeof Indicator
-}
-
-export const Badge = composeComponent<typeof Root, BadgeSlots>(Root, {
-	Indicator,
-})

@@ -8,11 +8,11 @@ import type {
 	SliderThumbProps,
 } from "./slider.props"
 
-import { composeComponent, resolveClassNames } from "../../utils"
+import { resolveClassNames } from "../../utils"
 
-import { Slider as SliderPrimitive } from "@base-ui/react"
+import { Slider } from "@base-ui/react"
 
-const Root = <V extends number | readonly number[] = number | readonly number[]>(props: SliderProps<V>) => {
+export const SliderRoot = <Value extends number | readonly number[] = number | readonly number[]>(props: SliderProps<Value>) => {
 	const {
 		className,
 		children,
@@ -20,17 +20,17 @@ const Root = <V extends number | readonly number[] = number | readonly number[]>
 	} = props
 
 	return (
-		<SliderPrimitive.Root
+		<Slider.Root
 			{...restProps}
 			data-slot="slider"
 			className={resolveClassNames(className, "slider")}
 		>
 			{children}
-		</SliderPrimitive.Root>
+		</Slider.Root>
 	)
 }
 
-const Label = (props: SliderLabelProps) => {
+export const SliderLabel = (props: SliderLabelProps) => {
 	const {
 		className,
 		children,
@@ -38,17 +38,17 @@ const Label = (props: SliderLabelProps) => {
 	} = props
 
 	return (
-		<SliderPrimitive.Label
+		<Slider.Label
 			{...restProps}
 			data-slot="slider-label"
 			className={resolveClassNames(className, "slider__label")}
 		>
 			{children}
-		</SliderPrimitive.Label>
+		</Slider.Label>
 	)
 }
 
-const Value = (props: SliderValueProps) => {
+export const SliderValue = (props: SliderValueProps) => {
 	const {
 		className,
 		children,
@@ -56,17 +56,17 @@ const Value = (props: SliderValueProps) => {
 	} = props
 
 	return (
-		<SliderPrimitive.Value
+		<Slider.Value
 			{...restProps}
 			data-slot="slider-value"
 			className={resolveClassNames(className, "slider__value")}
 		>
 			{children}
-		</SliderPrimitive.Value>
+		</Slider.Value>
 	)
 }
 
-const Control = (props: SliderControlProps) => {
+export const SliderControl = (props: SliderControlProps) => {
 	const {
 		className,
 		children,
@@ -74,17 +74,17 @@ const Control = (props: SliderControlProps) => {
 	} = props
 
 	return (
-		<SliderPrimitive.Control
+		<Slider.Control
 			{...restProps}
 			data-slot="slider-control"
 			className={resolveClassNames(className, "slider__control")}
 		>
 			{children}
-		</SliderPrimitive.Control>
+		</Slider.Control>
 	)
 }
 
-const Track = (props: SliderTrackProps) => {
+export const SliderTrack = (props: SliderTrackProps) => {
 	const {
 		className,
 		children,
@@ -92,17 +92,17 @@ const Track = (props: SliderTrackProps) => {
 	} = props
 
 	return (
-		<SliderPrimitive.Track
+		<Slider.Track
 			{...restProps}
 			data-slot="slider-track"
 			className={resolveClassNames(className, "slider__track")}
 		>
 			{children}
-		</SliderPrimitive.Track>
+		</Slider.Track>
 	)
 }
 
-const Indicator = (props: SliderIndicatorProps) => {
+export const SliderIndicator = (props: SliderIndicatorProps) => {
 	const {
 		className,
 		children,
@@ -110,17 +110,17 @@ const Indicator = (props: SliderIndicatorProps) => {
 	} = props
 
 	return (
-		<SliderPrimitive.Indicator
+		<Slider.Indicator
 			{...restProps}
 			data-slot="slider-indicator"
 			className={resolveClassNames(className, "slider__indicator")}
 		>
 			{children}
-		</SliderPrimitive.Indicator>
+		</Slider.Indicator>
 	)
 }
 
-const Thumb = (props: SliderThumbProps) => {
+export const SliderThumb = (props: SliderThumbProps) => {
 	const {
 		className,
 		children,
@@ -128,30 +128,12 @@ const Thumb = (props: SliderThumbProps) => {
 	} = props
 
 	return (
-		<SliderPrimitive.Thumb
+		<Slider.Thumb
 			{...restProps}
 			data-slot="slider-thumb"
 			className={resolveClassNames(className, "slider__thumb")}
 		>
 			{children}
-		</SliderPrimitive.Thumb>
+		</Slider.Thumb>
 	)
 }
-
-type SliderSlots = {
-	Label: typeof Label
-	Value: typeof Value
-	Control: typeof Control
-	Track: typeof Track
-	Indicator: typeof Indicator
-	Thumb: typeof Thumb
-}
-
-export const Slider = composeComponent<typeof Root, SliderSlots>(Root, {
-	Label,
-	Value,
-	Control,
-	Track,
-	Indicator,
-	Thumb,
-})

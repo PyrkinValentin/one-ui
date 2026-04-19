@@ -2,16 +2,16 @@ import type { SeparatorProps } from "./separator.props"
 
 import { resolveClassNames } from "../../utils"
 
-import { Separator as SeparatorPrimitive } from "@base-ui/react"
+import { Separator } from "@base-ui/react"
 
-export const Separator = (props: SeparatorProps) => {
+export const SeparatorRoot = (props: SeparatorProps) => {
 	const {
 		className,
 		...restProps
 	} = props
 
 	return (
-		<SeparatorPrimitive
+		<Separator
 			{...restProps}
 			data-slot="separator"
 			className={resolveClassNames(className, "separator")}

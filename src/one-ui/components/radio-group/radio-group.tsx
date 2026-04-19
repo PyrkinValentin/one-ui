@@ -2,9 +2,9 @@ import type { RadioGroupProps } from "./radio-group.props"
 
 import { resolveClassNames } from "../../utils"
 
-import { RadioGroup as RadioGroupPrimitive } from "@base-ui/react"
+import { RadioGroup } from "@base-ui/react"
 
-export const RadioGroup = <V = unknown>(props: RadioGroupProps<V>) => {
+export const RadioGroupRoot = <Value = unknown>(props: RadioGroupProps<Value>) => {
 	const {
 		className,
 		children,
@@ -12,12 +12,12 @@ export const RadioGroup = <V = unknown>(props: RadioGroupProps<V>) => {
 	} = props
 
 	return (
-		<RadioGroupPrimitive
+		<RadioGroup
 			{...restProps}
 			data-slot="radio-group"
 			className={resolveClassNames(className, "radio-group")}
 		>
 			{children}
-		</RadioGroupPrimitive>
+		</RadioGroup>
 	)
 }

@@ -7,11 +7,11 @@ import type {
 	FieldValidityProps
 } from "./field.props"
 
-import { composeComponent, resolveClassNames } from "../../utils"
+import { resolveClassNames } from "../../utils"
 
-import { Field as FieldPrimitive } from "@base-ui/react"
+import { Field } from "@base-ui/react"
 
-const Root = (props: FieldProps) => {
+export const FieldRoot = (props: FieldProps) => {
 	const {
 		className,
 		children,
@@ -19,17 +19,17 @@ const Root = (props: FieldProps) => {
 	} = props
 
 	return (
-		<FieldPrimitive.Root
+		<Field.Root
 			{...restProps}
 			data-slot="field"
 			className={resolveClassNames(className, "field")}
 		>
 			{children}
-		</FieldPrimitive.Root>
+		</Field.Root>
 	)
 }
 
-const Item = (props: FieldItemProps) => {
+export const FieldItem = (props: FieldItemProps) => {
 	const {
 		className,
 		children,
@@ -37,17 +37,17 @@ const Item = (props: FieldItemProps) => {
 	} = props
 
 	return (
-		<FieldPrimitive.Item
+		<Field.Item
 			{...restProps}
 			data-slot="field-item"
 			className={resolveClassNames(className, "field__item")}
 		>
 			{children}
-		</FieldPrimitive.Item>
+		</Field.Item>
 	)
 }
 
-const Label = (props: FieldLabelProps) => {
+export const FieldLabel = (props: FieldLabelProps) => {
 	const {
 		className,
 		children,
@@ -55,24 +55,24 @@ const Label = (props: FieldLabelProps) => {
 	} = props
 
 	return (
-		<FieldPrimitive.Label
+		<Field.Label
 			{...restProps}
 			data-slot="field-label"
 			className={resolveClassNames(className, "field__label")}
 		>
 			{children}
-		</FieldPrimitive.Label>
+		</Field.Label>
 	)
 }
 
-const Error = (props: FieldErrorProps) => {
+export const FieldError = (props: FieldErrorProps) => {
 	const {
 		className,
 		...restProps
 	} = props
 
 	return (
-		<FieldPrimitive.Error
+		<Field.Error
 			{...restProps}
 			data-slot="field-error"
 			className={resolveClassNames(className, "field__error")}
@@ -80,7 +80,7 @@ const Error = (props: FieldErrorProps) => {
 	)
 }
 
-const Description = (props: FieldDescriptionProps) => {
+export const FieldDescription = (props: FieldDescriptionProps) => {
 	const {
 		className,
 		children,
@@ -88,38 +88,22 @@ const Description = (props: FieldDescriptionProps) => {
 	} = props
 
 	return (
-		<FieldPrimitive.Description
+		<Field.Description
 			{...restProps}
 			data-slot="field-description"
 			className={resolveClassNames(className, "field__description")}
 		>
 			{children}
-		</FieldPrimitive.Description>
+		</Field.Description>
 	)
 }
 
-const Validity = (props: FieldValidityProps) => {
+export const FieldValidity = (props: FieldValidityProps) => {
 	const { children } = props
 
 	return (
-		<FieldPrimitive.Validity>
+		<Field.Validity>
 			{children}
-		</FieldPrimitive.Validity>
+		</Field.Validity>
 	)
 }
-
-type FieldSlots = {
-	Item: typeof Item
-	Label: typeof Label
-	Error: typeof Error
-	Description: typeof Description
-	Validity: typeof Validity
-}
-
-export const Field = composeComponent<typeof Root, FieldSlots>(Root, {
-	Item,
-	Label,
-	Error,
-	Description,
-	Validity,
-})

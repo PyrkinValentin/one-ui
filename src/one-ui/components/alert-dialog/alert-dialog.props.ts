@@ -1,13 +1,16 @@
 import type { ComponentProps } from "react"
 import type { AlertDialog } from "@base-ui/react"
-import type { SafetyPick } from "../../types"
 
-export type AlertDialogProps<P = unknown> = AlertDialog.Root.Props<P>
-export type AlertDialogTriggerProps<P = unknown> = AlertDialog.Trigger.Props<P>
+export type AlertDialogProps<Payload = unknown> = AlertDialog.Root.Props<Payload>
+export type AlertDialogTriggerProps<Payload = unknown> = AlertDialog.Trigger.Props<Payload>
+export type AlertDialogPortalProps = AlertDialog.Portal.Props
+export type AlertDialogBackdropProps = AlertDialog.Backdrop.Props
 
-export type AlertDialogPopupProps = AlertDialog.Popup.Props & SafetyPick<AlertDialog.Portal.Props, "keepMounted"> & {
-	backdrop?: "transparent" | "opaque" | "blur"
-	placement?: "auto" | "top" | "center" | "bottom"
+export type AlertDialogViewportProps = AlertDialog.Viewport.Props & {
+	position?: "auto" | "top" | "center" | "bottom"
+}
+
+export type AlertDialogPopupProps = AlertDialog.Popup.Props & {
 	size?: "xs" | "sm" | "md" | "lg" | "full"
 }
 

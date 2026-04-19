@@ -2,9 +2,9 @@ import type { InputProps } from "./input.props"
 
 import { getDataAttributes, resolveClassNames } from "../../utils"
 
-import { Input as InputPrimitive } from "@base-ui/react"
+import { Input } from "@base-ui/react"
 
-export const Input = (props: InputProps) => {
+export const InputRoot = (props: InputProps) => {
 	const {
 		autoComplete = "off",
 		size = "md",
@@ -13,7 +13,7 @@ export const Input = (props: InputProps) => {
 	} = props
 
 	return (
-		<InputPrimitive
+		<Input
 			{...restProps}
 			{...getDataAttributes({ size })}
 			data-slot="input"

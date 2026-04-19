@@ -1,0 +1,138 @@
+.tabs {
+  @apply w-full flex gap-2;
+
+  &[data-orientation="horizontal"] {
+    @apply flex-col;
+  }
+
+  &[data-orientation="vertical"] {
+    @apply flex-row;
+  }
+}
+
+.tabs__list {
+  @apply relative p-1 h-fit flex bg-default-surface rounded-md;
+
+  .tabs[data-orientation="horizontal"] & {
+    @apply w-full flex-row;
+  }
+
+  .tabs[data-orientation="vertical"] & {
+    @apply flex-col gap-1;
+  }
+}
+
+.tabs__tab {
+  @apply z-1 px-4 w-full flex items-center gap-2 font-medium whitespace-nowrap text-muted rounded-sm
+  select-none cursor-pointer transition motion-reduce:transition-none;
+
+  &:focus-visible {
+    @apply z-10 focus-ring;
+  }
+
+  &:hover:not([data-active]) {
+    @apply text-muted/70;
+  }
+
+  &[data-disabled] {
+    @apply disabled-state;
+  }
+
+  .tabs[data-orientation="horizontal"] & {
+    @apply justify-center;
+  }
+
+  .tabs[data-orientation="vertical"] & {
+    @apply justify-start;
+  }
+
+  .tabs[data-size="sm"] & {
+    @apply h-6 text-xs rounded-xs;
+
+    & > svg {
+      @apply size-4;
+    }
+  }
+
+  .tabs[data-size="md"] & {
+    @apply h-8 text-sm rounded-sm;
+
+    & > svg {
+      @apply size-4.5;
+    }
+  }
+
+  .tabs[data-size="lg"] & {
+    @apply h-10 text-base rounded-md;
+
+    & > svg {
+      @apply size-5;
+    }
+  }
+
+  &[data-active] {
+    .tabs[data-color="default"] & {
+      @apply text-default-foreground;
+    }
+
+    .tabs[data-color="primary"] & {
+      @apply text-primary-foreground;
+    }
+
+    .tabs[data-color="success"] & {
+      @apply text-success-foreground;
+    }
+
+    .tabs[data-color="warning"] & {
+      @apply text-warning-foreground;
+    }
+
+    .tabs[data-color="danger"] & {
+      @apply text-danger-foreground;
+    }
+  }
+}
+
+.tabs__indicator {
+  @apply absolute rounded-sm transition-all ease-in-out motion-reduce:transition-none transform-gpu;
+
+  .tabs[data-orientation="horizontal"] & {
+    @apply top-1/2 left-0 -translate-y-1/2 w-(--active-tab-width) translate-x-(--active-tab-left);
+  }
+
+  .tabs[data-orientation="vertical"] & {
+    @apply top-0 left-1/2 -translate-x-1/2 w-(--active-tab-width) translate-y-(--active-tab-top);
+  }
+
+  .tabs[data-size="sm"] & {
+    @apply h-6;
+  }
+
+  .tabs[data-size="md"] & {
+    @apply h-8;
+  }
+
+  .tabs[data-size="lg"] & {
+    @apply h-10;
+  }
+
+  .tabs[data-color="default"] & {
+    @apply bg-default;
+  }
+
+  .tabs[data-color="primary"] & {
+    @apply bg-primary;
+  }
+
+  .tabs[data-color="success"] & {
+    @apply bg-success;
+  }
+
+  .tabs[data-color="warning"] & {
+    @apply bg-warning;
+  }
+
+  .tabs[data-color="danger"] & {
+    @apply bg-danger;
+  }
+}

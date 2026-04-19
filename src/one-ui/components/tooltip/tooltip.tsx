@@ -1,92 +1,131 @@
-import type { TooltipProps, TooltipTriggerProps, TooltipPopupProps } from "./tooltip.props"
+import type {
+	TooltipProviderProps,
+	TooltipProps,
+	TooltipTriggerProps,
+	TooltipPortalProps,
+	TooltipPositionerProps,
+	TooltipPopupProps,
+	TooltipArrowProps,
+} from "./tooltip.props"
 
-import { composeComponent, resolveClassNames } from "../../utils"
+import { resolveClassNames } from "../../utils"
 
-import { Tooltip as TooltipPrimitive } from "@base-ui/react"
+import { Tooltip } from "@base-ui/react"
 
-const Root = <P = unknown>(props: TooltipProps<P>) => {
+export const TooltipProvider = (props: TooltipProviderProps) => {
 	const {
 		children,
 		...restProps
 	} = props
 
 	return (
-		<TooltipPrimitive.Root {...restProps}>
+		<Tooltip.Provider {...restProps}>
 			{children}
-		</TooltipPrimitive.Root>
+		</Tooltip.Provider>
 	)
 }
 
-const Trigger = <P = unknown>(props: TooltipTriggerProps<P>) => {
+export const TooltipRoot = <Payload = unknown>(props: TooltipProps<Payload>) => {
 	const {
 		children,
 		...restProps
 	} = props
 
 	return (
-		<TooltipPrimitive.Trigger
+		<Tooltip.Root {...restProps}>
+			{children}
+		</Tooltip.Root>
+	)
+}
+
+export const TooltipTrigger = <Payload = unknown>(props: TooltipTriggerProps<Payload>) => {
+	const {
+		children,
+		...restProps
+	} = props
+
+	return (
+		<Tooltip.Trigger
 			{...restProps}
 			data-slot="tooltip-trigger"
 		>
 			{children}
-		</TooltipPrimitive.Trigger>
+		</Tooltip.Trigger>
 	)
 }
 
-const Popup = (props: TooltipPopupProps) => {
+export const TooltipPortal = (props: TooltipPortalProps) => {
 	const {
-		arrow,
-		keepMounted,
-		disableAnchorTracking,
-		side,
-		sideOffset = arrow ? 7 : 3,
-		align,
-		alignOffset,
 		className,
 		children,
 		...restProps
 	} = props
 
 	return (
-		<TooltipPrimitive.Portal
+		<Tooltip.Portal
+			{...restProps}
 			data-slot="tooltip-portal"
-			keepMounted={keepMounted}
+			className={resolveClassNames(className, "tooltip__portal")}
 		>
-			<TooltipPrimitive.Positioner
-				data-slot="tooltip-positioner"
-				disableAnchorTracking={disableAnchorTracking}
-				side={side}
-				sideOffset={sideOffset}
-				align={align}
-				alignOffset={alignOffset}
-			>
-				<TooltipPrimitive.Popup
-					{...restProps}
-					data-slot="tooltip-popup"
-					className={resolveClassNames(className, "tooltip__popup")}
-				>
-					{arrow && (
-						<TooltipPrimitive.Arrow
-							data-slot="tooltip-arrow"
-							className="tooltip__arrow"
-						/>
-					)}
-
-					{children}
-				</TooltipPrimitive.Popup>
-			</TooltipPrimitive.Positioner>
-		</TooltipPrimitive.Portal>
+			{children}
+		</Tooltip.Portal>
 	)
 }
 
-type TooltipSlots = {
-	Trigger: typeof Trigger
-	Popup: typeof Popup
-	createHandle: typeof TooltipPrimitive.createHandle
+export const TooltipPositioner = (props: TooltipPositionerProps) => {
+	const {
+		sideOffset = 7,
+		className,
+		children,
+		...restProps
+	} = props
+
+	return (
+		<Tooltip.Positioner
+			{...restProps}
+			sideOffset={sideOffset}
+			data-slot="tooltip-positioner"
+			className={resolveClassNames(className, "tooltip__positioner")}
+		>
+			{children}
+		</Tooltip.Positioner>
+	)
 }
 
-export const Tooltip = composeComponent<typeof Root, TooltipSlots>(Root, {
-	Trigger,
-	Popup,
-	createHandle: TooltipPrimitive.createHandle,
-})
+export const TooltipPopup = (props: TooltipPopupProps) => {
+	const {
+		className,
+		children,
+		...restProps
+	} = props
+
+	return (
+		<Tooltip.Popup
+			{...restProps}
+			data-slot="tooltip-popup"
+			className={resolveClassNames(className, "tooltip__popup")}
+		>
+			{children}
+		</Tooltip.Popup>
+	)
+}
+
+export const TooltipArrow = (props: TooltipArrowProps) => {
+	const {
+		className,
+		children,
+		...restProps
+	} = props
+
+	return (
+		<Tooltip.Arrow
+			{...restProps}
+			data-slot="tooltip-arrow"
+			className={resolveClassNames(className, "tooltip__arrow")}
+		>
+			{children}
+		</Tooltip.Arrow>
+	)
+}
+
+export const tooltipCreateHandle = Tooltip.createHandle

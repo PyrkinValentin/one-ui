@@ -1,0 +1,107 @@
+.pagination {
+  @apply w-full select-none;
+}
+
+.pagination__list {
+  @apply flex items-center gap-2;
+}
+
+.pagination__prev,
+.pagination__next,
+.pagination__page,
+.pagination__ellipsis {
+  @apply flex items-center justify-center;
+
+  .pagination[data-size="sm"] & {
+    @apply size-6 rounded-xs;
+  }
+
+  .pagination[data-size="md"] & {
+    @apply size-8 rounded-sm;
+  }
+
+  .pagination[data-size="lg"] & {
+    @apply size-10 rounded-md;
+  }
+}
+
+.pagination__prev,
+.pagination__next,
+.pagination__page {
+  @apply cursor-pointer transition motion-reduce:transition-none;
+
+  &:focus-visible {
+    @apply z-10 focus-ring;
+  }
+
+  &:hover {
+    @apply bg-default;
+  }
+
+  .pagination[data-size="sm"] & {
+    @apply text-xs;
+  }
+
+  .pagination[data-size="md"] & {
+    @apply text-sm;
+  }
+
+  .pagination[data-size="lg"] & {
+    @apply text-base;
+  }
+}
+
+.pagination__prev,
+.pagination__next {
+  &[data-disabled] {
+    @apply disabled-state;
+  }
+}
+
+.pagination__prev,
+.pagination__next,
+.pagination__ellipsis {
+  .pagination[data-size="sm"] & {
+    & > svg {
+      @apply size-4;
+    }
+  }
+
+  .pagination[data-size="md"] & {
+    & > svg {
+      @apply size-4.5;
+    }
+  }
+
+  .pagination[data-size="lg"] & {
+    & > svg {
+      @apply size-5;
+    }
+  }
+}
+
+.pagination__page {
+  &[data-current] {
+    @apply pointer-events-none;
+
+    .pagination[data-color="default"] & {
+      @apply bg-default text-default-foreground;
+    }
+
+    .pagination[data-color="primary"] & {
+      @apply bg-primary text-primary-foreground;
+    }
+
+    .pagination[data-color="success"] & {
+      @apply bg-success text-success-foreground;
+    }
+
+    .pagination[data-color="warning"] & {
+      @apply bg-warning text-warning-foreground;
+    }
+
+    .pagination[data-color="danger"] & {
+      @apply bg-danger text-danger-foreground;
+    }
+  }
+}

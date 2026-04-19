@@ -1,3 +1,4 @@
+export { clamp } from "./clamp"
 export { composeComponent } from "./compose-component"
 export { getDataAttributes } from "./get-data-attributes"
 export { getInitials } from "./get-initials"

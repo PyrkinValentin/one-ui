@@ -1,6 +1,9 @@
 import type {
 	AlertDialogProps,
 	AlertDialogTriggerProps,
+	AlertDialogPortalProps,
+	AlertDialogBackdropProps,
+	AlertDialogViewportProps,
 	AlertDialogPopupProps,
 	AlertDialogTitleProps,
 	AlertDialogDescriptionProps,
@@ -8,24 +11,24 @@ import type {
 	AlertDialogCloseProps,
 } from "./alert-dialog.props"
 
-import { composeComponent, getDataAttributes, resolveClassNames } from "../../utils"
+import { getDataAttributes, resolveClassNames } from "../../utils"
 
-import { AlertDialog as AlertDialogPrimitive } from "@base-ui/react"
+import { AlertDialog } from "@base-ui/react"
 
-const Root = <P = unknown>(props: AlertDialogProps<P>) => {
+export const AlertDialogRoot = <Payload = unknown>(props: AlertDialogProps<Payload>) => {
 	const {
 		children,
 		...restProps
 	} = props
 
 	return (
-		<AlertDialogPrimitive.Root {...restProps}>
+		<AlertDialog.Root {...restProps}>
 			{children}
-		</AlertDialogPrimitive.Root>
+		</AlertDialog.Root>
 	)
 }
 
-const Trigger = <P = unknown>(props: AlertDialogTriggerProps<P>) => {
+export const AlertDialogTrigger = <Payload = unknown>(props: AlertDialogTriggerProps<Payload>) => {
 	const {
 		className,
 		children,
@@ -33,21 +36,74 @@ const Trigger = <P = unknown>(props: AlertDialogTriggerProps<P>) => {
 	} = props
 
 	return (
-		<AlertDialogPrimitive.Trigger
+		<AlertDialog.Trigger
 			{...restProps}
 			data-slot="alert-dialog-trigger"
 			className={resolveClassNames(className, "alert-dialog__trigger")}
 		>
 			{children}
-		</AlertDialogPrimitive.Trigger>
+		</AlertDialog.Trigger>
 	)
 }
 
-const Popup = (props: AlertDialogPopupProps) => {
+export const AlertDialogPortal = (props: AlertDialogPortalProps) => {
 	const {
-		keepMounted,
-		backdrop = "opaque",
-		placement = "auto",
+		className,
+		children,
+		...restProps
+	} = props
+
+	return (
+		<AlertDialog.Portal
+			{...restProps}
+			data-slot="alert-dialog-portal"
+			className={resolveClassNames(className, "alert-dialog__portal")}
+		>
+			{children}
+		</AlertDialog.Portal>
+	)
+}
+
+export const AlertDialogBackdrop = (props: AlertDialogBackdropProps) => {
+	const {
+		className,
+		children,
+		...restProps
+	} = props
+
+	return (
+		<AlertDialog.Backdrop
+			{...restProps}
+			data-slot="alert-dialog-backdrop"
+			className={resolveClassNames(className, "alert-dialog__backdrop")}
+		>
+			{children}
+		</AlertDialog.Backdrop>
+	)
+}
+
+export const AlertDialogViewport = (props: AlertDialogViewportProps) => {
+	const {
+		position = "auto",
+		className,
+		children,
+		...restProps
+	} = props
+
+	return (
+		<AlertDialog.Viewport
+			{...restProps}
+			{...getDataAttributes({ position })}
+			data-slot="alert-dialog-viewport"
+			className={resolveClassNames(className, "alert-dialog__viewport")}
+		>
+			{children}
+		</AlertDialog.Viewport>
+	)
+}
+
+export const AlertDialogPopup = (props: AlertDialogPopupProps) => {
+	const {
 		size = "md",
 		className,
 		children,
@@ -55,35 +111,18 @@ const Popup = (props: AlertDialogPopupProps) => {
 	} = props
 
 	return (
-		<AlertDialogPrimitive.Portal
-			data-slot="alert-dialog-portal"
-			keepMounted={keepMounted}
+		<AlertDialog.Popup
+			{...restProps}
+			{...getDataAttributes({ size })}
+			data-slot="alert-dialog-popup"
+			className={resolveClassNames(className, "alert-dialog__popup")}
 		>
-			<AlertDialogPrimitive.Backdrop
-				{...getDataAttributes({ backdrop })}
-				data-slot="alert-dialog-backdrop"
-				className="alert-dialog__backdrop"
-			/>
-
-			<AlertDialogPrimitive.Viewport
-				{...getDataAttributes({ placement })}
-				data-slot="alert-dialog-viewport"
-				className="alert-dialog__viewport"
-			>
-				<AlertDialogPrimitive.Popup
-					{...restProps}
-					{...getDataAttributes({ size })}
-					data-slot="alert-dialog-popup"
-					className={resolveClassNames(className, "alert-dialog__popup")}
-				>
-					{children}
-				</AlertDialogPrimitive.Popup>
-			</AlertDialogPrimitive.Viewport>
-		</AlertDialogPrimitive.Portal>
+			{children}
+		</AlertDialog.Popup>
 	)
 }
 
-const Title = (props: AlertDialogTitleProps) => {
+export const AlertDialogTitle = (props: AlertDialogTitleProps) => {
 	const {
 		className,
 		children,
@@ -91,17 +130,17 @@ const Title = (props: AlertDialogTitleProps) => {
 	} = props
 
 	return (
-		<AlertDialogPrimitive.Title
+		<AlertDialog.Title
 			{...restProps}
 			data-slot="alert-dialog-title"
 			className={resolveClassNames(className, "alert-dialog__title")}
 		>
 			{children}
-		</AlertDialogPrimitive.Title>
+		</AlertDialog.Title>
 	)
 }
 
-const Description = (props: AlertDialogDescriptionProps) => {
+export const AlertDialogDescription = (props: AlertDialogDescriptionProps) => {
 	const {
 		className,
 		children,
@@ -109,17 +148,17 @@ const Description = (props: AlertDialogDescriptionProps) => {
 	} = props
 
 	return (
-		<AlertDialogPrimitive.Description
+		<AlertDialog.Description
 			{...restProps}
 			data-slot="alert-dialog-description"
 			className={resolveClassNames(className, "alert-dialog__description")}
 		>
 			{children}
-		</AlertDialogPrimitive.Description>
+		</AlertDialog.Description>
 	)
 }
 
-const Actions = (props: AlertDialogActionsProps) => {
+export const AlertDialogActions = (props: AlertDialogActionsProps) => {
 	const {
 		className,
 		children,
@@ -137,38 +176,20 @@ const Actions = (props: AlertDialogActionsProps) => {
 	)
 }
 
-const Close = (props: AlertDialogCloseProps) => {
+export const AlertDialogClose = (props: AlertDialogCloseProps) => {
 	const {
 		children,
 		...restProps
 	} = props
 
 	return (
-		<AlertDialogPrimitive.Close
+		<AlertDialog.Close
 			{...restProps}
 			data-slot="alert-dialog-close"
 		>
 			{children}
-		</AlertDialogPrimitive.Close>
+		</AlertDialog.Close>
 	)
 }
 
-type AlertDialogSlots = {
-	Trigger: typeof Trigger
-	Popup: typeof Popup
-	Title: typeof Title
-	Description: typeof Description
-	Actions: typeof Actions
-	Close: typeof Close
-	createHandle: typeof AlertDialogPrimitive.createHandle
-}
-
-export const AlertDialog = composeComponent<typeof Root, AlertDialogSlots>(Root, {
-	Trigger,
-	Popup,
-	Title,
-	Description,
-	Actions,
-	Close,
-	createHandle: AlertDialogPrimitive.createHandle,
-})
+export const alertDialogCreateHandle = AlertDialog.createHandle

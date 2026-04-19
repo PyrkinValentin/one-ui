@@ -1,0 +1,68 @@
+.otp-field {
+  @apply flex items-center gap-2 transition-colors motion-reduce:transition-none;
+
+  &[data-disabled] {
+    @apply disabled-state;
+  }
+}
+
+.otp-field__group {
+  @apply flex items-center gap-2;
+}
+
+.otp-field__input {
+  @apply bg-default text-default-foreground text-center placeholder:text-muted outline-none
+  transition motion-reduce:transition-none;
+
+  &:hover {
+    @apply bg-default-emphasis;
+  }
+
+  &:focus {
+    @apply z-10 bg-default-emphasis focus-ring;
+  }
+
+  &[data-invalid] {
+    @apply invalid-ring;
+  }
+
+  .otp-field[data-size="sm"] & {
+    @apply size-8 text-xs rounded-sm;
+  }
+
+  .otp-field[data-size="md"] & {
+    @apply size-10 text-sm rounded-md;
+  }
+
+  .otp-field[data-size="lg"] & {
+    @apply size-12 text-base rounded-lg;
+  }
+}
+
+.otp-field__separator {
+  @apply text-default-foreground/30;
+
+  .otp-field[data-size="sm"] & {
+    @apply text-xs;
+
+    & > svg {
+      @apply size-4;
+    }
+  }
+
+  .otp-field[data-size="md"] & {
+    @apply text-sm;
+
+    & > svg {
+      @apply size-4.5;
+    }
+  }
+
+  .otp-field[data-size="lg"] & {
+    @apply text-base;
+
+    & > svg {
+      @apply size-5;
+    }
+  }
+}

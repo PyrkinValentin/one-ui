@@ -1,21 +1,12 @@
 import type { Popover } from "@base-ui/react"
-import type { SafetyPick } from "../../types"
 
-export type PopoverProps<P = unknown> = Popover.Root.Props<P>
-export type PopoverTriggerProps<P = unknown> = Popover.Trigger.Props<P>
-
-export type PopoverPopupProps = Popover.Popup.Props & SafetyPick<Popover.Portal.Props,
-	| "keepMounted"
-> & SafetyPick<Popover.Positioner.Props,
-	| "disableAnchorTracking"
-	| "side"
-	| "sideOffset"
-	| "align"
-	| "alignOffset"
-> & {
-	arrow?: boolean
-}
-
+export type PopoverProps<Payload = unknown> = Popover.Root.Props<Payload>
+export type PopoverTriggerProps<Payload = unknown> = Popover.Trigger.Props<Payload>
+export type PopoverPortalProps = Popover.Portal.Props
+export type PopoverBackdropProps = Popover.Backdrop.Props
+export type PopoverPositionerProps = Popover.Positioner.Props
+export type PopoverPopupProps = Popover.Popup.Props
+export type PopoverArrowProps = Popover.Arrow.Props
 export type PopoverTitleProps = Popover.Title.Props
 export type PopoverDescriptionProps = Popover.Description.Props
 export type PopoverCloseProps = Popover.Close.Props

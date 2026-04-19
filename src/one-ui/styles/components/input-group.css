@@ -40,21 +40,21 @@
       @apply size-5;
     }
   }
-}
 
-.input-group .input {
-  @apply px-0 w-auto flex-1 h-full bg-transparent;
+  .input {
+    @apply px-0 w-auto flex-1 h-full bg-transparent;
 
-  &:focus {
-    @apply bg-transparent;
-  }
+    &:focus {
+      @apply bg-transparent;
+    }
 
-  &:focus,
-  &[data-invalid] {
-    @apply outline-0 ring-0 ring-offset-0;
-  }
+    &:focus,
+    &[data-invalid] {
+      @apply outline-0 ring-0 ring-offset-0;
+    }
 
-  &[data-disabled] {
-    @apply opacity-100;
+    &[data-disabled] {
+      @apply opacity-100;
+    }
   }
 }

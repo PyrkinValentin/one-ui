@@ -1,9 +1,13 @@
 .scroll-area__viewport {
-  @apply h-full;
+  @apply h-full transition motion-reduce:transition-none;
+
+  &:focus-visible {
+    @apply focus-ring;
+  }
 }
 
 .scroll-area__scrollbar {
-  @apply relative m-2 rounded-full bg-scrollbar/20 opacity-0 pointer-events-none
+  @apply z-10 relative m-2 rounded-full bg-scrollbar/20 opacity-0 pointer-events-none
   transition-opacity motion-reduce:transition-none;
 
   &:before {

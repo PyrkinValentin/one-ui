@@ -1,6 +1,6 @@
 import type { Slider } from "@base-ui/react"
 
-export type SliderProps<V extends number | readonly number[] = number | readonly number[]> = Slider.Root.Props<V>
+export type SliderProps<Value extends number | readonly number[] = number | readonly number[]> = Slider.Root.Props<Value>
 export type SliderLabelProps = Slider.Label.Props
 export type SliderValueProps = Slider.Value.Props
 export type SliderControlProps = Slider.Control.Props

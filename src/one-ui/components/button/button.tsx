@@ -2,9 +2,9 @@ import type { ButtonProps } from "./button.props"
 
 import { getDataAttributes, resolveClassNames } from "../../utils"
 
-import { Button as ButtonPrimitive } from "@base-ui/react"
+import { Button } from "@base-ui/react"
 
-export const Button = (props: ButtonProps) => {
+export const ButtonRoot = (props: ButtonProps) => {
 	const {
 		fullWidth = false,
 		iconOnly = false,
@@ -17,13 +17,13 @@ export const Button = (props: ButtonProps) => {
 	} = props
 
 	return (
-		<ButtonPrimitive
+		<Button
 			{...restProps}
 			{...getDataAttributes({ fullWidth, iconOnly, variant, size, color })}
 			data-slot="button"
 			className={resolveClassNames(className, "button")}
 		>
 			{children}
-		</ButtonPrimitive>
+		</Button>
 	)
 }

@@ -8,7 +8,7 @@ import { ru } from "react-day-picker/locale"
 import { DayPicker } from "react-day-picker"
 import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react"
 
-export const Calendar = (props: CalendarProps) => {
+export const CalendarRoot = (props: CalendarProps) => {
 	const {
 		showOutsideDays = true,
 		captionLayout = "label",
@@ -51,7 +51,7 @@ export const Calendar = (props: CalendarProps) => {
 			captionLayout={captionLayout}
 			locale={locale}
 			classNames={{
-				root: resolveClassNames(className, root, "calendar"),
+				root: resolveClassNames(className, [root, "calendar"]),
 				months: resolveClassNames(months, "calendar__months"),
 				nav: resolveClassNames(nav, "calendar__nav"),
 				button_previous: resolveClassNames(button_previous, "calendar__button-previous"),

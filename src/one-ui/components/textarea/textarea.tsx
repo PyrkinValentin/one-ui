@@ -2,9 +2,9 @@ import type { TextareaProps } from "./textarea.props"
 
 import { getDataAttributes, resolveClassNames } from "../../utils"
 
-import { Input as InputPrimitive } from "@base-ui/react"
+import { Input } from "@base-ui/react"
 
-export const Textarea = (props: TextareaProps) => {
+export const TextareaRoot = (props: TextareaProps) => {
 	const {
 		rows = 3,
 		size = "md",
@@ -14,7 +14,7 @@ export const Textarea = (props: TextareaProps) => {
 	} = props
 
 	return (
-		<InputPrimitive
+		<Input
 			{...restProps}
 			{...getDataAttributes({ size })}
 			data-slot="textarea"

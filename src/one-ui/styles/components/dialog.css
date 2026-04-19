@@ -1,22 +1,10 @@
 .dialog__backdrop,
 .alert-dialog__backdrop {
-  @apply fixed inset-0 transition-opacity motion-reduce:transition-none;
+  @apply fixed inset-0 bg-black opacity-50 transition-opacity motion-reduce:transition-none;
 
   &[data-starting-style],
   &[data-ending-style] {
     @apply opacity-0;
-  }
-
-  &[data-backdrop="transparent"] {
-    @apply bg-transparent;
-  }
-
-  &[data-backdrop="opaque"] {
-    @apply bg-black/50;
-  }
-
-  &[data-backdrop="blur"] {
-    @apply bg-black/50 backdrop-blur-sm;
   }
 }
 
@@ -43,7 +31,7 @@
 
 .dialog__popup,
 .alert-dialog__popup {
-  @apply p-4 w-full max-w-(--dialog-popup-max-width) flex flex-col bg-overlay rounded-lg shadow-lg border
+  @apply relative p-4 w-full max-w-(--dialog-popup-max-width) flex flex-col bg-overlay rounded-lg shadow-lg border
   border-border transition motion-reduce:transition-none transform-gpu;
 
   &:focus-visible {
@@ -100,22 +88,7 @@
   }
 }
 
-.dialog__title,
-.alert-dialog__title {
-  @apply text-base font-medium text-foreground;
-}
-
-.dialog__description,
-.alert-dialog__description {
-  @apply mt-1 text-sm text-muted;
-}
-
-.dialog__actions,
-.alert-dialog__actions {
-  @apply mt-auto pt-4 flex flex-row items-center justify-end gap-2;
-}
-
-.dialog__close {
+.dialog__dismiss {
   @apply absolute top-4 right-4 size-5 flex items-center justify-center rounded-xs bg-default text-muted
   select-none cursor-pointer transition motion-reduce:transition-none;
 
@@ -130,4 +103,19 @@
   & > svg {
     @apply size-4;
   }
+}
+
+.dialog__title,
+.alert-dialog__title {
+  @apply text-base font-medium text-foreground;
+}
+
+.dialog__description,
+.alert-dialog__description {
+  @apply mt-1 text-sm text-muted;
+}
+
+.dialog__actions,
+.alert-dialog__actions {
+  @apply mt-auto pt-4 flex flex-row items-center justify-end gap-2;
 }
