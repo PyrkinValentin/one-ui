@@ -1,0 +1,94 @@
+.number-field {
+  @apply w-fit inline-flex flex-col gap-2;
+
+  &[data-full-width] {
+    @apply w-full;
+  }
+}
+
+.number-field__scrub-area {
+  @apply cursor-ew-resize;
+}
+
+.number-field__group {
+  @apply flex items-center gap-2 transition-opacity motion-reduce:transition-none;
+
+  &[data-disabled] {
+    @apply disabled-state;
+  }
+
+  .number-field[data-size="sm"] & {
+    @apply h-8;
+  }
+
+  .number-field[data-size="md"] & {
+    @apply h-10;
+  }
+
+  .number-field[data-size="lg"] & {
+    @apply h-12;
+  }
+}
+
+.number-field__decrement,
+.number-field__increment {
+  @apply shrink-0 flex items-center justify-center bg-default cursor-pointer select-none
+  transition motion-reduce:transition-none;
+
+  &:hover {
+    @apply bg-default-emphasis;
+  }
+
+  .number-field[data-size="sm"] & {
+    @apply size-8 rounded-sm;
+
+    & > svg {
+      @apply size-4;
+    }
+  }
+
+  .number-field[data-size="md"] & {
+    @apply size-10 rounded-md;
+
+    & > svg {
+      @apply size-4.5;
+    }
+  }
+
+  .number-field[data-size="lg"] & {
+    @apply size-12 rounded-lg;
+
+    & > svg {
+      @apply size-5;
+    }
+  }
+}
+
+.number-field__input {
+  @apply z-10 flex-1 block h-full bg-default text-default-foreground placeholder:text-muted
+  tabular-nums outline-none transition motion-reduce:transition-none;
+
+  &:hover {
+    @apply bg-default-emphasis;
+  }
+
+  &:focus {
+    @apply bg-default-emphasis focus-ring;
+  }
+
+  &[data-invalid] {
+    @apply invalid-ring;
+  }
+
+  .number-field[data-size="sm"] & {
+    @apply px-3 min-w-8 text-xs rounded-sm;
+  }
+
+  .number-field[data-size="md"] & {
+    @apply px-4 min-w-10 text-sm rounded-md;
+  }
+
+  .number-field[data-size="lg"] & {
+    @apply px-5 min-w-12 text-base rounded-lg;
+  }
+}

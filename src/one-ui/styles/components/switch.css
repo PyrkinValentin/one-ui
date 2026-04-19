@@ -1,0 +1,87 @@
+.switch {
+  @apply shrink-0 relative p-1 inline-flex items-center rounded-full bg-default cursor-pointer
+  transition motion-reduce:transition-none;
+
+  &:focus-visible {
+    @apply z-10 focus-ring;
+  }
+
+  &[data-size="sm"] {
+    @apply w-10 h-6;
+  }
+
+  &[data-size="md"] {
+    @apply w-12 h-7;
+  }
+
+  &[data-size="lg"] {
+    @apply w-14 h-8;
+  }
+
+  &[data-checked] {
+    &[data-color="primary"] {
+      @apply bg-primary;
+    }
+
+    &[data-color="success"] {
+      @apply bg-success;
+    }
+
+    &[data-color="warning"] {
+      @apply bg-warning;
+    }
+
+    &[data-color="danger"] {
+      @apply bg-danger;
+    }
+  }
+}
+
+.switch__thumb {
+  @apply flex items-center justify-center bg-white rounded-full shadow-sm text-default pointer-events-none
+  transition motion-reduce:transition-none;
+
+  .switch[data-size="sm"] & {
+    @apply size-4;
+
+    & > svg {
+      @apply size-3;
+    }
+  }
+
+  .switch[data-size="md"] & {
+    @apply size-5;
+
+    & > svg {
+      @apply size-4;
+    }
+  }
+
+  .switch[data-size="lg"] & {
+    @apply size-6;
+
+    & > svg {
+      @apply size-5;
+    }
+  }
+
+  &[data-checked] {
+    @apply translate-x-full;
+
+    .switch[data-color="primary"] & {
+      @apply text-primary;
+    }
+
+    .switch[data-color="success"] & {
+      @apply text-success;
+    }
+
+    .switch[data-color="warning"] & {
+      @apply text-warning;
+    }
+
+    .switch[data-color="danger"] & {
+      @apply text-danger;
+    }
+  }
+}

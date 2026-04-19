@@ -1,0 +1,129 @@
+@import "./components/index.css" layer(components);
+
+@theme {
+  --font-sans: var(--font-sans), system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+  --radius-xs: 0.35rem;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.65rem;
+  --radius-lg: 0.8rem;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+
+  --color-background: #FFFFFF;
+  --color-foreground: #18181B;
+
+  --color-default: #EBEBEC;
+  --color-default-foreground: #18181B;
+  --color-default-surface: color-mix(in oklab, var(--color-default), transparent 60%);
+  --color-default-emphasis: color-mix(in oklab, var(--color-default) 95%, var(--color-default-foreground) 5%);
+  --color-default-surface-emphasis: color-mix(in oklab, var(--color-default-surface) 95%, var(--color-default-foreground) 5%);
+
+  --color-primary: #006FEE;
+  --color-primary-foreground: #FCFCFC;
+  --color-primary-surface: color-mix(in oklab, var(--color-primary), transparent 80%);
+  --color-primary-emphasis: color-mix(in oklab, var(--color-primary) 90%, var(--color-primary-foreground) 10%);
+  --color-primary-surface-emphasis: color-mix(in oklab, var(--color-primary-surface) 90%, var(--color-primary) 10%);
+
+  --color-success: #33C866;
+  --color-success-foreground: #18181B;
+  --color-success-surface: color-mix(in oklab, var(--color-success), transparent 80%);
+  --color-success-emphasis: color-mix(in oklab, var(--color-success) 90%, var(--color-success-foreground) 10%);
+  --color-success-surface-emphasis: color-mix(in oklab, var(--color-success-surface) 90%, var(--color-success) 10%);
+
+  --color-warning: #FCA426;
+  --color-warning-foreground: #18181B;
+  --color-warning-surface: color-mix(in oklab, var(--color-warning), transparent 80%);
+  --color-warning-emphasis: color-mix(in oklab, var(--color-warning) 90%, var(--color-warning-foreground) 10%);
+  --color-warning-surface-emphasis: color-mix(in oklab, var(--color-warning-surface) 90%, var(--color-warning) 10%);
+
+  --color-danger: #FF393B;
+  --color-danger-foreground: #FCFCFC;
+  --color-danger-surface: color-mix(in oklab, var(--color-danger), transparent 80%);
+  --color-danger-emphasis: color-mix(in oklab, var(--color-danger) 90%, var(--color-danger-foreground) 10%);
+  --color-danger-surface-emphasis: color-mix(in oklab, var(--color-danger-surface) 90%, var(--color-danger) 10%);
+
+  --color-overlay: #FFFFFF;
+  --color-focus: #006FEE;
+
+  --color-muted: #70717A;
+  --color-border: #DDDEE0;
+  --color-separator: #E4E4E7;
+  --color-scrollbar: #9E9FA9;
+
+  --animate-in: fade-in 0.4s ease-out forwards;
+  --animate-spin-fast: spin 0.6s linear infinite;
+  --animate-spin-slow: spin 1.2s linear infinite;
+
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+}
+
+@layer theme {
+  .dark {
+    --color-background: #050607;
+    --color-foreground: #FCFCFC;
+
+    --color-default: #27272A;
+    --color-default-foreground: #FCFCFC;
+
+    --color-warning: #FEB651;
+    --color-danger: #DF3C3D;
+
+    --color-overlay: #18181B;
+    --color-muted: #9E9FA9;
+    --color-border: #28292C;
+    --color-separator: #212124;
+  }
+}
+
+@utility disabled-state {
+  @apply opacity-50 pointer-events-none;
+}
+
+@utility focus-ring {
+  @apply ring-2 ring-focus ring-offset-2 ring-offset-background outline-none;
+}
+
+@utility invalid-ring {
+  @apply ring-2 ring-danger ring-offset-2 ring-offset-background outline-none;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  position: relative;
+  font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-width: var(--container-xs);
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-size: var(--text-base);
+}
+
+.root {
+  isolation: isolate;
+}

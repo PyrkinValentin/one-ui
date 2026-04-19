@@ -1,0 +1,49 @@
+.scroll-area__viewport {
+  @apply h-full;
+}
+
+.scroll-area__scrollbar {
+  @apply relative m-2 rounded-full bg-scrollbar/20 opacity-0 pointer-events-none
+  transition-opacity motion-reduce:transition-none;
+
+  &:before {
+    @apply content-[''] absolute
+  }
+
+  &[data-orientation="horizontal"] {
+    @apply h-1;
+
+    &:before {
+      @apply w-full h-5 left-0 right-0 -bottom-2
+    }
+  }
+
+  &[data-orientation="vertical"] {
+    @apply w-1;
+
+    &:before {
+      @apply w-5 h-full left-1/2 -translate-x-1/2
+    }
+  }
+
+  &[data-hovering],
+  &[data-scrolling] {
+    @apply pointer-events-auto opacity-100;
+  }
+
+  &[data-hovering] {
+    @apply delay-0;
+  }
+
+  &[data-scrolling] {
+    @apply duration-0;
+  }
+}
+
+.scroll-area__thumb {
+  @apply size-full rounded-full bg-scrollbar cursor-grab;
+
+  &:active {
+    @apply cursor-grabbing;
+  }
+}

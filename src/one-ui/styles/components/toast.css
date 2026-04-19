@@ -1,0 +1,203 @@
+.toast__viewport {
+  @apply z-10 fixed top-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] sm:w-100;
+}
+
+.toast__item {
+  --gap: 0.75rem;
+  --peek: 0.75rem;
+  --scale: calc(max(0, 1 - (var(--toast-index) * 0.1)));
+  --shrink: calc(1 - var(--scale));
+  --height: var(--toast-frontmost-height, var(--toast-height));
+  --offset-y: calc(var(--toast-offset-y) + (var(--toast-index) * var(--gap)) + var(--toast-swipe-movement-y));
+
+  @apply absolute w-full px-4 py-3 bg-overlay bg-clip-padding rounded-lg border border-border shadow-lg
+  origin-top select-none motion-reduce:transition-none;
+
+  &:focus-visible {
+    @apply focus-ring;
+  }
+
+  z-index: calc(1000 - var(--toast-index));
+  height: var(--height);
+  transform: translateX(var(--toast-swipe-movement-x)) translateY(
+      calc(var(--toast-swipe-movement-y) + (var(--toast-index) * var(--peek)) + (var(--shrink) * var(--height)))
+  ) scale(var(--scale));
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+  opacity 0.5s,
+  height 0.15s,
+  box-shadow 0.15s ease,
+  color 0.15s;
+
+  &[data-expanded] {
+    transform: translateX(var(--toast-swipe-movement-x)) translateY(var(--offset-y));
+    height: var(--toast-height);
+  }
+
+  &[data-starting-style],
+  &[data-ending-style] {
+    transform: translateY(-150%);
+  }
+
+  &[data-limited] {
+    opacity: 0;
+  }
+
+  &[data-ending-style] {
+    opacity: 0;
+
+    &[data-swipe-direction="up"] {
+      transform: translateY(calc(var(--toast-swipe-movement-y) - 150%));
+    }
+
+    &[data-swipe-direction="left"] {
+      transform: translateX(calc(var(--toast-swipe-movement-x) - 150%)) translateY(var(--offset-y));
+    }
+
+    &[data-swipe-direction="right"] {
+      transform: translateX(calc(var(--toast-swipe-movement-x) + 150%)) translateY(var(--offset-y));
+    }
+
+    &[data-swipe-direction="down"] {
+      transform: translateY(calc(var(--toast-swipe-movement-y) + 150%));
+    }
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    bottom: 100%;
+    left: 0;
+    height: calc(var(--gap) + 1px);
+  }
+}
+
+.toast__indicator {
+  @apply flex items-center justify-center;
+
+  & > svg {
+    @apply size-5;
+  }
+
+  .toast__item[data-color="default"] & {
+    @apply text-default-foreground;
+  }
+
+  .toast__item[data-color="primary"] & {
+    @apply text-primary;
+  }
+
+  .toast__item[data-color="success"] & {
+    @apply text-success;
+  }
+
+  .toast__item[data-color="warning"] & {
+    @apply text-warning;
+  }
+
+  .toast__item[data-color="danger"] & {
+    @apply text-danger;
+  }
+}
+
+.toast__content {
+  @apply flex-1 flex items-center gap-3 transition-opacity motion-reduce:transition-none;
+
+  &:has([data-slot="toast-description"]) {
+    @apply items-start;
+  }
+
+  &[data-behind] {
+    @apply opacity-0 pointer-events-none;
+  }
+
+  &[data-expanded] {
+    @apply opacity-100 pointer-events-auto;
+  }
+}
+
+.toast__wrapper {
+  @apply flex-1 flex flex-col;
+}
+
+.toast__title {
+  @apply text-sm font-medium line-clamp-2;
+
+  .toast__item[data-color="default"] & {
+    @apply text-default-foreground;
+  }
+
+  .toast__item[data-color="primary"] & {
+    @apply text-primary;
+  }
+
+  .toast__item[data-color="success"] & {
+    @apply text-success;
+  }
+
+  .toast__item[data-color="warning"] & {
+    @apply text-warning;
+  }
+
+  .toast__item[data-color="danger"] & {
+    @apply text-danger;
+  }
+}
+
+.toast__description {
+  @apply mt-1 text-xs text-muted;
+}
+
+.toast__action {
+  @apply px-3 w-fit h-8 flex items-center justify-center gap-1.5 rounded-sm text-xs font-medium whitespace-nowrap
+  select-none cursor-pointer transition motion-reduce:transition-none;
+
+  &:focus-visible {
+    @apply z-10 focus-ring;
+  }
+
+  &[data-disabled] {
+    @apply disabled-state;
+  }
+
+  .toast__item[data-color="default"] & {
+    @apply bg-default hover:bg-default-emphasis text-default-foreground;
+  }
+
+  .toast__item[data-color="primary"] & {
+    @apply bg-primary hover:bg-primary-emphasis text-primary-foreground;
+  }
+
+  .toast__item[data-color="success"] & {
+    @apply bg-success hover:bg-success-emphasis text-success-foreground;
+  }
+
+  .toast__item[data-color="warning"] & {
+    @apply bg-warning hover:bg-warning-emphasis text-warning-foreground;
+  }
+
+  .toast__item[data-color="danger"] & {
+    @apply bg-danger hover:bg-danger-emphasis text-danger-foreground;
+  }
+}
+
+.toast__close {
+  @apply absolute -top-2 -right-2 size-5 flex items-center justify-center rounded-xs text-muted
+  bg-default opacity-0 select-none cursor-pointer transition motion-reduce:transition-none;
+
+  &:hover {
+    @apply bg-default-emphasis;
+  }
+
+  .toast__item:hover & {
+    @apply opacity-100;
+  }
+
+  &:focus-visible {
+    @apply opacity-100 focus-ring;
+  }
+
+  & > svg {
+    @apply size-4;
+  }
+}

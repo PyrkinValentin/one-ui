@@ -1,0 +1,43 @@
+.popover__popup {
+  @apply px-4 py-3 bg-overlay rounded-md border border-border shadow-lg wrap-break-word origin-(--transform-origin)
+  transition motion-reduce:transition-none transform-gpu;
+
+  &:focus-visible {
+    @apply focus-ring;
+  }
+
+  &[data-starting-style],
+  &[data-ending-style] {
+    @apply opacity-0 scale-90;
+  }
+}
+
+.popover__arrow {
+  @apply -z-10 size-2.5 bg-overlay border border-transparent border-b-border border-r-border rounded-br-[2px];
+
+  &[data-side="top"] {
+    @apply bottom-0 translate-y-1/2 rotate-45;
+  }
+
+  &[data-side="bottom"] {
+    @apply top-0 -translate-y-1/2 rotate-225;
+  }
+
+  &[data-side="left"],
+  &[data-side="inline-start"] {
+    @apply right-0 translate-x-1/2 -rotate-45;
+  }
+
+  &[data-side="right"],
+  &[data-side="inline-end"] {
+    @apply left-0 -translate-x-1/2 rotate-135;
+  }
+}
+
+.popover__title {
+  @apply text-sm font-medium;
+}
+
+.popover__description {
+  @apply mt-1 text-xs text-muted;
+}

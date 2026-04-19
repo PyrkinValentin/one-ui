@@ -1,0 +1,60 @@
+.input-group {
+  @apply w-full flex items-center gap-2 bg-default cursor-text transition motion-reduce:transition-none;
+
+  &:hover {
+    @apply bg-default-emphasis;
+  }
+
+  &:has(.input:focus) {
+    @apply bg-default-emphasis focus-ring;
+  }
+
+  &:has(.input[data-disabled]) {
+    @apply disabled-state;
+  }
+
+  &:has(.input[data-invalid]) {
+    @apply invalid-ring;
+  }
+
+  &:has(.input[data-size="sm"]) {
+    @apply px-3 h-8 text-xs rounded-sm;
+
+    & > svg {
+      @apply size-4;
+    }
+  }
+
+  &:has(.input[data-size="md"]) {
+    @apply px-4 h-10 text-sm rounded-md;
+
+    & > svg {
+      @apply size-4.5;
+    }
+  }
+
+  &:has(.input[data-size="lg"]) {
+    @apply px-5 h-12 text-base rounded-lg;
+
+    & > svg {
+      @apply size-5;
+    }
+  }
+}
+
+.input-group .input {
+  @apply px-0 w-auto flex-1 h-full bg-transparent;
+
+  &:focus {
+    @apply bg-transparent;
+  }
+
+  &:focus,
+  &[data-invalid] {
+    @apply outline-0 ring-0 ring-offset-0;
+  }
+
+  &[data-disabled] {
+    @apply opacity-100;
+  }
+}

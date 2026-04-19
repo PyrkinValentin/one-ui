@@ -1,0 +1,116 @@
+.badge {
+  @apply relative inline-block;
+}
+
+.badge__indicator {
+  @apply absolute px-1 inline-flex shrink-0 items-center justify-center gap-0.5 rounded-full border
+  border-background;
+
+  .badge[data-size="sm"] & {
+    @apply min-w-4 h-4 text-xs;
+
+    & > svg {
+      @apply size-2.5;
+    }
+  }
+
+  .badge[data-size="md"] & {
+    @apply min-w-5 h-5 text-sm;
+
+    & > svg {
+      @apply size-3.5;
+    }
+  }
+
+  .badge[data-size="lg"] & {
+    @apply min-w-6 h-6 text-base;
+
+    & > svg {
+      @apply size-4.5;
+    }
+  }
+
+  .badge[data-variant="solid"] & {
+    .badge[data-color="default"] & {
+      @apply bg-default text-default-foreground;
+    }
+
+    .badge[data-color="primary"] & {
+      @apply bg-primary text-primary-foreground;
+    }
+
+    .badge[data-color="success"] & {
+      @apply bg-success text-success-foreground;
+    }
+
+    .badge[data-color="warning"] & {
+      @apply bg-warning text-warning-foreground;
+    }
+
+    .badge[data-color="danger"] & {
+      @apply bg-danger text-danger-foreground;
+    }
+  }
+
+  .badge[data-variant="flat"] & {
+    @apply bg-default;
+
+    .badge[data-color="default"] & {
+      @apply text-default-foreground;
+    }
+
+    .badge[data-color="primary"] & {
+      @apply text-primary;
+    }
+
+    .badge[data-color="success"] & {
+      @apply text-success;
+    }
+
+    .badge[data-color="warning"] & {
+      @apply text-warning;
+    }
+
+    .badge[data-color="danger"] & {
+      @apply text-danger;
+    }
+  }
+
+  .badge[data-variant="soft"] & {
+    .badge[data-color="default"] & {
+      @apply bg-default-surface text-default-foreground;
+    }
+
+    .badge[data-color="primary"] & {
+      @apply bg-primary-surface text-primary;
+    }
+
+    .badge[data-color="success"] & {
+      @apply bg-success-surface text-success;
+    }
+
+    .badge[data-color="warning"] & {
+      @apply bg-warning-surface text-warning;
+    }
+
+    .badge[data-color="danger"] & {
+      @apply bg-danger-surface text-danger;
+    }
+  }
+
+  .badge[data-placement="top-left"] & {
+    @apply top-0 left-0 -translate-x-1/3 -translate-y-1/3;
+  }
+
+  .badge[data-placement="top-right"] & {
+    @apply top-0 right-0 translate-x-1/3 -translate-y-1/3;
+  }
+
+  .badge[data-placement="bottom-left"] & {
+    @apply bottom-0 left-0 -translate-x-1/3 translate-y-1/3;
+  }
+
+  .badge[data-placement="bottom-right"] & {
+    @apply bottom-0 right-0 translate-x-1/3 translate-y-1/3;
+  }
+}

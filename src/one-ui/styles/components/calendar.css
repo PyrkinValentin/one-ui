@@ -1,0 +1,129 @@
+.calendar {
+  @apply w-full;
+}
+
+.calendar__months {
+  @apply relative flex gap-4;
+}
+
+.calendar__nav {
+  @apply absolute top-0 inset-x-0 flex items-center justify-between gap-1;
+}
+
+.calendar__button-previous,
+.calendar__button-next {
+  @apply size-6 flex items-center justify-center rounded-xs bg-default text-muted cursor-pointer
+  transition motion-reduce:transition-none;
+
+  &:focus-visible {
+    @apply z-10 focus-ring;
+  }
+
+  &[aria-disabled="true"] {
+    @apply disabled-state;
+  }
+
+  &:hover {
+    @apply bg-default-emphasis text-default-foreground;
+  }
+
+  & > svg {
+    @apply size-4.5;
+  }
+}
+
+.calendar__month {
+  @apply w-full flex flex-col gap-4;
+}
+
+.calendar__month-caption {
+  @apply mt-0.5 w-full flex justify-center;
+}
+
+.calendar__caption-label {
+  @apply text-sm font-medium;
+}
+
+.calendar__month-grid {
+  @apply w-full flex flex-col gap-2;
+}
+
+.calendar__weekdays,
+.calendar__weeks {
+  @apply grid grid-cols-7 gap-y-0.5;
+}
+
+.calendar__weekday {
+  @apply text-sm text-muted font-normal;
+}
+
+.calendar__week {
+  @apply contents;
+}
+
+.calendar__day {
+  @apply relative min-w-8 h-8 flex items-center justify-center text-sm font-normal;
+}
+
+.calendar__day-button {
+  @apply size-full rounded-sm cursor-pointer;
+
+  &:focus-visible {
+    @apply z-10 focus-ring;
+  }
+
+  &:hover {
+    @apply bg-default-surface-emphasis;
+  }
+}
+
+.calendar__today {
+  @apply text-primary;
+}
+
+.calendar__outside {
+  @apply text-muted/70;
+}
+
+.calendar__disabled {
+  @apply text-foreground disabled-state line-through;
+}
+
+.calendar__selected {
+  & > .calendar__day-button {
+    @apply bg-primary text-primary-foreground;
+  }
+}
+
+.calendar__range-start,
+.calendar__range-end {
+  & > .calendar__day-button:before {
+    @apply content-[''] -z-1 absolute inset-0 bg-default;
+  }
+}
+
+.calendar__range-start {
+  & > .calendar__day-button:before {
+    @apply rounded-s-sm;
+  }
+}
+
+.calendar__range-middle {
+  & > .calendar__day-button {
+    @apply bg-default text-default-foreground rounded-none;
+  }
+
+  &:first-of-type > .calendar__day-button {
+    @apply rounded-s-sm;
+  }
+
+  &:last-of-type > .calendar__day-button {
+    @apply rounded-e-sm;
+  }
+}
+
+.calendar__range-end {
+  & > .calendar__day-button:before {
+    @apply rounded-e-sm;
+  }
+}

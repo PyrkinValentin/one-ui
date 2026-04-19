@@ -1,0 +1,110 @@
+.menu__popup {
+  @apply p-1 min-w-48 max-w-xs flex flex-col origin-(--transform-origin) bg-overlay rounded-lg border border-border
+  shadow-lg transition motion-reduce:transition-none transform-gpu;
+
+  &:focus-visible {
+    @apply focus-ring;
+  }
+
+  &[data-starting-style],
+  &[data-ending-style] {
+    @apply opacity-0 scale-90;
+  }
+}
+
+.menu__arrow {
+  @apply -z-10 size-2.5 bg-overlay border border-transparent border-b-border border-r-border rounded-br-[2px];
+
+  &[data-side="top"] {
+    @apply bottom-0 translate-y-1/2 rotate-45;
+  }
+
+  &[data-side="bottom"] {
+    @apply top-0 -translate-y-1/2 rotate-225;
+  }
+
+  &[data-side="left"],
+  &[data-side="inline-start"] {
+    @apply right-0 translate-x-1/2 -rotate-45;
+  }
+
+  &[data-side="right"],
+  &[data-side="inline-end"] {
+    @apply left-0 -translate-x-1/2 rotate-135;
+  }
+}
+
+.menu__group {
+  @apply flex flex-col;
+}
+
+.menu__group-label {
+  @apply px-2 py-1 text-xs text-muted font-medium;
+}
+
+.menu__item,
+.menu__link-item,
+.menu__checkbox-item,
+.menu__radio-item,
+.menu__sub-trigger {
+  @apply px-2 py-1.5 flex items-center gap-2 text-sm rounded-sm cursor-pointer select-none
+  transition motion-reduce:transition-none transform-gpu;
+
+  &:active {
+    @apply bg-default;
+  }
+
+  &:focus-visible {
+    @apply focus-ring;
+  }
+
+  & > svg {
+    @apply size-4.5;
+  }
+
+  &[data-disabled] {
+    @apply disabled-state;
+  }
+
+  &[data-highlighted] {
+    @apply bg-default;
+  }
+
+  &[data-color="default"] {
+    @apply text-default-foreground;
+  }
+
+  &[data-color="danger"] {
+    @apply text-danger;
+  }
+}
+
+.menu__checkbox-item-indicator,
+.menu__radio-item-indicator {
+  @apply shrink-0 size-4.5 flex items-center justify-center opacity-0 scale-70 transition duration-100 ease-out
+  motion-reduce:transition-none transform-gpu;
+
+  & > svg {
+    @apply size-4.5;
+  }
+
+  &[data-checked] {
+    @apply opacity-100 scale-100;
+  }
+}
+
+.menu__radio-item-indicator-dot {
+  @apply size-[40%] bg-current rounded-full;
+}
+
+.menu__separator {
+  @apply shrink-0 bg-separator;
+
+  &[data-orientation="horizontal"] {
+    @apply mx-2 my-1 h-px;
+  }
+
+  &[data-orientation="vertical"] {
+    @apply my-2 mx-1 w-px;
+  }
+}

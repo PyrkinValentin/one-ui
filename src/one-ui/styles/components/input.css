@@ -1,0 +1,32 @@
+.input {
+  @apply block w-full min-w-0 bg-default text-default-foreground placeholder:text-muted outline-none
+  transition motion-reduce:transition-none;
+
+  &:hover {
+    @apply bg-default-emphasis;
+  }
+
+  &:focus {
+    @apply z-10 bg-default-emphasis focus-ring;
+  }
+
+  &[data-disabled] {
+    @apply disabled-state;
+  }
+
+  &[data-invalid] {
+    @apply invalid-ring;
+  }
+
+  &[data-size="sm"] {
+    @apply px-3 h-8 text-xs rounded-sm;
+  }
+
+  &[data-size="md"] {
+    @apply px-4 h-10 text-sm rounded-md;
+  }
+
+  &[data-size="lg"] {
+    @apply px-5 h-12 text-base rounded-lg;
+  }
+}

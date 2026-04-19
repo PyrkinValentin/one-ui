@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="cb356f5a-9cf6-4bac-9001-1889b7130117" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/one-ui/components/accordion/accordion.props.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/components/accordion/accordion.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/components/alert-dialog/alert-dialog.props.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/components/alert-dialog/alert-dialog.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/components/avatar/avatar.props.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/components/avatar/avatar.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/components/avatar/avatar.utils.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/components/button/button.props.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/components/button/button.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/components/checkbox-group/checkbox-group.props.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/components/checkbox-group/checkbox-group.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/components/checkbox/checkbox.props.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/components/checkbox/checkbox.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/components/dialog/dialog.props.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/components/dialog/dialog.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/components/field/field.props.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/components/field/field.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/components/fieldset/fieldset.props.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/components/fieldset/fieldset.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/components/form/form.props.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/components/form/form.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/components/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/components/input/input.props.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/components/input/input.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/components/menu/menu.props.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/components/menu/menu.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/components/number-field/number-field.props.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/components/number-field/number-field.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/components/popover/popover.props.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/components/popover/popover.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/components/props.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/components/scroll-area/scroll-area.props.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/components/scroll-area/scroll-area.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/components/separator/separator.props.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/components/separator/separator.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/components/spinner/spinner.props.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/components/spinner/spinner.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/components/switch/switch.props.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/components/switch/switch.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/components/textarea/textarea.props.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/components/textarea/textarea.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/components/toast/toast.constants.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/components/toast/toast.hooks.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/components/toast/toast.manager.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/components/toast/toast.props.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/components/toast/toast.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/components/toast/toast.types.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/components/toast/toast.utils.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/components/tooltip/tooltip.props.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/components/tooltip/tooltip.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/hooks/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/hooks/use-media-query.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/styles/components/accordion.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/styles/components/avatar.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/styles/components/button.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/styles/components/checkbox-group.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/styles/components/checkbox.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/styles/components/dialog.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/styles/components/field.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/styles/components/fieldset.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/styles/components/index.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/styles/components/input.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/styles/components/menu.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/styles/components/number-field.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/styles/components/popover.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/styles/components/scroll-area.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/styles/components/separator.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/styles/components/spinner.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/styles/components/switch.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/styles/components/textarea.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/styles/components/toast.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/styles/components/tooltip.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/styles/theme.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/types/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/types/safety-pick.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/ui-provider.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/utils/create-compound-component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/utils/get-data-attributes.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/utils/get-initials.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/utils/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/one-ui/utils/resolve-class-name.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/styles/globals.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/business-sm.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/eslint.config.mjs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/next.config.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/postcss.config.mjs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/file.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/globe.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/next.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/vercel.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/window.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/globals.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="tsconfig.json" />
+        <option value="TypeScript JSX File" />
+        <option value="TypeScript File" />
+        <option value="CSS File" />
+      </list>
+    </option>
+  </component>
+  <component name="FormatOnSaveOptions">
+    <option name="myRunOnSave" value="true" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/node_modules/@base-ui/react/utils/types.d.ts" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 1
+}</component>
+  <component name="ProjectId" id="38qL9epOYRs6aKw0vmCN83dUZOm" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;javascript.preferred.runtime.type.id&quot;: &quot;node&quot;,
+    &quot;js.debugger.nextJs.config.created.client&quot;: &quot;true&quot;,
+    &quot;js.debugger.nextJs.config.created.server&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/pyrki/WebstormProjects/office-sm/src/one-ui/styles/components&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.standard&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.standard&quot;: &quot;&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;rearrange.code.on.save&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;settings.javascript.linters.eslint&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\pyrki\\WebstormProjects\\office-sm\\node_modules\\typescript\\lib&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\pyrki\WebstormProjects\office-sm\src\one-ui\styles\components" />
+      <recent name="C:\Users\pyrki\WebstormProjects\office-sm\src\one-ui\components\alert-dialog" />
+      <recent name="C:\Users\pyrki\WebstormProjects\office-sm\src\one-ui\components\dropdown" />
+      <recent name="C:\Users\pyrki\WebstormProjects\office-sm\src\one-ui\components\fieldset" />
+      <recent name="C:\Users\pyrki\WebstormProjects\office-sm\src\one-ui\components\field" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\pyrki\WebstormProjects\office-sm\src\one-ui\styles\components" />
+      <recent name="C:\Users\pyrki\WebstormProjects\office-sm\src\one-ui\styles\components_" />
+      <recent name="C:\Users\pyrki\WebstormProjects\office-sm\src\one-ui\types" />
+      <recent name="C:\Users\pyrki\WebstormProjects\office-sm\src\one-ui\styles" />
+      <recent name="C:\Users\pyrki\WebstormProjects\office-sm\src\one-ui" />
+    </key>
+  </component>
+  <component name="RunManager" selected="npm.Next.js: server-side">
+    <configuration name="Next.js: debug client-side" type="JavascriptDebugType" uri="http://localhost:3000/">
+      <method v="2" />
+    </configuration>
+    <configuration name="Next.js: server-side" type="js.build_tools.npm">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="dev" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-WS-253.30387.83" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="cb356f5a-9cf6-4bac-9001-1889b7130117" name="Changes" comment="" />
+      <created>1769522005354</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1769522005354</updated>
+      <workItem from="1769522006890" duration="4611000" />
+      <workItem from="1769529139466" duration="8127000" />
+      <workItem from="1769537333996" duration="3886000" />
+      <workItem from="1769599042242" duration="13014000" />
+      <workItem from="1769697099212" duration="28075000" />
+      <workItem from="1769770494435" duration="46000" />
+      <workItem from="1769770551176" duration="12470000" />
+      <workItem from="1769794467342" duration="7972000" />
+      <workItem from="1769805531287" duration="28609000" />
+      <workItem from="1769862702227" duration="8345000" />
+      <workItem from="1769948142150" duration="30694000" />
+      <workItem from="1769981662259" duration="1603000" />
+      <workItem from="1770020172131" duration="2370000" />
+      <workItem from="1770022577924" duration="2227000" />
+      <workItem from="1770025608495" duration="351000" />
+      <workItem from="1770029079945" duration="12665000" />
+      <workItem from="1770102809562" duration="20312000" />
+      <workItem from="1770124745041" duration="4153000" />
+      <workItem from="1770130274353" duration="68492000" />
+      <workItem from="1770292857193" duration="5413000" />
+      <workItem from="1770372419546" duration="294000" />
+      <workItem from="1770372724925" duration="5309000" />
+      <workItem from="1770459845089" duration="7731000" />
+      <workItem from="1770566700827" duration="1080000" />
+      <workItem from="1770635767195" duration="8789000" />
+      <workItem from="1770645117530" duration="4324000" />
+      <workItem from="1770668678596" duration="10149000" />
+      <workItem from="1770726083341" duration="9386000" />
+      <workItem from="1770749041609" duration="10926000" />
+      <workItem from="1770821812444" duration="3711000" />
+      <workItem from="1770825714502" duration="34132000" />
+      <workItem from="1770893473934" duration="32406000" />
+      <workItem from="1770929453462" duration="14491000" />
+      <workItem from="1770978322312" duration="10415000" />
+      <workItem from="1771003521318" duration="34122000" />
+      <workItem from="1771069489149" duration="5113000" />
+      <workItem from="1771074655750" duration="28774000" />
+      <workItem from="1771109723074" duration="19855000" />
+      <workItem from="1771161007688" duration="46009000" />
+      <workItem from="1771240745245" duration="56800000" />
+      <workItem from="1771321772524" duration="78000" />
+      <workItem from="1771330423833" duration="6280000" />
+      <workItem from="1771339630582" duration="18048000" />
+      <workItem from="1771359885008" duration="5286000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

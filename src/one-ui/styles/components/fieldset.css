@@ -1,0 +1,7 @@
+.fieldset__legend {
+  @apply text-base font-medium text-foreground;
+
+  &[data-disabled] {
+    @apply disabled-state;
+  }
+}

@@ -1,0 +1,27 @@
+.field {
+  @apply w-full flex flex-col items-start gap-2;
+}
+
+.field__label {
+  @apply text-sm font-medium text-foreground transition motion-reduce:transition-none;
+
+  &[data-disabled] {
+    @apply disabled-state;
+  }
+
+  &[data-invalid] {
+    @apply text-danger;
+  }
+}
+
+.field__error {
+  @apply text-xs wrap-break-word text-danger animate-in motion-reduce:animate-none;
+}
+
+.field__description {
+  @apply text-xs text-wrap wrap-break-word text-muted transition motion-reduce:transition-none;
+
+  &[data-disabled] {
+    @apply disabled-state;
+  }
+}

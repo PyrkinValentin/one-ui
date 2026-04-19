@@ -1,0 +1,133 @@
+.dialog__backdrop,
+.alert-dialog__backdrop {
+  @apply fixed inset-0 transition-opacity motion-reduce:transition-none;
+
+  &[data-starting-style],
+  &[data-ending-style] {
+    @apply opacity-0;
+  }
+
+  &[data-backdrop="transparent"] {
+    @apply bg-transparent;
+  }
+
+  &[data-backdrop="opaque"] {
+    @apply bg-black/50;
+  }
+
+  &[data-backdrop="blur"] {
+    @apply bg-black/50 backdrop-blur-sm;
+  }
+}
+
+.dialog__viewport,
+.alert-dialog__viewport {
+  @apply fixed inset-0 p-4 flex justify-center;
+
+  &[data-position="auto"] {
+    @apply items-end sm:items-center;
+  }
+
+  &[data-position="top"] {
+    @apply items-start;
+  }
+
+  &[data-position="center"] {
+    @apply items-center;
+  }
+
+  &[data-position="bottom"] {
+    @apply items-end;
+  }
+}
+
+.dialog__popup,
+.alert-dialog__popup {
+  @apply p-4 w-full max-w-(--dialog-popup-max-width) flex flex-col bg-overlay rounded-lg shadow-lg border
+  border-border transition motion-reduce:transition-none transform-gpu;
+
+  &:focus-visible {
+    @apply focus-ring;
+  }
+
+  &[data-starting-style],
+  &[data-ending-style] {
+    @apply opacity-0 scale-90;
+  }
+
+  &[data-nested-dialog-open] {
+    @apply scale-90 brightness-50;
+  }
+
+  .dialog__viewport[data-position="auto"] &:not([data-size="full"]),
+  .alert-dialog__viewport[data-position="auto"] &:not([data-size="full"]) {
+    @apply origin-bottom sm:origin-center;
+  }
+
+  .dialog__viewport[data-position="top"] &:not([data-size="full"]),
+  .alert-dialog__viewport[data-position="top"] &:not([data-size="full"]) {
+    @apply origin-top;
+  }
+
+  .dialog__viewport[data-position="center"] &:not([data-size="full"]),
+  .alert-dialog__viewport[data-position="center"] &:not([data-size="full"]) {
+    @apply origin-center;
+  }
+
+  .dialog__viewport[data-position="bottom"] &:not([data-size="full"]),
+  .alert-dialog__viewport[data-position="bottom"] &:not([data-size="full"]) {
+    @apply origin-bottom;
+  }
+
+  &[data-size="xs"] {
+    @apply max-w-xs;
+  }
+
+  &[data-size="sm"] {
+    @apply max-w-sm;
+  }
+
+  &[data-size="md"] {
+    @apply max-w-md;
+  }
+
+  &[data-size="lg"] {
+    @apply max-w-lg;
+  }
+
+  &[data-size="full"] {
+    @apply h-full max-w-7xl origin-center;
+  }
+}
+
+.dialog__title,
+.alert-dialog__title {
+  @apply text-base font-medium text-foreground;
+}
+
+.dialog__description,
+.alert-dialog__description {
+  @apply mt-1 text-sm text-muted;
+}
+
+.dialog__actions,
+.alert-dialog__actions {
+  @apply mt-auto pt-4 flex flex-row items-center justify-end gap-2;
+}
+
+.dialog__close {
+  @apply absolute top-4 right-4 size-5 flex items-center justify-center rounded-xs bg-default text-muted
+  select-none cursor-pointer transition motion-reduce:transition-none;
+
+  &:hover {
+    @apply bg-default-emphasis;
+  }
+
+  &:focus-visible {
+    @apply focus-ring;
+  }
+
+  & > svg {
+    @apply size-4;
+  }
+}

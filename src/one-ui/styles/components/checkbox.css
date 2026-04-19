@@ -1,0 +1,97 @@
+.checkbox {
+  @apply shrink-0 relative inline-flex items-center justify-center bg-overlay cursor-pointer
+  transition motion-reduce:transition-none;
+
+  &:focus-visible {
+    @apply z-10 focus-ring;
+  }
+
+  &:before {
+    @apply z-0 content-[''] absolute inset-0 border border-border pointer-events-none;
+  }
+
+  &[data-disabled] {
+    @apply disabled-state;
+  }
+
+  &[data-invalid] {
+    @apply invalid-ring;
+  }
+
+  &[data-size="sm"] {
+    @apply size-4 rounded;
+
+    &:before {
+      @apply rounded;
+    }
+  }
+
+  &[data-size="md"] {
+    @apply size-5 rounded-xs;
+
+    &:before {
+      @apply rounded-xs;
+    }
+  }
+
+  &[data-size="lg"] {
+    @apply size-6 rounded-sm;
+
+    &:before {
+      @apply rounded-sm;
+    }
+  }
+}
+
+.checkbox__indicator {
+  @apply flex items-center justify-center opacity-0 scale-70 origin-center transition
+  motion-reduce:transition-none transform-gpu;
+
+  .checkbox[data-size="sm"] & {
+    @apply size-4 rounded;
+
+    & > svg {
+      @apply size-3;
+    }
+  }
+
+  .checkbox[data-size="md"] & {
+    @apply size-5 rounded-xs;
+
+    & > svg {
+      @apply size-4;
+    }
+  }
+
+  .checkbox[data-size="lg"] & {
+    @apply size-6 rounded-sm;
+
+    & > svg {
+      @apply size-5;
+    }
+  }
+
+  &:is([data-checked], [data-indeterminate]) {
+    @apply opacity-100 scale-100;
+
+    .checkbox[data-color="default"] & {
+      @apply bg-default text-default-foreground;
+    }
+
+    .checkbox[data-color="primary"] & {
+      @apply bg-primary text-primary-foreground;
+    }
+
+    .checkbox[data-color="success"] & {
+      @apply bg-success text-success-foreground;
+    }
+
+    .checkbox[data-color="warning"] & {
+      @apply bg-warning text-warning-foreground;
+    }
+
+    .checkbox[data-color="danger"] & {
+      @apply bg-danger text-danger-foreground;
+    }
+  }
+}

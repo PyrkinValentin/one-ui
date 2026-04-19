@@ -1,0 +1,90 @@
+.radio {
+  @apply shrink-0 relative inline-flex items-center justify-center bg-overlay border border-border rounded-full
+  cursor-pointer transition motion-reduce:transition-none;
+
+  &:focus-visible {
+    @apply z-10 focus-ring;
+  }
+
+  &[data-disabled] {
+    @apply disabled-state;
+  }
+
+  &[data-invalid] {
+    @apply invalid-ring;
+  }
+
+  &[data-size="sm"] {
+    @apply size-4;
+  }
+
+  &[data-size="md"] {
+    @apply size-5;
+  }
+
+  &[data-size="lg"] {
+    @apply size-6;
+  }
+
+  &[data-checked] {
+    &[data-color="default"] {
+      @apply border-default-foreground;
+    }
+
+    &[data-color="primary"] {
+      @apply border-primary;
+    }
+
+    &[data-color="success"] {
+      @apply border-success;
+    }
+
+    &[data-color="warning"] {
+      @apply border-warning;
+    }
+
+    &[data-color="danger"] {
+      @apply border-danger;
+    }
+  }
+}
+
+.radio__indicator {
+  @apply opacity-0 scale-70 origin-center rounded-full transition transform-gpu motion-reduce:transition-none;
+
+  .radio[data-size="sm"] & {
+    @apply size-2;
+  }
+
+  .radio[data-size="md"] & {
+    @apply size-2.5;
+  }
+
+  .radio[data-size="lg"] & {
+    @apply size-3;
+  }
+
+  &[data-checked] {
+    @apply opacity-100 scale-100;
+
+    .radio[data-color="default"] & {
+      @apply bg-default-foreground;
+    }
+
+    .radio[data-color="primary"] & {
+      @apply bg-primary;
+    }
+
+    .radio[data-color="success"] & {
+      @apply bg-success;
+    }
+
+    .radio[data-color="warning"] & {
+      @apply bg-warning;
+    }
+
+    .radio[data-color="danger"] & {
+      @apply bg-danger;
+    }
+  }
+}
