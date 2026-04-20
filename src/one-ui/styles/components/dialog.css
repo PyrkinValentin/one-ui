@@ -32,7 +32,7 @@
 .dialog__popup,
 .alert-dialog__popup {
   @apply relative p-4 w-full max-w-(--dialog-popup-max-width) flex flex-col bg-overlay rounded-lg shadow-lg border
-  border-border transition motion-reduce:transition-none transform-gpu;
+  border-border transition motion-reduce:transition-none transform-gpu isolate;
 
   &:focus-visible {
     @apply focus-ring;
@@ -89,7 +89,7 @@
 }
 
 .dialog__dismiss {
-  @apply absolute top-4 right-4 size-5 flex items-center justify-center rounded-xs bg-default text-muted
+  @apply absolute top-4 right-4 size-5 flex items-center justify-center rounded-xs bg-default
   select-none cursor-pointer transition motion-reduce:transition-none;
 
   &:hover {
@@ -101,7 +101,7 @@
   }
 
   & > svg {
-    @apply size-4;
+    @apply size-4 text-muted;
   }
 }
 

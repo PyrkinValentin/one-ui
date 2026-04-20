@@ -10,8 +10,6 @@ import {
 	MenuPositioner,
 	MenuPopup,
 	MenuArrow,
-	MenuGroup,
-	MenuGroupLabel,
 	MenuItem,
 	MenuLinkItem,
 	MenuCheckboxItem,
@@ -22,6 +20,8 @@ import {
 	MenuSeparator,
 	MenuSub,
 	MenuSubTrigger,
+	MenuGroup,
+	MenuGroupLabel,
 	MenuCreateHandle,
 } from "./menu"
 
@@ -32,8 +32,6 @@ type MenuSlots = {
 	Positioner: typeof MenuPositioner
 	Popup: typeof MenuPopup
 	Arrow: typeof MenuArrow
-	Group: typeof MenuGroup
-	GroupLabel: typeof MenuGroupLabel
 	Item: typeof MenuItem
 	LinkItem: typeof MenuLinkItem
 	CheckboxItem: typeof MenuCheckboxItem
@@ -44,6 +42,8 @@ type MenuSlots = {
 	Separator: typeof MenuSeparator
 	Sub: typeof MenuSub
 	SubTrigger: typeof MenuSubTrigger
+	Group: typeof MenuGroup
+	GroupLabel: typeof MenuGroupLabel
 	createHandle: typeof MenuCreateHandle
 }
 
@@ -54,8 +54,6 @@ export const Menu = composeComponent<typeof MenuRoot, MenuSlots>(MenuRoot, {
 	Positioner: MenuPositioner,
 	Popup: MenuPopup,
 	Arrow: MenuArrow,
-	Group: MenuGroup,
-	GroupLabel: MenuGroupLabel,
 	Item: MenuItem,
 	LinkItem: MenuLinkItem,
 	CheckboxItem: MenuCheckboxItem,
@@ -66,5 +64,7 @@ export const Menu = composeComponent<typeof MenuRoot, MenuSlots>(MenuRoot, {
 	Separator: MenuSeparator,
 	Sub: MenuSub,
 	SubTrigger: MenuSubTrigger,
+	Group: MenuGroup,
+	GroupLabel: MenuGroupLabel,
 	createHandle: MenuCreateHandle,
 })

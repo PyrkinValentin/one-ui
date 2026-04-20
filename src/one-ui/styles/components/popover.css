@@ -9,7 +9,7 @@
 
 .popover__popup {
   @apply px-4 py-3 bg-overlay rounded-md border border-border shadow-lg wrap-break-word origin-(--transform-origin)
-  transition motion-reduce:transition-none transform-gpu;
+  transition motion-reduce:transition-none transform-gpu isolate;
 
   &:focus-visible {
     @apply focus-ring;

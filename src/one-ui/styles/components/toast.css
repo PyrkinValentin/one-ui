@@ -182,7 +182,7 @@
 }
 
 .toast__close {
-  @apply absolute -top-2 -right-2 size-5 flex items-center justify-center rounded-xs text-muted
+  @apply absolute top-2 right-2 size-5 flex items-center justify-center rounded-xs
   bg-default opacity-0 select-none cursor-pointer transition motion-reduce:transition-none;
 
   &:hover {
@@ -198,6 +198,6 @@
   }
 
   & > svg {
-    @apply size-4;
+    @apply size-4 text-muted;
   }
 }

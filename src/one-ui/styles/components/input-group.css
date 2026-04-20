@@ -42,7 +42,7 @@
   }
 
   .input {
-    @apply px-0 w-auto flex-1 h-full bg-transparent;
+    @apply px-0 flex-1 w-auto h-full bg-transparent rounded-none;
 
     &:focus {
       @apply bg-transparent;

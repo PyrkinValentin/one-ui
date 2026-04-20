@@ -1,6 +1,6 @@
 .tooltip__popup {
   @apply px-2 py-1 max-w-xs bg-overlay rounded-md border border-border text-xs shadow-lg wrap-break-word
-  origin-(--transform-origin) transition motion-reduce:transition-none transform-gpu;
+  origin-(--transform-origin) transition motion-reduce:transition-none transform-gpu isolate;
 
   &:focus-visible {
     @apply focus-ring;

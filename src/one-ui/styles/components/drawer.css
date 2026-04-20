@@ -39,7 +39,7 @@
 
 .drawer__popup {
   @apply relative p-4 w-full bg-overlay rounded-lg shadow-lg border border-border touch-auto
-  transition duration-450 ease-[cubic-bezier(0.32,0.72,0,1)] motion-reduce:transition-none transform-gpu;
+  transition duration-450 ease-[cubic-bezier(0.32,0.72,0,1)] motion-reduce:transition-none transform-gpu isolate;
 
   &:focus-visible {
     @apply focus-ring;

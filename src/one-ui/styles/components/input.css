@@ -1,5 +1,5 @@
 .input {
-  @apply block w-full min-w-0 bg-default text-default-foreground placeholder:text-muted outline-none
+  @apply w-full min-w-0 block bg-default text-default-foreground placeholder:text-muted outline-none
   transition motion-reduce:transition-none;
 
   &:hover {

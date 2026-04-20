@@ -149,42 +149,6 @@ export const MenuArrow = (props: MenuArrowProps) => {
 	)
 }
 
-export const MenuGroup = (props: MenuGroupProps) => {
-	const {
-		className,
-		children,
-		...restProps
-	} = props
-
-	return (
-		<Menu.Group
-			{...restProps}
-			data-slot="menu-group"
-			className={resolveClassNames(className, "menu__group")}
-		>
-			{children}
-		</Menu.Group>
-	)
-}
-
-export const MenuGroupLabel = (props: MenuGroupLabelProps) => {
-	const {
-		className,
-		children,
-		...restProps
-	} = props
-
-	return (
-		<Menu.GroupLabel
-			{...restProps}
-			data-slot="menu-group-label"
-			className={resolveClassNames(className, "menu__group-label")}
-		>
-			{children}
-		</Menu.GroupLabel>
-	)
-}
-
 export const MenuItem = (props: MenuItemProps) => {
 	const {
 		color = "default",
@@ -372,6 +336,42 @@ export const MenuSubTrigger = (props: MenuSubTriggerProps) => {
 		>
 			{children}
 		</Menu.SubmenuTrigger>
+	)
+}
+
+export const MenuGroup = (props: MenuGroupProps) => {
+	const {
+		className,
+		children,
+		...restProps
+	} = props
+
+	return (
+		<Menu.Group
+			{...restProps}
+			data-slot="menu-group"
+			className={resolveClassNames(className, "menu__group")}
+		>
+			{children}
+		</Menu.Group>
+	)
+}
+
+export const MenuGroupLabel = (props: MenuGroupLabelProps) => {
+	const {
+		className,
+		children,
+		...restProps
+	} = props
+
+	return (
+		<Menu.GroupLabel
+			{...restProps}
+			data-slot="menu-group-label"
+			className={resolveClassNames(className, "menu__group-label")}
+		>
+			{children}
+		</Menu.GroupLabel>
 	)
 }
 

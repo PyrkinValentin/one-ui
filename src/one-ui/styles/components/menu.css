@@ -9,7 +9,7 @@
 
 .menu__popup {
   @apply p-1 min-w-48 max-w-xs flex flex-col origin-(--transform-origin) bg-overlay rounded-lg border border-border
-  shadow-lg transition motion-reduce:transition-none transform-gpu;
+  shadow-lg transition motion-reduce:transition-none transform-gpu isolate;
 
   &:focus-visible {
     @apply focus-ring;
@@ -43,29 +43,13 @@
   }
 }
 
-.menu__group {
-  @apply flex flex-col;
-}
-
-.menu__group-label {
-  @apply z-1 sticky top-0 px-2 py-1 bg-overlay text-xs text-muted font-medium;
-}
-
 .menu__item,
 .menu__link-item,
 .menu__checkbox-item,
 .menu__radio-item,
 .menu__sub-trigger {
-  @apply px-2 py-1.5 flex items-center gap-2 text-sm rounded-sm cursor-pointer select-none
-  transition motion-reduce:transition-none transform-gpu;
-
-  &:active {
-    @apply bg-default;
-  }
-
-  &:focus-visible {
-    @apply focus-ring;
-  }
+  @apply px-2 py-1.5 flex items-center gap-2 text-sm rounded-sm cursor-pointer select-none outline-none
+  transition motion-reduce:transition-none;
 
   & > svg {
     @apply size-4.5;
@@ -116,4 +100,12 @@
   &[data-orientation="vertical"] {
     @apply my-2 mx-1 w-px;
   }
+}
+
+.menu__group {
+  @apply flex flex-col;
+}
+
+.menu__group-label {
+  @apply z-1 sticky top-0 px-2 py-1 bg-overlay text-xs text-muted font-medium;
 }
