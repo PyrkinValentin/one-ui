@@ -1,0 +1,41 @@
+.breadcrumbs {
+  @apply w-fit max-w-full;
+}
+
+.breadcrumbs__list {
+  @apply flex items-center gap-1;
+}
+
+.breadcrumbs__link {
+  @apply leading-5 text-muted underline underline-offset-4 decoration-transparent
+  transition-colors motion-reduce:transition-normal;
+
+  &:hover {
+    @apply decoration-current;
+  }
+
+  & > svg {
+    @apply text-muted;
+  }
+}
+
+.breadcrumbs__page {
+  @apply text-foreground;
+}
+
+.breadcrumbs__link,
+.breadcrumbs__page {
+  @apply flex items-center gap-1 text-sm font-medium whitespace-nowrap;
+
+  & > svg {
+    @apply size-4.5;
+  }
+}
+
+.breadcrumbs__separator {
+  @apply mt-px flex items-center justify-center;
+
+  & > svg {
+    @apply size-4.5 text-muted;
+  }
+}

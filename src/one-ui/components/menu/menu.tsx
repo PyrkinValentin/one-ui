@@ -22,7 +22,6 @@ import type {
 
 import { getDataAttributes, resolveClassNames } from "../../utils"
 
-import Link from "next/link"
 import { Menu } from "@base-ui/react"
 import { Check } from "lucide-react"
 
@@ -172,9 +171,7 @@ export const MenuItem = (props: MenuItemProps) => {
 export const MenuLinkItem = (props: MenuLinkItemProps) => {
 	const {
 		color = "default",
-		href,
 		className,
-		render = href ? <Link href={href}/> : undefined,
 		children,
 		...restProps
 	} = props
@@ -184,9 +181,7 @@ export const MenuLinkItem = (props: MenuLinkItemProps) => {
 			{...restProps}
 			{...getDataAttributes({ color })}
 			data-slot="menu-link-item"
-			href={href}
 			className={resolveClassNames(className, "menu__link-item")}
-			render={render}
 		>
 			{children}
 		</Menu.LinkItem>

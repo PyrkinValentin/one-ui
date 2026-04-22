@@ -34,6 +34,7 @@ export const PaginationRoot = (props: PaginationProps) => {
 		boundaries = 1,
 		size = "md",
 		color = "default",
+		"aria-label": ariaLabel = "Pagination navigation",
 		className,
 		onPageChange,
 		onPageSync,
@@ -73,7 +74,7 @@ export const PaginationRoot = (props: PaginationProps) => {
 				{...getDataAttributes({ size, color })}
 				data-slot="pagination"
 				role="navigation"
-				aria-label={props["aria-label"] ?? "Pagination navigation"}
+				aria-label={ariaLabel}
 				className={resolveClassNames(className, "pagination")}
 			>
 				{children}
@@ -120,6 +121,7 @@ export const PaginationItem = (props: PaginationItemProps) => {
 
 export const PaginationPrev = (props: PaginationPrevProps) => {
 	const {
+		"aria-label": ariaLabel = "Go to previous page",
 		className,
 		onClick,
 		children = <ChevronLeft/>,
@@ -145,7 +147,7 @@ export const PaginationPrev = (props: PaginationPrevProps) => {
 			{...restProps}
 			data-slot="pagination-prev"
 			disabled={disabled}
-			aria-label={props["aria-label"] ?? "Go to previous page"}
+			aria-label={ariaLabel}
 			className={resolveClassNames(className, "pagination__prev")}
 			onClick={handleClick}
 		>
@@ -156,6 +158,7 @@ export const PaginationPrev = (props: PaginationPrevProps) => {
 
 export const PaginationNext = (props: PaginationNextProps) => {
 	const {
+		"aria-label": ariaLabel = "Go to next page",
 		className,
 		onClick,
 		children = <ChevronRight/>,
@@ -181,7 +184,7 @@ export const PaginationNext = (props: PaginationNextProps) => {
 			{...restProps}
 			data-slot="pagination-next"
 			disabled={disabled}
-			aria-label={props["aria-label"] ?? "Go to next page"}
+			aria-label={ariaLabel}
 			className={resolveClassNames(className, "pagination__next")}
 			onClick={handleClick}
 		>
@@ -221,6 +224,7 @@ export const PaginationRange = (props: PaginationRangeProps) => {
 
 export const PaginationPage = (props: PaginationPageProps) => {
 	const {
+		"aria-label": ariaLabel,
 		page,
 		className,
 		onClick,
@@ -244,7 +248,7 @@ export const PaginationPage = (props: PaginationPageProps) => {
 			{...restProps}
 			{...getDataAttributes({ current })}
 			disabled={current}
-			aria-label={props["aria-label"] || `Go to page ${page}`}
+			aria-label={ariaLabel ?? `Go to page ${page}`}
 			aria-current={current ? "page" : undefined}
 			data-slot="pagination-page"
 			className={resolveClassNames(className, "pagination__page")}

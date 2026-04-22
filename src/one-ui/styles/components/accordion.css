@@ -24,7 +24,7 @@
 }
 
 .accordion__indicator {
-  @apply ms-auto inline-flex items-center justify-center transition-transform motion-reduce:transition-none;
+  @apply shrink-0 ms-auto inline-flex items-center justify-center transition-transform motion-reduce:transition-none;
 
   & > svg {
     @apply size-4.5 text-muted;

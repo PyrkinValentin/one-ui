@@ -73,7 +73,7 @@
 }
 
 .toast__indicator {
-  @apply flex items-center justify-center;
+  @apply shrink-0 flex items-center justify-center;
 
   & > svg {
     @apply size-5;
