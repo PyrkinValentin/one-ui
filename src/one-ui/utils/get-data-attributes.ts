@@ -1,14 +1,15 @@
-type DataProps = Record<`data-${string}`, string>
+type DataProps = Record<DataAttribute, string>
 type DataObject = Record<string, string | number | boolean | null | undefined>
+type DataAttribute = `data-${string}`
 
-const MAX_CACHE_SIZE = 500
-const cache = new Map<string, string>()
+const MAX_CACHE_SIZE = 1000
+const cache = new Map<string, DataAttribute>()
 
-const kebabCase = (value?: string) => {
+const createDataAttribute = (value?: string): DataAttribute | undefined => {
 	if (
 		typeof value !== "string" ||
 		value === ""
-	) return ""
+	) return
 
 	const cached = cache.get(value)
 
@@ -44,9 +45,11 @@ const kebabCase = (value?: string) => {
 		}
 	}
 
-	cache.set(value, result)
+	const finalKey: DataAttribute = `data-${result}`
 
-	return result
+	cache.set(value, finalKey)
+
+	return finalKey
 }
 
 export const getDataAttributes = <Data extends DataObject>(object?: Data) => {
@@ -68,7 +71,13 @@ export const getDataAttributes = <Data extends DataObject>(object?: Data) => {
 			continue
 		}
 
-		dataProps[`data-${kebabCase(key)}`] = value === true
+		const dataAttribute = createDataAttribute(key)
+		
+		if (!dataAttribute) {
+			continue
+		}
+
+		dataProps[dataAttribute] = value === true
 			? ""
 			: `${value}`
 	}

@@ -23,7 +23,7 @@ import { usePaginationRange, usePaginationSync } from "./pagination.hooks"
 import { clamp, getDataAttributes, resolveClassNames } from "../../utils"
 
 import { Button } from "@base-ui/react"
-import { ChevronLeft, ChevronRight, Ellipsis as EllipsisIcon } from "lucide-react"
+import { ChevronLeft, ChevronRight, Ellipsis } from "lucide-react"
 import { PaginationContext } from "./pagination.context"
 
 export const PaginationRoot = (props: PaginationProps) => {
@@ -41,8 +41,8 @@ export const PaginationRoot = (props: PaginationProps) => {
 		...restProps
 	} = props
 
-	const onStablePageChange = useStableCallback(onPageChange)
 	const onStablePageSync = useStableCallback(onPageSync)
+	const onStablePageChange = useStableCallback(onPageChange)
 
 	usePaginationSync({
 		page,
@@ -128,7 +128,7 @@ export const PaginationPrev = (props: PaginationPrevProps) => {
 
 	const { page, onPageChange } = usePaginationContext()
 
-	const disabled = page <= 1
+	const disabled = page === 1
 
 	const handleClick = (ev: BaseUIEvent<MouseEvent<HTMLButtonElement>>) => {
 		onClick?.(ev)
@@ -164,7 +164,7 @@ export const PaginationNext = (props: PaginationNextProps) => {
 
 	const { page, total, onPageChange } = usePaginationContext()
 
-	const disabled = page >= total
+	const disabled = page === total
 
 	const handleClick = (ev: BaseUIEvent<MouseEvent<HTMLButtonElement>>) => {
 		onClick?.(ev)
@@ -243,9 +243,10 @@ export const PaginationPage = (props: PaginationPageProps) => {
 		<Button
 			{...restProps}
 			{...getDataAttributes({ current })}
-			data-slot="pagination-page"
+			disabled={current}
 			aria-label={props["aria-label"] || `Go to page ${page}`}
 			aria-current={current ? "page" : undefined}
+			data-slot="pagination-page"
 			className={resolveClassNames(className, "pagination__page")}
 			onClick={handleClick}
 		>
@@ -257,7 +258,7 @@ export const PaginationPage = (props: PaginationPageProps) => {
 export const PaginationEllipsis = (props: PaginationEllipsisProps) => {
 	const {
 		className,
-		children = <EllipsisIcon/>,
+		children = <Ellipsis/>,
 		...restProps
 	} = props
 

@@ -81,6 +81,8 @@
 }
 
 .pagination__page {
+  @apply tabular-nums;
+  
   &[data-current] {
     @apply pointer-events-none;
 

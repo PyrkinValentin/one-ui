@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react"
+import { useLayoutEffect, useMemo } from "react"
 
 import { range } from "./pagination.utils"
 
@@ -17,7 +17,7 @@ export const usePaginationSync = (options: UsePaginationSyncOptions) => {
 		onPageSync,
 	} = options
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		if (!onPageSync || total <= 0) return
 
 		if (page > total) {

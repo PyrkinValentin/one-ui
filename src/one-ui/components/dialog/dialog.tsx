@@ -134,6 +134,7 @@ export const DialogDismiss = (props: DialogDismissProps) => {
 	return (
 		<Dialog.Close
 			{...restProps}
+			aria-label={props["aria-label"] ?? "Close"}
 			data-slot="dialog-dismiss"
 			className={resolveClassNames(className, "dialog__dismiss")}
 		>

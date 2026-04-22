@@ -1,0 +1,41 @@
+.collapsible {
+  @apply inline-flex flex-col;
+}
+
+.collapsible__trigger {
+  @apply flex items-center gap-2 text-sm cursor-pointer transition motion-reduce:transition-none;
+
+  &:focus-visible {
+    @apply z-10 focus-ring;
+  }
+
+  & > svg {
+    @apply size-4.5;
+  }
+}
+
+.collapsible__indicator {
+  @apply flex items-center justify-center transition-transform motion-reduce:transition-none;
+
+  .collapsible__trigger[data-panel-open] & {
+    @apply rotate-90;
+  }
+
+  & > svg {
+    @apply size-4.5;
+  }
+}
+
+.collapsible__panel {
+  @apply overflow-hidden h-(--collapsible-panel-height) flex flex-col text-sm transition-[height] ease-out
+  motion-reduce:transition-none;
+
+  &[data-starting-style],
+  &[data-ending-style] {
+    @apply h-0;
+  }
+
+  &[hidden]:not([hidden='until-found']) {
+    @apply hidden;
+  }
+}

@@ -112,12 +112,16 @@
 }
 
 .combobox__chips {
-  @apply w-full flex flex-wrap items-center gap-0.5;
+  @apply w-full flex flex-wrap items-center gap-1;
 }
 
 .combobox__chip {
   @apply px-2 py-0.5 inline-flex items-center justify-center gap-2.5 rounded-sm font-medium whitespace-nowrap
-  bg-overlay text-sm;
+  bg-overlay text-sm transition motion-reduce:transition-none;
+
+  &:focus-visible {
+    @apply z-10 focus-ring;
+  }
 }
 
 .combobox__chip-remove {
