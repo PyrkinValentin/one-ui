@@ -41,12 +41,12 @@ export const ToastListItem = (props: ToastListItemProps) => {
 
 	const {
 		loading,
-		color = getDefaultColor(toast.type),
+		status = getDefaultColor(toast.type),
 		indicator,
 	} = toast
 
 	const renderIndicator = getIndicator(
-		color,
+		status,
 		indicator,
 		loading,
 		toast.type,
@@ -55,7 +55,7 @@ export const ToastListItem = (props: ToastListItemProps) => {
 	return (
 		<Toast.Root
 			{...restProps}
-			{...getDataAttributes({ color })}
+			{...getDataAttributes({ status })}
 			data-slot="toast-item"
 			className="toast__item"
 			toast={toast}

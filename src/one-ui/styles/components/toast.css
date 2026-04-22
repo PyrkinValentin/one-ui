@@ -79,23 +79,23 @@
     @apply size-5;
   }
 
-  .toast__item[data-color="default"] & {
+  .toast__item[data-status="default"] & {
     @apply text-default-foreground;
   }
 
-  .toast__item[data-color="primary"] & {
+  .toast__item[data-status="primary"] & {
     @apply text-primary;
   }
 
-  .toast__item[data-color="success"] & {
+  .toast__item[data-status="success"] & {
     @apply text-success;
   }
 
-  .toast__item[data-color="warning"] & {
+  .toast__item[data-status="warning"] & {
     @apply text-warning;
   }
 
-  .toast__item[data-color="danger"] & {
+  .toast__item[data-status="danger"] & {
     @apply text-danger;
   }
 }
@@ -123,23 +123,23 @@
 .toast__title {
   @apply text-sm font-medium line-clamp-2;
 
-  .toast__item[data-color="default"] & {
+  .toast__item[data-status="default"] & {
     @apply text-default-foreground;
   }
 
-  .toast__item[data-color="primary"] & {
+  .toast__item[data-status="primary"] & {
     @apply text-primary;
   }
 
-  .toast__item[data-color="success"] & {
+  .toast__item[data-status="success"] & {
     @apply text-success;
   }
 
-  .toast__item[data-color="warning"] & {
+  .toast__item[data-status="warning"] & {
     @apply text-warning;
   }
 
-  .toast__item[data-color="danger"] & {
+  .toast__item[data-status="danger"] & {
     @apply text-danger;
   }
 }
@@ -160,23 +160,23 @@
     @apply disabled-state;
   }
 
-  .toast__item[data-color="default"] & {
+  .toast__item[data-status="default"] & {
     @apply bg-default hover:bg-default-emphasis text-default-foreground;
   }
 
-  .toast__item[data-color="primary"] & {
+  .toast__item[data-status="primary"] & {
     @apply bg-primary hover:bg-primary-emphasis text-primary-foreground;
   }
 
-  .toast__item[data-color="success"] & {
+  .toast__item[data-status="success"] & {
     @apply bg-success hover:bg-success-emphasis text-success-foreground;
   }
 
-  .toast__item[data-color="warning"] & {
+  .toast__item[data-status="warning"] & {
     @apply bg-warning hover:bg-warning-emphasis text-warning-foreground;
   }
 
-  .toast__item[data-color="danger"] & {
+  .toast__item[data-status="danger"] & {
     @apply bg-danger hover:bg-danger-emphasis text-danger-foreground;
   }
 }

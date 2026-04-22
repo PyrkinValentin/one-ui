@@ -1,7 +1,7 @@
 import type { ReactNode } from "react"
 import type { ToastData } from "./toast.types"
 
-import { INDICATORS } from "./toast.constants"
+import { TOAST_INDICATORS } from "./toast.vars"
 
 import { Spinner } from "../spinner"
 
@@ -14,7 +14,7 @@ export const getDefaultColor = (type?: string) => {
 }
 
 export const getIndicator = (
-	variant: NonNullable<ToastData["color"]>,
+	status: NonNullable<ToastData["status"]>,
 	indicator?: ReactNode,
 	loading?: boolean,
 	type?: string,
@@ -26,15 +26,15 @@ export const getIndicator = (
 	) {
 		return loading
 			? <Spinner/>
-			: (indicator ?? INDICATORS[variant])
+			: (indicator ?? TOAST_INDICATORS[status])
 	}
 
 	switch (type) {
 		case "loading":
 			return <Spinner/>
 		case "success":
-			return INDICATORS.success
+			return TOAST_INDICATORS.success
 		case "error":
-			return INDICATORS.danger
+			return TOAST_INDICATORS.danger
 	}
 }

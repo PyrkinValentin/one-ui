@@ -1,0 +1,49 @@
+.alert {
+  @apply px-4 py-3 w-full flex items-center gap-3 rounded-md bg-overlay border border-border;
+
+  &:has([data-slot="alert-description"]) {
+    @apply items-start;
+  }
+}
+
+.alert__indicator {
+  @apply flex items-center justify-center;
+
+  & > svg {
+    @apply size-5;
+  }
+}
+
+.alert__content {
+  @apply flex grow flex-col items-start;
+}
+
+.alert__title {
+  @apply text-sm font-medium;
+}
+
+.alert__description {
+  @apply mt-1 text-sm text-muted;
+}
+
+.alert__indicator, .alert__title {
+  .alert[data-status="default"] & {
+    @apply text-foreground;
+  }
+
+  .alert[data-status="primary"] & {
+    @apply text-primary;
+  }
+
+  .alert[data-status="success"] & {
+    @apply text-success;
+  }
+
+  .alert[data-status="warning"] & {
+    @apply text-warning;
+  }
+
+  .alert[data-status="danger"] & {
+    @apply text-danger;
+  }
+}

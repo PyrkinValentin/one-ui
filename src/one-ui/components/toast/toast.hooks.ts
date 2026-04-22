@@ -1,11 +1,11 @@
 import { useMediaQuery } from "../../hooks"
 
-import { SWIPE_DIRECTION } from "./toast.constants"
+import { TOAST_SWIPE_DIRECTION } from "./toast.vars"
 
 export const useSwipeDirection = () => {
 	const desktop = useMediaQuery((query) => query.up("sm"))
 
 	return desktop
-		? SWIPE_DIRECTION[1]
-		: SWIPE_DIRECTION
+		? TOAST_SWIPE_DIRECTION[1]
+		: TOAST_SWIPE_DIRECTION
 }
