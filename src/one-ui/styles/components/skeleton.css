@@ -1,0 +1,8 @@
+.skeleton {
+  @apply w-full overflow-hidden relative inline-flex pointer-events-none rounded-md bg-default/70;
+
+  &::after {
+    @apply absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-default
+    to-transparent content-[''] animate-skeleton motion-reduce:animate-none;
+  }
+}
