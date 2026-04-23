@@ -8,6 +8,7 @@ import {
 	AlertContent,
 	AlertTitle,
 	AlertDescription,
+	AlertDismiss,
 } from "./alert"
 
 type AlertSlots = {
@@ -15,6 +16,7 @@ type AlertSlots = {
 	Content: typeof AlertContent
 	Title: typeof AlertTitle
 	Description: typeof AlertDescription
+	Dismiss: typeof AlertDismiss
 }
 
 export const Alert = composeComponent<typeof AlertRoot, AlertSlots>(AlertRoot, {
@@ -22,4 +24,5 @@ export const Alert = composeComponent<typeof AlertRoot, AlertSlots>(AlertRoot, {
 	Content: AlertContent,
 	Title: AlertTitle,
 	Description: AlertDescription,
+	Dismiss: AlertDismiss,
 })

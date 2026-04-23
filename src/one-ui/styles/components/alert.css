@@ -1,5 +1,5 @@
 .alert {
-  @apply px-4 py-3 w-full flex items-center gap-3 rounded-md bg-overlay border border-border;
+  @apply relative p-4 w-full flex items-center gap-3 rounded-md bg-overlay border border-border;
 
   &:has([data-slot="alert-description"]) {
     @apply items-start;
@@ -45,5 +45,22 @@
 
   .alert[data-status="danger"] & {
     @apply text-danger;
+  }
+}
+
+.alert__dismiss {
+  @apply absolute top-4 right-4 size-5 flex items-center justify-center rounded-xs bg-default
+  select-none cursor-pointer transition motion-reduce:transition-none;
+
+  &:hover {
+    @apply bg-default-emphasis;
+  }
+
+  &:focus-visible {
+    @apply focus-ring;
+  }
+
+  & > svg {
+    @apply size-4 text-muted;
   }
 }

@@ -35,6 +35,7 @@ export const BadgeIndicator = (props: BadgeIndicatorProps) => {
 	return (
 		<span
 			{...restProps}
+			role="status"
 			data-slot="badge-indicator"
 			className={resolveClassNames(className, "badge__indicator")}
 		>

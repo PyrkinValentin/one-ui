@@ -5,7 +5,8 @@ import type {
 	AlertIndicatorProps,
 	AlertContentProps,
 	AlertTitleProps,
-	AlertDescriptionProps
+	AlertDescriptionProps,
+	AlertDismissProps,
 } from "./alert.props"
 
 import type { AlertContextValue } from "./alert.context"
@@ -16,6 +17,7 @@ import { useAlertContext } from "./alert.context"
 import { getDataAttributes, resolveClassNames } from "../../utils"
 import { getIndicator } from "./alert.utils"
 
+import { X } from "lucide-react"
 import { AlertContext } from "./alert.context"
 
 export const AlertRoot = (props: AlertProps) => {
@@ -116,5 +118,26 @@ export const AlertDescription = (props: AlertDescriptionProps) => {
 		>
 			{children}
 		</p>
+	)
+}
+
+export const AlertDismiss = (props: AlertDismissProps) => {
+	const {
+		"aria-label": ariaLabel = "Dismiss",
+		className,
+		children = <X/>,
+		...restProps
+	} = props
+
+	return (
+		<button
+			{...restProps}
+			type="button"
+			aria-label={ariaLabel}
+			data-slot="alert-dismiss"
+			className={resolveClassNames(className, "alert__dismiss")}
+		>
+			{children}
+		</button>
 	)
 }
