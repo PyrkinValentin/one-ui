@@ -2,14 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cb356f5a-9cf6-4bac-9001-1889b7130117" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/one-ui/styles/components/chip.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/one-ui/components/alert/alert.context.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/one-ui/components/alert/alert.context.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/one-ui/components/alert/alert.props.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/one-ui/components/alert/alert.props.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/one-ui/components/alert/alert.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/one-ui/components/alert/alert.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/one-ui/components/alert/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/one-ui/components/alert/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/one-ui/components/badge/badge.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/one-ui/components/badge/badge.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/one-ui/styles/components/alert.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/one-ui/styles/components/alert.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/one-ui/components/toast/toast.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/one-ui/components/toast/toast.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/one-ui/styles/components/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/one-ui/styles/components/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/one-ui/styles/components/toast.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/one-ui/styles/components/toast.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,8 +18,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="tsconfig.json" />
-        <option value="TypeScript JSX File" />
         <option value="TypeScript File" />
+        <option value="TypeScript JSX File" />
         <option value="CSS File" />
       </list>
     </option>
@@ -224,7 +222,9 @@
       <workItem from="1776690285545" duration="21035000" />
       <workItem from="1776756623835" duration="5318000" />
       <workItem from="1776872480087" duration="20757000" />
-      <workItem from="1776950075403" duration="2290000" />
+      <workItem from="1776950075403" duration="16183000" />
+      <workItem from="1777032953323" duration="491000" />
+      <workItem from="1777454353608" duration="1150000" />
     </task>
     <servers />
   </component>

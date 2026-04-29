@@ -94,8 +94,8 @@ export const ToastListItem = (props: ToastListItemProps) => {
 				/>
 
 				<Toast.Close
-					data-slot="toast-close"
-					className="toast__close"
+					data-slot="toast-dismiss"
+					className="toast__dismiss"
 				>
 					<X/>
 				</Toast.Close>

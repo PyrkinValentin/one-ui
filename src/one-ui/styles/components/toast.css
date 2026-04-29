@@ -181,7 +181,7 @@
   }
 }
 
-.toast__close {
+.toast__dismiss {
   @apply absolute top-2 right-2 size-5 flex items-center justify-center rounded-xs
   bg-default opacity-0 select-none cursor-pointer transition motion-reduce:transition-none;
 
