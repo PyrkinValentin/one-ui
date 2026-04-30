@@ -1,0 +1,15 @@
+.card {
+  @apply overflow-hidden relative flex flex-col rounded-md bg-overlay border border-border;
+}
+
+.card__content {
+  @apply p-4;
+}
+
+.card__title {
+  @apply text-base font-medium text-foreground;
+}
+
+.card__description {
+  @apply mt-1 text-sm text-muted;
+}
