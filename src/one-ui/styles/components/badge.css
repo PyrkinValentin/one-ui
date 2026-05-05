@@ -126,7 +126,7 @@
     }
   }
 
-  .badge[data-placement="top-left"] & {
+  .badge[data-position="top-left"] & {
     @apply top-0 left-0 -translate-x-1/3 -translate-y-1/3;
 
     &[data-dot] {
@@ -134,7 +134,7 @@
     }
   }
 
-  .badge[data-placement="top-right"] & {
+  .badge[data-position="top-right"] & {
     @apply top-0 right-0 translate-x-1/3 -translate-y-1/3;
 
     &[data-dot] {
@@ -142,7 +142,7 @@
     }
   }
 
-  .badge[data-placement="bottom-left"] & {
+  .badge[data-position="bottom-left"] & {
     @apply bottom-0 left-0 -translate-x-1/3 translate-y-1/3;
 
     &[data-dot] {
@@ -150,7 +150,7 @@
     }
   }
 
-  .badge[data-placement="bottom-right"] & {
+  .badge[data-position="bottom-right"] & {
     @apply bottom-0 right-0 translate-x-1/3 translate-y-1/3;
 
     &[data-dot] {

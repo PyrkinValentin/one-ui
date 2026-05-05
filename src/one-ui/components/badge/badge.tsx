@@ -9,7 +9,7 @@ export const BadgeRoot = (props: BadgeProps) => {
 		variant = "solid",
 		size = "md",
 		color = "default",
-		placement = "top-right",
+		position = "top-right",
 		className,
 		children,
 		...restProps
@@ -18,7 +18,7 @@ export const BadgeRoot = (props: BadgeProps) => {
 	return (
 		<span
 			{...restProps}
-			{...getDataAttributes({ variant, size, color, placement })}
+			{...getDataAttributes({ variant, size, color, position })}
 			data-slot="badge"
 			className={resolveClassNames(className, "badge")}
 		>
