@@ -2,6 +2,8 @@ import type { BadgeProps, BadgeIndicatorProps } from "./badge.props"
 
 import { getDataAttributes, resolveClassNames } from "../../utils"
 
+import { isDot, isOneChar } from "./badge.helpers"
+
 export const BadgeRoot = (props: BadgeProps) => {
 	const {
 		variant = "solid",
@@ -32,9 +34,13 @@ export const BadgeIndicator = (props: BadgeIndicatorProps) => {
 		...restProps
 	} = props
 
+	const dot = isDot(children)
+	const oneChar = isOneChar(children)
+
 	return (
 		<span
 			{...restProps}
+			{...getDataAttributes({ dot, oneChar })}
 			role="status"
 			data-slot="badge-indicator"
 			className={resolveClassNames(className, "badge__indicator")}
