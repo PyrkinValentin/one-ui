@@ -1,28 +1,16 @@
 .avatar {
-  @apply overflow-hidden relative shrink-0 rounded-full select-none;
+  @apply overflow-hidden relative shrink-0 block rounded-full select-none;
 
   &[data-size="sm"] {
-    @apply size-8 text-xs;
-
-    & svg {
-      @apply size-4;
-    }
+    @apply size-8;
   }
 
   &[data-size="md"] {
-    @apply size-10 text-sm;
-
-    & svg {
-      @apply size-5;
-    }
+    @apply size-10;
   }
 
   &[data-size="lg"] {
-    @apply size-12 text-base;
-
-    & svg {
-      @apply size-6;
-    }
+    @apply size-12;
   }
 
   &[data-variant="solid"] {
@@ -100,4 +88,28 @@
 
 .avatar__fallback {
   @apply size-full flex items-center justify-center font-medium leading-none;
+
+  .avatar[data-size="sm"] & {
+    @apply text-xs;
+
+    & > svg {
+      @apply size-4;
+    }
+  }
+
+  .avatar[data-size="md"] & {
+    @apply text-sm;
+
+    & > svg {
+      @apply size-5;
+    }
+  }
+
+  .avatar[data-size="lg"] & {
+    @apply text-base;
+
+    & > svg {
+      @apply size-6;
+    }
+  }
 }
