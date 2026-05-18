@@ -112,7 +112,7 @@
 
 .dialog__description,
 .alert-dialog__description {
-  @apply mt-1 text-sm text-muted;
+  @apply mt-1 text-sm text-muted text-pretty;
 }
 
 .dialog__actions,

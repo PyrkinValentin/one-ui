@@ -145,7 +145,7 @@
 }
 
 .toast__description {
-  @apply mt-1 text-xs text-muted;
+  @apply mt-1 text-xs text-muted text-pretty;
 }
 
 .toast__action {

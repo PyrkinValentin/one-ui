@@ -9,7 +9,7 @@
   }
 
   &[data-ending-style] {
-    @apply duration-[calc(var(--drawer-swipe-strength)*400ms)];
+    @apply duration-[calc(var(--drawer-swipe-strength)*0.4s)];
   }
 
   &[data-swiping] {
@@ -46,7 +46,7 @@
   }
 
   &[data-ending-style] {
-    @apply duration-[calc(var(--drawer-swipe-strength)*400ms)];
+    @apply duration-[calc(var(--drawer-swipe-strength)*0.4s)];
   }
 
   &[data-swiping] {
@@ -137,7 +137,7 @@
 }
 
 .drawer__description {
-  @apply mt-1 text-sm text-muted;
+  @apply mt-1 text-sm text-muted text-pretty;
 }
 
 .drawer__actions {

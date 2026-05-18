@@ -23,7 +23,7 @@
 }
 
 .alert__description {
-  @apply mt-1 text-sm text-muted;
+  @apply mt-1 text-sm text-muted text-pretty;
 }
 
 .alert__indicator, .alert__title {
