@@ -1,8 +1,8 @@
 .textarea {
   --textarea-padding: calc(--spacing(4) * 2);
 
-  @apply relative p-4 w-full min-h-[calc(var(--textarea-padding)+3lh)] max-h-[calc(var(--textarea-padding)+10lh)] block
-  rounded-md bg-neutral text-neutral-foreground text-sm placeholder:text-muted transition
+  @apply relative px-4 py-2 w-full min-h-[calc(var(--textarea-padding)+3lh)] max-h-[calc(var(--textarea-padding)+10lh)]
+  block rounded-md bg-neutral text-neutral-foreground text-sm placeholder:text-muted transition
   motion-reduce:transition-none;
 
   &:hover,
