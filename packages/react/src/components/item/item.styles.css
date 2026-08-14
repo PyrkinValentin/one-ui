@@ -14,7 +14,11 @@
   }
 
   & > img {
-    @apply size-10 rounded-sm bg-neutral object-cover aspect-square select-none;
+    @apply size-10 rounded-sm bg-neutral object-cover select-none;
+  }
+
+  &:has(img) {
+    @apply border border-separator;
   }
 }
 
