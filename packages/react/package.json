@@ -1,6 +1,6 @@
 {
 	"name": "@cora-ui/react",
-	"version": "1.1.50",
+	"version": "1.1.51",
 	"description": "Next-generation, high-performance React 19 UI component kit built on Base UI and Tailwind CSS v4 with native accessibility and zero runtime overhead.",
 	"author": "Cora",
 	"homepage": "https://cora-ui.com",

@@ -51,6 +51,15 @@
     }
   }
 
+  &[data-variant="error-soft"] {
+    @apply bg-error-soft text-error-soft-foreground;
+
+    &:hover,
+    &:active {
+      @apply bg-error-soft-hover;
+    }
+  }
+
   &[data-size="sm"] {
     @apply px-3 h-8 gap-1.5 text-xs;
 
