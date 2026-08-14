@@ -16,10 +16,6 @@
   & > img {
     @apply size-10 rounded-sm bg-neutral object-cover select-none;
   }
-
-  &:has(img) {
-    @apply rounded-sm border border-separator;
-  }
 }
 
 .item__content {
