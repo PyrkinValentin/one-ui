@@ -1,6 +1,6 @@
 {
 	"name": "@cora-ui/react",
-	"version": "1.1.51",
+	"version": "1.1.52",
 	"description": "Next-generation, high-performance React 19 UI component kit built on Base UI and Tailwind CSS v4 with native accessibility and zero runtime overhead.",
 	"author": "Cora",
 	"homepage": "https://cora-ui.com",
@@ -334,6 +334,8 @@
 	"scripts": {
 		"dev": "rollup -c -w",
 		"clean": "rimraf build",
+		"version:path": "npm version patch --workspaces --include-workspace-root --no-git-tag-version",
+		"version:minor": "npm version minor --workspaces --include-workspace-root --no-git-tag-version",
 		"build": "npm run clean && rollup -c && node scripts/update-exports.js"
 	},
 	"peerDependencies": {
@@ -342,7 +344,7 @@
 		"tailwindcss": "^4"
 	},
 	"dependencies": {
-		"@base-ui/react": "^1.7.0"
+		"@base-ui/react": "^1.8.0"
 	},
 	"sideEffects": false,
 	"publishConfig": {
