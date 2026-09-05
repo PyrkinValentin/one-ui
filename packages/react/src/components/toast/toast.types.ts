@@ -37,7 +37,7 @@ export type ToastManagerPromiseOptions<Value, Data extends ToastData> = {
 export type ToastManager<Data extends ToastData = ToastData> = {
 	" subscribe": (listener: (data: ToastManagerEvent) => void) => () => void
 	add: <T extends Data = Data>(options: ToastManagerAddOptions<T>) => string
-	update: <T extends Data = Data>(id: string, options: ToastManagerUpdateOptions<T>) => void
+	update: <T extends Data = Data>(id: string, options: ToastManagerUpdateOptions<T> | ((prevToast: ToastObject<T>) => ToastManagerUpdateOptions<T>)) => void
 	promise: <Value, T extends Data = Data>(
 		promise: Promise<Value>,
 		options: ToastManagerPromiseOptions<Value, T>
